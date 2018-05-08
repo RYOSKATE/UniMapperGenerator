@@ -7,6 +7,8 @@ import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
+import net.unicoen.uniMapperGenerator.Grammar
+import net.unicoen.util.InvokingStateAnalyzer
 
 /**
  * Generates code from your model files on save.
@@ -14,12 +16,24 @@ import org.eclipse.xtext.generator.IGeneratorContext
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
  */
 class UniMapperGeneratorGenerator extends AbstractGenerator {
-
+	private String _grammarName
+	private InvokingStateAnalyzer _analyzer
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 //		fsa.generateFile('greetings.txt', 'People to greet: ' + 
 //			resource.allContents
 //				.filter(Greeting)
 //				.map[name]
 //				.join(', '))
+		val g4Generator = new ANTLRGrammarGenerator(fsa)
+		resource.allContents.filter(Grammar).forEach [
+			_grammarName = it.name.toCamelCase
+			val parserCode = g4Generator.generate(_grammarName, it)
+			_analyzer = new InvokingStateAnalyzer(parserCode, it)
+			fsa.generateFile(_grammarName + "Mapper.ts", "sample generate")
+		]
+	}
+	
+	def toCamelCase(String str) {
+		Character.toUpperCase(str.charAt(0)) + str.substring(1)
 	}
 }
