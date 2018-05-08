@@ -82,6 +82,7 @@
     </genClasses>
     <genClasses ecoreClass="UniMapperGenerator.ecore#//Rule">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniMapperGenerator.ecore#//Rule/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniMapperGenerator.ecore#//Rule/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniMapperGenerator.ecore#//Rule/semicolonSymbol"/>
     </genClasses>
     <genClasses ecoreClass="UniMapperGenerator.ecore#//ParserRule">
@@ -182,6 +183,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UniMapperGenerator.ecore#//Terminal/reference"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniMapperGenerator.ecore#//Terminal/options"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniMapperGenerator.ecore#//Terminal/literal"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniMapperGenerator.ecore#//Terminal/eof"/>
     </genClasses>
     <genClasses ecoreClass="UniMapperGenerator.ecore#//TokenRef"/>
     <genClasses ecoreClass="UniMapperGenerator.ecore#//NotSet">
@@ -205,6 +207,15 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniMapperGenerator.ecore#//ElementOption/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniMapperGenerator.ecore#//ElementOption/assign"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniMapperGenerator.ecore#//ElementOption/value"/>
+    </genClasses>
+    <genClasses ecoreClass="UniMapperGenerator.ecore#//UnicoenTypeDec">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniMapperGenerator.ecore#//UnicoenTypeDec/type"/>
+    </genClasses>
+    <genClasses ecoreClass="UniMapperGenerator.ecore#//UnicoenTypeIdentifiers">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniMapperGenerator.ecore#//UnicoenTypeIdentifiers/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniMapperGenerator.ecore#//UnicoenTypeIdentifiers/typevalue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniMapperGenerator.ecore#//UnicoenTypeIdentifiers/dir"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniMapperGenerator.ecore#//UnicoenTypeIdentifiers/fieldvalue"/>
     </genClasses>
     <genClasses ecoreClass="UniMapperGenerator.ecore#//LexerRule">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniMapperGenerator.ecore#//LexerRule/fragment"/>

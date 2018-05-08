@@ -152,21 +152,14 @@ Rule
 ParserRule
   :
     name=RULE_REF
-
     args=ARG_OR_CHARSET?
-
     return=Return?
-
     throws=Exceptions?
-
     locals=LocalVars?
-
     prequels+=RulePrequel*
-
+	type=UnicoenTypeDec?
     COLON
-
     body=RuleBlock
-
     caught=ExceptionGroup
     semicolonSymbol=';'
   ;
@@ -312,7 +305,7 @@ Range
 Terminal
   :
     reference=[TokenRef|TOKEN_REF] options=ElementOptions?
-  | literal=STRING options=ElementOptions?
+  | literal=STRING options=ElementOptions? | eof='EOF2'
   ;
 
 TokenRef
@@ -351,11 +344,18 @@ ElementOption
     | id=Id_ assign='=' value=OptionValue
     ;
 
+UnicoenTypeDec:
+	'=>' type=UnicoenTypeIdentifiers;
+
+UnicoenTypeIdentifiers:
+	name=Id_ ('<' typevalue=Id_ '>')? | '(' dir=('<' | '>') fieldvalue+=QualifiedId (',' fieldvalue+=QualifiedId)* ')';
+
+
 /** Lexer Rule */
 LexerRule
   :
     ^fragment?='fragment'?
-    name=TOKEN_REF COLON body=LexerRuleBlock semicolonSymbol=';'
+    name=TOKEN_REF type=UnicoenTypeDec? COLON body=LexerRuleBlock semicolonSymbol=';'
   ;
 
 LexerRuleBlock
