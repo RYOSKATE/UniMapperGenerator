@@ -22,11 +22,8 @@ enum GrammarType
 PrequelConstruct
         : 
       Options
-
     | Imports
-
     | Tokens
-
     | GrammarAction
     ;
 
@@ -118,7 +115,7 @@ V3Tokens
 
 V3Token
   :
-    id=Id_ ('=' value=STRING)? ';'
+    name=Id_ ('=' value=STRING)? ';'
   ;
 
 /** Grammar Actions */
@@ -149,26 +146,17 @@ Rule
   ;
 
 /** Parser Rules */
-ParserRule
-  :
-    name=RULE_REF
-
-    args=ARG_OR_CHARSET?
-
-    return=Return?
-
-    throws=Exceptions?
-
-    locals=LocalVars?
-
-    prequels+=RulePrequel*
-
-    COLON
-
-    body=RuleBlock
-
-    caught=ExceptionGroup
-    semicolonSymbol=';'
+ParserRule:
+	name=RULE_REF
+	args=ARG_OR_CHARSET?
+	return=Return?
+	throws=Exceptions?
+	locals=LocalVars?
+	prequels+=RulePrequel*
+	type=UnicoenTypeDec? COLON
+	body=RuleAltList
+	caught=ExceptionGroup
+	semicolonSymbol=';'
   ;
 
 ExceptionGroup
@@ -213,11 +201,6 @@ RuleAction
     atSymbol='@' name=Id_ body=ACTION
   ;
 
-RuleBlock
-  :
-    body=RuleAltList
-  ;
-
 RuleAltList
   :
     alternatives+=LabeledAlt ('|' alternatives+=LabeledAlt)*
@@ -238,7 +221,7 @@ Alternative
 Element
   :
     body=LabeledElement operator=EbnfSuffix?
-  | body=Atom operator=EbnfSuffix?
+  | body=Atom operator=EbnfSuffix? (DOLLAR op=Id_)?
   | body=Ebnf
   | body=ActionElement
   ;
@@ -254,14 +237,8 @@ ActionElement
     body=ACTION options=ElementOptions?
   ;
 
-LabeledElement
-  :
-    name=Id_ ('=' | '+=')
-      (
-        body=Atom
-      | body=Block
-      )
-  ;
+LabeledElement:
+	name=Id_ op=('=' | '+=') (body=Atom | body=Block);
 
 EbnfSuffix
   :
@@ -270,13 +247,8 @@ EbnfSuffix
   | operator='+' nongreedy='?'?
   ;
 
-Block
-  :
-    '('
-        ( options=Options? actions+=RuleAction* COLON )?
-        body=AltList
-    ')'
-  ;
+Block:
+	'(' (options=Options? actions+=RuleAction* colon=COLON)? body=AltList ')';
 
 AltList
   :
@@ -312,7 +284,7 @@ Range
 Terminal
   :
     reference=[TokenRef|TOKEN_REF] options=ElementOptions?
-  | literal=STRING options=ElementOptions?
+  | literal=STRING options=ElementOptions? | eof='EOF2'
   ;
 
 TokenRef
@@ -351,16 +323,18 @@ ElementOption
     | id=Id_ assign='=' value=OptionValue
     ;
 
+UnicoenTypeDec:
+	'=>' type=UnicoenTypeIdentifiers;
+
+UnicoenTypeIdentifiers:
+	name=Id_ ('<' typevalue=Id_ '>')? | '(' dir=('<' | '>') fieldvalue+=QualifiedId (',' fieldvalue+=QualifiedId)* ')';
+
+
 /** Lexer Rule */
 LexerRule
   :
     ^fragment?='fragment'?
-    name=TOKEN_REF COLON body=LexerRuleBlock semicolonSymbol=';'
-  ;
-
-LexerRuleBlock
-  :
-    body=LexerAltList
+    name=TOKEN_REF type=UnicoenTypeDec? COLON body=LexerAltList semicolonSymbol=';'
   ;
 
 LexerAltList
@@ -373,11 +347,11 @@ LexerAlt
     body=LexerElements commands=LexerCommands?
   ;
 
-LexerElements
-  :
-    {LexerElements}
-    elements+=LexerElement*
-  ;
+LexerElements:
+	{LexerElements} elements+=LexerElementWithDollar*;
+
+LexerElementWithDollar:
+	body=LexerElement (DOLLAR op=Id_)?;
 
 LexerElement
   :
@@ -389,7 +363,7 @@ LexerElement
 
 LabeledLexerElement
   :
-    label=Id_ ('='|'+=')
+    label=Id_ op=('='|'+=')
     (
       body=LexerAtom
     | body=LexerBlock
@@ -617,6 +591,9 @@ fragment
 ACTION_ESC
   : '\\' .
   ;
+
+terminal DOLLAR:
+	'$';
 
 /** Argument action (a.k.a language code) */
 terminal
