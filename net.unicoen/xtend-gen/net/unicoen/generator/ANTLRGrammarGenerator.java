@@ -74,9 +74,6 @@ import net.unicoen.uniMapperGenerator.V3Tokens;
 import net.unicoen.uniMapperGenerator.V4Token;
 import net.unicoen.uniMapperGenerator.V4Tokens;
 import net.unicoen.uniMapperGenerator.Wildcard;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -112,11 +109,9 @@ public class ANTLRGrammarGenerator {
     try {
       String _xblockexpression = null;
       {
-        final String platformString = ((IFileSystemAccessExtension2) this._fsa).getURI(path).toPlatformString(true);
-        IWorkspaceRoot _root = ResourcesPlugin.getWorkspace().getRoot();
-        Path _path = new Path(platformString);
-        final IFile file = _root.getFile(_path);
-        final File antlrJar = new File("antlr-4.7.1-complete.jar");
+        final String platformG4filePathString = ((IFileSystemAccessExtension2) this._fsa).getURI(path).toPlatformString(true);
+        final String platformAntlrfilePathString = platformG4filePathString.replace(path, "antlr-4.7.1-complete.jar");
+        final File antlrJar = new File("C:/Users/RYOSUKE/runtime-EclipseXtext/UniMapperGenerator/src-gen/antlr-4.7.1-complete.jar");
         boolean _exists = antlrJar.exists();
         boolean _not = (!_exists);
         if (_not) {
@@ -130,16 +125,12 @@ public class ANTLRGrammarGenerator {
           input.close();
           output.close();
         }
+        final Path pppp = new Path("C:/Users/RYOSUKE/runtime-EclipseXtext/UniMapperGenerator/src-gen/C.g4");
         String _absolutePath = antlrJar.getAbsolutePath();
-        String _oSString = file.getParent().getRawLocation().toOSString();
-        String _oSString_1 = file.getRawLocation().toOSString();
-        final ProcessBuilder pb = new ProcessBuilder("java", "-cp", _absolutePath, "org.antlr.v4.Tool", "-o", _oSString, _oSString_1);
+        final ProcessBuilder pb = new ProcessBuilder("java", "-cp", _absolutePath, "org.antlr.v4.Tool", "-o", 
+          "C:/Users/RYOSUKE/runtime-EclipseXtext/UniMapperGenerator/src-gen", "C:/Users/RYOSUKE/runtime-EclipseXtext/UniMapperGenerator/src-gen/C.g4");
         pb.start().waitFor();
-        String _oSString_2 = file.getParent().getRawLocation().toOSString();
-        String _plus = (_oSString_2 + File.separator);
-        String _plus_1 = (_plus + name);
-        String _plus_2 = (_plus_1 + "Parser.java");
-        final File parserFile = new File(_plus_2);
+        final File parserFile = new File(((("C:/Users/RYOSUKE/runtime-EclipseXtext/UniMapperGenerator/src-gen" + File.separator) + name) + "Parser.java"));
         final BufferedReader reader = Files.newReader(parserFile, StandardCharsets.UTF_8);
         final StringBuilder builder = new StringBuilder();
         String line = "";
