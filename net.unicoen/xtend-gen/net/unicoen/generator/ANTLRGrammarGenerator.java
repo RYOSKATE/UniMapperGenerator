@@ -116,12 +116,12 @@ public class ANTLRGrammarGenerator {
         IWorkspaceRoot _root = ResourcesPlugin.getWorkspace().getRoot();
         Path _path = new Path(platformString);
         final IFile file = _root.getFile(_path);
-        final File antlrJar = new File("antlr-4.5.1-complete.jar");
+        final File antlrJar = new File("antlr-4.7.1-complete.jar");
         boolean _exists = antlrJar.exists();
         boolean _not = (!_exists);
         if (_not) {
           final byte[] array = new byte[(1024 * 1024)];
-          final InputStream input = this.getClass().getResource("/antlr-4.5.1-complete.jar").openStream();
+          final InputStream input = this.getClass().getResource("/antlr-4.7.1-complete.jar").openStream();
           final FileOutputStream output = new FileOutputStream(antlrJar);
           int size = 0;
           while (((size = input.read(array)) > 0)) {

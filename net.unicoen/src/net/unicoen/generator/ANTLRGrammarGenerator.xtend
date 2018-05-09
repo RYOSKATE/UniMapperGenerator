@@ -87,10 +87,10 @@ class ANTLRGrammarGenerator {
 	def generateParserCode(String name, String path) {
 		val platformString = (_fsa as IFileSystemAccessExtension2).getURI(path).toPlatformString(true)
 		val file = ResourcesPlugin.workspace.root.getFile(new Path(platformString))
-		val antlrJar = new File("antlr-4.5.1-complete.jar")
+		val antlrJar = new File("antlr-4.7.1-complete.jar")
 		if (!antlrJar.exists) {
 			val array = newByteArrayOfSize(1024 * 1024)
-			val input = this.class.getResource("/antlr-4.5.1-complete.jar").openStream
+			val input = this.class.getResource("/antlr-4.7.1-complete.jar").openStream
 			val output = new FileOutputStream(antlrJar)
 			var size = 0
 			while ((size = input.read(array)) > 0) {
