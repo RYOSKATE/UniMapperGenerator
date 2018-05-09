@@ -149,19 +149,17 @@ Rule
   ;
 
 /** Parser Rules */
-ParserRule
-  :
-    name=RULE_REF
-    args=ARG_OR_CHARSET?
-    return=Return?
-    throws=Exceptions?
-    locals=LocalVars?
-    prequels+=RulePrequel*
-	type=UnicoenTypeDec?
-    COLON
-    body=RuleBlock
-    caught=ExceptionGroup
-    semicolonSymbol=';'
+ParserRule:
+	name=RULE_REF
+	args=ARG_OR_CHARSET?
+	return=Return?
+	throws=Exceptions?
+	locals=LocalVars?
+	prequels+=RulePrequel*
+	type=UnicoenTypeDec? COLON
+	body=RuleAltList
+	caught=ExceptionGroup
+	semicolonSymbol=';'
   ;
 
 ExceptionGroup
@@ -204,11 +202,6 @@ RulePrequel
 RuleAction
   :
     atSymbol='@' name=Id_ body=ACTION
-  ;
-
-RuleBlock
-  :
-    body=RuleAltList
   ;
 
 RuleAltList
@@ -344,12 +337,7 @@ UnicoenTypeIdentifiers:
 LexerRule
   :
     ^fragment?='fragment'?
-    name=TOKEN_REF type=UnicoenTypeDec? COLON body=LexerRuleBlock semicolonSymbol=';'
-  ;
-
-LexerRuleBlock
-  :
-    body=LexerAltList
+    name=TOKEN_REF type=UnicoenTypeDec? COLON body=LexerAltList semicolonSymbol=';'
   ;
 
 LexerAltList

@@ -64,7 +64,7 @@ import net.unicoen.uniMapperGenerator.V3Tokens
 import net.unicoen.uniMapperGenerator.V4Token
 import net.unicoen.uniMapperGenerator.V4Tokens
 import net.unicoen.uniMapperGenerator.Wildcard
-//import org.eclipse.core.resources.ResourcesPlugin
+import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.core.runtime.Path
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IFileSystemAccessExtension2
@@ -86,8 +86,7 @@ class ANTLRGrammarGenerator {
 
 	def generateParserCode(String name, String path) {
 		val platformString = (_fsa as IFileSystemAccessExtension2).getURI(path).toPlatformString(true)
-		//val rootPath = new File(".").getAbsolutePath();
-		//val file = ResourcesPlugin.workspace.root.getFile(new Path(platformString))
+		val file = ResourcesPlugin.workspace.root.getFile(new Path(platformString))
 		val antlrJar = new File("antlr-4.5.1-complete.jar")
 		if (!antlrJar.exists) {
 			val array = newByteArrayOfSize(1024 * 1024)
@@ -100,18 +99,18 @@ class ANTLRGrammarGenerator {
 			input.close
 			output.close
 		}
-		//val pb = new ProcessBuilder("java", "-cp", antlrJar.absolutePath, "org.antlr.v4.Tool", "-o",
-		//	file.parent.rawLocation.toOSString, file.rawLocation.toOSString)
-		//pb.start.waitFor
-		//val parserFile = new File(file.parent.rawLocation.toOSString + File.separator + name + "Parser.java")
-		//val reader = Files.newReader(parserFile, StandardCharsets.UTF_8)
+		val pb = new ProcessBuilder("java", "-cp", antlrJar.absolutePath, "org.antlr.v4.Tool", "-o",
+			file.parent.rawLocation.toOSString, file.rawLocation.toOSString)
+		pb.start.waitFor
+		val parserFile = new File(file.parent.rawLocation.toOSString + File.separator + name + "Parser.java")
+		val reader = Files.newReader(parserFile, StandardCharsets.UTF_8)
 		val builder = new StringBuilder
 		var line = ""
-		//while ((line = reader.readLine) !== null) {
-		//	builder.append(line)
-		//	builder.append(_newLine)
-		//}
-		//reader.close
+		while ((line = reader.readLine) != null) {
+			builder.append(line)
+			builder.append(_newLine)
+		}
+		reader.close
 		builder.toString
 	}
 
@@ -130,157 +129,157 @@ class ANTLRGrammarGenerator {
 		sb.toString
 	}
 
-	def nameCompile(Grammar g) '''áIF g.type !== null && !g.type.equals(GrammarType.DEFAULT)âág.typeâ áENDIFâgrammar ág.
-		nameâ;'''
+	def nameCompile(Grammar g) '''Â«IF g.type != null && !g.type.equals(GrammarType.DEFAULT)Â»Â«g.typeÂ» Â«ENDIFÂ»grammar Â«g.
+		nameÂ»;'''
 
-	def dispatch compile(Options op) '''áop.keywordâáFOR o : op.optionsâ áo.compileâ;áENDFORâ}'''
+	def dispatch compile(Options op) '''Â«op.keywordÂ»Â«FOR o : op.optionsÂ» Â«o.compileÂ»;Â«ENDFORÂ»}'''
 
-	def dispatch compile(Option o) '''áo.nameâ = áo.value.compileâ'''
+	def dispatch compile(Option o) '''Â«o.nameÂ» = Â«o.value.compileÂ»'''
 
-	def dispatch compile(TokenVocab tv) '''átv.nameâ = átv.importURIâ'''
+	def dispatch compile(TokenVocab tv) '''Â«tv.nameÂ» = Â«tv.importURIÂ»'''
 
-	def dispatch compile(QualifiedOption qop) '''áqop.valueâ'''
+	def dispatch compile(QualifiedOption qop) '''Â«qop.valueÂ»'''
 
-	def dispatch compile(StringOption qop) '''áqop.valueâ'''
+	def dispatch compile(StringOption qop) '''Â«qop.valueÂ»'''
 
-	def dispatch compile(ActionOption qop) '''áqop.valueâ'''
+	def dispatch compile(ActionOption qop) '''Â«qop.valueÂ»'''
 
-	def dispatch compile(IntOption qop) '''áqop.valueâ'''
+	def dispatch compile(IntOption qop) '''Â«qop.valueÂ»'''
 
 	def dispatch compile(Imports im) {
-		'''áim.keywordâ áFOR i : im.importsâáIF !im.imports.get(0).equals(i)â, áENDIFâái.compileâáENDFORâ'''
+		'''Â«im.keywordÂ» Â«FOR i : im.importsÂ»Â«IF !im.imports.get(0).equals(i)Â», Â«ENDIFÂ»Â«i.compileÂ»Â«ENDFORÂ»'''
 	}
 
-	def dispatch compile(Import i) '''áIF !i.alias.emptyâái.aliasâ = áENDIFâái.importURIâ'''
+	def dispatch compile(Import i) '''Â«IF !i.alias.emptyÂ»Â«i.aliasÂ» = Â«ENDIFÂ»Â«i.importURIÂ»'''
 
 	def dispatch compile(V4Tokens v4) {
-		'''áv4.keywordâ áFOR t : v4.tokensâáIF !v4.tokens.get(0).equals(t)â, áENDIFâát.compileâáENDFORâ'''
+		'''Â«v4.keywordÂ» Â«FOR t : v4.tokensÂ»Â«IF !v4.tokens.get(0).equals(t)Â», Â«ENDIFÂ»Â«t.compileÂ»Â«ENDFORÂ»'''
 	}
 
-	def dispatch compile(V4Token v4) '''áv4.nameâ'''
+	def dispatch compile(V4Token v4) '''Â«v4.nameÂ»'''
 
-	def dispatch compile(EmptyTokens et) '''áet.keywordâ}'''
+	def dispatch compile(EmptyTokens et) '''Â«et.keywordÂ»}'''
 
-	def dispatch compile(V3Tokens v3) '''áv3.keywordâáFOR t : v3.tokensâ át.compileâáENDFORâ}'''
+	def dispatch compile(V3Tokens v3) '''Â«v3.keywordÂ»Â«FOR t : v3.tokensÂ» Â«t.compileÂ»Â«ENDFORÂ»}'''
 
-	def dispatch compile(V3Token v3) '''áv3.nameâáIF !v3.value.emptyâ = áv3.valueâáENDIFâ;'''
+	def dispatch compile(V3Token v3) '''Â«v3.nameÂ»Â«IF !v3.value.emptyÂ» = Â«v3.valueÂ»Â«ENDIFÂ»;'''
 
-	def dispatch compile(GrammarAction ga) '''@áIF !ga.scope.nullOrEmptyâága.scopeâ ága.colonSymbolâ áENDIFâága.nameâ ága.
-		actionâ
+	def dispatch compile(GrammarAction ga) '''@Â«IF !ga.scope.nullOrEmptyÂ»Â«ga.scopeÂ» Â«ga.colonSymbolÂ» Â«ENDIFÂ»Â«ga.nameÂ» Â«ga.
+		actionÂ»
 '''
 
-	def dispatch compile(Mode m) '''mode ám.idâ;áFOR lr : m.rulesâálr.compileâáENDFORâ'''
+	def dispatch compile(Mode m) '''mode Â«m.idÂ»;Â«FOR lr : m.rulesÂ»Â«lr.compileÂ»Â«ENDFORÂ»'''
 
 	def dispatch compile(ParserRule pr) {
-		'''ápr.nameâáIF pr.^return != nullâ ápr.^return.compileâáENDIFâáIF pr.throws != nullâ ápr.throws.compileâáENDIFâáIF pr.
-			locals != nullâ ápr.locals.compileâáENDIFâáFOR p : pr.prequelsâ áp.compileâáENDFORâ
-	:ápr.body.compileâápr.caught.compileâ
-	ápr.semicolonSymbolâ
+		'''Â«pr.nameÂ»Â«IF pr.^return != nullÂ» Â«pr.^return.compileÂ»Â«ENDIFÂ»Â«IF pr.throws != nullÂ» Â«pr.throws.compileÂ»Â«ENDIFÂ»Â«IF pr.
+			locals != nullÂ» Â«pr.locals.compileÂ»Â«ENDIFÂ»Â«FOR p : pr.prequelsÂ» Â«p.compileÂ»Â«ENDFORÂ»
+	:Â«pr.body.compileÂ»Â«pr.caught.compileÂ»
+	Â«pr.semicolonSymbolÂ»
 '''
 
 	}
 
-	def dispatch compile(ExceptionGroup eg) '''áFOR e : eg.handlersâáENDFORâáIF eg.^finally != nullâáeg.^finally.compileâáENDIFâ'''
+	def dispatch compile(ExceptionGroup eg) '''Â«FOR e : eg.handlersÂ»Â«ENDFORÂ»Â«IF eg.^finally != nullÂ»Â«eg.^finally.compileÂ»Â«ENDIFÂ»'''
 
-	def dispatch compile(ExceptionHandler eh) '''catch áeh.exceptionâ áeh.bodyâ'''
+	def dispatch compile(ExceptionHandler eh) '''catch Â«eh.exceptionÂ» Â«eh.bodyÂ»'''
 
-	def dispatch compile(FinallyClause fc) '''finally áfc.bodyâ'''
+	def dispatch compile(FinallyClause fc) '''finally Â«fc.bodyÂ»'''
 
-	def dispatch compile(Return re) '''returns áre.bodyâ'''
+	def dispatch compile(Return re) '''returns Â«re.bodyÂ»'''
 
-	def dispatch compile(Exceptions ex) '''throws áFOR e : ex.exceptionsâáIF !ex.exceptions.get(0).equals(e)â,áENDIFâ áeâáENDFORâ'''
+	def dispatch compile(Exceptions ex) '''throws Â«FOR e : ex.exceptionsÂ»Â«IF !ex.exceptions.get(0).equals(e)Â»,Â«ENDIFÂ» Â«eÂ»Â«ENDFORÂ»'''
 
-	def dispatch compile(LocalVars lv) '''locals álv.bodyâ'''
+	def dispatch compile(LocalVars lv) '''locals Â«lv.bodyÂ»'''
 
-	def dispatch compile(RuleAction ra) '''@ára.nameâ ára.bodyâ'''
+	def dispatch compile(RuleAction ra) '''@Â«ra.nameÂ» Â«ra.bodyÂ»'''
 
-	def dispatch compile(RuleAltList ral) '''áFOR a : ral.alternativesâáIF !ral.alternatives.get(0).equals(a)â
-	|áENDIFâ	áa.compileâáENDFORâ'''
+	def dispatch compile(RuleAltList ral) '''Â«FOR a : ral.alternativesÂ»Â«IF !ral.alternatives.get(0).equals(a)Â»
+	|Â«ENDIFÂ»	Â«a.compileÂ»Â«ENDFORÂ»'''
 
-	def dispatch compile(LabeledAlt la) '''ála.body.compileâáIF la.label != nullâ #ála.labelâáENDIFâ'''
+	def dispatch compile(LabeledAlt la) '''Â«la.body.compileÂ»Â«IF la.label != nullÂ» #Â«la.labelÂ»Â«ENDIFÂ»'''
 
-	def dispatch compile(Alternative al) '''áIF al.options != nullâáal.options.compileâ áENDIFâáFOR e : al.elementsâáe.
-		compileâáENDFORâ'''
+	def dispatch compile(Alternative al) '''Â«IF al.options != nullÂ»Â«al.options.compileÂ» Â«ENDIFÂ»Â«FOR e : al.elementsÂ»Â«e.
+		compileÂ»Â«ENDFORÂ»'''
 
-	def dispatch compile(Element el) '''áel.body.compileâáIF el.operator != nullâáel.operator.compileâáENDIFâ '''
+	def dispatch compile(Element el) '''Â«el.body.compileÂ»Â«IF el.operator != nullÂ»Â«el.operator.compileÂ»Â«ENDIFÂ» '''
 
-	def dispatch compile(Ebnf eb) '''áeb.body.compileâáIF eb.operator != nullâáeb.operator.compileâáENDIFâ'''
+	def dispatch compile(Ebnf eb) '''Â«eb.body.compileÂ»Â«IF eb.operator != nullÂ»Â«eb.operator.compileÂ»Â«ENDIFÂ»'''
 
-	def dispatch compile(ActionElement ae) '''áae.bodyâáIF ae.options != nullâáae.options.compileâáENDIFâ'''
+	def dispatch compile(ActionElement ae) '''Â«ae.bodyÂ»Â«IF ae.options != nullÂ»Â«ae.options.compileÂ»Â«ENDIFÂ»'''
 
-	def dispatch compile(LabeledElement le) '''ále.nameâ ále.opâ ále.body.compileâ'''
+	def dispatch compile(LabeledElement le) '''Â«le.nameÂ» Â«le.opÂ» Â«le.body.compileÂ»'''
 
-	def dispatch compile(EbnfSuffix es) '''áes.operatorâáIF es.nongreedy != nullâ áes.nongreedyâáENDIFâ'''
+	def dispatch compile(EbnfSuffix es) '''Â«es.operatorÂ»Â«IF es.nongreedy != nullÂ» Â«es.nongreedyÂ»Â«ENDIFÂ»'''
 
-	def dispatch compile(Block bl) '''(áIF bl.colon != nullâáIF bl.options != nullâábl.options.compileâáENDIFâáFOR a : bl.
-		actionsâ áa.compileâáENDFORâ: áENDIFâábl.body.compileâ)'''
+	def dispatch compile(Block bl) '''(Â«IF bl.colon != nullÂ»Â«IF bl.options != nullÂ»Â«bl.options.compileÂ»Â«ENDIFÂ»Â«FOR a : bl.
+		actionsÂ» Â«a.compileÂ»Â«ENDFORÂ»: Â«ENDIFÂ»Â«bl.body.compileÂ»)'''
 
-	def dispatch compile(AltList al) '''áFOR a : al.alternativesâáIF !al.alternatives.get(0).equals(a)â|áENDIFâáa.
-		compileâáENDFORâ'''
+	def dispatch compile(AltList al) '''Â«FOR a : al.alternativesÂ»Â«IF !al.alternatives.get(0).equals(a)Â»|Â«ENDIFÂ»Â«a.
+		compileÂ»Â«ENDFORÂ»'''
 
-	def dispatch compile(Atom at) '''áat.body.compileâ'''
+	def dispatch compile(Atom at) '''Â«at.body.compileÂ»'''
 
-	//def dispatch compile(RuleRef rr) '''árr.reference.nameâárr.argsâáIF rr.options != nullâárr.options.compileâáENDIFâ'''
-	def dispatch compile(RuleRef rr) '''árr.reference.nameâáIF rr.options != nullâárr.options.compileâáENDIFâ'''
+	//def dispatch compile(RuleRef rr) '''Â«rr.reference.nameÂ»Â«rr.argsÂ»Â«IF rr.options != nullÂ»Â«rr.options.compileÂ»Â«ENDIFÂ»'''
+	def dispatch compile(RuleRef rr) '''Â«rr.reference.nameÂ»Â«IF rr.options != nullÂ»Â«rr.options.compileÂ»Â«ENDIFÂ»'''
 
-	def dispatch compile(ElementOptions eo) '''<áFOR o : eo.optionsâáo.compileâ,áENDFORâ>'''
+	def dispatch compile(ElementOptions eo) '''<Â«FOR o : eo.optionsÂ»Â«o.compileÂ»,Â«ENDFORÂ»>'''
 
-	def dispatch compile(Range ra) '''ára.fromâ..ára.toâ '''
+	def dispatch compile(Range ra) '''Â«ra.fromÂ»..Â«ra.toÂ» '''
 
-	def dispatch compile(Terminal te) '''áIF te.reference != nullâáte.reference.refCompileâáIF te.options != nullâáte.
-		options.compileâáENDIFâáELSEIF te.literal != nullâáte.literalâáIF te.options != nullâ áte.options.compileâáENDIFâáENDIFâ'''
+	def dispatch compile(Terminal te) '''Â«IF te.reference != nullÂ»Â«te.reference.refCompileÂ»Â«IF te.options != nullÂ»Â«te.
+		options.compileÂ»Â«ENDIFÂ»Â«ELSEIF te.literal != nullÂ»Â«te.literalÂ»Â«IF te.options != nullÂ» Â«te.options.compileÂ»Â«ENDIFÂ»Â«ENDIFÂ»'''
 
-	def dispatch compile(NotSet ns) '''~áns.body.compileâ'''
+	def dispatch compile(NotSet ns) '''~Â«ns.body.compileÂ»'''
 
-	def dispatch compile(BlockSet bs) '''(áFOR e : bs.elementsâáIF !bs.elements.get(0).equals(e)â|áENDIFâáe.compileâáENDFORâ)'''
+	def dispatch compile(BlockSet bs) '''(Â«FOR e : bs.elementsÂ»Â«IF !bs.elements.get(0).equals(e)Â»|Â«ENDIFÂ»Â«e.compileÂ»Â«ENDFORÂ»)'''
 
-	def dispatch compile(SetElement se) '''áIF se.tokenRef != nullâáse.tokenRefâáELSEIF se.stringLiteral != nullâáse.stringLiteralâáELSEIF se.
-		range != nullâáse.rangeâáELSEâáse.charSetâáENDIFâ'''
+	def dispatch compile(SetElement se) '''Â«IF se.tokenRef != nullÂ»Â«se.tokenRefÂ»Â«ELSEIF se.stringLiteral != nullÂ»Â«se.stringLiteralÂ»Â«ELSEIF se.
+		range != nullÂ»Â«se.rangeÂ»Â«ELSEÂ»Â«se.charSetÂ»Â«ENDIFÂ»'''
 
-	def dispatch compile(Wildcard wi) '''áwi.dotâáIF wi.options != nullâáwi.options.compileâáENDIFâ'''
+	def dispatch compile(Wildcard wi) '''Â«wi.dotÂ»Â«IF wi.options != nullÂ»Â«wi.options.compileÂ»Â«ENDIFÂ»'''
 
-	def dispatch compile(ElementOption eo) '''áIF eo.qualifiedId != nullâáeo.qualifiedId.compileâáELSEâáeo.idâ áeo.
-		assignâ áeo.valueâáENDIFâ'''
+	def dispatch compile(ElementOption eo) '''Â«IF eo.qualifiedId != nullÂ»Â«eo.qualifiedId.compileÂ»Â«ELSEÂ»Â«eo.idÂ» Â«eo.
+		assignÂ» Â«eo.valueÂ»Â«ENDIFÂ»'''
 
-	def dispatch compile(LexerRule lr) '''áIF lr.^fragmentâfragment
-áENDIFâálr.nameâ
-	:álr.body.compileâ
+	def dispatch compile(LexerRule lr) '''Â«IF lr.^fragmentÂ»fragment
+Â«ENDIFÂ»Â«lr.nameÂ»
+	:Â«lr.body.compileÂ»
 	;
 '''
 
-	def dispatch compile(LexerAltList lal) '''áFOR a : lal.alternativesâáIF !lal.alternatives.get(0).equals(a)â|áENDIFâ	áa.
-		compileâ
-áENDFORâ'''
+	def dispatch compile(LexerAltList lal) '''Â«FOR a : lal.alternativesÂ»Â«IF !lal.alternatives.get(0).equals(a)Â»|Â«ENDIFÂ»	Â«a.
+		compileÂ»
+Â«ENDFORÂ»'''
 
-	def dispatch compile(LexerAlt la) '''ála.body.compileâáIF la.commands != nullâ ála.commands.compileâáENDIFâ'''
+	def dispatch compile(LexerAlt la) '''Â«la.body.compileÂ»Â«IF la.commands != nullÂ» Â«la.commands.compileÂ»Â«ENDIFÂ»'''
 
-	def dispatch compile(LexerElements le) '''áFOR e : le.elementsâáe.compileâáENDFORâ'''
+	def dispatch compile(LexerElements le) '''Â«FOR e : le.elementsÂ»Â«e.compileÂ»Â«ENDFORÂ»'''
 
-	def dispatch compile(LexerElementWithDollar led) '''áled.body.compileâ'''
+	def dispatch compile(LexerElementWithDollar led) '''Â«led.body.compileÂ»'''
 
-	def dispatch compile(LexerElement le) '''ále.body.compileâáIF le.operator != nullâále.operator.compileâáENDIFâ '''
+	def dispatch compile(LexerElement le) '''Â«le.body.compileÂ»Â«IF le.operator != nullÂ»Â«le.operator.compileÂ»Â«ENDIFÂ» '''
 
-	def dispatch compile(LabeledLexerElement lle) '''álle.labelâ álle.opâ álle.body.compileâ'''
+	def dispatch compile(LabeledLexerElement lle) '''Â«lle.labelÂ» Â«lle.opÂ» Â«lle.body.compileÂ»'''
 
-	def dispatch compile(LexerAtom la) '''ála.body.compileâ'''
+	def dispatch compile(LexerAtom la) '''Â«la.body.compileÂ»'''
 
-	def dispatch compile(LexerCharSet lcs) '''álcs.bodyâ'''
+	def dispatch compile(LexerCharSet lcs) '''Â«lcs.bodyÂ»'''
 
-	def dispatch compile(LexerBlock lb) '''(áIF lb.options != nullâálb.optionsâ :áENDIFâálb.body.compileâ)'''
+	def dispatch compile(LexerBlock lb) '''(Â«IF lb.options != nullÂ»Â«lb.optionsÂ» :Â«ENDIFÂ»Â«lb.body.compileÂ»)'''
 
-	def dispatch compile(LexerCommands lc) '''álc.keywordâáFOR c : lc.commandsâáIF !lc.commands.get(0).equals(c)â|áENDIFâác.
-		compileâáENDFORâ'''
+	def dispatch compile(LexerCommands lc) '''Â«lc.keywordÂ»Â«FOR c : lc.commandsÂ»Â«IF !lc.commands.get(0).equals(c)Â»|Â«ENDIFÂ»Â«c.
+		compileÂ»Â«ENDFORÂ»'''
 
-	def dispatch compile(LexerCommand lc) '''álc.nameâáIF lc.args != nullâ(álc.args.compileâ)áENDIFâ'''
+	def dispatch compile(LexerCommand lc) '''Â«lc.nameÂ»Â«IF lc.args != nullÂ»(Â«lc.args.compileÂ»)Â«ENDIFÂ»'''
 
-	def dispatch compile(LexerCommandExpr lce) '''áIF lce.ref != nullâálce.ref.compileâáELSEâálce.valueâáENDIFâ'''
+	def dispatch compile(LexerCommandExpr lce) '''Â«IF lce.ref != nullÂ»Â«lce.ref.compileÂ»Â«ELSEÂ»Â«lce.valueÂ»Â«ENDIFÂ»'''
 
-	def dispatch compile(QualifiedId qi) '''áFOR n : qi.nameâánâ.áENDFORâ'''
+	def dispatch compile(QualifiedId qi) '''Â«FOR n : qi.nameÂ»Â«nÂ».Â«ENDFORÂ»'''
 
-	def dispatch refCompile(V3Token v3) '''áv3.nameâ = áv3.valueâ;'''
+	def dispatch refCompile(V3Token v3) '''Â«v3.nameÂ» = Â«v3.valueÂ»;'''
 
-	def dispatch refCompile(V4Token v4) '''áv4.nameâ'''
+	def dispatch refCompile(V4Token v4) '''Â«v4.nameÂ»'''
 
-	def dispatch refCompile(LexerRule lr) '''álr.nameâ'''
+	def dispatch refCompile(LexerRule lr) '''Â«lr.nameÂ»'''
 
 }

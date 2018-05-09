@@ -19,7 +19,7 @@ class InvokingStateAnalyzer {
 				return
 			}
 			val ruleName = rule.name
-			var pos = code.indexOf('''Å·ruleNameÅ‚() throws''')
+			var pos = code.indexOf('''¬Å√°ruleName¬Å√¢() throws''')
 			val list = Lists.newArrayList
 			val trypos = code.indexOf("try", pos)
 			val hasLeftRecursion = code.substring(pos, trypos).contains("enterRecursionRule")
@@ -39,7 +39,7 @@ class InvokingStateAnalyzer {
 							list.add(recursionState)
 						} else {
 							// val refName = ref.reference.name
-							pos = code.indexOf('''Å·refNameÅ‚(''', pos)
+							pos = code.indexOf('''¬Å√°refName¬Å√¢(''', pos)
 							val start = code.lastIndexOf("setState(", pos)
 							val last = code.indexOf(')', start)
 							val str = code.substring(start + 9, last)

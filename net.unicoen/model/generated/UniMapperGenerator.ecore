@@ -71,7 +71,7 @@
         eType="#//V3Token" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="V3Token" eSuperTypes="#//TokenRef #//LexerCommandArg">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GrammarAction" eSuperTypes="#//PrequelConstruct">
@@ -102,7 +102,7 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="prequels" upperBound="-1"
         eType="#//RulePrequel" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//RuleBlock"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//RuleAltList"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="caught" eType="#//ExceptionGroup"
         containment="true"/>
@@ -136,10 +136,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="body" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RuleBlock">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//RuleAltList"
-        containment="true"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RuleAltList">
     <eStructuralFeatures xsi:type="ecore:EReference" name="alternatives" upperBound="-1"
         eType="#//LabeledAlt" containment="true"/>
@@ -161,6 +157,7 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="operator" eType="#//EbnfSuffix"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="op" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Ebnf">
     <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//Block"
@@ -175,6 +172,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LabeledElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="op" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"
         containment="true"/>
   </eClassifiers>
@@ -187,6 +185,7 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="actions" upperBound="-1"
         eType="#//RuleAction" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="colon" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//AltList"
         containment="true"/>
   </eClassifiers>
@@ -262,10 +261,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LexerRule" eSuperTypes="#//Rule #//TokenRef #//LexerCommandArg">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="fragment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//LexerRuleBlock"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="LexerRuleBlock">
     <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//LexerAltList"
         containment="true"/>
   </eClassifiers>
@@ -281,7 +276,12 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LexerElements">
     <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
-        eType="#//LexerElement" containment="true"/>
+        eType="#//LexerElementWithDollar" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LexerElementWithDollar">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//LexerElement"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="op" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LexerElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"
@@ -291,6 +291,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LabeledLexerElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="op" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"
         containment="true"/>
   </eClassifiers>

@@ -66,7 +66,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniMapperGenerator.ecore#//V3Tokens/tokens"/>
     </genClasses>
     <genClasses ecoreClass="UniMapperGenerator.ecore#//V3Token">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniMapperGenerator.ecore#//V3Token/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniMapperGenerator.ecore#//V3Token/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniMapperGenerator.ecore#//V3Token/value"/>
     </genClasses>
     <genClasses ecoreClass="UniMapperGenerator.ecore#//GrammarAction">
@@ -120,9 +120,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniMapperGenerator.ecore#//RuleAction/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniMapperGenerator.ecore#//RuleAction/body"/>
     </genClasses>
-    <genClasses ecoreClass="UniMapperGenerator.ecore#//RuleBlock">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniMapperGenerator.ecore#//RuleBlock/body"/>
-    </genClasses>
     <genClasses ecoreClass="UniMapperGenerator.ecore#//RuleAltList">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniMapperGenerator.ecore#//RuleAltList/alternatives"/>
     </genClasses>
@@ -138,6 +135,7 @@
     <genClasses ecoreClass="UniMapperGenerator.ecore#//Element">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniMapperGenerator.ecore#//Element/body"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniMapperGenerator.ecore#//Element/operator"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniMapperGenerator.ecore#//Element/op"/>
     </genClasses>
     <genClasses ecoreClass="UniMapperGenerator.ecore#//Ebnf">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniMapperGenerator.ecore#//Ebnf/body"/>
@@ -149,6 +147,7 @@
     </genClasses>
     <genClasses ecoreClass="UniMapperGenerator.ecore#//LabeledElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniMapperGenerator.ecore#//LabeledElement/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniMapperGenerator.ecore#//LabeledElement/op"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniMapperGenerator.ecore#//LabeledElement/body"/>
     </genClasses>
     <genClasses ecoreClass="UniMapperGenerator.ecore#//EbnfSuffix">
@@ -158,6 +157,7 @@
     <genClasses ecoreClass="UniMapperGenerator.ecore#//Block">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniMapperGenerator.ecore#//Block/options"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniMapperGenerator.ecore#//Block/actions"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniMapperGenerator.ecore#//Block/colon"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniMapperGenerator.ecore#//Block/body"/>
     </genClasses>
     <genClasses ecoreClass="UniMapperGenerator.ecore#//AltList">
@@ -221,9 +221,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniMapperGenerator.ecore#//LexerRule/fragment"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniMapperGenerator.ecore#//LexerRule/body"/>
     </genClasses>
-    <genClasses ecoreClass="UniMapperGenerator.ecore#//LexerRuleBlock">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniMapperGenerator.ecore#//LexerRuleBlock/body"/>
-    </genClasses>
     <genClasses ecoreClass="UniMapperGenerator.ecore#//LexerAltList">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniMapperGenerator.ecore#//LexerAltList/alternatives"/>
     </genClasses>
@@ -234,12 +231,17 @@
     <genClasses ecoreClass="UniMapperGenerator.ecore#//LexerElements">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniMapperGenerator.ecore#//LexerElements/elements"/>
     </genClasses>
+    <genClasses ecoreClass="UniMapperGenerator.ecore#//LexerElementWithDollar">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniMapperGenerator.ecore#//LexerElementWithDollar/body"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniMapperGenerator.ecore#//LexerElementWithDollar/op"/>
+    </genClasses>
     <genClasses ecoreClass="UniMapperGenerator.ecore#//LexerElement">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniMapperGenerator.ecore#//LexerElement/body"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniMapperGenerator.ecore#//LexerElement/operator"/>
     </genClasses>
     <genClasses ecoreClass="UniMapperGenerator.ecore#//LabeledLexerElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniMapperGenerator.ecore#//LabeledLexerElement/label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UniMapperGenerator.ecore#//LabeledLexerElement/op"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UniMapperGenerator.ecore#//LabeledLexerElement/body"/>
     </genClasses>
     <genClasses ecoreClass="UniMapperGenerator.ecore#//LexerAtom">
