@@ -21,6 +21,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link net.unicoen.uniMapperGenerator.ParserRule#getPrequels <em>Prequels</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.ParserRule#getBody <em>Body</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.ParserRule#getCaught <em>Caught</em>}</li>
+ *   <li>{@link net.unicoen.uniMapperGenerator.ParserRule#getSemicolonSymbol <em>Semicolon Symbol</em>}</li>
  * </ul>
  *
  * @see net.unicoen.uniMapperGenerator.UniMapperGeneratorPackage#getParserRule()
@@ -200,5 +201,31 @@ public interface ParserRule extends Rule
    * @generated
    */
   void setCaught(ExceptionGroup value);
+
+  /**
+   * Returns the value of the '<em><b>Semicolon Symbol</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Semicolon Symbol</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Semicolon Symbol</em>' attribute.
+   * @see #setSemicolonSymbol(String)
+   * @see net.unicoen.uniMapperGenerator.UniMapperGeneratorPackage#getParserRule_SemicolonSymbol()
+   * @model
+   * @generated
+   */
+  String getSemicolonSymbol();
+
+  /**
+   * Sets the value of the '{@link net.unicoen.uniMapperGenerator.ParserRule#getSemicolonSymbol <em>Semicolon Symbol</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Semicolon Symbol</em>' attribute.
+   * @see #getSemicolonSymbol()
+   * @generated
+   */
+  void setSemicolonSymbol(String value);
 
 } // ParserRule

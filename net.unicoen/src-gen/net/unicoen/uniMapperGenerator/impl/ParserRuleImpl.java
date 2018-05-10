@@ -42,6 +42,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link net.unicoen.uniMapperGenerator.impl.ParserRuleImpl#getPrequels <em>Prequels</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.impl.ParserRuleImpl#getBody <em>Body</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.impl.ParserRuleImpl#getCaught <em>Caught</em>}</li>
+ *   <li>{@link net.unicoen.uniMapperGenerator.impl.ParserRuleImpl#getSemicolonSymbol <em>Semicolon Symbol</em>}</li>
  * </ul>
  *
  * @generated
@@ -127,6 +128,26 @@ public class ParserRuleImpl extends RuleImpl implements ParserRule
    * @ordered
    */
   protected ExceptionGroup caught;
+
+  /**
+   * The default value of the '{@link #getSemicolonSymbol() <em>Semicolon Symbol</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSemicolonSymbol()
+   * @generated
+   * @ordered
+   */
+  protected static final String SEMICOLON_SYMBOL_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getSemicolonSymbol() <em>Semicolon Symbol</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSemicolonSymbol()
+   * @generated
+   * @ordered
+   */
+  protected String semicolonSymbol = SEMICOLON_SYMBOL_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -431,6 +452,29 @@ public class ParserRuleImpl extends RuleImpl implements ParserRule
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getSemicolonSymbol()
+  {
+    return semicolonSymbol;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setSemicolonSymbol(String newSemicolonSymbol)
+  {
+    String oldSemicolonSymbol = semicolonSymbol;
+    semicolonSymbol = newSemicolonSymbol;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, UniMapperGeneratorPackage.PARSER_RULE__SEMICOLON_SYMBOL, oldSemicolonSymbol, semicolonSymbol));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -476,6 +520,8 @@ public class ParserRuleImpl extends RuleImpl implements ParserRule
         return getBody();
       case UniMapperGeneratorPackage.PARSER_RULE__CAUGHT:
         return getCaught();
+      case UniMapperGeneratorPackage.PARSER_RULE__SEMICOLON_SYMBOL:
+        return getSemicolonSymbol();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -513,6 +559,9 @@ public class ParserRuleImpl extends RuleImpl implements ParserRule
       case UniMapperGeneratorPackage.PARSER_RULE__CAUGHT:
         setCaught((ExceptionGroup)newValue);
         return;
+      case UniMapperGeneratorPackage.PARSER_RULE__SEMICOLON_SYMBOL:
+        setSemicolonSymbol((String)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -548,6 +597,9 @@ public class ParserRuleImpl extends RuleImpl implements ParserRule
       case UniMapperGeneratorPackage.PARSER_RULE__CAUGHT:
         setCaught((ExceptionGroup)null);
         return;
+      case UniMapperGeneratorPackage.PARSER_RULE__SEMICOLON_SYMBOL:
+        setSemicolonSymbol(SEMICOLON_SYMBOL_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -576,6 +628,8 @@ public class ParserRuleImpl extends RuleImpl implements ParserRule
         return body != null;
       case UniMapperGeneratorPackage.PARSER_RULE__CAUGHT:
         return caught != null;
+      case UniMapperGeneratorPackage.PARSER_RULE__SEMICOLON_SYMBOL:
+        return SEMICOLON_SYMBOL_EDEFAULT == null ? semicolonSymbol != null : !SEMICOLON_SYMBOL_EDEFAULT.equals(semicolonSymbol);
     }
     return super.eIsSet(featureID);
   }
@@ -593,6 +647,8 @@ public class ParserRuleImpl extends RuleImpl implements ParserRule
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (args: ");
     result.append(args);
+    result.append(", semicolonSymbol: ");
+    result.append(semicolonSymbol);
     result.append(')');
     return result.toString();
   }

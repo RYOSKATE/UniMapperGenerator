@@ -16,7 +16,6 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link net.unicoen.uniMapperGenerator.Rule#getName <em>Name</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.Rule#getType <em>Type</em>}</li>
- *   <li>{@link net.unicoen.uniMapperGenerator.Rule#getSemicolonSymbol <em>Semicolon Symbol</em>}</li>
  * </ul>
  *
  * @see net.unicoen.uniMapperGenerator.UniMapperGeneratorPackage#getRule()
@@ -76,31 +75,5 @@ public interface Rule extends EObject
    * @generated
    */
   void setType(UnicoenTypeDec value);
-
-  /**
-   * Returns the value of the '<em><b>Semicolon Symbol</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Semicolon Symbol</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Semicolon Symbol</em>' attribute.
-   * @see #setSemicolonSymbol(String)
-   * @see net.unicoen.uniMapperGenerator.UniMapperGeneratorPackage#getRule_SemicolonSymbol()
-   * @model
-   * @generated
-   */
-  String getSemicolonSymbol();
-
-  /**
-   * Sets the value of the '{@link net.unicoen.uniMapperGenerator.Rule#getSemicolonSymbol <em>Semicolon Symbol</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Semicolon Symbol</em>' attribute.
-   * @see #getSemicolonSymbol()
-   * @generated
-   */
-  void setSemicolonSymbol(String value);
 
 } // Rule

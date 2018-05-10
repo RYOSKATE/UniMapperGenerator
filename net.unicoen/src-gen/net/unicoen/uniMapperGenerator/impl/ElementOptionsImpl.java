@@ -9,7 +9,6 @@ import net.unicoen.uniMapperGenerator.ElementOption;
 import net.unicoen.uniMapperGenerator.ElementOptions;
 import net.unicoen.uniMapperGenerator.UniMapperGeneratorPackage;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -17,7 +16,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -31,35 +29,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link net.unicoen.uniMapperGenerator.impl.ElementOptionsImpl#getBegin <em>Begin</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.impl.ElementOptionsImpl#getOptions <em>Options</em>}</li>
- *   <li>{@link net.unicoen.uniMapperGenerator.impl.ElementOptionsImpl#getEnd <em>End</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class ElementOptionsImpl extends MinimalEObjectImpl.Container implements ElementOptions
 {
-  /**
-   * The default value of the '{@link #getBegin() <em>Begin</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getBegin()
-   * @generated
-   * @ordered
-   */
-  protected static final String BEGIN_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getBegin() <em>Begin</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getBegin()
-   * @generated
-   * @ordered
-   */
-  protected String begin = BEGIN_EDEFAULT;
-
   /**
    * The cached value of the '{@link #getOptions() <em>Options</em>}' containment reference list.
    * <!-- begin-user-doc -->
@@ -69,26 +45,6 @@ public class ElementOptionsImpl extends MinimalEObjectImpl.Container implements 
    * @ordered
    */
   protected EList<ElementOption> options;
-
-  /**
-   * The default value of the '{@link #getEnd() <em>End</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getEnd()
-   * @generated
-   * @ordered
-   */
-  protected static final String END_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getEnd() <em>End</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getEnd()
-   * @generated
-   * @ordered
-   */
-  protected String end = END_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -116,29 +72,6 @@ public class ElementOptionsImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getBegin()
-  {
-    return begin;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setBegin(String newBegin)
-  {
-    String oldBegin = begin;
-    begin = newBegin;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, UniMapperGeneratorPackage.ELEMENT_OPTIONS__BEGIN, oldBegin, begin));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<ElementOption> getOptions()
   {
     if (options == null)
@@ -146,29 +79,6 @@ public class ElementOptionsImpl extends MinimalEObjectImpl.Container implements 
       options = new EObjectContainmentEList<ElementOption>(ElementOption.class, this, UniMapperGeneratorPackage.ELEMENT_OPTIONS__OPTIONS);
     }
     return options;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getEnd()
-  {
-    return end;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setEnd(String newEnd)
-  {
-    String oldEnd = end;
-    end = newEnd;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, UniMapperGeneratorPackage.ELEMENT_OPTIONS__END, oldEnd, end));
   }
 
   /**
@@ -197,12 +107,8 @@ public class ElementOptionsImpl extends MinimalEObjectImpl.Container implements 
   {
     switch (featureID)
     {
-      case UniMapperGeneratorPackage.ELEMENT_OPTIONS__BEGIN:
-        return getBegin();
       case UniMapperGeneratorPackage.ELEMENT_OPTIONS__OPTIONS:
         return getOptions();
-      case UniMapperGeneratorPackage.ELEMENT_OPTIONS__END:
-        return getEnd();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -218,15 +124,9 @@ public class ElementOptionsImpl extends MinimalEObjectImpl.Container implements 
   {
     switch (featureID)
     {
-      case UniMapperGeneratorPackage.ELEMENT_OPTIONS__BEGIN:
-        setBegin((String)newValue);
-        return;
       case UniMapperGeneratorPackage.ELEMENT_OPTIONS__OPTIONS:
         getOptions().clear();
         getOptions().addAll((Collection<? extends ElementOption>)newValue);
-        return;
-      case UniMapperGeneratorPackage.ELEMENT_OPTIONS__END:
-        setEnd((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -242,14 +142,8 @@ public class ElementOptionsImpl extends MinimalEObjectImpl.Container implements 
   {
     switch (featureID)
     {
-      case UniMapperGeneratorPackage.ELEMENT_OPTIONS__BEGIN:
-        setBegin(BEGIN_EDEFAULT);
-        return;
       case UniMapperGeneratorPackage.ELEMENT_OPTIONS__OPTIONS:
         getOptions().clear();
-        return;
-      case UniMapperGeneratorPackage.ELEMENT_OPTIONS__END:
-        setEnd(END_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -265,33 +159,10 @@ public class ElementOptionsImpl extends MinimalEObjectImpl.Container implements 
   {
     switch (featureID)
     {
-      case UniMapperGeneratorPackage.ELEMENT_OPTIONS__BEGIN:
-        return BEGIN_EDEFAULT == null ? begin != null : !BEGIN_EDEFAULT.equals(begin);
       case UniMapperGeneratorPackage.ELEMENT_OPTIONS__OPTIONS:
         return options != null && !options.isEmpty();
-      case UniMapperGeneratorPackage.ELEMENT_OPTIONS__END:
-        return END_EDEFAULT == null ? end != null : !END_EDEFAULT.equals(end);
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (begin: ");
-    result.append(begin);
-    result.append(", end: ");
-    result.append(end);
-    result.append(')');
-    return result.toString();
   }
 
 } //ElementOptionsImpl

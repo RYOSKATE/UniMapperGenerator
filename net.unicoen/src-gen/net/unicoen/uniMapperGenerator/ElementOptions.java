@@ -16,9 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link net.unicoen.uniMapperGenerator.ElementOptions#getBegin <em>Begin</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.ElementOptions#getOptions <em>Options</em>}</li>
- *   <li>{@link net.unicoen.uniMapperGenerator.ElementOptions#getEnd <em>End</em>}</li>
  * </ul>
  *
  * @see net.unicoen.uniMapperGenerator.UniMapperGeneratorPackage#getElementOptions()
@@ -27,32 +25,6 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface ElementOptions extends EObject
 {
-  /**
-   * Returns the value of the '<em><b>Begin</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Begin</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Begin</em>' attribute.
-   * @see #setBegin(String)
-   * @see net.unicoen.uniMapperGenerator.UniMapperGeneratorPackage#getElementOptions_Begin()
-   * @model
-   * @generated
-   */
-  String getBegin();
-
-  /**
-   * Sets the value of the '{@link net.unicoen.uniMapperGenerator.ElementOptions#getBegin <em>Begin</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Begin</em>' attribute.
-   * @see #getBegin()
-   * @generated
-   */
-  void setBegin(String value);
-
   /**
    * Returns the value of the '<em><b>Options</b></em>' containment reference list.
    * The list contents are of type {@link net.unicoen.uniMapperGenerator.ElementOption}.
@@ -68,31 +40,5 @@ public interface ElementOptions extends EObject
    * @generated
    */
   EList<ElementOption> getOptions();
-
-  /**
-   * Returns the value of the '<em><b>End</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>End</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>End</em>' attribute.
-   * @see #setEnd(String)
-   * @see net.unicoen.uniMapperGenerator.UniMapperGeneratorPackage#getElementOptions_End()
-   * @model
-   * @generated
-   */
-  String getEnd();
-
-  /**
-   * Sets the value of the '{@link net.unicoen.uniMapperGenerator.ElementOptions#getEnd <em>End</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>End</em>' attribute.
-   * @see #getEnd()
-   * @generated
-   */
-  void setEnd(String value);
 
 } // ElementOptions

@@ -74,6 +74,7 @@ import net.unicoen.uniMapperGenerator.V3Tokens;
 import net.unicoen.uniMapperGenerator.V4Token;
 import net.unicoen.uniMapperGenerator.V4Tokens;
 import net.unicoen.uniMapperGenerator.Wildcard;
+import net.unicoen.uniMapperGenerator.rootSelection;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -97,6 +98,13 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
    * @generated
    */
   private EClass grammarEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass rootSelectionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -672,7 +680,7 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getGrammar_Prequels()
+  public EReference getGrammar_Root()
   {
     return (EReference)grammarEClass.getEStructuralFeatures().get(2);
   }
@@ -682,7 +690,7 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getGrammar_Rules()
+  public EReference getGrammar_Prequels()
   {
     return (EReference)grammarEClass.getEStructuralFeatures().get(3);
   }
@@ -692,9 +700,39 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getGrammar_Modes()
+  public EReference getGrammar_Rules()
   {
     return (EReference)grammarEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getGrammar_Modes()
+  {
+    return (EReference)grammarEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getrootSelection()
+  {
+    return rootSelectionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getrootSelection_Root()
+  {
+    return (EReference)rootSelectionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1072,7 +1110,7 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getGrammarAction_AtSymbol()
+  public EAttribute getGrammarAction_Scope()
   {
     return (EAttribute)grammarActionEClass.getEStructuralFeatures().get(0);
   }
@@ -1082,7 +1120,7 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getGrammarAction_Scope()
+  public EAttribute getGrammarAction_ColonSymbol()
   {
     return (EAttribute)grammarActionEClass.getEStructuralFeatures().get(1);
   }
@@ -1092,7 +1130,7 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getGrammarAction_ColonSymbol()
+  public EAttribute getGrammarAction_Name()
   {
     return (EAttribute)grammarActionEClass.getEStructuralFeatures().get(2);
   }
@@ -1102,19 +1140,9 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getGrammarAction_Name()
-  {
-    return (EAttribute)grammarActionEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EAttribute getGrammarAction_Action()
   {
-    return (EAttribute)grammarActionEClass.getEStructuralFeatures().get(4);
+    return (EAttribute)grammarActionEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -1175,16 +1203,6 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
   public EReference getRule_Type()
   {
     return (EReference)ruleEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getRule_SemicolonSymbol()
-  {
-    return (EAttribute)ruleEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -1265,6 +1283,16 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
   public EReference getParserRule_Caught()
   {
     return (EReference)parserRuleEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getParserRule_SemicolonSymbol()
+  {
+    return (EAttribute)parserRuleEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -1432,7 +1460,7 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getRuleAction_AtSymbol()
+  public EAttribute getRuleAction_Name()
   {
     return (EAttribute)ruleActionEClass.getEStructuralFeatures().get(0);
   }
@@ -1442,19 +1470,9 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getRuleAction_Name()
-  {
-    return (EAttribute)ruleActionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EAttribute getRuleAction_Body()
   {
-    return (EAttribute)ruleActionEClass.getEStructuralFeatures().get(2);
+    return (EAttribute)ruleActionEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1502,19 +1520,9 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getLabeledAlt_PoundSymbol()
-  {
-    return (EAttribute)labeledAltEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EAttribute getLabeledAlt_Label()
   {
-    return (EAttribute)labeledAltEClass.getEStructuralFeatures().get(2);
+    return (EAttribute)labeledAltEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1852,29 +1860,9 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getElementOptions_Begin()
-  {
-    return (EAttribute)elementOptionsEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getElementOptions_Options()
   {
-    return (EReference)elementOptionsEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getElementOptions_End()
-  {
-    return (EAttribute)elementOptionsEClass.getEStructuralFeatures().get(2);
+    return (EReference)elementOptionsEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -2640,9 +2628,13 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
     grammarEClass = createEClass(GRAMMAR);
     createEAttribute(grammarEClass, GRAMMAR__TYPE);
     createEAttribute(grammarEClass, GRAMMAR__NAME);
+    createEReference(grammarEClass, GRAMMAR__ROOT);
     createEReference(grammarEClass, GRAMMAR__PREQUELS);
     createEReference(grammarEClass, GRAMMAR__RULES);
     createEReference(grammarEClass, GRAMMAR__MODES);
+
+    rootSelectionEClass = createEClass(ROOT_SELECTION);
+    createEReference(rootSelectionEClass, ROOT_SELECTION__ROOT);
 
     prequelConstructEClass = createEClass(PREQUEL_CONSTRUCT);
 
@@ -2698,7 +2690,6 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
     createEAttribute(v3TokenEClass, V3_TOKEN__VALUE);
 
     grammarActionEClass = createEClass(GRAMMAR_ACTION);
-    createEAttribute(grammarActionEClass, GRAMMAR_ACTION__AT_SYMBOL);
     createEAttribute(grammarActionEClass, GRAMMAR_ACTION__SCOPE);
     createEAttribute(grammarActionEClass, GRAMMAR_ACTION__COLON_SYMBOL);
     createEAttribute(grammarActionEClass, GRAMMAR_ACTION__NAME);
@@ -2711,7 +2702,6 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
     ruleEClass = createEClass(RULE);
     createEAttribute(ruleEClass, RULE__NAME);
     createEReference(ruleEClass, RULE__TYPE);
-    createEAttribute(ruleEClass, RULE__SEMICOLON_SYMBOL);
 
     parserRuleEClass = createEClass(PARSER_RULE);
     createEAttribute(parserRuleEClass, PARSER_RULE__ARGS);
@@ -2721,6 +2711,7 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
     createEReference(parserRuleEClass, PARSER_RULE__PREQUELS);
     createEReference(parserRuleEClass, PARSER_RULE__BODY);
     createEReference(parserRuleEClass, PARSER_RULE__CAUGHT);
+    createEAttribute(parserRuleEClass, PARSER_RULE__SEMICOLON_SYMBOL);
 
     exceptionGroupEClass = createEClass(EXCEPTION_GROUP);
     createEReference(exceptionGroupEClass, EXCEPTION_GROUP__HANDLERS);
@@ -2745,7 +2736,6 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
     rulePrequelEClass = createEClass(RULE_PREQUEL);
 
     ruleActionEClass = createEClass(RULE_ACTION);
-    createEAttribute(ruleActionEClass, RULE_ACTION__AT_SYMBOL);
     createEAttribute(ruleActionEClass, RULE_ACTION__NAME);
     createEAttribute(ruleActionEClass, RULE_ACTION__BODY);
 
@@ -2754,7 +2744,6 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
 
     labeledAltEClass = createEClass(LABELED_ALT);
     createEReference(labeledAltEClass, LABELED_ALT__BODY);
-    createEAttribute(labeledAltEClass, LABELED_ALT__POUND_SYMBOL);
     createEAttribute(labeledAltEClass, LABELED_ALT__LABEL);
 
     alternativeEClass = createEClass(ALTERNATIVE);
@@ -2800,9 +2789,7 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
     createEReference(ruleRefEClass, RULE_REF__OPTIONS);
 
     elementOptionsEClass = createEClass(ELEMENT_OPTIONS);
-    createEAttribute(elementOptionsEClass, ELEMENT_OPTIONS__BEGIN);
     createEReference(elementOptionsEClass, ELEMENT_OPTIONS__OPTIONS);
-    createEAttribute(elementOptionsEClass, ELEMENT_OPTIONS__END);
 
     rangeEClass = createEClass(RANGE);
     createEAttribute(rangeEClass, RANGE__FROM);
@@ -2962,9 +2949,13 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
     initEClass(grammarEClass, Grammar.class, "Grammar", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getGrammar_Type(), this.getGrammarType(), "type", null, 0, 1, Grammar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getGrammar_Name(), ecorePackage.getEString(), "name", null, 0, 1, Grammar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getGrammar_Root(), this.getrootSelection(), null, "root", null, 0, 1, Grammar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getGrammar_Prequels(), this.getPrequelConstruct(), null, "prequels", null, 0, -1, Grammar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getGrammar_Rules(), this.getRule(), null, "rules", null, 0, -1, Grammar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getGrammar_Modes(), this.getMode(), null, "modes", null, 0, -1, Grammar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(rootSelectionEClass, rootSelection.class, "rootSelection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getrootSelection_Root(), this.getParserRule(), null, "root", null, 0, 1, rootSelection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(prequelConstructEClass, PrequelConstruct.class, "PrequelConstruct", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -3020,7 +3011,6 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
     initEAttribute(getV3Token_Value(), ecorePackage.getEString(), "value", null, 0, 1, V3Token.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(grammarActionEClass, GrammarAction.class, "GrammarAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getGrammarAction_AtSymbol(), ecorePackage.getEString(), "atSymbol", null, 0, 1, GrammarAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getGrammarAction_Scope(), ecorePackage.getEString(), "scope", null, 0, 1, GrammarAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getGrammarAction_ColonSymbol(), ecorePackage.getEString(), "colonSymbol", null, 0, 1, GrammarAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getGrammarAction_Name(), ecorePackage.getEString(), "name", null, 0, 1, GrammarAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3033,7 +3023,6 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
     initEClass(ruleEClass, Rule.class, "Rule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getRule_Name(), ecorePackage.getEString(), "name", null, 0, 1, Rule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRule_Type(), this.getUnicoenTypeDec(), null, "type", null, 0, 1, Rule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getRule_SemicolonSymbol(), ecorePackage.getEString(), "semicolonSymbol", null, 0, 1, Rule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(parserRuleEClass, ParserRule.class, "ParserRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getParserRule_Args(), ecorePackage.getEString(), "args", null, 0, 1, ParserRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3043,6 +3032,7 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
     initEReference(getParserRule_Prequels(), this.getRulePrequel(), null, "prequels", null, 0, -1, ParserRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getParserRule_Body(), this.getRuleAltList(), null, "body", null, 0, 1, ParserRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getParserRule_Caught(), this.getExceptionGroup(), null, "caught", null, 0, 1, ParserRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getParserRule_SemicolonSymbol(), ecorePackage.getEString(), "semicolonSymbol", null, 0, 1, ParserRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(exceptionGroupEClass, ExceptionGroup.class, "ExceptionGroup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getExceptionGroup_Handlers(), this.getExceptionHandler(), null, "handlers", null, 0, -1, ExceptionGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3067,7 +3057,6 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
     initEClass(rulePrequelEClass, RulePrequel.class, "RulePrequel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(ruleActionEClass, RuleAction.class, "RuleAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getRuleAction_AtSymbol(), ecorePackage.getEString(), "atSymbol", null, 0, 1, RuleAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getRuleAction_Name(), ecorePackage.getEString(), "name", null, 0, 1, RuleAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getRuleAction_Body(), ecorePackage.getEString(), "body", null, 0, 1, RuleAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -3076,7 +3065,6 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
 
     initEClass(labeledAltEClass, LabeledAlt.class, "LabeledAlt", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getLabeledAlt_Body(), this.getAlternative(), null, "body", null, 0, 1, LabeledAlt.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getLabeledAlt_PoundSymbol(), ecorePackage.getEString(), "poundSymbol", null, 0, 1, LabeledAlt.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getLabeledAlt_Label(), ecorePackage.getEString(), "label", null, 0, 1, LabeledAlt.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(alternativeEClass, Alternative.class, "Alternative", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3122,9 +3110,7 @@ public class UniMapperGeneratorPackageImpl extends EPackageImpl implements UniMa
     initEReference(getRuleRef_Options(), this.getElementOptions(), null, "options", null, 0, 1, RuleRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(elementOptionsEClass, ElementOptions.class, "ElementOptions", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getElementOptions_Begin(), ecorePackage.getEString(), "begin", null, 0, 1, ElementOptions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getElementOptions_Options(), this.getElementOption(), null, "options", null, 0, -1, ElementOptions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getElementOptions_End(), ecorePackage.getEString(), "end", null, 0, 1, ElementOptions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(rangeEClass, Range.class, "Range", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getRange_From(), ecorePackage.getEString(), "from", null, 0, 1, Range.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

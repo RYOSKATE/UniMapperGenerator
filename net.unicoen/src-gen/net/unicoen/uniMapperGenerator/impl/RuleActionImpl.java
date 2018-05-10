@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link net.unicoen.uniMapperGenerator.impl.RuleActionImpl#getAtSymbol <em>At Symbol</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.impl.RuleActionImpl#getName <em>Name</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.impl.RuleActionImpl#getBody <em>Body</em>}</li>
  * </ul>
@@ -29,26 +28,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class RuleActionImpl extends RulePrequelImpl implements RuleAction
 {
-  /**
-   * The default value of the '{@link #getAtSymbol() <em>At Symbol</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getAtSymbol()
-   * @generated
-   * @ordered
-   */
-  protected static final String AT_SYMBOL_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getAtSymbol() <em>At Symbol</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getAtSymbol()
-   * @generated
-   * @ordered
-   */
-  protected String atSymbol = AT_SYMBOL_EDEFAULT;
-
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -115,29 +94,6 @@ public class RuleActionImpl extends RulePrequelImpl implements RuleAction
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getAtSymbol()
-  {
-    return atSymbol;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setAtSymbol(String newAtSymbol)
-  {
-    String oldAtSymbol = atSymbol;
-    atSymbol = newAtSymbol;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, UniMapperGeneratorPackage.RULE_ACTION__AT_SYMBOL, oldAtSymbol, atSymbol));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public String getName()
   {
     return name;
@@ -189,8 +145,6 @@ public class RuleActionImpl extends RulePrequelImpl implements RuleAction
   {
     switch (featureID)
     {
-      case UniMapperGeneratorPackage.RULE_ACTION__AT_SYMBOL:
-        return getAtSymbol();
       case UniMapperGeneratorPackage.RULE_ACTION__NAME:
         return getName();
       case UniMapperGeneratorPackage.RULE_ACTION__BODY:
@@ -209,9 +163,6 @@ public class RuleActionImpl extends RulePrequelImpl implements RuleAction
   {
     switch (featureID)
     {
-      case UniMapperGeneratorPackage.RULE_ACTION__AT_SYMBOL:
-        setAtSymbol((String)newValue);
-        return;
       case UniMapperGeneratorPackage.RULE_ACTION__NAME:
         setName((String)newValue);
         return;
@@ -232,9 +183,6 @@ public class RuleActionImpl extends RulePrequelImpl implements RuleAction
   {
     switch (featureID)
     {
-      case UniMapperGeneratorPackage.RULE_ACTION__AT_SYMBOL:
-        setAtSymbol(AT_SYMBOL_EDEFAULT);
-        return;
       case UniMapperGeneratorPackage.RULE_ACTION__NAME:
         setName(NAME_EDEFAULT);
         return;
@@ -255,8 +203,6 @@ public class RuleActionImpl extends RulePrequelImpl implements RuleAction
   {
     switch (featureID)
     {
-      case UniMapperGeneratorPackage.RULE_ACTION__AT_SYMBOL:
-        return AT_SYMBOL_EDEFAULT == null ? atSymbol != null : !AT_SYMBOL_EDEFAULT.equals(atSymbol);
       case UniMapperGeneratorPackage.RULE_ACTION__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case UniMapperGeneratorPackage.RULE_ACTION__BODY:
@@ -276,9 +222,7 @@ public class RuleActionImpl extends RulePrequelImpl implements RuleAction
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (atSymbol: ");
-    result.append(atSymbol);
-    result.append(", name: ");
+    result.append(" (name: ");
     result.append(name);
     result.append(", body: ");
     result.append(body);

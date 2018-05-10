@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link net.unicoen.uniMapperGenerator.impl.GrammarActionImpl#getAtSymbol <em>At Symbol</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.impl.GrammarActionImpl#getScope <em>Scope</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.impl.GrammarActionImpl#getColonSymbol <em>Colon Symbol</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.impl.GrammarActionImpl#getName <em>Name</em>}</li>
@@ -31,26 +30,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class GrammarActionImpl extends PrequelConstructImpl implements GrammarAction
 {
-  /**
-   * The default value of the '{@link #getAtSymbol() <em>At Symbol</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getAtSymbol()
-   * @generated
-   * @ordered
-   */
-  protected static final String AT_SYMBOL_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getAtSymbol() <em>At Symbol</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getAtSymbol()
-   * @generated
-   * @ordered
-   */
-  protected String atSymbol = AT_SYMBOL_EDEFAULT;
-
   /**
    * The default value of the '{@link #getScope() <em>Scope</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -157,29 +136,6 @@ public class GrammarActionImpl extends PrequelConstructImpl implements GrammarAc
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getAtSymbol()
-  {
-    return atSymbol;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setAtSymbol(String newAtSymbol)
-  {
-    String oldAtSymbol = atSymbol;
-    atSymbol = newAtSymbol;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, UniMapperGeneratorPackage.GRAMMAR_ACTION__AT_SYMBOL, oldAtSymbol, atSymbol));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public String getScope()
   {
     return scope;
@@ -277,8 +233,6 @@ public class GrammarActionImpl extends PrequelConstructImpl implements GrammarAc
   {
     switch (featureID)
     {
-      case UniMapperGeneratorPackage.GRAMMAR_ACTION__AT_SYMBOL:
-        return getAtSymbol();
       case UniMapperGeneratorPackage.GRAMMAR_ACTION__SCOPE:
         return getScope();
       case UniMapperGeneratorPackage.GRAMMAR_ACTION__COLON_SYMBOL:
@@ -301,9 +255,6 @@ public class GrammarActionImpl extends PrequelConstructImpl implements GrammarAc
   {
     switch (featureID)
     {
-      case UniMapperGeneratorPackage.GRAMMAR_ACTION__AT_SYMBOL:
-        setAtSymbol((String)newValue);
-        return;
       case UniMapperGeneratorPackage.GRAMMAR_ACTION__SCOPE:
         setScope((String)newValue);
         return;
@@ -330,9 +281,6 @@ public class GrammarActionImpl extends PrequelConstructImpl implements GrammarAc
   {
     switch (featureID)
     {
-      case UniMapperGeneratorPackage.GRAMMAR_ACTION__AT_SYMBOL:
-        setAtSymbol(AT_SYMBOL_EDEFAULT);
-        return;
       case UniMapperGeneratorPackage.GRAMMAR_ACTION__SCOPE:
         setScope(SCOPE_EDEFAULT);
         return;
@@ -359,8 +307,6 @@ public class GrammarActionImpl extends PrequelConstructImpl implements GrammarAc
   {
     switch (featureID)
     {
-      case UniMapperGeneratorPackage.GRAMMAR_ACTION__AT_SYMBOL:
-        return AT_SYMBOL_EDEFAULT == null ? atSymbol != null : !AT_SYMBOL_EDEFAULT.equals(atSymbol);
       case UniMapperGeneratorPackage.GRAMMAR_ACTION__SCOPE:
         return SCOPE_EDEFAULT == null ? scope != null : !SCOPE_EDEFAULT.equals(scope);
       case UniMapperGeneratorPackage.GRAMMAR_ACTION__COLON_SYMBOL:
@@ -384,9 +330,7 @@ public class GrammarActionImpl extends PrequelConstructImpl implements GrammarAc
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (atSymbol: ");
-    result.append(atSymbol);
-    result.append(", scope: ");
+    result.append(" (scope: ");
     result.append(scope);
     result.append(", colonSymbol: ");
     result.append(colonSymbol);

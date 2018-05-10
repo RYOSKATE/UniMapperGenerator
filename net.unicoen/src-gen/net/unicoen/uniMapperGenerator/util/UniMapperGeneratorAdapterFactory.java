@@ -81,6 +81,11 @@ public class UniMapperGeneratorAdapterFactory extends AdapterFactoryImpl
         return createGrammarAdapter();
       }
       @Override
+      public Adapter caserootSelection(rootSelection object)
+      {
+        return createrootSelectionAdapter();
+      }
+      @Override
       public Adapter casePrequelConstruct(PrequelConstruct object)
       {
         return createPrequelConstructAdapter();
@@ -448,6 +453,21 @@ public class UniMapperGeneratorAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createGrammarAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.unicoen.uniMapperGenerator.rootSelection <em>root Selection</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.unicoen.uniMapperGenerator.rootSelection
+   * @generated
+   */
+  public Adapter createrootSelectionAdapter()
   {
     return null;
   }

@@ -13,7 +13,6 @@ package net.unicoen.uniMapperGenerator;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link net.unicoen.uniMapperGenerator.GrammarAction#getAtSymbol <em>At Symbol</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.GrammarAction#getScope <em>Scope</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.GrammarAction#getColonSymbol <em>Colon Symbol</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.GrammarAction#getName <em>Name</em>}</li>
@@ -26,32 +25,6 @@ package net.unicoen.uniMapperGenerator;
  */
 public interface GrammarAction extends PrequelConstruct
 {
-  /**
-   * Returns the value of the '<em><b>At Symbol</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>At Symbol</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>At Symbol</em>' attribute.
-   * @see #setAtSymbol(String)
-   * @see net.unicoen.uniMapperGenerator.UniMapperGeneratorPackage#getGrammarAction_AtSymbol()
-   * @model
-   * @generated
-   */
-  String getAtSymbol();
-
-  /**
-   * Sets the value of the '{@link net.unicoen.uniMapperGenerator.GrammarAction#getAtSymbol <em>At Symbol</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>At Symbol</em>' attribute.
-   * @see #getAtSymbol()
-   * @generated
-   */
-  void setAtSymbol(String value);
-
   /**
    * Returns the value of the '<em><b>Scope</b></em>' attribute.
    * <!-- begin-user-doc -->

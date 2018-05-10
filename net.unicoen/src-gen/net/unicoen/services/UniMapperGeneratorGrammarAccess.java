@@ -19,7 +19,6 @@ import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.ParserRule;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.TerminalRule;
-import org.eclipse.xtext.common.services.TerminalsGrammarAccess;
 import org.eclipse.xtext.service.AbstractElementFinder.AbstractEnumRuleElementFinder;
 import org.eclipse.xtext.service.AbstractElementFinder.AbstractGrammarElementFinder;
 import org.eclipse.xtext.service.GrammarProvider;
@@ -34,23 +33,26 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final RuleCall cTypeGrammarTypeEnumRuleCall_0_0 = (RuleCall)cTypeAssignment_0.eContents().get(0);
 		private final Keyword cGrammarKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameId_ParserRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cPrequelsAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cPrequelsPrequelConstructParserRuleCall_4_0 = (RuleCall)cPrequelsAssignment_4.eContents().get(0);
-		private final Assignment cRulesAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cRulesRuleParserRuleCall_5_0 = (RuleCall)cRulesAssignment_5.eContents().get(0);
-		private final Assignment cModesAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final RuleCall cModesModeParserRuleCall_6_0 = (RuleCall)cModesAssignment_6.eContents().get(0);
+		private final RuleCall cNameIdParserRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		private final RuleCall cSEMICOLONTerminalRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		private final Assignment cRootAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cRootRootSelectionParserRuleCall_4_0 = (RuleCall)cRootAssignment_4.eContents().get(0);
+		private final Assignment cPrequelsAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cPrequelsPrequelConstructParserRuleCall_5_0 = (RuleCall)cPrequelsAssignment_5.eContents().get(0);
+		private final Assignment cRulesAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cRulesRuleParserRuleCall_6_0 = (RuleCall)cRulesAssignment_6.eContents().get(0);
+		private final Assignment cModesAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final RuleCall cModesModeParserRuleCall_7_0 = (RuleCall)cModesAssignment_7.eContents().get(0);
 		
 		///** Grammar */ Grammar:
-		//	type=GrammarType? 'grammar' name=Id_ ';'
+		//	type=GrammarType? 'grammar' name=Id SEMICOLON
+		//	root=rootSelection
 		//	prequels+=PrequelConstruct*
 		//	rules+=Rule*
 		//	modes+=Mode*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//type=GrammarType? 'grammar' name=Id_ ';' prequels+=PrequelConstruct* rules+=Rule* modes+=Mode*
+		//type=GrammarType? 'grammar' name=Id SEMICOLON root=rootSelection prequels+=PrequelConstruct* rules+=Rule* modes+=Mode*
 		public Group getGroup() { return cGroup; }
 		
 		//type=GrammarType?
@@ -62,32 +64,69 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		//'grammar'
 		public Keyword getGrammarKeyword_1() { return cGrammarKeyword_1; }
 		
-		//name=Id_
+		//name=Id
 		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
 		
-		//Id_
-		public RuleCall getNameId_ParserRuleCall_2_0() { return cNameId_ParserRuleCall_2_0; }
+		//Id
+		public RuleCall getNameIdParserRuleCall_2_0() { return cNameIdParserRuleCall_2_0; }
 		
-		//';'
-		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
+		//SEMICOLON
+		public RuleCall getSEMICOLONTerminalRuleCall_3() { return cSEMICOLONTerminalRuleCall_3; }
+		
+		//root=rootSelection
+		public Assignment getRootAssignment_4() { return cRootAssignment_4; }
+		
+		//rootSelection
+		public RuleCall getRootRootSelectionParserRuleCall_4_0() { return cRootRootSelectionParserRuleCall_4_0; }
 		
 		//prequels+=PrequelConstruct*
-		public Assignment getPrequelsAssignment_4() { return cPrequelsAssignment_4; }
+		public Assignment getPrequelsAssignment_5() { return cPrequelsAssignment_5; }
 		
 		//PrequelConstruct
-		public RuleCall getPrequelsPrequelConstructParserRuleCall_4_0() { return cPrequelsPrequelConstructParserRuleCall_4_0; }
+		public RuleCall getPrequelsPrequelConstructParserRuleCall_5_0() { return cPrequelsPrequelConstructParserRuleCall_5_0; }
 		
 		//rules+=Rule*
-		public Assignment getRulesAssignment_5() { return cRulesAssignment_5; }
+		public Assignment getRulesAssignment_6() { return cRulesAssignment_6; }
 		
 		//Rule
-		public RuleCall getRulesRuleParserRuleCall_5_0() { return cRulesRuleParserRuleCall_5_0; }
+		public RuleCall getRulesRuleParserRuleCall_6_0() { return cRulesRuleParserRuleCall_6_0; }
 		
 		//modes+=Mode*
-		public Assignment getModesAssignment_6() { return cModesAssignment_6; }
+		public Assignment getModesAssignment_7() { return cModesAssignment_7; }
 		
 		//Mode
-		public RuleCall getModesModeParserRuleCall_6_0() { return cModesModeParserRuleCall_6_0; }
+		public RuleCall getModesModeParserRuleCall_7_0() { return cModesModeParserRuleCall_7_0; }
+	}
+	public class RootSelectionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.rootSelection");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cRootKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cRootAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final CrossReference cRootParserRuleCrossReference_1_0 = (CrossReference)cRootAssignment_1.eContents().get(0);
+		private final RuleCall cRootParserRuleRULE_REFTerminalRuleCall_1_0_1 = (RuleCall)cRootParserRuleCrossReference_1_0.eContents().get(1);
+		private final RuleCall cSEMICOLONTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		
+		//rootSelection:
+		//	'root' root=[ParserRule|RULE_REF] SEMICOLON;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'root' root=[ParserRule|RULE_REF] SEMICOLON
+		public Group getGroup() { return cGroup; }
+		
+		//'root'
+		public Keyword getRootKeyword_0() { return cRootKeyword_0; }
+		
+		//root=[ParserRule|RULE_REF]
+		public Assignment getRootAssignment_1() { return cRootAssignment_1; }
+		
+		//[ParserRule|RULE_REF]
+		public CrossReference getRootParserRuleCrossReference_1_0() { return cRootParserRuleCrossReference_1_0; }
+		
+		//RULE_REF
+		public RuleCall getRootParserRuleRULE_REFTerminalRuleCall_1_0_1() { return cRootParserRuleRULE_REFTerminalRuleCall_1_0_1; }
+		
+		//SEMICOLON
+		public RuleCall getSEMICOLONTerminalRuleCall_2() { return cSEMICOLONTerminalRuleCall_2; }
 	}
 	public class PrequelConstructElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.PrequelConstruct");
@@ -98,10 +137,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final RuleCall cGrammarActionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		
 		//PrequelConstruct:
-		//	Options
-		//	| Imports
-		//	| Tokens
-		//	| GrammarAction;
+		//	Options | Imports | Tokens | GrammarAction;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//Options | Imports | Tokens | GrammarAction
@@ -128,14 +164,14 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Assignment cOptionsAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
 		private final RuleCall cOptionsOptionParserRuleCall_2_0_0 = (RuleCall)cOptionsAssignment_2_0.eContents().get(0);
-		private final Keyword cSemicolonKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
+		private final RuleCall cSEMICOLONTerminalRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
 		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		///** Options */ Options:
-		//	{Options} keyword=OPTIONS_SPEC (options+=Option ';')* '}';
+		//	{Options} keyword=OPTIONS_SPEC (options+=Option SEMICOLON)* '}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{Options} keyword=OPTIONS_SPEC (options+=Option ';')* '}'
+		//{Options} keyword=OPTIONS_SPEC (options+=Option SEMICOLON)* '}'
 		public Group getGroup() { return cGroup; }
 		
 		//{Options}
@@ -147,7 +183,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		//OPTIONS_SPEC
 		public RuleCall getKeywordOPTIONS_SPECTerminalRuleCall_1_0() { return cKeywordOPTIONS_SPECTerminalRuleCall_1_0; }
 		
-		//(options+=Option ';')*
+		//(options+=Option SEMICOLON)*
 		public Group getGroup_2() { return cGroup_2; }
 		
 		//options+=Option
@@ -156,8 +192,8 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		//Option
 		public RuleCall getOptionsOptionParserRuleCall_2_0_0() { return cOptionsOptionParserRuleCall_2_0_0; }
 		
-		//';'
-		public Keyword getSemicolonKeyword_2_1() { return cSemicolonKeyword_2_1; }
+		//SEMICOLON
+		public RuleCall getSEMICOLONTerminalRuleCall_2_1() { return cSEMICOLONTerminalRuleCall_2_1; }
 		
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_3() { return cRightCurlyBracketKeyword_3; }
@@ -168,30 +204,29 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final RuleCall cTokenVocabParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
 		private final Assignment cNameAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
-		private final RuleCall cNameId_ParserRuleCall_1_0_0 = (RuleCall)cNameAssignment_1_0.eContents().get(0);
+		private final RuleCall cNameIdParserRuleCall_1_0_0 = (RuleCall)cNameAssignment_1_0.eContents().get(0);
 		private final Keyword cEqualsSignKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
 		private final Assignment cValueAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cValueOptionValueParserRuleCall_1_2_0 = (RuleCall)cValueAssignment_1_2.eContents().get(0);
 		
 		//Option:
-		//	TokenVocab
-		//	| name=Id_ '=' value=OptionValue;
+		//	TokenVocab | name=Id '=' value=OptionValue;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//TokenVocab | name=Id_ '=' value=OptionValue
+		//TokenVocab | name=Id '=' value=OptionValue
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//TokenVocab
 		public RuleCall getTokenVocabParserRuleCall_0() { return cTokenVocabParserRuleCall_0; }
 		
-		//name=Id_ '=' value=OptionValue
+		//name=Id '=' value=OptionValue
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//name=Id_
+		//name=Id
 		public Assignment getNameAssignment_1_0() { return cNameAssignment_1_0; }
 		
-		//Id_
-		public RuleCall getNameId_ParserRuleCall_1_0_0() { return cNameId_ParserRuleCall_1_0_0; }
+		//Id
+		public RuleCall getNameIdParserRuleCall_1_0_0() { return cNameIdParserRuleCall_1_0_0; }
 		
 		//'='
 		public Keyword getEqualsSignKeyword_1_1() { return cEqualsSignKeyword_1_1; }
@@ -210,13 +245,13 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final Keyword cEqualsSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cImportURIAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final CrossReference cImportURIGrammarCrossReference_2_0 = (CrossReference)cImportURIAssignment_2.eContents().get(0);
-		private final RuleCall cImportURIGrammarId_ParserRuleCall_2_0_1 = (RuleCall)cImportURIGrammarCrossReference_2_0.eContents().get(1);
+		private final RuleCall cImportURIGrammarIdParserRuleCall_2_0_1 = (RuleCall)cImportURIGrammarCrossReference_2_0.eContents().get(1);
 		
 		//TokenVocab:
-		//	name=TOKEN_VOCAB '=' importURI=[Grammar|Id_];
+		//	name=TOKEN_VOCAB '=' importURI=[Grammar|Id];
 		@Override public ParserRule getRule() { return rule; }
 		
-		//name=TOKEN_VOCAB '=' importURI=[Grammar|Id_]
+		//name=TOKEN_VOCAB '=' importURI=[Grammar|Id]
 		public Group getGroup() { return cGroup; }
 		
 		//name=TOKEN_VOCAB
@@ -228,14 +263,14 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		//'='
 		public Keyword getEqualsSignKeyword_1() { return cEqualsSignKeyword_1; }
 		
-		//importURI=[Grammar|Id_]
+		//importURI=[Grammar|Id]
 		public Assignment getImportURIAssignment_2() { return cImportURIAssignment_2; }
 		
-		//[Grammar|Id_]
+		//[Grammar|Id]
 		public CrossReference getImportURIGrammarCrossReference_2_0() { return cImportURIGrammarCrossReference_2_0; }
 		
-		//Id_
-		public RuleCall getImportURIGrammarId_ParserRuleCall_2_0_1() { return cImportURIGrammarId_ParserRuleCall_2_0_1; }
+		//Id
+		public RuleCall getImportURIGrammarIdParserRuleCall_2_0_1() { return cImportURIGrammarIdParserRuleCall_2_0_1; }
 	}
 	public class OptionValueElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.OptionValue");
@@ -246,10 +281,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final RuleCall cIntOptionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		
 		//OptionValue:
-		//	QualifiedOption
-		//	| StringOption
-		//	| ActionOption
-		//	| IntOption;
+		//	QualifiedOption | StringOption | ActionOption | IntOption;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//QualifiedOption | StringOption | ActionOption | IntOption
@@ -338,13 +370,13 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final Keyword cCommaKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final Assignment cImportsAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
 		private final RuleCall cImportsImportParserRuleCall_2_1_0 = (RuleCall)cImportsAssignment_2_1.eContents().get(0);
-		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final RuleCall cSEMICOLONTerminalRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
 		
 		///** Imports */ Imports:
-		//	keyword='import' imports+=Import (',' imports+=Import)* ';';
+		//	keyword='import' imports+=Import (',' imports+=Import)* SEMICOLON;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//keyword='import' imports+=Import (',' imports+=Import)* ';'
+		//keyword='import' imports+=Import (',' imports+=Import)* SEMICOLON
 		public Group getGroup() { return cGroup; }
 		
 		//keyword='import'
@@ -371,59 +403,59 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		//Import
 		public RuleCall getImportsImportParserRuleCall_2_1_0() { return cImportsImportParserRuleCall_2_1_0; }
 		
-		//';'
-		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
+		//SEMICOLON
+		public RuleCall getSEMICOLONTerminalRuleCall_3() { return cSEMICOLONTerminalRuleCall_3; }
 	}
 	public class ImportElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.Import");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
 		private final Assignment cAliasAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
-		private final RuleCall cAliasId_ParserRuleCall_0_0_0 = (RuleCall)cAliasAssignment_0_0.eContents().get(0);
+		private final RuleCall cAliasIdParserRuleCall_0_0_0 = (RuleCall)cAliasAssignment_0_0.eContents().get(0);
 		private final Keyword cEqualsSignKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
 		private final Assignment cImportURIAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
 		private final CrossReference cImportURIGrammarCrossReference_0_2_0 = (CrossReference)cImportURIAssignment_0_2.eContents().get(0);
-		private final RuleCall cImportURIGrammarId_ParserRuleCall_0_2_0_1 = (RuleCall)cImportURIGrammarCrossReference_0_2_0.eContents().get(1);
+		private final RuleCall cImportURIGrammarIdParserRuleCall_0_2_0_1 = (RuleCall)cImportURIGrammarCrossReference_0_2_0.eContents().get(1);
 		private final Assignment cImportURIAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
 		private final CrossReference cImportURIGrammarCrossReference_1_0 = (CrossReference)cImportURIAssignment_1.eContents().get(0);
-		private final RuleCall cImportURIGrammarId_ParserRuleCall_1_0_1 = (RuleCall)cImportURIGrammarCrossReference_1_0.eContents().get(1);
+		private final RuleCall cImportURIGrammarIdParserRuleCall_1_0_1 = (RuleCall)cImportURIGrammarCrossReference_1_0.eContents().get(1);
 		
 		//Import:
-		//	alias=Id_ '=' importURI=[Grammar|Id_] | importURI=[Grammar|Id_];
+		//	alias=Id '=' importURI=[Grammar|Id] | importURI=[Grammar|Id];
 		@Override public ParserRule getRule() { return rule; }
 		
-		//alias=Id_ '=' importURI=[Grammar|Id_] | importURI=[Grammar|Id_]
+		//alias=Id '=' importURI=[Grammar|Id] | importURI=[Grammar|Id]
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
-		//alias=Id_ '=' importURI=[Grammar|Id_]
+		//alias=Id '=' importURI=[Grammar|Id]
 		public Group getGroup_0() { return cGroup_0; }
 		
-		//alias=Id_
+		//alias=Id
 		public Assignment getAliasAssignment_0_0() { return cAliasAssignment_0_0; }
 		
-		//Id_
-		public RuleCall getAliasId_ParserRuleCall_0_0_0() { return cAliasId_ParserRuleCall_0_0_0; }
+		//Id
+		public RuleCall getAliasIdParserRuleCall_0_0_0() { return cAliasIdParserRuleCall_0_0_0; }
 		
 		//'='
 		public Keyword getEqualsSignKeyword_0_1() { return cEqualsSignKeyword_0_1; }
 		
-		//importURI=[Grammar|Id_]
+		//importURI=[Grammar|Id]
 		public Assignment getImportURIAssignment_0_2() { return cImportURIAssignment_0_2; }
 		
-		//[Grammar|Id_]
+		//[Grammar|Id]
 		public CrossReference getImportURIGrammarCrossReference_0_2_0() { return cImportURIGrammarCrossReference_0_2_0; }
 		
-		//Id_
-		public RuleCall getImportURIGrammarId_ParserRuleCall_0_2_0_1() { return cImportURIGrammarId_ParserRuleCall_0_2_0_1; }
+		//Id
+		public RuleCall getImportURIGrammarIdParserRuleCall_0_2_0_1() { return cImportURIGrammarIdParserRuleCall_0_2_0_1; }
 		
-		//importURI=[Grammar|Id_]
+		//importURI=[Grammar|Id]
 		public Assignment getImportURIAssignment_1() { return cImportURIAssignment_1; }
 		
-		//[Grammar|Id_]
+		//[Grammar|Id]
 		public CrossReference getImportURIGrammarCrossReference_1_0() { return cImportURIGrammarCrossReference_1_0; }
 		
-		//Id_
-		public RuleCall getImportURIGrammarId_ParserRuleCall_1_0_1() { return cImportURIGrammarId_ParserRuleCall_1_0_1; }
+		//Id
+		public RuleCall getImportURIGrammarIdParserRuleCall_1_0_1() { return cImportURIGrammarIdParserRuleCall_1_0_1; }
 	}
 	public class TokensElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.Tokens");
@@ -433,9 +465,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final RuleCall cV3TokensParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
 		///** Tokens */ Tokens:
-		//	V4Tokens
-		//	| EmptyTokens
-		//	| V3Tokens;
+		//	V4Tokens | EmptyTokens | V3Tokens;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//V4Tokens | EmptyTokens | V3Tokens
@@ -500,17 +530,17 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	public class V4TokenElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.V4Token");
 		private final Assignment cNameAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cNameId_ParserRuleCall_0 = (RuleCall)cNameAssignment.eContents().get(0);
+		private final RuleCall cNameIdParserRuleCall_0 = (RuleCall)cNameAssignment.eContents().get(0);
 		
 		//V4Token:
-		//	name=Id_;
+		//	name=Id;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//name=Id_
+		//name=Id
 		public Assignment getNameAssignment() { return cNameAssignment; }
 		
-		//Id_
-		public RuleCall getNameId_ParserRuleCall_0() { return cNameId_ParserRuleCall_0; }
+		//Id
+		public RuleCall getNameIdParserRuleCall_0() { return cNameIdParserRuleCall_0; }
 	}
 	public class EmptyTokensElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.EmptyTokens");
@@ -574,25 +604,25 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.V3Token");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cNameId_ParserRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
+		private final RuleCall cNameIdParserRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Keyword cEqualsSignKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final Assignment cValueAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cValueSTRINGTerminalRuleCall_1_1_0 = (RuleCall)cValueAssignment_1_1.eContents().get(0);
-		private final Keyword cSemicolonKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final RuleCall cSEMICOLONTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
 		
 		//V3Token:
-		//	name=Id_ ('=' value=STRING)? ';';
+		//	name=Id ('=' value=STRING)? SEMICOLON;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//name=Id_ ('=' value=STRING)? ';'
+		//name=Id ('=' value=STRING)? SEMICOLON
 		public Group getGroup() { return cGroup; }
 		
-		//name=Id_
+		//name=Id
 		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
 		
-		//Id_
-		public RuleCall getNameId_ParserRuleCall_0_0() { return cNameId_ParserRuleCall_0_0; }
+		//Id
+		public RuleCall getNameIdParserRuleCall_0_0() { return cNameIdParserRuleCall_0_0; }
 		
 		//('=' value=STRING)?
 		public Group getGroup_1() { return cGroup_1; }
@@ -606,36 +636,32 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		//STRING
 		public RuleCall getValueSTRINGTerminalRuleCall_1_1_0() { return cValueSTRINGTerminalRuleCall_1_1_0; }
 		
-		//';'
-		public Keyword getSemicolonKeyword_2() { return cSemicolonKeyword_2; }
+		//SEMICOLON
+		public RuleCall getSEMICOLONTerminalRuleCall_2() { return cSEMICOLONTerminalRuleCall_2; }
 	}
 	public class GrammarActionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.GrammarAction");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cAtSymbolAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final Keyword cAtSymbolCommercialAtKeyword_0_0 = (Keyword)cAtSymbolAssignment_0.eContents().get(0);
+		private final Keyword cCommercialAtKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Assignment cScopeAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
 		private final RuleCall cScopeActionScopeParserRuleCall_1_0_0 = (RuleCall)cScopeAssignment_1_0.eContents().get(0);
 		private final Assignment cColonSymbolAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final Keyword cColonSymbolColonColonKeyword_1_1_0 = (Keyword)cColonSymbolAssignment_1_1.eContents().get(0);
 		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameId_ParserRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		private final RuleCall cNameIdParserRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
 		private final Assignment cActionAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cActionACTIONTerminalRuleCall_3_0 = (RuleCall)cActionAssignment_3.eContents().get(0);
 		
 		///** Grammar Actions */ GrammarAction:
-		//	atSymbol='@' (scope=ActionScope colonSymbol='::')? name=Id_ action=ACTION;
+		//	'@' (scope=ActionScope colonSymbol='::')? name=Id action=ACTION;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//atSymbol='@' (scope=ActionScope colonSymbol='::')? name=Id_ action=ACTION
+		//'@' (scope=ActionScope colonSymbol='::')? name=Id action=ACTION
 		public Group getGroup() { return cGroup; }
 		
-		//atSymbol='@'
-		public Assignment getAtSymbolAssignment_0() { return cAtSymbolAssignment_0; }
-		
 		//'@'
-		public Keyword getAtSymbolCommercialAtKeyword_0_0() { return cAtSymbolCommercialAtKeyword_0_0; }
+		public Keyword getCommercialAtKeyword_0() { return cCommercialAtKeyword_0; }
 		
 		//(scope=ActionScope colonSymbol='::')?
 		public Group getGroup_1() { return cGroup_1; }
@@ -652,11 +678,11 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		//'::'
 		public Keyword getColonSymbolColonColonKeyword_1_1_0() { return cColonSymbolColonColonKeyword_1_1_0; }
 		
-		//name=Id_
+		//name=Id
 		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
 		
-		//Id_
-		public RuleCall getNameId_ParserRuleCall_2_0() { return cNameId_ParserRuleCall_2_0; }
+		//Id
+		public RuleCall getNameIdParserRuleCall_2_0() { return cNameIdParserRuleCall_2_0; }
 		
 		//action=ACTION
 		public Assignment getActionAssignment_3() { return cActionAssignment_3; }
@@ -670,16 +696,13 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final Keyword cParserKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
 		private final Keyword cLexerKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
 		private final Keyword cTreeKeyword_2 = (Keyword)cAlternatives.eContents().get(2);
-		private final RuleCall cId_ParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cIdParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		
 		//ActionScope:
-		//	'parser'
-		//	| 'lexer'
-		//	| 'tree'
-		//	| Id_;
+		//	'parser' | 'lexer' | 'tree' | Id;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'parser' | 'lexer' | 'tree' | Id_
+		//'parser' | 'lexer' | 'tree' | Id
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//'parser'
@@ -691,38 +714,37 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		//'tree'
 		public Keyword getTreeKeyword_2() { return cTreeKeyword_2; }
 		
-		//Id_
-		public RuleCall getId_ParserRuleCall_3() { return cId_ParserRuleCall_3; }
+		//Id
+		public RuleCall getIdParserRuleCall_3() { return cIdParserRuleCall_3; }
 	}
 	public class ModeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.Mode");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cModeKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cIdAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cIdId_ParserRuleCall_1_0 = (RuleCall)cIdAssignment_1.eContents().get(0);
-		private final Keyword cSemicolonKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final RuleCall cIdIdParserRuleCall_1_0 = (RuleCall)cIdAssignment_1.eContents().get(0);
+		private final RuleCall cSEMICOLONTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
 		private final Assignment cRulesAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cRulesLexerRuleParserRuleCall_3_0 = (RuleCall)cRulesAssignment_3.eContents().get(0);
 		
 		//Mode:
-		//	'mode' id=Id_ ';'
-		//	rules+=LexerRule*;
+		//	'mode' id=Id SEMICOLON rules+=LexerRule*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'mode' id=Id_ ';' rules+=LexerRule*
+		//'mode' id=Id SEMICOLON rules+=LexerRule*
 		public Group getGroup() { return cGroup; }
 		
 		//'mode'
 		public Keyword getModeKeyword_0() { return cModeKeyword_0; }
 		
-		//id=Id_
+		//id=Id
 		public Assignment getIdAssignment_1() { return cIdAssignment_1; }
 		
-		//Id_
-		public RuleCall getIdId_ParserRuleCall_1_0() { return cIdId_ParserRuleCall_1_0; }
+		//Id
+		public RuleCall getIdIdParserRuleCall_1_0() { return cIdIdParserRuleCall_1_0; }
 		
-		//';'
-		public Keyword getSemicolonKeyword_2() { return cSemicolonKeyword_2; }
+		//SEMICOLON
+		public RuleCall getSEMICOLONTerminalRuleCall_2() { return cSEMICOLONTerminalRuleCall_2; }
 		
 		//rules+=LexerRule*
 		public Assignment getRulesAssignment_3() { return cRulesAssignment_3; }
@@ -737,8 +759,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final RuleCall cLexerRuleParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		///** Rules */ Rule:
-		//	ParserRule
-		//	| LexerRule;
+		//	ParserRule | LexerRule;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//ParserRule | LexerRule
@@ -773,23 +794,18 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final Assignment cCaughtAssignment_9 = (Assignment)cGroup.eContents().get(9);
 		private final RuleCall cCaughtExceptionGroupParserRuleCall_9_0 = (RuleCall)cCaughtAssignment_9.eContents().get(0);
 		private final Assignment cSemicolonSymbolAssignment_10 = (Assignment)cGroup.eContents().get(10);
-		private final Keyword cSemicolonSymbolSemicolonKeyword_10_0 = (Keyword)cSemicolonSymbolAssignment_10.eContents().get(0);
+		private final RuleCall cSemicolonSymbolSEMICOLONTerminalRuleCall_10_0 = (RuleCall)cSemicolonSymbolAssignment_10.eContents().get(0);
 		
 		///** Parser Rules */ ParserRule:
 		//	name=RULE_REF
 		//	args=ARG_OR_CHARSET?
-		//	return=Return?
-		//	throws=Exceptions?
-		//	locals=LocalVars?
-		//	prequels+=RulePrequel*
+		//	return=Return? throws=Exceptions? locals=LocalVars? prequels+=RulePrequel*
 		//	type=UnicoenTypeDec? COLON
-		//	body=RuleAltList
-		//	caught=ExceptionGroup
-		//	semicolonSymbol=';';
+		//	body=RuleAltList caught=ExceptionGroup semicolonSymbol=SEMICOLON;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//name=RULE_REF args=ARG_OR_CHARSET? return=Return? throws=Exceptions? locals=LocalVars? prequels+=RulePrequel*
-		//type=UnicoenTypeDec? COLON body=RuleAltList caught=ExceptionGroup semicolonSymbol=';'
+		//type=UnicoenTypeDec? COLON body=RuleAltList caught=ExceptionGroup semicolonSymbol=SEMICOLON
 		public Group getGroup() { return cGroup; }
 		
 		//name=RULE_REF
@@ -849,11 +865,11 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		//ExceptionGroup
 		public RuleCall getCaughtExceptionGroupParserRuleCall_9_0() { return cCaughtExceptionGroupParserRuleCall_9_0; }
 		
-		//semicolonSymbol=';'
+		//semicolonSymbol=SEMICOLON
 		public Assignment getSemicolonSymbolAssignment_10() { return cSemicolonSymbolAssignment_10; }
 		
-		//';'
-		public Keyword getSemicolonSymbolSemicolonKeyword_10_0() { return cSemicolonSymbolSemicolonKeyword_10_0; }
+		//SEMICOLON
+		public RuleCall getSemicolonSymbolSEMICOLONTerminalRuleCall_10_0() { return cSemicolonSymbolSEMICOLONTerminalRuleCall_10_0; }
 	}
 	public class ExceptionGroupElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.ExceptionGroup");
@@ -896,9 +912,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final RuleCall cBodyACTIONTerminalRuleCall_2_0 = (RuleCall)cBodyAssignment_2.eContents().get(0);
 		
 		//ExceptionHandler:
-		//	'catch'
-		//	exception=ARG_OR_CHARSET
-		//	body=ACTION;
+		//	'catch' exception=ARG_OR_CHARSET body=ACTION;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'catch' exception=ARG_OR_CHARSET body=ACTION
@@ -1034,8 +1048,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final RuleCall cRuleActionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//RulePrequel:
-		//	Options
-		//	| RuleAction;
+		//	Options | RuleAction;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//Options | RuleAction
@@ -1050,31 +1063,27 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	public class RuleActionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.RuleAction");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cAtSymbolAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final Keyword cAtSymbolCommercialAtKeyword_0_0 = (Keyword)cAtSymbolAssignment_0.eContents().get(0);
+		private final Keyword cCommercialAtKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameId_ParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final RuleCall cNameIdParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Assignment cBodyAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cBodyACTIONTerminalRuleCall_2_0 = (RuleCall)cBodyAssignment_2.eContents().get(0);
 		
 		//RuleAction:
-		//	atSymbol='@' name=Id_ body=ACTION;
+		//	'@' name=Id body=ACTION;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//atSymbol='@' name=Id_ body=ACTION
+		//'@' name=Id body=ACTION
 		public Group getGroup() { return cGroup; }
 		
-		//atSymbol='@'
-		public Assignment getAtSymbolAssignment_0() { return cAtSymbolAssignment_0; }
-		
 		//'@'
-		public Keyword getAtSymbolCommercialAtKeyword_0_0() { return cAtSymbolCommercialAtKeyword_0_0; }
+		public Keyword getCommercialAtKeyword_0() { return cCommercialAtKeyword_0; }
 		
-		//name=Id_
+		//name=Id
 		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
 		
-		//Id_
-		public RuleCall getNameId_ParserRuleCall_1_0() { return cNameId_ParserRuleCall_1_0; }
+		//Id
+		public RuleCall getNameIdParserRuleCall_1_0() { return cNameIdParserRuleCall_1_0; }
 		
 		//body=ACTION
 		public Assignment getBodyAssignment_2() { return cBodyAssignment_2; }
@@ -1123,16 +1132,15 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final Assignment cBodyAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cBodyAlternativeParserRuleCall_0_0 = (RuleCall)cBodyAssignment_0.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Assignment cPoundSymbolAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
-		private final Keyword cPoundSymbolNumberSignKeyword_1_0_0 = (Keyword)cPoundSymbolAssignment_1_0.eContents().get(0);
+		private final Keyword cNumberSignKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final Assignment cLabelAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cLabelId_ParserRuleCall_1_1_0 = (RuleCall)cLabelAssignment_1_1.eContents().get(0);
+		private final RuleCall cLabelIdParserRuleCall_1_1_0 = (RuleCall)cLabelAssignment_1_1.eContents().get(0);
 		
 		//LabeledAlt:
-		//	body=Alternative (poundSymbol='#' label=Id_)?;
+		//	body=Alternative ('#' label=Id)?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//body=Alternative (poundSymbol='#' label=Id_)?
+		//body=Alternative ('#' label=Id)?
 		public Group getGroup() { return cGroup; }
 		
 		//body=Alternative
@@ -1141,20 +1149,17 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		//Alternative
 		public RuleCall getBodyAlternativeParserRuleCall_0_0() { return cBodyAlternativeParserRuleCall_0_0; }
 		
-		//(poundSymbol='#' label=Id_)?
+		//('#' label=Id)?
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//poundSymbol='#'
-		public Assignment getPoundSymbolAssignment_1_0() { return cPoundSymbolAssignment_1_0; }
-		
 		//'#'
-		public Keyword getPoundSymbolNumberSignKeyword_1_0_0() { return cPoundSymbolNumberSignKeyword_1_0_0; }
+		public Keyword getNumberSignKeyword_1_0() { return cNumberSignKeyword_1_0; }
 		
-		//label=Id_
+		//label=Id
 		public Assignment getLabelAssignment_1_1() { return cLabelAssignment_1_1; }
 		
-		//Id_
-		public RuleCall getLabelId_ParserRuleCall_1_1_0() { return cLabelId_ParserRuleCall_1_1_0; }
+		//Id
+		public RuleCall getLabelIdParserRuleCall_1_1_0() { return cLabelIdParserRuleCall_1_1_0; }
 	}
 	public class AlternativeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.Alternative");
@@ -1166,8 +1171,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final RuleCall cElementsElementParserRuleCall_2_0 = (RuleCall)cElementsAssignment_2.eContents().get(0);
 		
 		//Alternative:
-		//	{Alternative} options=ElementOptions?
-		//	elements+=Element*;
+		//	{Alternative} options=ElementOptions? elements+=Element*;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{Alternative} options=ElementOptions? elements+=Element*
@@ -1204,7 +1208,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final Group cGroup_1_2 = (Group)cGroup_1.eContents().get(2);
 		private final RuleCall cDOLLARTerminalRuleCall_1_2_0 = (RuleCall)cGroup_1_2.eContents().get(0);
 		private final Assignment cOpAssignment_1_2_1 = (Assignment)cGroup_1_2.eContents().get(1);
-		private final RuleCall cOpId_ParserRuleCall_1_2_1_0 = (RuleCall)cOpAssignment_1_2_1.eContents().get(0);
+		private final RuleCall cOpIdParserRuleCall_1_2_1_0 = (RuleCall)cOpAssignment_1_2_1.eContents().get(0);
 		private final Assignment cBodyAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
 		private final RuleCall cBodyEbnfParserRuleCall_2_0 = (RuleCall)cBodyAssignment_2.eContents().get(0);
 		private final Assignment cBodyAssignment_3 = (Assignment)cAlternatives.eContents().get(3);
@@ -1212,12 +1216,12 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		
 		//Element:
 		//	body=LabeledElement operator=EbnfSuffix?
-		//	| body=Atom operator=EbnfSuffix? (DOLLAR op=Id_)?
+		//	| body=Atom operator=EbnfSuffix? (DOLLAR op=Id)?
 		//	| body=Ebnf
 		//	| body=ActionElement;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//body=LabeledElement operator=EbnfSuffix? | body=Atom operator=EbnfSuffix? (DOLLAR op=Id_)? | body=Ebnf |
+		//body=LabeledElement operator=EbnfSuffix? | body=Atom operator=EbnfSuffix? (DOLLAR op=Id)? | body=Ebnf |
 		//body=ActionElement
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
@@ -1236,7 +1240,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		//EbnfSuffix
 		public RuleCall getOperatorEbnfSuffixParserRuleCall_0_1_0() { return cOperatorEbnfSuffixParserRuleCall_0_1_0; }
 		
-		//body=Atom operator=EbnfSuffix? (DOLLAR op=Id_)?
+		//body=Atom operator=EbnfSuffix? (DOLLAR op=Id)?
 		public Group getGroup_1() { return cGroup_1; }
 		
 		//body=Atom
@@ -1251,17 +1255,17 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		//EbnfSuffix
 		public RuleCall getOperatorEbnfSuffixParserRuleCall_1_1_0() { return cOperatorEbnfSuffixParserRuleCall_1_1_0; }
 		
-		//(DOLLAR op=Id_)?
+		//(DOLLAR op=Id)?
 		public Group getGroup_1_2() { return cGroup_1_2; }
 		
 		//DOLLAR
 		public RuleCall getDOLLARTerminalRuleCall_1_2_0() { return cDOLLARTerminalRuleCall_1_2_0; }
 		
-		//op=Id_
+		//op=Id
 		public Assignment getOpAssignment_1_2_1() { return cOpAssignment_1_2_1; }
 		
-		//Id_
-		public RuleCall getOpId_ParserRuleCall_1_2_1_0() { return cOpId_ParserRuleCall_1_2_1_0; }
+		//Id
+		public RuleCall getOpIdParserRuleCall_1_2_1_0() { return cOpIdParserRuleCall_1_2_1_0; }
 		
 		//body=Ebnf
 		public Assignment getBodyAssignment_2() { return cBodyAssignment_2; }
@@ -1334,7 +1338,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.LabeledElement");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cNameId_ParserRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
+		private final RuleCall cNameIdParserRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
 		private final Assignment cOpAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final Alternatives cOpAlternatives_1_0 = (Alternatives)cOpAssignment_1.eContents().get(0);
 		private final Keyword cOpEqualsSignKeyword_1_0_0 = (Keyword)cOpAlternatives_1_0.eContents().get(0);
@@ -1346,17 +1350,17 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final RuleCall cBodyBlockParserRuleCall_2_1_0 = (RuleCall)cBodyAssignment_2_1.eContents().get(0);
 		
 		//LabeledElement:
-		//	name=Id_ op=('=' | '+=') (body=Atom | body=Block);
+		//	name=Id op=('=' | '+=') (body=Atom | body=Block);
 		@Override public ParserRule getRule() { return rule; }
 		
-		//name=Id_ op=('=' | '+=') (body=Atom | body=Block)
+		//name=Id op=('=' | '+=') (body=Atom | body=Block)
 		public Group getGroup() { return cGroup; }
 		
-		//name=Id_
+		//name=Id
 		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
 		
-		//Id_
-		public RuleCall getNameId_ParserRuleCall_0_0() { return cNameId_ParserRuleCall_0_0; }
+		//Id
+		public RuleCall getNameIdParserRuleCall_0_0() { return cNameIdParserRuleCall_0_0; }
 		
 		//op=('=' | '+=')
 		public Assignment getOpAssignment_1() { return cOpAssignment_1; }
@@ -1405,9 +1409,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final Keyword cNongreedyQuestionMarkKeyword_2_1_0 = (Keyword)cNongreedyAssignment_2_1.eContents().get(0);
 		
 		//EbnfSuffix:
-		//	operator='?' nongreedy='?'?
-		//	| operator='*' nongreedy='?'?
-		//	| operator='+' nongreedy='?'?;
+		//	operator='?' nongreedy='?'? | operator='*' nongreedy='?'? | operator='+' nongreedy='?'?;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//operator='?' nongreedy='?'? | operator='*' nongreedy='?'? | operator='+' nongreedy='?'?
@@ -1473,6 +1475,13 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final RuleCall cBodyAltListParserRuleCall_2_0 = (RuleCall)cBodyAssignment_2.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
+		//// -------------
+		//// Grammar Block
+		////
+		//// Anywhere where an element is valid, the grammar may start a new block
+		//// of alts by surrounding that block with ( ). A new block may also have a set
+		//// of options, which apply only to that block.
+		////
 		//Block:
 		//	'(' (options=Options? actions+=RuleAction* colon=COLON)? body=AltList ')';
 		@Override public ParserRule getRule() { return rule; }
@@ -1550,59 +1559,38 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	public class AtomElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.Atom");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Assignment cBodyAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
-		private final RuleCall cBodyRangeParserRuleCall_0_0 = (RuleCall)cBodyAssignment_0.eContents().get(0);
-		private final Assignment cBodyAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
-		private final RuleCall cBodyTerminalParserRuleCall_1_0 = (RuleCall)cBodyAssignment_1.eContents().get(0);
-		private final Assignment cBodyAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
-		private final RuleCall cBodyRuleRefParserRuleCall_2_0 = (RuleCall)cBodyAssignment_2.eContents().get(0);
-		private final Assignment cBodyAssignment_3 = (Assignment)cAlternatives.eContents().get(3);
-		private final RuleCall cBodyNotSetParserRuleCall_3_0 = (RuleCall)cBodyAssignment_3.eContents().get(0);
-		private final Assignment cBodyAssignment_4 = (Assignment)cAlternatives.eContents().get(4);
-		private final RuleCall cBodyWildcardParserRuleCall_4_0 = (RuleCall)cBodyAssignment_4.eContents().get(0);
+		private final Assignment cBodyAssignment = (Assignment)rule.eContents().get(1);
+		private final Alternatives cBodyAlternatives_0 = (Alternatives)cBodyAssignment.eContents().get(0);
+		private final RuleCall cBodyRangeParserRuleCall_0_0 = (RuleCall)cBodyAlternatives_0.eContents().get(0);
+		private final RuleCall cBodyTerminalParserRuleCall_0_1 = (RuleCall)cBodyAlternatives_0.eContents().get(1);
+		private final RuleCall cBodyRuleRefParserRuleCall_0_2 = (RuleCall)cBodyAlternatives_0.eContents().get(2);
+		private final RuleCall cBodyNotSetParserRuleCall_0_3 = (RuleCall)cBodyAlternatives_0.eContents().get(3);
+		private final RuleCall cBodyWildcardParserRuleCall_0_4 = (RuleCall)cBodyAlternatives_0.eContents().get(4);
 		
 		//Atom:
-		//	body=Range // Range x..y - only valid in lexers
-		//	| body=Terminal
-		//	| body=RuleRef
-		//	| body=NotSet
-		//	| body=Wildcard;
+		//	body=(Range | Terminal | RuleRef | NotSet | Wildcard);
 		@Override public ParserRule getRule() { return rule; }
 		
-		//body=Range // Range x..y - only valid in lexers
-		//| body=Terminal | body=RuleRef | body=NotSet | body=Wildcard
-		public Alternatives getAlternatives() { return cAlternatives; }
+		//body=(Range | Terminal | RuleRef | NotSet | Wildcard)
+		public Assignment getBodyAssignment() { return cBodyAssignment; }
 		
-		//body=Range
-		public Assignment getBodyAssignment_0() { return cBodyAssignment_0; }
+		//(Range | Terminal | RuleRef | NotSet | Wildcard)
+		public Alternatives getBodyAlternatives_0() { return cBodyAlternatives_0; }
 		
 		//Range
 		public RuleCall getBodyRangeParserRuleCall_0_0() { return cBodyRangeParserRuleCall_0_0; }
 		
-		//body=Terminal
-		public Assignment getBodyAssignment_1() { return cBodyAssignment_1; }
-		
 		//Terminal
-		public RuleCall getBodyTerminalParserRuleCall_1_0() { return cBodyTerminalParserRuleCall_1_0; }
-		
-		//body=RuleRef
-		public Assignment getBodyAssignment_2() { return cBodyAssignment_2; }
+		public RuleCall getBodyTerminalParserRuleCall_0_1() { return cBodyTerminalParserRuleCall_0_1; }
 		
 		//RuleRef
-		public RuleCall getBodyRuleRefParserRuleCall_2_0() { return cBodyRuleRefParserRuleCall_2_0; }
-		
-		//body=NotSet
-		public Assignment getBodyAssignment_3() { return cBodyAssignment_3; }
+		public RuleCall getBodyRuleRefParserRuleCall_0_2() { return cBodyRuleRefParserRuleCall_0_2; }
 		
 		//NotSet
-		public RuleCall getBodyNotSetParserRuleCall_3_0() { return cBodyNotSetParserRuleCall_3_0; }
-		
-		//body=Wildcard
-		public Assignment getBodyAssignment_4() { return cBodyAssignment_4; }
+		public RuleCall getBodyNotSetParserRuleCall_0_3() { return cBodyNotSetParserRuleCall_0_3; }
 		
 		//Wildcard
-		public RuleCall getBodyWildcardParserRuleCall_4_0() { return cBodyWildcardParserRuleCall_4_0; }
+		public RuleCall getBodyWildcardParserRuleCall_0_4() { return cBodyWildcardParserRuleCall_0_4; }
 	}
 	public class RuleRefElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.RuleRef");
@@ -1640,8 +1628,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.ElementOptions");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cElementOptionsAction_0 = (Action)cGroup.eContents().get(0);
-		private final Assignment cBeginAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final Keyword cBeginLessThanSignKeyword_1_0 = (Keyword)cBeginAssignment_1.eContents().get(0);
+		private final Keyword cLessThanSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Assignment cOptionsAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
 		private final RuleCall cOptionsElementOptionParserRuleCall_2_0_0 = (RuleCall)cOptionsAssignment_2_0.eContents().get(0);
@@ -1649,24 +1636,20 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final Keyword cCommaKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
 		private final Assignment cOptionsAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
 		private final RuleCall cOptionsElementOptionParserRuleCall_2_1_1_0 = (RuleCall)cOptionsAssignment_2_1_1.eContents().get(0);
-		private final Assignment cEndAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final Keyword cEndGreaterThanSignKeyword_3_0 = (Keyword)cEndAssignment_3.eContents().get(0);
+		private final Keyword cGreaterThanSignKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//ElementOptions:
-		//	{ElementOptions} begin='<' (options+=ElementOption (',' options+=ElementOption)*)? end='>';
+		//	{ElementOptions} '<' (options+=ElementOption (',' options+=ElementOption)*)? '>';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{ElementOptions} begin='<' (options+=ElementOption (',' options+=ElementOption)*)? end='>'
+		//{ElementOptions} '<' (options+=ElementOption (',' options+=ElementOption)*)? '>'
 		public Group getGroup() { return cGroup; }
 		
 		//{ElementOptions}
 		public Action getElementOptionsAction_0() { return cElementOptionsAction_0; }
 		
-		//begin='<'
-		public Assignment getBeginAssignment_1() { return cBeginAssignment_1; }
-		
 		//'<'
-		public Keyword getBeginLessThanSignKeyword_1_0() { return cBeginLessThanSignKeyword_1_0; }
+		public Keyword getLessThanSignKeyword_1() { return cLessThanSignKeyword_1; }
 		
 		//(options+=ElementOption (',' options+=ElementOption)*)?
 		public Group getGroup_2() { return cGroup_2; }
@@ -1689,11 +1672,8 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		//ElementOption
 		public RuleCall getOptionsElementOptionParserRuleCall_2_1_1_0() { return cOptionsElementOptionParserRuleCall_2_1_1_0; }
 		
-		//end='>'
-		public Assignment getEndAssignment_3() { return cEndAssignment_3; }
-		
 		//'>'
-		public Keyword getEndGreaterThanSignKeyword_3_0() { return cEndGreaterThanSignKeyword_3_0; }
+		public Keyword getGreaterThanSignKeyword_3() { return cGreaterThanSignKeyword_3; }
 	}
 	public class RangeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.Range");
@@ -1798,9 +1778,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final RuleCall cLexerRuleParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
 		//TokenRef:
-		//	V3Token
-		//	| V4Token
-		//	| LexerRule;
+		//	V3Token | V4Token | LexerRule;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//V3Token | V4Token | LexerRule
@@ -1827,9 +1805,13 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final Assignment cBodyAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cBodyBlockSetParserRuleCall_1_1_0 = (RuleCall)cBodyAssignment_1_1.eContents().get(0);
 		
+		//// --------------------
+		//// Inverted element set
+		////
+		//// A set of characters (in a lexer) or terminal tokens, if a parser,
+		//// that are then used to create the inverse set of them.
 		//NotSet:
-		//	'~' body=SetElement
-		//	| '~' body=BlockSet;
+		//	'~' body=SetElement | '~' body=BlockSet;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'~' body=SetElement | '~' body=BlockSet
@@ -1915,10 +1897,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final RuleCall cCharSetARG_OR_CHARSETTerminalRuleCall_3_0 = (RuleCall)cCharSetAssignment_3.eContents().get(0);
 		
 		//SetElement:
-		//	tokenRef=TOKEN_REF
-		//	| stringLiteral=STRING
-		//	| range=Range
-		//	| charSet=ARG_OR_CHARSET;
+		//	tokenRef=TOKEN_REF | stringLiteral=STRING | range=Range | charSet=ARG_OR_CHARSET;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//tokenRef=TOKEN_REF | stringLiteral=STRING | range=Range | charSet=ARG_OR_CHARSET
@@ -1982,34 +1961,37 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final RuleCall cQualifiedIdQualifiedIdParserRuleCall_0_0 = (RuleCall)cQualifiedIdAssignment_0.eContents().get(0);
 		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
 		private final Assignment cIdAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
-		private final RuleCall cIdId_ParserRuleCall_1_0_0 = (RuleCall)cIdAssignment_1_0.eContents().get(0);
+		private final RuleCall cIdIdParserRuleCall_1_0_0 = (RuleCall)cIdAssignment_1_0.eContents().get(0);
 		private final Assignment cAssignAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final Keyword cAssignEqualsSignKeyword_1_1_0 = (Keyword)cAssignAssignment_1_1.eContents().get(0);
 		private final Assignment cValueAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cValueOptionValueParserRuleCall_1_2_0 = (RuleCall)cValueAssignment_1_2.eContents().get(0);
 		
+		//// When used with elements we can specify what the tree node type can
+		//// be and also assign settings of various options  (which we do not check here)
 		//ElementOption:
-		//	qualifiedId=QualifiedId
-		//	| id=Id_ assign='=' value=OptionValue;
+		//	qualifiedId=QualifiedId | id=Id assign='=' value=OptionValue;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//qualifiedId=QualifiedId | id=Id_ assign='=' value=OptionValue
+		//// This format indicates the default element option
+		//qualifiedId=QualifiedId | id=Id assign='=' value=OptionValue
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
+		//// This format indicates the default element option
 		//qualifiedId=QualifiedId
 		public Assignment getQualifiedIdAssignment_0() { return cQualifiedIdAssignment_0; }
 		
 		//QualifiedId
 		public RuleCall getQualifiedIdQualifiedIdParserRuleCall_0_0() { return cQualifiedIdQualifiedIdParserRuleCall_0_0; }
 		
-		//id=Id_ assign='=' value=OptionValue
+		//id=Id assign='=' value=OptionValue
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//id=Id_
+		//id=Id
 		public Assignment getIdAssignment_1_0() { return cIdAssignment_1_0; }
 		
-		//Id_
-		public RuleCall getIdId_ParserRuleCall_1_0_0() { return cIdId_ParserRuleCall_1_0_0; }
+		//Id
+		public RuleCall getIdIdParserRuleCall_1_0_0() { return cIdIdParserRuleCall_1_0_0; }
 		
 		//assign='='
 		public Assignment getAssignAssignment_1_1() { return cAssignAssignment_1_1; }
@@ -2051,11 +2033,11 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
 		private final Assignment cNameAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
-		private final RuleCall cNameId_ParserRuleCall_0_0_0 = (RuleCall)cNameAssignment_0_0.eContents().get(0);
+		private final RuleCall cNameIdParserRuleCall_0_0_0 = (RuleCall)cNameAssignment_0_0.eContents().get(0);
 		private final Group cGroup_0_1 = (Group)cGroup_0.eContents().get(1);
 		private final Keyword cLessThanSignKeyword_0_1_0 = (Keyword)cGroup_0_1.eContents().get(0);
 		private final Assignment cTypevalueAssignment_0_1_1 = (Assignment)cGroup_0_1.eContents().get(1);
-		private final RuleCall cTypevalueId_ParserRuleCall_0_1_1_0 = (RuleCall)cTypevalueAssignment_0_1_1.eContents().get(0);
+		private final RuleCall cTypevalueIdParserRuleCall_0_1_1_0 = (RuleCall)cTypevalueAssignment_0_1_1.eContents().get(0);
 		private final Keyword cGreaterThanSignKeyword_0_1_2 = (Keyword)cGroup_0_1.eContents().get(2);
 		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
@@ -2072,32 +2054,32 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final Keyword cRightParenthesisKeyword_1_4 = (Keyword)cGroup_1.eContents().get(4);
 		
 		//UnicoenTypeIdentifiers:
-		//	name=Id_ ('<' typevalue=Id_ '>')? | '(' dir=('<' | '>') fieldvalue+=QualifiedId (',' fieldvalue+=QualifiedId)* ')';
+		//	name=Id ('<' typevalue=Id '>')? | '(' dir=('<' | '>') fieldvalue+=QualifiedId (',' fieldvalue+=QualifiedId)* ')';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//name=Id_ ('<' typevalue=Id_ '>')? | '(' dir=('<' | '>') fieldvalue+=QualifiedId (',' fieldvalue+=QualifiedId)* ')'
+		//name=Id ('<' typevalue=Id '>')? | '(' dir=('<' | '>') fieldvalue+=QualifiedId (',' fieldvalue+=QualifiedId)* ')'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
-		//name=Id_ ('<' typevalue=Id_ '>')?
+		//name=Id ('<' typevalue=Id '>')?
 		public Group getGroup_0() { return cGroup_0; }
 		
-		//name=Id_
+		//name=Id
 		public Assignment getNameAssignment_0_0() { return cNameAssignment_0_0; }
 		
-		//Id_
-		public RuleCall getNameId_ParserRuleCall_0_0_0() { return cNameId_ParserRuleCall_0_0_0; }
+		//Id
+		public RuleCall getNameIdParserRuleCall_0_0_0() { return cNameIdParserRuleCall_0_0_0; }
 		
-		//('<' typevalue=Id_ '>')?
+		//('<' typevalue=Id '>')?
 		public Group getGroup_0_1() { return cGroup_0_1; }
 		
 		//'<'
 		public Keyword getLessThanSignKeyword_0_1_0() { return cLessThanSignKeyword_0_1_0; }
 		
-		//typevalue=Id_
+		//typevalue=Id
 		public Assignment getTypevalueAssignment_0_1_1() { return cTypevalueAssignment_0_1_1; }
 		
-		//Id_
-		public RuleCall getTypevalueId_ParserRuleCall_0_1_1_0() { return cTypevalueId_ParserRuleCall_0_1_1_0; }
+		//Id
+		public RuleCall getTypevalueIdParserRuleCall_0_1_1_0() { return cTypevalueIdParserRuleCall_0_1_1_0; }
 		
 		//'>'
 		public Keyword getGreaterThanSignKeyword_0_1_2() { return cGreaterThanSignKeyword_0_1_2; }
@@ -2153,15 +2135,13 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final RuleCall cCOLONTerminalRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
 		private final Assignment cBodyAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cBodyLexerAltListParserRuleCall_4_0 = (RuleCall)cBodyAssignment_4.eContents().get(0);
-		private final Assignment cSemicolonSymbolAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final Keyword cSemicolonSymbolSemicolonKeyword_5_0 = (Keyword)cSemicolonSymbolAssignment_5.eContents().get(0);
+		private final RuleCall cSEMICOLONTerminalRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
 		
 		///** Lexer Rule */ LexerRule:
-		//	^fragment?='fragment'?
-		//	name=TOKEN_REF type=UnicoenTypeDec? COLON body=LexerAltList semicolonSymbol=';';
+		//	^fragment?='fragment'? name=TOKEN_REF type=UnicoenTypeDec? COLON body=LexerAltList SEMICOLON;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//^fragment?='fragment'? name=TOKEN_REF type=UnicoenTypeDec? COLON body=LexerAltList semicolonSymbol=';'
+		//^fragment?='fragment'? name=TOKEN_REF type=UnicoenTypeDec? COLON body=LexerAltList SEMICOLON
 		public Group getGroup() { return cGroup; }
 		
 		//^fragment?='fragment'?
@@ -2191,11 +2171,8 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		//LexerAltList
 		public RuleCall getBodyLexerAltListParserRuleCall_4_0() { return cBodyLexerAltListParserRuleCall_4_0; }
 		
-		//semicolonSymbol=';'
-		public Assignment getSemicolonSymbolAssignment_5() { return cSemicolonSymbolAssignment_5; }
-		
-		//';'
-		public Keyword getSemicolonSymbolSemicolonKeyword_5_0() { return cSemicolonSymbolSemicolonKeyword_5_0; }
+		//SEMICOLON
+		public RuleCall getSEMICOLONTerminalRuleCall_5() { return cSEMICOLONTerminalRuleCall_5; }
 	}
 	public class LexerAltListElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.LexerAltList");
@@ -2290,13 +2267,13 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final RuleCall cDOLLARTerminalRuleCall_1_0 = (RuleCall)cGroup_1.eContents().get(0);
 		private final Assignment cOpAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cOpId_ParserRuleCall_1_1_0 = (RuleCall)cOpAssignment_1_1.eContents().get(0);
+		private final RuleCall cOpIdParserRuleCall_1_1_0 = (RuleCall)cOpAssignment_1_1.eContents().get(0);
 		
 		//LexerElementWithDollar:
-		//	body=LexerElement (DOLLAR op=Id_)?;
+		//	body=LexerElement (DOLLAR op=Id)?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//body=LexerElement (DOLLAR op=Id_)?
+		//body=LexerElement (DOLLAR op=Id)?
 		public Group getGroup() { return cGroup; }
 		
 		//body=LexerElement
@@ -2305,17 +2282,17 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		//LexerElement
 		public RuleCall getBodyLexerElementParserRuleCall_0_0() { return cBodyLexerElementParserRuleCall_0_0; }
 		
-		//(DOLLAR op=Id_)?
+		//(DOLLAR op=Id)?
 		public Group getGroup_1() { return cGroup_1; }
 		
 		//DOLLAR
 		public RuleCall getDOLLARTerminalRuleCall_1_0() { return cDOLLARTerminalRuleCall_1_0; }
 		
-		//op=Id_
+		//op=Id
 		public Assignment getOpAssignment_1_1() { return cOpAssignment_1_1; }
 		
-		//Id_
-		public RuleCall getOpId_ParserRuleCall_1_1_0() { return cOpId_ParserRuleCall_1_1_0; }
+		//Id
+		public RuleCall getOpIdParserRuleCall_1_1_0() { return cOpIdParserRuleCall_1_1_0; }
 	}
 	public class LexerElementElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.LexerElement");
@@ -2404,7 +2381,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.LabeledLexerElement");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cLabelAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cLabelId_ParserRuleCall_0_0 = (RuleCall)cLabelAssignment_0.eContents().get(0);
+		private final RuleCall cLabelIdParserRuleCall_0_0 = (RuleCall)cLabelAssignment_0.eContents().get(0);
 		private final Assignment cOpAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final Alternatives cOpAlternatives_1_0 = (Alternatives)cOpAssignment_1.eContents().get(0);
 		private final Keyword cOpEqualsSignKeyword_1_0_0 = (Keyword)cOpAlternatives_1_0.eContents().get(0);
@@ -2416,18 +2393,17 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final RuleCall cBodyLexerBlockParserRuleCall_2_1_0 = (RuleCall)cBodyAssignment_2_1.eContents().get(0);
 		
 		//LabeledLexerElement:
-		//	label=Id_ op=('=' | '+=') (body=LexerAtom
-		//	| body=LexerBlock);
+		//	label=Id op=('=' | '+=') (body=LexerAtom | body=LexerBlock);
 		@Override public ParserRule getRule() { return rule; }
 		
-		//label=Id_ op=('=' | '+=') (body=LexerAtom | body=LexerBlock)
+		//label=Id op=('=' | '+=') (body=LexerAtom | body=LexerBlock)
 		public Group getGroup() { return cGroup; }
 		
-		//label=Id_
+		//label=Id
 		public Assignment getLabelAssignment_0() { return cLabelAssignment_0; }
 		
-		//Id_
-		public RuleCall getLabelId_ParserRuleCall_0_0() { return cLabelId_ParserRuleCall_0_0; }
+		//Id
+		public RuleCall getLabelIdParserRuleCall_0_0() { return cLabelIdParserRuleCall_0_0; }
 		
 		//op=('=' | '+=')
 		public Assignment getOpAssignment_1() { return cOpAssignment_1; }
@@ -2458,68 +2434,42 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	public class LexerAtomElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.LexerAtom");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Assignment cBodyAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
-		private final RuleCall cBodyRangeParserRuleCall_0_0 = (RuleCall)cBodyAssignment_0.eContents().get(0);
-		private final Assignment cBodyAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
-		private final RuleCall cBodyTerminalParserRuleCall_1_0 = (RuleCall)cBodyAssignment_1.eContents().get(0);
-		private final Assignment cBodyAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
-		private final RuleCall cBodyRuleRefParserRuleCall_2_0 = (RuleCall)cBodyAssignment_2.eContents().get(0);
-		private final Assignment cBodyAssignment_3 = (Assignment)cAlternatives.eContents().get(3);
-		private final RuleCall cBodyNotSetParserRuleCall_3_0 = (RuleCall)cBodyAssignment_3.eContents().get(0);
-		private final Assignment cBodyAssignment_4 = (Assignment)cAlternatives.eContents().get(4);
-		private final RuleCall cBodyWildcardParserRuleCall_4_0 = (RuleCall)cBodyAssignment_4.eContents().get(0);
-		private final Assignment cBodyAssignment_5 = (Assignment)cAlternatives.eContents().get(5);
-		private final RuleCall cBodyLexerCharSetParserRuleCall_5_0 = (RuleCall)cBodyAssignment_5.eContents().get(0);
+		private final Assignment cBodyAssignment = (Assignment)rule.eContents().get(1);
+		private final Alternatives cBodyAlternatives_0 = (Alternatives)cBodyAssignment.eContents().get(0);
+		private final RuleCall cBodyRangeParserRuleCall_0_0 = (RuleCall)cBodyAlternatives_0.eContents().get(0);
+		private final RuleCall cBodyTerminalParserRuleCall_0_1 = (RuleCall)cBodyAlternatives_0.eContents().get(1);
+		private final RuleCall cBodyRuleRefParserRuleCall_0_2 = (RuleCall)cBodyAlternatives_0.eContents().get(2);
+		private final RuleCall cBodyNotSetParserRuleCall_0_3 = (RuleCall)cBodyAlternatives_0.eContents().get(3);
+		private final RuleCall cBodyWildcardParserRuleCall_0_4 = (RuleCall)cBodyAlternatives_0.eContents().get(4);
+		private final RuleCall cBodyLexerCharSetParserRuleCall_0_5 = (RuleCall)cBodyAlternatives_0.eContents().get(5);
 		
 		//LexerAtom:
-		//	body=Range // Range x..y - only valid in lexers
-		//	| body=Terminal
-		//	| body=RuleRef
-		//	| body=NotSet
-		//	| body=Wildcard
-		//	| body=LexerCharSet;
+		//	body=(Range | Terminal | RuleRef | NotSet | Wildcard | LexerCharSet);
 		@Override public ParserRule getRule() { return rule; }
 		
-		//body=Range // Range x..y - only valid in lexers
-		//| body=Terminal | body=RuleRef | body=NotSet | body=Wildcard | body=LexerCharSet
-		public Alternatives getAlternatives() { return cAlternatives; }
+		//body=(Range | Terminal | RuleRef | NotSet | Wildcard | LexerCharSet)
+		public Assignment getBodyAssignment() { return cBodyAssignment; }
 		
-		//body=Range
-		public Assignment getBodyAssignment_0() { return cBodyAssignment_0; }
+		//(Range | Terminal | RuleRef | NotSet | Wildcard | LexerCharSet)
+		public Alternatives getBodyAlternatives_0() { return cBodyAlternatives_0; }
 		
 		//Range
 		public RuleCall getBodyRangeParserRuleCall_0_0() { return cBodyRangeParserRuleCall_0_0; }
 		
-		//body=Terminal
-		public Assignment getBodyAssignment_1() { return cBodyAssignment_1; }
-		
 		//Terminal
-		public RuleCall getBodyTerminalParserRuleCall_1_0() { return cBodyTerminalParserRuleCall_1_0; }
-		
-		//body=RuleRef
-		public Assignment getBodyAssignment_2() { return cBodyAssignment_2; }
+		public RuleCall getBodyTerminalParserRuleCall_0_1() { return cBodyTerminalParserRuleCall_0_1; }
 		
 		//RuleRef
-		public RuleCall getBodyRuleRefParserRuleCall_2_0() { return cBodyRuleRefParserRuleCall_2_0; }
-		
-		//body=NotSet
-		public Assignment getBodyAssignment_3() { return cBodyAssignment_3; }
+		public RuleCall getBodyRuleRefParserRuleCall_0_2() { return cBodyRuleRefParserRuleCall_0_2; }
 		
 		//NotSet
-		public RuleCall getBodyNotSetParserRuleCall_3_0() { return cBodyNotSetParserRuleCall_3_0; }
-		
-		//body=Wildcard
-		public Assignment getBodyAssignment_4() { return cBodyAssignment_4; }
+		public RuleCall getBodyNotSetParserRuleCall_0_3() { return cBodyNotSetParserRuleCall_0_3; }
 		
 		//Wildcard
-		public RuleCall getBodyWildcardParserRuleCall_4_0() { return cBodyWildcardParserRuleCall_4_0; }
-		
-		//body=LexerCharSet
-		public Assignment getBodyAssignment_5() { return cBodyAssignment_5; }
+		public RuleCall getBodyWildcardParserRuleCall_0_4() { return cBodyWildcardParserRuleCall_0_4; }
 		
 		//LexerCharSet
-		public RuleCall getBodyLexerCharSetParserRuleCall_5_0() { return cBodyLexerCharSetParserRuleCall_5_0; }
+		public RuleCall getBodyLexerCharSetParserRuleCall_0_5() { return cBodyLexerCharSetParserRuleCall_0_5; }
 	}
 	public class LexerCharSetElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.LexerCharSet");
@@ -2549,9 +2499,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//LexerBlock:
-		//	'(' (options=Options COLON)?
-		//	body=LexerAltList
-		//	')';
+		//	'(' (options=Options COLON)? body=LexerAltList ')';
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'(' (options=Options COLON)? body=LexerAltList ')'
@@ -2593,6 +2541,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final Assignment cCommandsAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
 		private final RuleCall cCommandsLexerCommandParserRuleCall_2_1_0 = (RuleCall)cCommandsAssignment_2_1.eContents().get(0);
 		
+		//// channel=HIDDEN, skip, more, mode(INSIDE), push(INSIDE), pop
 		//LexerCommands:
 		//	keyword=RARROW commands+=LexerCommand (',' commands+=LexerCommand)*;
 		@Override public ParserRule getRule() { return rule; }
@@ -2638,8 +2587,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final RuleCall cNameLexerCommandNameParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		
 		//LexerCommand:
-		//	name=LexerCommandName '(' args=LexerCommandExpr ')'
-		//	| name=LexerCommandName;
+		//	name=LexerCommandName '(' args=LexerCommandExpr ')' | name=LexerCommandName;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//name=LexerCommandName '(' args=LexerCommandExpr ')' | name=LexerCommandName
@@ -2676,46 +2624,45 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.LexerCommandName");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Keyword cModeKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
-		private final RuleCall cId_ParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cIdParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//LexerCommandName:
-		//	'mode'
-		//	| Id_;
+		//	'mode' | Id;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'mode' | Id_
+		//'mode' | Id
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//'mode'
 		public Keyword getModeKeyword_0() { return cModeKeyword_0; }
 		
-		//Id_
-		public RuleCall getId_ParserRuleCall_1() { return cId_ParserRuleCall_1; }
+		//Id
+		public RuleCall getIdParserRuleCall_1() { return cIdParserRuleCall_1; }
 	}
 	public class LexerCommandExprElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.LexerCommandExpr");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Assignment cRefAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
 		private final CrossReference cRefLexerCommandArgCrossReference_0_0 = (CrossReference)cRefAssignment_0.eContents().get(0);
-		private final RuleCall cRefLexerCommandArgId_ParserRuleCall_0_0_1 = (RuleCall)cRefLexerCommandArgCrossReference_0_0.eContents().get(1);
+		private final RuleCall cRefLexerCommandArgIdParserRuleCall_0_0_1 = (RuleCall)cRefLexerCommandArgCrossReference_0_0.eContents().get(1);
 		private final Assignment cValueAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
 		private final RuleCall cValueINTTerminalRuleCall_1_0 = (RuleCall)cValueAssignment_1.eContents().get(0);
 		
 		//LexerCommandExpr:
-		//	ref=[LexerCommandArg|Id_] | value=INT;
+		//	ref=[LexerCommandArg|Id] | value=INT;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//ref=[LexerCommandArg|Id_] | value=INT
+		//ref=[LexerCommandArg|Id] | value=INT
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
-		//ref=[LexerCommandArg|Id_]
+		//ref=[LexerCommandArg|Id]
 		public Assignment getRefAssignment_0() { return cRefAssignment_0; }
 		
-		//[LexerCommandArg|Id_]
+		//[LexerCommandArg|Id]
 		public CrossReference getRefLexerCommandArgCrossReference_0_0() { return cRefLexerCommandArgCrossReference_0_0; }
 		
-		//Id_
-		public RuleCall getRefLexerCommandArgId_ParserRuleCall_0_0_1() { return cRefLexerCommandArgId_ParserRuleCall_0_0_1; }
+		//Id
+		public RuleCall getRefLexerCommandArgIdParserRuleCall_0_0_1() { return cRefLexerCommandArgIdParserRuleCall_0_0_1; }
 		
 		//value=INT
 		public Assignment getValueAssignment_1() { return cValueAssignment_1; }
@@ -2732,10 +2679,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final RuleCall cV4TokenParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		
 		//LexerCommandArg:
-		//	Mode
-		//	| LexerRule
-		//	| V3Token
-		//	| V4Token;
+		//	Mode | LexerRule | V3Token | V4Token;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//Mode | LexerRule | V3Token | V4Token
@@ -2757,46 +2701,45 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.QualifiedId");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cNameId_ParserRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
+		private final RuleCall cNameIdParserRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Keyword cFullStopKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final Assignment cNameAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cNameId_ParserRuleCall_1_1_0 = (RuleCall)cNameAssignment_1_1.eContents().get(0);
+		private final RuleCall cNameIdParserRuleCall_1_1_0 = (RuleCall)cNameAssignment_1_1.eContents().get(0);
 		
 		///** ID */ QualifiedId:
-		//	name+=Id_ ('.' name+=Id_)*;
+		//	name+=Id ('.' name+=Id)*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//name+=Id_ ('.' name+=Id_)*
+		//name+=Id ('.' name+=Id)*
 		public Group getGroup() { return cGroup; }
 		
-		//name+=Id_
+		//name+=Id
 		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
 		
-		//Id_
-		public RuleCall getNameId_ParserRuleCall_0_0() { return cNameId_ParserRuleCall_0_0; }
+		//Id
+		public RuleCall getNameIdParserRuleCall_0_0() { return cNameIdParserRuleCall_0_0; }
 		
-		//('.' name+=Id_)*
+		//('.' name+=Id)*
 		public Group getGroup_1() { return cGroup_1; }
 		
 		//'.'
 		public Keyword getFullStopKeyword_1_0() { return cFullStopKeyword_1_0; }
 		
-		//name+=Id_
+		//name+=Id
 		public Assignment getNameAssignment_1_1() { return cNameAssignment_1_1; }
 		
-		//Id_
-		public RuleCall getNameId_ParserRuleCall_1_1_0() { return cNameId_ParserRuleCall_1_1_0; }
+		//Id
+		public RuleCall getNameIdParserRuleCall_1_1_0() { return cNameIdParserRuleCall_1_1_0; }
 	}
-	public class Id_Elements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.Id_");
+	public class IdElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.Id");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cTOKEN_REFTerminalRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cRULE_REFTerminalRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
-		//Id_:
-		//	TOKEN_REF
-		//	| RULE_REF;
+		//Id:
+		//	TOKEN_REF | RULE_REF;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//TOKEN_REF | RULE_REF
@@ -2858,6 +2801,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	
 	private final GrammarElements pGrammar;
 	private final GrammarTypeElements eGrammarType;
+	private final RootSelectionElements pRootSelection;
 	private final PrequelConstructElements pPrequelConstruct;
 	private final OptionsElements pOptions;
 	private final OptionElements pOption;
@@ -2927,7 +2871,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	private final LexerCommandExprElements pLexerCommandExpr;
 	private final LexerCommandArgElements pLexerCommandArg;
 	private final QualifiedIdElements pQualifiedId;
-	private final Id_Elements pId_;
+	private final IdElements pId;
 	private final TerminalRule tTOKEN_VOCAB;
 	private final TerminalRule tCOLON;
 	private final TerminalRule tRARROW;
@@ -2937,6 +2881,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	private final TerminalRule tTOKEN_REF;
 	private final TerminalRule tNAME_CHAR;
 	private final TerminalRule tNAME_START_CHAR;
+	private final TerminalRule tINT;
 	private final TerminalRule tSTRING;
 	private final TerminalRule tLITERAL_CHAR;
 	private final TerminalRule tESC;
@@ -2947,6 +2892,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	private final TerminalRule tACTION_CHAR_LITERAL;
 	private final TerminalRule tACTION_ESC;
 	private final TerminalRule tDOLLAR;
+	private final TerminalRule tSEMICOLON;
 	private final TerminalRule tARG_OR_CHARSET;
 	private final TerminalRule tLEXER_CHAR_SET;
 	private final TerminalRule tARG_ACTION;
@@ -2956,16 +2902,13 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	private final TerminalRule tWSNLCHARS;
 	
 	private final Grammar grammar;
-	
-	private final TerminalsGrammarAccess gaTerminals;
 
 	@Inject
-	public UniMapperGeneratorGrammarAccess(GrammarProvider grammarProvider,
-			TerminalsGrammarAccess gaTerminals) {
+	public UniMapperGeneratorGrammarAccess(GrammarProvider grammarProvider) {
 		this.grammar = internalFindGrammar(grammarProvider);
-		this.gaTerminals = gaTerminals;
 		this.pGrammar = new GrammarElements();
 		this.eGrammarType = new GrammarTypeElements();
+		this.pRootSelection = new RootSelectionElements();
 		this.pPrequelConstruct = new PrequelConstructElements();
 		this.pOptions = new OptionsElements();
 		this.pOption = new OptionElements();
@@ -3035,7 +2978,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		this.pLexerCommandExpr = new LexerCommandExprElements();
 		this.pLexerCommandArg = new LexerCommandArgElements();
 		this.pQualifiedId = new QualifiedIdElements();
-		this.pId_ = new Id_Elements();
+		this.pId = new IdElements();
 		this.tTOKEN_VOCAB = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.TOKEN_VOCAB");
 		this.tCOLON = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.COLON");
 		this.tRARROW = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.RARROW");
@@ -3045,6 +2988,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		this.tTOKEN_REF = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.TOKEN_REF");
 		this.tNAME_CHAR = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.NAME_CHAR");
 		this.tNAME_START_CHAR = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.NAME_START_CHAR");
+		this.tINT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.INT");
 		this.tSTRING = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.STRING");
 		this.tLITERAL_CHAR = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.LITERAL_CHAR");
 		this.tESC = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.ESC");
@@ -3055,6 +2999,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		this.tACTION_CHAR_LITERAL = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.ACTION_CHAR_LITERAL");
 		this.tACTION_ESC = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.ACTION_ESC");
 		this.tDOLLAR = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.DOLLAR");
+		this.tSEMICOLON = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.SEMICOLON");
 		this.tARG_OR_CHARSET = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.ARG_OR_CHARSET");
 		this.tLEXER_CHAR_SET = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.LEXER_CHAR_SET");
 		this.tARG_ACTION = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.ARG_ACTION");
@@ -3085,14 +3030,11 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		return grammar;
 	}
 	
-	
-	public TerminalsGrammarAccess getTerminalsGrammarAccess() {
-		return gaTerminals;
-	}
 
 	
 	///** Grammar */ Grammar:
-	//	type=GrammarType? 'grammar' name=Id_ ';'
+	//	type=GrammarType? 'grammar' name=Id SEMICOLON
+	//	root=rootSelection
 	//	prequels+=PrequelConstruct*
 	//	rules+=Rule*
 	//	modes+=Mode*;
@@ -3117,11 +3059,18 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		return getGrammarTypeAccess().getRule();
 	}
 	
+	//rootSelection:
+	//	'root' root=[ParserRule|RULE_REF] SEMICOLON;
+	public RootSelectionElements getRootSelectionAccess() {
+		return pRootSelection;
+	}
+	
+	public ParserRule getRootSelectionRule() {
+		return getRootSelectionAccess().getRule();
+	}
+	
 	//PrequelConstruct:
-	//	Options
-	//	| Imports
-	//	| Tokens
-	//	| GrammarAction;
+	//	Options | Imports | Tokens | GrammarAction;
 	public PrequelConstructElements getPrequelConstructAccess() {
 		return pPrequelConstruct;
 	}
@@ -3131,7 +3080,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	///** Options */ Options:
-	//	{Options} keyword=OPTIONS_SPEC (options+=Option ';')* '}';
+	//	{Options} keyword=OPTIONS_SPEC (options+=Option SEMICOLON)* '}';
 	public OptionsElements getOptionsAccess() {
 		return pOptions;
 	}
@@ -3141,8 +3090,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//Option:
-	//	TokenVocab
-	//	| name=Id_ '=' value=OptionValue;
+	//	TokenVocab | name=Id '=' value=OptionValue;
 	public OptionElements getOptionAccess() {
 		return pOption;
 	}
@@ -3152,7 +3100,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//TokenVocab:
-	//	name=TOKEN_VOCAB '=' importURI=[Grammar|Id_];
+	//	name=TOKEN_VOCAB '=' importURI=[Grammar|Id];
 	public TokenVocabElements getTokenVocabAccess() {
 		return pTokenVocab;
 	}
@@ -3162,10 +3110,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//OptionValue:
-	//	QualifiedOption
-	//	| StringOption
-	//	| ActionOption
-	//	| IntOption;
+	//	QualifiedOption | StringOption | ActionOption | IntOption;
 	public OptionValueElements getOptionValueAccess() {
 		return pOptionValue;
 	}
@@ -3215,7 +3160,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	///** Imports */ Imports:
-	//	keyword='import' imports+=Import (',' imports+=Import)* ';';
+	//	keyword='import' imports+=Import (',' imports+=Import)* SEMICOLON;
 	public ImportsElements getImportsAccess() {
 		return pImports;
 	}
@@ -3225,7 +3170,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//Import:
-	//	alias=Id_ '=' importURI=[Grammar|Id_] | importURI=[Grammar|Id_];
+	//	alias=Id '=' importURI=[Grammar|Id] | importURI=[Grammar|Id];
 	public ImportElements getImportAccess() {
 		return pImport;
 	}
@@ -3235,9 +3180,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	///** Tokens */ Tokens:
-	//	V4Tokens
-	//	| EmptyTokens
-	//	| V3Tokens;
+	//	V4Tokens | EmptyTokens | V3Tokens;
 	public TokensElements getTokensAccess() {
 		return pTokens;
 	}
@@ -3257,7 +3200,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//V4Token:
-	//	name=Id_;
+	//	name=Id;
 	public V4TokenElements getV4TokenAccess() {
 		return pV4Token;
 	}
@@ -3287,7 +3230,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//V3Token:
-	//	name=Id_ ('=' value=STRING)? ';';
+	//	name=Id ('=' value=STRING)? SEMICOLON;
 	public V3TokenElements getV3TokenAccess() {
 		return pV3Token;
 	}
@@ -3297,7 +3240,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	///** Grammar Actions */ GrammarAction:
-	//	atSymbol='@' (scope=ActionScope colonSymbol='::')? name=Id_ action=ACTION;
+	//	'@' (scope=ActionScope colonSymbol='::')? name=Id action=ACTION;
 	public GrammarActionElements getGrammarActionAccess() {
 		return pGrammarAction;
 	}
@@ -3307,10 +3250,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//ActionScope:
-	//	'parser'
-	//	| 'lexer'
-	//	| 'tree'
-	//	| Id_;
+	//	'parser' | 'lexer' | 'tree' | Id;
 	public ActionScopeElements getActionScopeAccess() {
 		return pActionScope;
 	}
@@ -3320,8 +3260,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//Mode:
-	//	'mode' id=Id_ ';'
-	//	rules+=LexerRule*;
+	//	'mode' id=Id SEMICOLON rules+=LexerRule*;
 	public ModeElements getModeAccess() {
 		return pMode;
 	}
@@ -3331,8 +3270,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	///** Rules */ Rule:
-	//	ParserRule
-	//	| LexerRule;
+	//	ParserRule | LexerRule;
 	public RuleElements getRuleAccess() {
 		return pRule;
 	}
@@ -3344,14 +3282,9 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	///** Parser Rules */ ParserRule:
 	//	name=RULE_REF
 	//	args=ARG_OR_CHARSET?
-	//	return=Return?
-	//	throws=Exceptions?
-	//	locals=LocalVars?
-	//	prequels+=RulePrequel*
+	//	return=Return? throws=Exceptions? locals=LocalVars? prequels+=RulePrequel*
 	//	type=UnicoenTypeDec? COLON
-	//	body=RuleAltList
-	//	caught=ExceptionGroup
-	//	semicolonSymbol=';';
+	//	body=RuleAltList caught=ExceptionGroup semicolonSymbol=SEMICOLON;
 	public ParserRuleElements getParserRuleAccess() {
 		return pParserRule;
 	}
@@ -3371,9 +3304,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//ExceptionHandler:
-	//	'catch'
-	//	exception=ARG_OR_CHARSET
-	//	body=ACTION;
+	//	'catch' exception=ARG_OR_CHARSET body=ACTION;
 	public ExceptionHandlerElements getExceptionHandlerAccess() {
 		return pExceptionHandler;
 	}
@@ -3423,8 +3354,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//RulePrequel:
-	//	Options
-	//	| RuleAction;
+	//	Options | RuleAction;
 	public RulePrequelElements getRulePrequelAccess() {
 		return pRulePrequel;
 	}
@@ -3434,7 +3364,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//RuleAction:
-	//	atSymbol='@' name=Id_ body=ACTION;
+	//	'@' name=Id body=ACTION;
 	public RuleActionElements getRuleActionAccess() {
 		return pRuleAction;
 	}
@@ -3454,7 +3384,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//LabeledAlt:
-	//	body=Alternative (poundSymbol='#' label=Id_)?;
+	//	body=Alternative ('#' label=Id)?;
 	public LabeledAltElements getLabeledAltAccess() {
 		return pLabeledAlt;
 	}
@@ -3464,8 +3394,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//Alternative:
-	//	{Alternative} options=ElementOptions?
-	//	elements+=Element*;
+	//	{Alternative} options=ElementOptions? elements+=Element*;
 	public AlternativeElements getAlternativeAccess() {
 		return pAlternative;
 	}
@@ -3476,7 +3405,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	
 	//Element:
 	//	body=LabeledElement operator=EbnfSuffix?
-	//	| body=Atom operator=EbnfSuffix? (DOLLAR op=Id_)?
+	//	| body=Atom operator=EbnfSuffix? (DOLLAR op=Id)?
 	//	| body=Ebnf
 	//	| body=ActionElement;
 	public ElementElements getElementAccess() {
@@ -3509,7 +3438,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//LabeledElement:
-	//	name=Id_ op=('=' | '+=') (body=Atom | body=Block);
+	//	name=Id op=('=' | '+=') (body=Atom | body=Block);
 	public LabeledElementElements getLabeledElementAccess() {
 		return pLabeledElement;
 	}
@@ -3519,9 +3448,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//EbnfSuffix:
-	//	operator='?' nongreedy='?'?
-	//	| operator='*' nongreedy='?'?
-	//	| operator='+' nongreedy='?'?;
+	//	operator='?' nongreedy='?'? | operator='*' nongreedy='?'? | operator='+' nongreedy='?'?;
 	public EbnfSuffixElements getEbnfSuffixAccess() {
 		return pEbnfSuffix;
 	}
@@ -3530,6 +3457,13 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		return getEbnfSuffixAccess().getRule();
 	}
 	
+	//// -------------
+	//// Grammar Block
+	////
+	//// Anywhere where an element is valid, the grammar may start a new block
+	//// of alts by surrounding that block with ( ). A new block may also have a set
+	//// of options, which apply only to that block.
+	////
 	//Block:
 	//	'(' (options=Options? actions+=RuleAction* colon=COLON)? body=AltList ')';
 	public BlockElements getBlockAccess() {
@@ -3551,11 +3485,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//Atom:
-	//	body=Range // Range x..y - only valid in lexers
-	//	| body=Terminal
-	//	| body=RuleRef
-	//	| body=NotSet
-	//	| body=Wildcard;
+	//	body=(Range | Terminal | RuleRef | NotSet | Wildcard);
 	public AtomElements getAtomAccess() {
 		return pAtom;
 	}
@@ -3575,7 +3505,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//ElementOptions:
-	//	{ElementOptions} begin='<' (options+=ElementOption (',' options+=ElementOption)*)? end='>';
+	//	{ElementOptions} '<' (options+=ElementOption (',' options+=ElementOption)*)? '>';
 	public ElementOptionsElements getElementOptionsAccess() {
 		return pElementOptions;
 	}
@@ -3606,9 +3536,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//TokenRef:
-	//	V3Token
-	//	| V4Token
-	//	| LexerRule;
+	//	V3Token | V4Token | LexerRule;
 	public TokenRefElements getTokenRefAccess() {
 		return pTokenRef;
 	}
@@ -3617,9 +3545,13 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		return getTokenRefAccess().getRule();
 	}
 	
+	//// --------------------
+	//// Inverted element set
+	////
+	//// A set of characters (in a lexer) or terminal tokens, if a parser,
+	//// that are then used to create the inverse set of them.
 	//NotSet:
-	//	'~' body=SetElement
-	//	| '~' body=BlockSet;
+	//	'~' body=SetElement | '~' body=BlockSet;
 	public NotSetElements getNotSetAccess() {
 		return pNotSet;
 	}
@@ -3639,10 +3571,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//SetElement:
-	//	tokenRef=TOKEN_REF
-	//	| stringLiteral=STRING
-	//	| range=Range
-	//	| charSet=ARG_OR_CHARSET;
+	//	tokenRef=TOKEN_REF | stringLiteral=STRING | range=Range | charSet=ARG_OR_CHARSET;
 	public SetElementElements getSetElementAccess() {
 		return pSetElement;
 	}
@@ -3661,9 +3590,10 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		return getWildcardAccess().getRule();
 	}
 	
+	//// When used with elements we can specify what the tree node type can
+	//// be and also assign settings of various options  (which we do not check here)
 	//ElementOption:
-	//	qualifiedId=QualifiedId
-	//	| id=Id_ assign='=' value=OptionValue;
+	//	qualifiedId=QualifiedId | id=Id assign='=' value=OptionValue;
 	public ElementOptionElements getElementOptionAccess() {
 		return pElementOption;
 	}
@@ -3683,7 +3613,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//UnicoenTypeIdentifiers:
-	//	name=Id_ ('<' typevalue=Id_ '>')? | '(' dir=('<' | '>') fieldvalue+=QualifiedId (',' fieldvalue+=QualifiedId)* ')';
+	//	name=Id ('<' typevalue=Id '>')? | '(' dir=('<' | '>') fieldvalue+=QualifiedId (',' fieldvalue+=QualifiedId)* ')';
 	public UnicoenTypeIdentifiersElements getUnicoenTypeIdentifiersAccess() {
 		return pUnicoenTypeIdentifiers;
 	}
@@ -3693,8 +3623,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	///** Lexer Rule */ LexerRule:
-	//	^fragment?='fragment'?
-	//	name=TOKEN_REF type=UnicoenTypeDec? COLON body=LexerAltList semicolonSymbol=';';
+	//	^fragment?='fragment'? name=TOKEN_REF type=UnicoenTypeDec? COLON body=LexerAltList SEMICOLON;
 	public LexerRuleElements getLexerRuleAccess() {
 		return pLexerRule;
 	}
@@ -3734,7 +3663,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//LexerElementWithDollar:
-	//	body=LexerElement (DOLLAR op=Id_)?;
+	//	body=LexerElement (DOLLAR op=Id)?;
 	public LexerElementWithDollarElements getLexerElementWithDollarAccess() {
 		return pLexerElementWithDollar;
 	}
@@ -3757,8 +3686,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//LabeledLexerElement:
-	//	label=Id_ op=('=' | '+=') (body=LexerAtom
-	//	| body=LexerBlock);
+	//	label=Id op=('=' | '+=') (body=LexerAtom | body=LexerBlock);
 	public LabeledLexerElementElements getLabeledLexerElementAccess() {
 		return pLabeledLexerElement;
 	}
@@ -3768,12 +3696,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//LexerAtom:
-	//	body=Range // Range x..y - only valid in lexers
-	//	| body=Terminal
-	//	| body=RuleRef
-	//	| body=NotSet
-	//	| body=Wildcard
-	//	| body=LexerCharSet;
+	//	body=(Range | Terminal | RuleRef | NotSet | Wildcard | LexerCharSet);
 	public LexerAtomElements getLexerAtomAccess() {
 		return pLexerAtom;
 	}
@@ -3793,9 +3716,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//LexerBlock:
-	//	'(' (options=Options COLON)?
-	//	body=LexerAltList
-	//	')';
+	//	'(' (options=Options COLON)? body=LexerAltList ')';
 	public LexerBlockElements getLexerBlockAccess() {
 		return pLexerBlock;
 	}
@@ -3804,6 +3725,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		return getLexerBlockAccess().getRule();
 	}
 	
+	//// channel=HIDDEN, skip, more, mode(INSIDE), push(INSIDE), pop
 	//LexerCommands:
 	//	keyword=RARROW commands+=LexerCommand (',' commands+=LexerCommand)*;
 	public LexerCommandsElements getLexerCommandsAccess() {
@@ -3815,8 +3737,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//LexerCommand:
-	//	name=LexerCommandName '(' args=LexerCommandExpr ')'
-	//	| name=LexerCommandName;
+	//	name=LexerCommandName '(' args=LexerCommandExpr ')' | name=LexerCommandName;
 	public LexerCommandElements getLexerCommandAccess() {
 		return pLexerCommand;
 	}
@@ -3826,8 +3747,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//LexerCommandName:
-	//	'mode'
-	//	| Id_;
+	//	'mode' | Id;
 	public LexerCommandNameElements getLexerCommandNameAccess() {
 		return pLexerCommandName;
 	}
@@ -3837,7 +3757,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//LexerCommandExpr:
-	//	ref=[LexerCommandArg|Id_] | value=INT;
+	//	ref=[LexerCommandArg|Id] | value=INT;
 	public LexerCommandExprElements getLexerCommandExprAccess() {
 		return pLexerCommandExpr;
 	}
@@ -3847,10 +3767,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//LexerCommandArg:
-	//	Mode
-	//	| LexerRule
-	//	| V3Token
-	//	| V4Token;
+	//	Mode | LexerRule | V3Token | V4Token;
 	public LexerCommandArgElements getLexerCommandArgAccess() {
 		return pLexerCommandArg;
 	}
@@ -3860,7 +3777,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	///** ID */ QualifiedId:
-	//	name+=Id_ ('.' name+=Id_)*;
+	//	name+=Id ('.' name+=Id)*;
 	public QualifiedIdElements getQualifiedIdAccess() {
 		return pQualifiedId;
 	}
@@ -3869,15 +3786,14 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		return getQualifiedIdAccess().getRule();
 	}
 	
-	//Id_:
-	//	TOKEN_REF
-	//	| RULE_REF;
-	public Id_Elements getId_Access() {
-		return pId_;
+	//Id:
+	//	TOKEN_REF | RULE_REF;
+	public IdElements getIdAccess() {
+		return pId;
 	}
 	
-	public ParserRule getId_Rule() {
-		return getId_Access().getRule();
+	public ParserRule getIdRule() {
+		return getIdAccess().getRule();
 	}
 	
 	//terminal TOKEN_VOCAB:
@@ -3952,15 +3868,21 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		return tNAME_START_CHAR;
 	}
 	
-	//@ Override terminal STRING:
-	//	'\'' LITERAL_CHAR* '\'';
+	//terminal INT returns ecore::EInt:
+	//	'0'..'9'+;
+	public TerminalRule getINTRule() {
+		return tINT;
+	}
+	
+	//terminal STRING:
+	//	"'" LITERAL_CHAR* "'";
 	public TerminalRule getSTRINGRule() {
 		return tSTRING;
 	}
 	
 	//terminal fragment LITERAL_CHAR:
 	//	ESC
-	//	| !('\''
+	//	| !("'"
 	//	| '\\');
 	public TerminalRule getLITERAL_CHARRule() {
 		return tLITERAL_CHAR;
@@ -3973,7 +3895,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	//	| 'b'
 	//	| 'f'
 	//	| '"'
-	//	| '\''
+	//	| "'"
 	//	| '\\'
 	//	| '>'
 	//	| 'u' XDIGIT XDIGIT XDIGIT XDIGIT
@@ -4011,9 +3933,9 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//terminal fragment ACTION_CHAR_LITERAL:
-	//	'\'' (ACTION_ESC
-	//	| !('\\' | '\''))*
-	//	'\'';
+	//	"'" (ACTION_ESC
+	//	| !('\\' | "'"))*
+	//	"'";
 	public TerminalRule getACTION_CHAR_LITERALRule() {
 		return tACTION_CHAR_LITERAL;
 	}
@@ -4028,6 +3950,12 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	//	'$';
 	public TerminalRule getDOLLARRule() {
 		return tDOLLAR;
+	}
+	
+	//terminal SEMICOLON:
+	//	';';
+	public TerminalRule getSEMICOLONRule() {
+		return tSEMICOLON;
 	}
 	
 	//terminal ARG_OR_CHARSET:
@@ -4050,7 +3978,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		return tARG_ACTION;
 	}
 	
-	//@ Override terminal SL_COMMENT:
+	//terminal SL_COMMENT:
 	//	'//' !('\r'
 	//	| '\n')*
 	//	'\r'? '\n';
@@ -4058,13 +3986,13 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		return tSL_COMMENT;
 	}
 	
-	//@ Override terminal ML_COMMENT:
+	//terminal ML_COMMENT:
 	//	'/*'->'*/';
 	public TerminalRule getML_COMMENTRule() {
 		return tML_COMMENT;
 	}
 	
-	//@ Override terminal WS:
+	//terminal WS:
 	//	' '
 	//	| '\t'
 	//	| '\f'
@@ -4077,23 +4005,5 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	//	' ' | '\t' | '\f' | '\n' | '\r';
 	public TerminalRule getWSNLCHARSRule() {
 		return tWSNLCHARS;
-	}
-	
-	//terminal ID:
-	//	'^'? ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '_' | '0'..'9')*;
-	public TerminalRule getIDRule() {
-		return gaTerminals.getIDRule();
-	}
-	
-	//terminal INT returns ecore::EInt:
-	//	'0'..'9'+;
-	public TerminalRule getINTRule() {
-		return gaTerminals.getINTRule();
-	}
-	
-	//terminal ANY_OTHER:
-	//	.;
-	public TerminalRule getANY_OTHERRule() {
-		return gaTerminals.getANY_OTHERRule();
 	}
 }

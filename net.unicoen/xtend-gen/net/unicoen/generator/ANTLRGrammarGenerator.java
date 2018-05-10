@@ -164,6 +164,10 @@ public class ANTLRGrammarGenerator {
       };
       g.getPrequels().forEach(_function);
       final Consumer<Rule> _function_1 = (Rule it) -> {
+        boolean _startsWith = this.compile(it).toString().startsWith("\t:\t(\t\'");
+        if (_startsWith) {
+          System.out.println("test");
+        }
         Object _compile = this.compile(it);
         String _plus_2 = (_compile + this._newLine);
         sb.append(_plus_2);
@@ -799,8 +803,10 @@ public class ANTLRGrammarGenerator {
         String _literal = te.getLiteral();
         boolean _notEquals_2 = (!Objects.equal(_literal, null));
         if (_notEquals_2) {
+          _builder.append("\'");
           String _literal_1 = te.getLiteral();
           _builder.append(_literal_1);
+          _builder.append("\'");
           {
             ElementOptions _options_1 = te.getOptions();
             boolean _notEquals_3 = (!Objects.equal(_options_1, null));
@@ -857,8 +863,10 @@ public class ANTLRGrammarGenerator {
         String _stringLiteral = se.getStringLiteral();
         boolean _notEquals_1 = (!Objects.equal(_stringLiteral, null));
         if (_notEquals_1) {
+          _builder.append("\'");
           String _stringLiteral_1 = se.getStringLiteral();
           _builder.append(_stringLiteral_1);
+          _builder.append("\'");
         } else {
           Range _range = se.getRange();
           boolean _notEquals_2 = (!Objects.equal(_range, null));

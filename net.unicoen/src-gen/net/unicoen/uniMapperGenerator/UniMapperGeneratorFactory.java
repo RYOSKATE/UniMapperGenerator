@@ -33,6 +33,15 @@ public interface UniMapperGeneratorFactory extends EFactory
   Grammar createGrammar();
 
   /**
+   * Returns a new object of class '<em>root Selection</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>root Selection</em>'.
+   * @generated
+   */
+  rootSelection createrootSelection();
+
+  /**
    * Returns a new object of class '<em>Prequel Construct</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

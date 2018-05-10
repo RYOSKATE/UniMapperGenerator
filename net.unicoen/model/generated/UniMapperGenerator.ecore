@@ -5,6 +5,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="Grammar">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//GrammarType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="root" eType="#//rootSelection"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="prequels" upperBound="-1"
         eType="#//PrequelConstruct" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rules" upperBound="-1"
@@ -17,6 +19,9 @@
     <eLiterals name="LEXER" value="1" literal="lexer"/>
     <eLiterals name="PARSER" value="2" literal="parser"/>
     <eLiterals name="TREE" value="3" literal="tree"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="rootSelection">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="root" eType="#//ParserRule"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PrequelConstruct"/>
   <eClassifiers xsi:type="ecore:EClass" name="Options" eSuperTypes="#//PrequelConstruct #//RulePrequel">
@@ -75,7 +80,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GrammarAction" eSuperTypes="#//PrequelConstruct">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="atSymbol" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="scope" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="colonSymbol" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -90,7 +94,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//UnicoenTypeDec"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="semicolonSymbol" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ParserRule" eSuperTypes="#//Rule">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="args" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -106,6 +109,7 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="caught" eType="#//ExceptionGroup"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="semicolonSymbol" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExceptionGroup">
     <eStructuralFeatures xsi:type="ecore:EReference" name="handlers" upperBound="-1"
@@ -132,7 +136,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RulePrequel"/>
   <eClassifiers xsi:type="ecore:EClass" name="RuleAction" eSuperTypes="#//RulePrequel">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="atSymbol" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="body" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
@@ -143,7 +146,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="LabeledAlt">
     <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//Alternative"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="poundSymbol" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Alternative">
@@ -203,10 +205,8 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ElementOptions">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="begin" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="options" upperBound="-1"
         eType="#//ElementOption" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="end" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Range">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="from" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

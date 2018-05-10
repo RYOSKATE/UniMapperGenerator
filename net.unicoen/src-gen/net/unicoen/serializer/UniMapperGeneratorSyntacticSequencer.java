@@ -30,12 +30,14 @@ public class UniMapperGeneratorSyntacticSequencer extends AbstractSyntacticSeque
 			return getCOLONToken(semanticObject, ruleCall, node);
 		else if (ruleCall.getRule() == grammarAccess.getDOLLARRule())
 			return getDOLLARToken(semanticObject, ruleCall, node);
+		else if (ruleCall.getRule() == grammarAccess.getSEMICOLONRule())
+			return getSEMICOLONToken(semanticObject, ruleCall, node);
 		return "";
 	}
 	
 	/**
-	 * terminal
-	 * COLON: ':';
+	 * terminal COLON:
+	 * 	':';
 	 */
 	protected String getCOLONToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node != null)
@@ -51,6 +53,16 @@ public class UniMapperGeneratorSyntacticSequencer extends AbstractSyntacticSeque
 		if (node != null)
 			return getTokenText(node);
 		return "$";
+	}
+	
+	/**
+	 * terminal SEMICOLON:
+	 * 	';';
+	 */
+	protected String getSEMICOLONToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return ";";
 	}
 	
 	@Override

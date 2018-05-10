@@ -67,6 +67,7 @@ public class UniMapperGeneratorFactoryImpl extends EFactoryImpl implements UniMa
     switch (eClass.getClassifierID())
     {
       case UniMapperGeneratorPackage.GRAMMAR: return createGrammar();
+      case UniMapperGeneratorPackage.ROOT_SELECTION: return createrootSelection();
       case UniMapperGeneratorPackage.PREQUEL_CONSTRUCT: return createPrequelConstruct();
       case UniMapperGeneratorPackage.OPTIONS: return createOptions();
       case UniMapperGeneratorPackage.OPTION: return createOption();
@@ -182,6 +183,17 @@ public class UniMapperGeneratorFactoryImpl extends EFactoryImpl implements UniMa
   {
     GrammarImpl grammar = new GrammarImpl();
     return grammar;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public rootSelection createrootSelection()
+  {
+    rootSelectionImpl rootSelection = new rootSelectionImpl();
+    return rootSelection;
   }
 
   /**

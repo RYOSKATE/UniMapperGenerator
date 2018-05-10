@@ -15,7 +15,6 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link net.unicoen.uniMapperGenerator.LabeledAlt#getBody <em>Body</em>}</li>
- *   <li>{@link net.unicoen.uniMapperGenerator.LabeledAlt#getPoundSymbol <em>Pound Symbol</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.LabeledAlt#getLabel <em>Label</em>}</li>
  * </ul>
  *
@@ -50,32 +49,6 @@ public interface LabeledAlt extends EObject
    * @generated
    */
   void setBody(Alternative value);
-
-  /**
-   * Returns the value of the '<em><b>Pound Symbol</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Pound Symbol</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Pound Symbol</em>' attribute.
-   * @see #setPoundSymbol(String)
-   * @see net.unicoen.uniMapperGenerator.UniMapperGeneratorPackage#getLabeledAlt_PoundSymbol()
-   * @model
-   * @generated
-   */
-  String getPoundSymbol();
-
-  /**
-   * Sets the value of the '{@link net.unicoen.uniMapperGenerator.LabeledAlt#getPoundSymbol <em>Pound Symbol</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Pound Symbol</em>' attribute.
-   * @see #getPoundSymbol()
-   * @generated
-   */
-  void setPoundSymbol(String value);
 
   /**
    * Returns the value of the '<em><b>Label</b></em>' attribute.

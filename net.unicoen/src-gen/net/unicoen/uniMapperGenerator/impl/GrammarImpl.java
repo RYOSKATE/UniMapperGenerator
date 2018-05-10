@@ -11,6 +11,7 @@ import net.unicoen.uniMapperGenerator.Mode;
 import net.unicoen.uniMapperGenerator.PrequelConstruct;
 import net.unicoen.uniMapperGenerator.Rule;
 import net.unicoen.uniMapperGenerator.UniMapperGeneratorPackage;
+import net.unicoen.uniMapperGenerator.rootSelection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -36,6 +37,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link net.unicoen.uniMapperGenerator.impl.GrammarImpl#getType <em>Type</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.impl.GrammarImpl#getName <em>Name</em>}</li>
+ *   <li>{@link net.unicoen.uniMapperGenerator.impl.GrammarImpl#getRoot <em>Root</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.impl.GrammarImpl#getPrequels <em>Prequels</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.impl.GrammarImpl#getRules <em>Rules</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.impl.GrammarImpl#getModes <em>Modes</em>}</li>
@@ -84,6 +86,16 @@ public class GrammarImpl extends MinimalEObjectImpl.Container implements Grammar
    * @ordered
    */
   protected String name = NAME_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getRoot() <em>Root</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getRoot()
+   * @generated
+   * @ordered
+   */
+  protected rootSelection root;
 
   /**
    * The cached value of the '{@link #getPrequels() <em>Prequels</em>}' containment reference list.
@@ -187,6 +199,54 @@ public class GrammarImpl extends MinimalEObjectImpl.Container implements Grammar
    * <!-- end-user-doc -->
    * @generated
    */
+  public rootSelection getRoot()
+  {
+    return root;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetRoot(rootSelection newRoot, NotificationChain msgs)
+  {
+    rootSelection oldRoot = root;
+    root = newRoot;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, UniMapperGeneratorPackage.GRAMMAR__ROOT, oldRoot, newRoot);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setRoot(rootSelection newRoot)
+  {
+    if (newRoot != root)
+    {
+      NotificationChain msgs = null;
+      if (root != null)
+        msgs = ((InternalEObject)root).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - UniMapperGeneratorPackage.GRAMMAR__ROOT, null, msgs);
+      if (newRoot != null)
+        msgs = ((InternalEObject)newRoot).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - UniMapperGeneratorPackage.GRAMMAR__ROOT, null, msgs);
+      msgs = basicSetRoot(newRoot, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, UniMapperGeneratorPackage.GRAMMAR__ROOT, newRoot, newRoot));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<PrequelConstruct> getPrequels()
   {
     if (prequels == null)
@@ -234,6 +294,8 @@ public class GrammarImpl extends MinimalEObjectImpl.Container implements Grammar
   {
     switch (featureID)
     {
+      case UniMapperGeneratorPackage.GRAMMAR__ROOT:
+        return basicSetRoot(null, msgs);
       case UniMapperGeneratorPackage.GRAMMAR__PREQUELS:
         return ((InternalEList<?>)getPrequels()).basicRemove(otherEnd, msgs);
       case UniMapperGeneratorPackage.GRAMMAR__RULES:
@@ -258,6 +320,8 @@ public class GrammarImpl extends MinimalEObjectImpl.Container implements Grammar
         return getType();
       case UniMapperGeneratorPackage.GRAMMAR__NAME:
         return getName();
+      case UniMapperGeneratorPackage.GRAMMAR__ROOT:
+        return getRoot();
       case UniMapperGeneratorPackage.GRAMMAR__PREQUELS:
         return getPrequels();
       case UniMapperGeneratorPackage.GRAMMAR__RULES:
@@ -284,6 +348,9 @@ public class GrammarImpl extends MinimalEObjectImpl.Container implements Grammar
         return;
       case UniMapperGeneratorPackage.GRAMMAR__NAME:
         setName((String)newValue);
+        return;
+      case UniMapperGeneratorPackage.GRAMMAR__ROOT:
+        setRoot((rootSelection)newValue);
         return;
       case UniMapperGeneratorPackage.GRAMMAR__PREQUELS:
         getPrequels().clear();
@@ -317,6 +384,9 @@ public class GrammarImpl extends MinimalEObjectImpl.Container implements Grammar
       case UniMapperGeneratorPackage.GRAMMAR__NAME:
         setName(NAME_EDEFAULT);
         return;
+      case UniMapperGeneratorPackage.GRAMMAR__ROOT:
+        setRoot((rootSelection)null);
+        return;
       case UniMapperGeneratorPackage.GRAMMAR__PREQUELS:
         getPrequels().clear();
         return;
@@ -344,6 +414,8 @@ public class GrammarImpl extends MinimalEObjectImpl.Container implements Grammar
         return type != TYPE_EDEFAULT;
       case UniMapperGeneratorPackage.GRAMMAR__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case UniMapperGeneratorPackage.GRAMMAR__ROOT:
+        return root != null;
       case UniMapperGeneratorPackage.GRAMMAR__PREQUELS:
         return prequels != null && !prequels.isEmpty();
       case UniMapperGeneratorPackage.GRAMMAR__RULES:

@@ -123,6 +123,9 @@ class ANTLRGrammarGenerator {
 			sb.append(it.compile + _newLine)
 		]
 		g.rules.forEach [
+			if (it.compile.toString.startsWith("	:	(	'")) {
+				System.out.println("test");
+			}
 			sb.append(it.compile + _newLine)
 		]
 		g.modes.forEach [
@@ -229,13 +232,13 @@ class ANTLRGrammarGenerator {
 	def dispatch compile(Range ra) '''«ra.from»..«ra.to» '''
 
 	def dispatch compile(Terminal te) '''«IF te.reference != null»«te.reference.refCompile»«IF te.options != null»«te.
-		options.compile»«ENDIF»«ELSEIF te.literal != null»«te.literal»«IF te.options != null» «te.options.compile»«ENDIF»«ENDIF»'''
+		options.compile»«ENDIF»«ELSEIF te.literal != null»'«te.literal»'«IF te.options != null» «te.options.compile»«ENDIF»«ENDIF»'''
 
 	def dispatch compile(NotSet ns) '''~«ns.body.compile»'''
 
 	def dispatch compile(BlockSet bs) '''(«FOR e : bs.elements»«IF !bs.elements.get(0).equals(e)»|«ENDIF»«e.compile»«ENDFOR»)'''
 
-	def dispatch compile(SetElement se) '''«IF se.tokenRef != null»«se.tokenRef»«ELSEIF se.stringLiteral != null»«se.stringLiteral»«ELSEIF se.
+	def dispatch compile(SetElement se) '''«IF se.tokenRef != null»«se.tokenRef»«ELSEIF se.stringLiteral != null»'«se.stringLiteral»'«ELSEIF se.
 		range != null»«se.range»«ELSE»«se.charSet»«ENDIF»'''
 
 	def dispatch compile(Wildcard wi) '''«wi.dot»«IF wi.options != null»«wi.options.compile»«ENDIF»'''

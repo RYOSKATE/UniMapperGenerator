@@ -26,7 +26,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <ul>
  *   <li>{@link net.unicoen.uniMapperGenerator.impl.RuleImpl#getName <em>Name</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.impl.RuleImpl#getType <em>Type</em>}</li>
- *   <li>{@link net.unicoen.uniMapperGenerator.impl.RuleImpl#getSemicolonSymbol <em>Semicolon Symbol</em>}</li>
  * </ul>
  *
  * @generated
@@ -62,26 +61,6 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
    * @ordered
    */
   protected UnicoenTypeDec type;
-
-  /**
-   * The default value of the '{@link #getSemicolonSymbol() <em>Semicolon Symbol</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getSemicolonSymbol()
-   * @generated
-   * @ordered
-   */
-  protected static final String SEMICOLON_SYMBOL_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getSemicolonSymbol() <em>Semicolon Symbol</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getSemicolonSymbol()
-   * @generated
-   * @ordered
-   */
-  protected String semicolonSymbol = SEMICOLON_SYMBOL_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -180,29 +159,6 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getSemicolonSymbol()
-  {
-    return semicolonSymbol;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setSemicolonSymbol(String newSemicolonSymbol)
-  {
-    String oldSemicolonSymbol = semicolonSymbol;
-    semicolonSymbol = newSemicolonSymbol;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, UniMapperGeneratorPackage.RULE__SEMICOLON_SYMBOL, oldSemicolonSymbol, semicolonSymbol));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -228,8 +184,6 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
         return getName();
       case UniMapperGeneratorPackage.RULE__TYPE:
         return getType();
-      case UniMapperGeneratorPackage.RULE__SEMICOLON_SYMBOL:
-        return getSemicolonSymbol();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -249,9 +203,6 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
         return;
       case UniMapperGeneratorPackage.RULE__TYPE:
         setType((UnicoenTypeDec)newValue);
-        return;
-      case UniMapperGeneratorPackage.RULE__SEMICOLON_SYMBOL:
-        setSemicolonSymbol((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -273,9 +224,6 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
       case UniMapperGeneratorPackage.RULE__TYPE:
         setType((UnicoenTypeDec)null);
         return;
-      case UniMapperGeneratorPackage.RULE__SEMICOLON_SYMBOL:
-        setSemicolonSymbol(SEMICOLON_SYMBOL_EDEFAULT);
-        return;
     }
     super.eUnset(featureID);
   }
@@ -294,8 +242,6 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case UniMapperGeneratorPackage.RULE__TYPE:
         return type != null;
-      case UniMapperGeneratorPackage.RULE__SEMICOLON_SYMBOL:
-        return SEMICOLON_SYMBOL_EDEFAULT == null ? semicolonSymbol != null : !SEMICOLON_SYMBOL_EDEFAULT.equals(semicolonSymbol);
     }
     return super.eIsSet(featureID);
   }
@@ -313,8 +259,6 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
-    result.append(", semicolonSymbol: ");
-    result.append(semicolonSymbol);
     result.append(')');
     return result.toString();
   }

@@ -25,7 +25,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * </p>
  * <ul>
  *   <li>{@link net.unicoen.uniMapperGenerator.impl.LabeledAltImpl#getBody <em>Body</em>}</li>
- *   <li>{@link net.unicoen.uniMapperGenerator.impl.LabeledAltImpl#getPoundSymbol <em>Pound Symbol</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.impl.LabeledAltImpl#getLabel <em>Label</em>}</li>
  * </ul>
  *
@@ -42,26 +41,6 @@ public class LabeledAltImpl extends MinimalEObjectImpl.Container implements Labe
    * @ordered
    */
   protected Alternative body;
-
-  /**
-   * The default value of the '{@link #getPoundSymbol() <em>Pound Symbol</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getPoundSymbol()
-   * @generated
-   * @ordered
-   */
-  protected static final String POUND_SYMBOL_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getPoundSymbol() <em>Pound Symbol</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getPoundSymbol()
-   * @generated
-   * @ordered
-   */
-  protected String poundSymbol = POUND_SYMBOL_EDEFAULT;
 
   /**
    * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
@@ -157,29 +136,6 @@ public class LabeledAltImpl extends MinimalEObjectImpl.Container implements Labe
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getPoundSymbol()
-  {
-    return poundSymbol;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setPoundSymbol(String newPoundSymbol)
-  {
-    String oldPoundSymbol = poundSymbol;
-    poundSymbol = newPoundSymbol;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, UniMapperGeneratorPackage.LABELED_ALT__POUND_SYMBOL, oldPoundSymbol, poundSymbol));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public String getLabel()
   {
     return label;
@@ -226,8 +182,6 @@ public class LabeledAltImpl extends MinimalEObjectImpl.Container implements Labe
     {
       case UniMapperGeneratorPackage.LABELED_ALT__BODY:
         return getBody();
-      case UniMapperGeneratorPackage.LABELED_ALT__POUND_SYMBOL:
-        return getPoundSymbol();
       case UniMapperGeneratorPackage.LABELED_ALT__LABEL:
         return getLabel();
     }
@@ -246,9 +200,6 @@ public class LabeledAltImpl extends MinimalEObjectImpl.Container implements Labe
     {
       case UniMapperGeneratorPackage.LABELED_ALT__BODY:
         setBody((Alternative)newValue);
-        return;
-      case UniMapperGeneratorPackage.LABELED_ALT__POUND_SYMBOL:
-        setPoundSymbol((String)newValue);
         return;
       case UniMapperGeneratorPackage.LABELED_ALT__LABEL:
         setLabel((String)newValue);
@@ -270,9 +221,6 @@ public class LabeledAltImpl extends MinimalEObjectImpl.Container implements Labe
       case UniMapperGeneratorPackage.LABELED_ALT__BODY:
         setBody((Alternative)null);
         return;
-      case UniMapperGeneratorPackage.LABELED_ALT__POUND_SYMBOL:
-        setPoundSymbol(POUND_SYMBOL_EDEFAULT);
-        return;
       case UniMapperGeneratorPackage.LABELED_ALT__LABEL:
         setLabel(LABEL_EDEFAULT);
         return;
@@ -292,8 +240,6 @@ public class LabeledAltImpl extends MinimalEObjectImpl.Container implements Labe
     {
       case UniMapperGeneratorPackage.LABELED_ALT__BODY:
         return body != null;
-      case UniMapperGeneratorPackage.LABELED_ALT__POUND_SYMBOL:
-        return POUND_SYMBOL_EDEFAULT == null ? poundSymbol != null : !POUND_SYMBOL_EDEFAULT.equals(poundSymbol);
       case UniMapperGeneratorPackage.LABELED_ALT__LABEL:
         return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
     }
@@ -311,9 +257,7 @@ public class LabeledAltImpl extends MinimalEObjectImpl.Container implements Labe
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (poundSymbol: ");
-    result.append(poundSymbol);
-    result.append(", label: ");
+    result.append(" (label: ");
     result.append(label);
     result.append(')');
     return result.toString();

@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link net.unicoen.uniMapperGenerator.Grammar#getType <em>Type</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.Grammar#getName <em>Name</em>}</li>
+ *   <li>{@link net.unicoen.uniMapperGenerator.Grammar#getRoot <em>Root</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.Grammar#getPrequels <em>Prequels</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.Grammar#getRules <em>Rules</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.Grammar#getModes <em>Modes</em>}</li>
@@ -83,6 +84,32 @@ public interface Grammar extends EObject
    * @generated
    */
   void setName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Root</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Root</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Root</em>' containment reference.
+   * @see #setRoot(rootSelection)
+   * @see net.unicoen.uniMapperGenerator.UniMapperGeneratorPackage#getGrammar_Root()
+   * @model containment="true"
+   * @generated
+   */
+  rootSelection getRoot();
+
+  /**
+   * Sets the value of the '{@link net.unicoen.uniMapperGenerator.Grammar#getRoot <em>Root</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Root</em>' containment reference.
+   * @see #getRoot()
+   * @generated
+   */
+  void setRoot(rootSelection value);
 
   /**
    * Returns the value of the '<em><b>Prequels</b></em>' containment reference list.

@@ -67,6 +67,7 @@ import net.unicoen.uniMapperGenerator.V3Tokens;
 import net.unicoen.uniMapperGenerator.V4Token;
 import net.unicoen.uniMapperGenerator.V4Tokens;
 import net.unicoen.uniMapperGenerator.Wildcard;
+import net.unicoen.uniMapperGenerator.rootSelection;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.xtext.Action;
@@ -274,6 +275,9 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 			case UniMapperGeneratorPackage.WILDCARD:
 				sequence_Wildcard(context, (Wildcard) semanticObject); 
 				return; 
+			case UniMapperGeneratorPackage.ROOT_SELECTION:
+				sequence_rootSelection(context, (rootSelection) semanticObject); 
+				return; 
 			}
 		if (errorAcceptor != null)
 			errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
@@ -399,7 +403,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 	 *     ElementOption returns ElementOption
 	 *
 	 * Constraint:
-	 *     (qualifiedId=QualifiedId | (id=Id_ assign='=' value=OptionValue))
+	 *     (qualifiedId=QualifiedId | (id=Id assign='=' value=OptionValue))
 	 */
 	protected void sequence_ElementOption(ISerializationContext context, ElementOption semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -411,7 +415,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 	 *     ElementOptions returns ElementOptions
 	 *
 	 * Constraint:
-	 *     (begin='<' (options+=ElementOption options+=ElementOption*)? end='>')
+	 *     (options+=ElementOption options+=ElementOption*)?
 	 */
 	protected void sequence_ElementOptions(ISerializationContext context, ElementOptions semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -423,7 +427,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 	 *     Element returns Element
 	 *
 	 * Constraint:
-	 *     ((body=LabeledElement operator=EbnfSuffix?) | (body=Atom operator=EbnfSuffix? op=Id_?) | body=Ebnf | body=ActionElement)
+	 *     ((body=LabeledElement operator=EbnfSuffix?) | (body=Atom operator=EbnfSuffix? op=Id?) | body=Ebnf | body=ActionElement)
 	 */
 	protected void sequence_Element(ISerializationContext context, Element semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -519,7 +523,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 	 *     GrammarAction returns GrammarAction
 	 *
 	 * Constraint:
-	 *     (atSymbol='@' (scope=ActionScope colonSymbol='::')? name=Id_ action=ACTION)
+	 *     ((scope=ActionScope colonSymbol='::')? name=Id action=ACTION)
 	 */
 	protected void sequence_GrammarAction(ISerializationContext context, GrammarAction semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -531,7 +535,14 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 	 *     Grammar returns Grammar
 	 *
 	 * Constraint:
-	 *     (type=GrammarType? name=Id_ prequels+=PrequelConstruct* rules+=Rule* modes+=Mode*)
+	 *     (
+	 *         type=GrammarType? 
+	 *         name=Id 
+	 *         root=rootSelection 
+	 *         prequels+=PrequelConstruct* 
+	 *         rules+=Rule* 
+	 *         modes+=Mode*
+	 *     )
 	 */
 	protected void sequence_Grammar(ISerializationContext context, Grammar semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -543,7 +554,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 	 *     Import returns Import
 	 *
 	 * Constraint:
-	 *     ((alias=Id_ importURI=[Grammar|Id_]) | importURI=[Grammar|Id_])
+	 *     ((alias=Id importURI=[Grammar|Id]) | importURI=[Grammar|Id])
 	 */
 	protected void sequence_Import(ISerializationContext context, Import semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -587,7 +598,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 	 *     LabeledAlt returns LabeledAlt
 	 *
 	 * Constraint:
-	 *     (body=Alternative (poundSymbol='#' label=Id_)?)
+	 *     (body=Alternative label=Id?)
 	 */
 	protected void sequence_LabeledAlt(ISerializationContext context, LabeledAlt semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -599,7 +610,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 	 *     LabeledElement returns LabeledElement
 	 *
 	 * Constraint:
-	 *     (name=Id_ (op='=' | op='+=') (body=Atom | body=Block))
+	 *     (name=Id (op='=' | op='+=') (body=Atom | body=Block))
 	 */
 	protected void sequence_LabeledElement(ISerializationContext context, LabeledElement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -611,7 +622,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 	 *     LabeledLexerElement returns LabeledLexerElement
 	 *
 	 * Constraint:
-	 *     (label=Id_ (op='=' | op='+=') (body=LexerAtom | body=LexerBlock))
+	 *     (label=Id (op='=' | op='+=') (body=LexerAtom | body=LexerBlock))
 	 */
 	protected void sequence_LabeledLexerElement(ISerializationContext context, LabeledLexerElement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -696,7 +707,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 	 *     LexerCommandExpr returns LexerCommandExpr
 	 *
 	 * Constraint:
-	 *     (ref=[LexerCommandArg|Id_] | value=INT)
+	 *     (ref=[LexerCommandArg|Id] | value=INT)
 	 */
 	protected void sequence_LexerCommandExpr(ISerializationContext context, LexerCommandExpr semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -732,7 +743,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 	 *     LexerElementWithDollar returns LexerElementWithDollar
 	 *
 	 * Constraint:
-	 *     (body=LexerElement op=Id_?)
+	 *     (body=LexerElement op=Id?)
 	 */
 	protected void sequence_LexerElementWithDollar(ISerializationContext context, LexerElementWithDollar semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -771,7 +782,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 	 *     LexerCommandArg returns LexerRule
 	 *
 	 * Constraint:
-	 *     (fragment?='fragment'? name=TOKEN_REF type=UnicoenTypeDec? body=LexerAltList semicolonSymbol=';')
+	 *     (fragment?='fragment'? name=TOKEN_REF type=UnicoenTypeDec? body=LexerAltList)
 	 */
 	protected void sequence_LexerRule(ISerializationContext context, LexerRule semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -802,7 +813,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 	 *     LexerCommandArg returns Mode
 	 *
 	 * Constraint:
-	 *     (id=Id_ rules+=LexerRule*)
+	 *     (id=Id rules+=LexerRule*)
 	 */
 	protected void sequence_Mode(ISerializationContext context, Mode semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -826,7 +837,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 	 *     Option returns Option
 	 *
 	 * Constraint:
-	 *     (name=Id_ value=OptionValue)
+	 *     (name=Id value=OptionValue)
 	 */
 	protected void sequence_Option(ISerializationContext context, Option semanticObject) {
 		if (errorAcceptor != null) {
@@ -836,7 +847,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, UniMapperGeneratorPackage.Literals.OPTION__VALUE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getOptionAccess().getNameId_ParserRuleCall_1_0_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getOptionAccess().getNameIdParserRuleCall_1_0_0(), semanticObject.getName());
 		feeder.accept(grammarAccess.getOptionAccess().getValueOptionValueParserRuleCall_1_2_0(), semanticObject.getValue());
 		feeder.finish();
 	}
@@ -872,7 +883,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 	 *         type=UnicoenTypeDec? 
 	 *         body=RuleAltList 
 	 *         caught=ExceptionGroup 
-	 *         semicolonSymbol=';'
+	 *         semicolonSymbol=SEMICOLON
 	 *     )
 	 */
 	protected void sequence_ParserRule(ISerializationContext context, net.unicoen.uniMapperGenerator.ParserRule semanticObject) {
@@ -885,7 +896,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 	 *     QualifiedId returns QualifiedId
 	 *
 	 * Constraint:
-	 *     (name+=Id_ name+=Id_*)
+	 *     (name+=Id name+=Id*)
 	 */
 	protected void sequence_QualifiedId(ISerializationContext context, QualifiedId semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -956,20 +967,17 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 	 *     RuleAction returns RuleAction
 	 *
 	 * Constraint:
-	 *     (atSymbol='@' name=Id_ body=ACTION)
+	 *     (name=Id body=ACTION)
 	 */
 	protected void sequence_RuleAction(ISerializationContext context, RuleAction semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, UniMapperGeneratorPackage.Literals.RULE_ACTION__AT_SYMBOL) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, UniMapperGeneratorPackage.Literals.RULE_ACTION__AT_SYMBOL));
 			if (transientValues.isValueTransient(semanticObject, UniMapperGeneratorPackage.Literals.RULE_ACTION__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, UniMapperGeneratorPackage.Literals.RULE_ACTION__NAME));
 			if (transientValues.isValueTransient(semanticObject, UniMapperGeneratorPackage.Literals.RULE_ACTION__BODY) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, UniMapperGeneratorPackage.Literals.RULE_ACTION__BODY));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getRuleActionAccess().getAtSymbolCommercialAtKeyword_0_0(), semanticObject.getAtSymbol());
-		feeder.accept(grammarAccess.getRuleActionAccess().getNameId_ParserRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getRuleActionAccess().getNameIdParserRuleCall_1_0(), semanticObject.getName());
 		feeder.accept(grammarAccess.getRuleActionAccess().getBodyACTIONTerminalRuleCall_2_0(), semanticObject.getBody());
 		feeder.finish();
 	}
@@ -1048,7 +1056,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 	 *     TokenVocab returns TokenVocab
 	 *
 	 * Constraint:
-	 *     (name=TOKEN_VOCAB importURI=[Grammar|Id_])
+	 *     (name=TOKEN_VOCAB importURI=[Grammar|Id])
 	 */
 	protected void sequence_TokenVocab(ISerializationContext context, TokenVocab semanticObject) {
 		if (errorAcceptor != null) {
@@ -1059,7 +1067,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getTokenVocabAccess().getNameTOKEN_VOCABTerminalRuleCall_0_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getTokenVocabAccess().getImportURIGrammarId_ParserRuleCall_2_0_1(), semanticObject.eGet(UniMapperGeneratorPackage.Literals.TOKEN_VOCAB__IMPORT_URI, false));
+		feeder.accept(grammarAccess.getTokenVocabAccess().getImportURIGrammarIdParserRuleCall_2_0_1(), semanticObject.eGet(UniMapperGeneratorPackage.Literals.TOKEN_VOCAB__IMPORT_URI, false));
 		feeder.finish();
 	}
 	
@@ -1087,7 +1095,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 	 *     UnicoenTypeIdentifiers returns UnicoenTypeIdentifiers
 	 *
 	 * Constraint:
-	 *     ((name=Id_ typevalue=Id_?) | ((dir='<' | dir='>') fieldvalue+=QualifiedId fieldvalue+=QualifiedId*))
+	 *     ((name=Id typevalue=Id?) | ((dir='<' | dir='>') fieldvalue+=QualifiedId fieldvalue+=QualifiedId*))
 	 */
 	protected void sequence_UnicoenTypeIdentifiers(ISerializationContext context, UnicoenTypeIdentifiers semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1101,7 +1109,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 	 *     LexerCommandArg returns V3Token
 	 *
 	 * Constraint:
-	 *     (name=Id_ value=STRING?)
+	 *     (name=Id value=STRING?)
 	 */
 	protected void sequence_V3Token(ISerializationContext context, V3Token semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1129,7 +1137,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 	 *     LexerCommandArg returns V4Token
 	 *
 	 * Constraint:
-	 *     name=Id_
+	 *     name=Id
 	 */
 	protected void sequence_V4Token(ISerializationContext context, V4Token semanticObject) {
 		if (errorAcceptor != null) {
@@ -1137,7 +1145,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, UniMapperGeneratorPackage.Literals.V4_TOKEN__NAME));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getV4TokenAccess().getNameId_ParserRuleCall_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getV4TokenAccess().getNameIdParserRuleCall_0(), semanticObject.getName());
 		feeder.finish();
 	}
 	
@@ -1165,6 +1173,24 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 	 */
 	protected void sequence_Wildcard(ISerializationContext context, Wildcard semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     rootSelection returns rootSelection
+	 *
+	 * Constraint:
+	 *     root=[ParserRule|RULE_REF]
+	 */
+	protected void sequence_rootSelection(ISerializationContext context, rootSelection semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, UniMapperGeneratorPackage.Literals.ROOT_SELECTION__ROOT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, UniMapperGeneratorPackage.Literals.ROOT_SELECTION__ROOT));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getRootSelectionAccess().getRootParserRuleRULE_REFTerminalRuleCall_1_0_1(), semanticObject.eGet(UniMapperGeneratorPackage.Literals.ROOT_SELECTION__ROOT, false));
+		feeder.finish();
 	}
 	
 	

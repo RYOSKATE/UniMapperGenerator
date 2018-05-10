@@ -87,13 +87,22 @@ public interface UniMapperGeneratorPackage extends EPackage
   int GRAMMAR__NAME = 1;
 
   /**
+   * The feature id for the '<em><b>Root</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int GRAMMAR__ROOT = 2;
+
+  /**
    * The feature id for the '<em><b>Prequels</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int GRAMMAR__PREQUELS = 2;
+  int GRAMMAR__PREQUELS = 3;
 
   /**
    * The feature id for the '<em><b>Rules</b></em>' containment reference list.
@@ -102,7 +111,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @generated
    * @ordered
    */
-  int GRAMMAR__RULES = 3;
+  int GRAMMAR__RULES = 4;
 
   /**
    * The feature id for the '<em><b>Modes</b></em>' containment reference list.
@@ -111,7 +120,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @generated
    * @ordered
    */
-  int GRAMMAR__MODES = 4;
+  int GRAMMAR__MODES = 5;
 
   /**
    * The number of structural features of the '<em>Grammar</em>' class.
@@ -120,7 +129,35 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @generated
    * @ordered
    */
-  int GRAMMAR_FEATURE_COUNT = 5;
+  int GRAMMAR_FEATURE_COUNT = 6;
+
+  /**
+   * The meta object id for the '{@link net.unicoen.uniMapperGenerator.impl.rootSelectionImpl <em>root Selection</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.unicoen.uniMapperGenerator.impl.rootSelectionImpl
+   * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getrootSelection()
+   * @generated
+   */
+  int ROOT_SELECTION = 1;
+
+  /**
+   * The feature id for the '<em><b>Root</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ROOT_SELECTION__ROOT = 0;
+
+  /**
+   * The number of structural features of the '<em>root Selection</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ROOT_SELECTION_FEATURE_COUNT = 1;
 
   /**
    * The meta object id for the '{@link net.unicoen.uniMapperGenerator.impl.PrequelConstructImpl <em>Prequel Construct</em>}' class.
@@ -130,7 +167,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getPrequelConstruct()
    * @generated
    */
-  int PREQUEL_CONSTRUCT = 1;
+  int PREQUEL_CONSTRUCT = 2;
 
   /**
    * The number of structural features of the '<em>Prequel Construct</em>' class.
@@ -149,7 +186,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getOptions()
    * @generated
    */
-  int OPTIONS = 2;
+  int OPTIONS = 3;
 
   /**
    * The feature id for the '<em><b>Keyword</b></em>' attribute.
@@ -186,7 +223,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getOption()
    * @generated
    */
-  int OPTION = 3;
+  int OPTION = 4;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -223,7 +260,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getTokenVocab()
    * @generated
    */
-  int TOKEN_VOCAB = 4;
+  int TOKEN_VOCAB = 5;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -269,7 +306,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getOptionValue()
    * @generated
    */
-  int OPTION_VALUE = 5;
+  int OPTION_VALUE = 6;
 
   /**
    * The number of structural features of the '<em>Option Value</em>' class.
@@ -288,7 +325,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getQualifiedOption()
    * @generated
    */
-  int QUALIFIED_OPTION = 6;
+  int QUALIFIED_OPTION = 7;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -316,7 +353,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getStringOption()
    * @generated
    */
-  int STRING_OPTION = 7;
+  int STRING_OPTION = 8;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -344,7 +381,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getActionOption()
    * @generated
    */
-  int ACTION_OPTION = 8;
+  int ACTION_OPTION = 9;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -372,7 +409,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getIntOption()
    * @generated
    */
-  int INT_OPTION = 9;
+  int INT_OPTION = 10;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -400,7 +437,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getImports()
    * @generated
    */
-  int IMPORTS = 10;
+  int IMPORTS = 11;
 
   /**
    * The feature id for the '<em><b>Keyword</b></em>' attribute.
@@ -437,7 +474,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getImport()
    * @generated
    */
-  int IMPORT = 11;
+  int IMPORT = 12;
 
   /**
    * The feature id for the '<em><b>Alias</b></em>' attribute.
@@ -474,7 +511,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getTokens()
    * @generated
    */
-  int TOKENS = 12;
+  int TOKENS = 13;
 
   /**
    * The feature id for the '<em><b>Keyword</b></em>' attribute.
@@ -502,7 +539,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getV4Tokens()
    * @generated
    */
-  int V4_TOKENS = 13;
+  int V4_TOKENS = 14;
 
   /**
    * The feature id for the '<em><b>Keyword</b></em>' attribute.
@@ -539,7 +576,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getTokenRef()
    * @generated
    */
-  int TOKEN_REF = 45;
+  int TOKEN_REF = 46;
 
   /**
    * The number of structural features of the '<em>Token Ref</em>' class.
@@ -558,7 +595,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getV4Token()
    * @generated
    */
-  int V4_TOKEN = 14;
+  int V4_TOKEN = 15;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -586,7 +623,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getEmptyTokens()
    * @generated
    */
-  int EMPTY_TOKENS = 15;
+  int EMPTY_TOKENS = 16;
 
   /**
    * The feature id for the '<em><b>Keyword</b></em>' attribute.
@@ -614,7 +651,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getV3Tokens()
    * @generated
    */
-  int V3_TOKENS = 16;
+  int V3_TOKENS = 17;
 
   /**
    * The feature id for the '<em><b>Keyword</b></em>' attribute.
@@ -651,7 +688,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getV3Token()
    * @generated
    */
-  int V3_TOKEN = 17;
+  int V3_TOKEN = 18;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -688,16 +725,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getGrammarAction()
    * @generated
    */
-  int GRAMMAR_ACTION = 18;
-
-  /**
-   * The feature id for the '<em><b>At Symbol</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int GRAMMAR_ACTION__AT_SYMBOL = PREQUEL_CONSTRUCT_FEATURE_COUNT + 0;
+  int GRAMMAR_ACTION = 19;
 
   /**
    * The feature id for the '<em><b>Scope</b></em>' attribute.
@@ -706,7 +734,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @generated
    * @ordered
    */
-  int GRAMMAR_ACTION__SCOPE = PREQUEL_CONSTRUCT_FEATURE_COUNT + 1;
+  int GRAMMAR_ACTION__SCOPE = PREQUEL_CONSTRUCT_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Colon Symbol</b></em>' attribute.
@@ -715,7 +743,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @generated
    * @ordered
    */
-  int GRAMMAR_ACTION__COLON_SYMBOL = PREQUEL_CONSTRUCT_FEATURE_COUNT + 2;
+  int GRAMMAR_ACTION__COLON_SYMBOL = PREQUEL_CONSTRUCT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -724,7 +752,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @generated
    * @ordered
    */
-  int GRAMMAR_ACTION__NAME = PREQUEL_CONSTRUCT_FEATURE_COUNT + 3;
+  int GRAMMAR_ACTION__NAME = PREQUEL_CONSTRUCT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Action</b></em>' attribute.
@@ -733,7 +761,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @generated
    * @ordered
    */
-  int GRAMMAR_ACTION__ACTION = PREQUEL_CONSTRUCT_FEATURE_COUNT + 4;
+  int GRAMMAR_ACTION__ACTION = PREQUEL_CONSTRUCT_FEATURE_COUNT + 3;
 
   /**
    * The number of structural features of the '<em>Grammar Action</em>' class.
@@ -742,7 +770,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @generated
    * @ordered
    */
-  int GRAMMAR_ACTION_FEATURE_COUNT = PREQUEL_CONSTRUCT_FEATURE_COUNT + 5;
+  int GRAMMAR_ACTION_FEATURE_COUNT = PREQUEL_CONSTRUCT_FEATURE_COUNT + 4;
 
   /**
    * The meta object id for the '{@link net.unicoen.uniMapperGenerator.impl.LexerCommandArgImpl <em>Lexer Command Arg</em>}' class.
@@ -752,7 +780,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getLexerCommandArg()
    * @generated
    */
-  int LEXER_COMMAND_ARG = 66;
+  int LEXER_COMMAND_ARG = 67;
 
   /**
    * The number of structural features of the '<em>Lexer Command Arg</em>' class.
@@ -771,7 +799,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getMode()
    * @generated
    */
-  int MODE = 19;
+  int MODE = 20;
 
   /**
    * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -808,7 +836,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getRule()
    * @generated
    */
-  int RULE = 20;
+  int RULE = 21;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -829,22 +857,13 @@ public interface UniMapperGeneratorPackage extends EPackage
   int RULE__TYPE = 1;
 
   /**
-   * The feature id for the '<em><b>Semicolon Symbol</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RULE__SEMICOLON_SYMBOL = 2;
-
-  /**
    * The number of structural features of the '<em>Rule</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RULE_FEATURE_COUNT = 3;
+  int RULE_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link net.unicoen.uniMapperGenerator.impl.ParserRuleImpl <em>Parser Rule</em>}' class.
@@ -854,7 +873,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getParserRule()
    * @generated
    */
-  int PARSER_RULE = 21;
+  int PARSER_RULE = 22;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -873,15 +892,6 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @ordered
    */
   int PARSER_RULE__TYPE = RULE__TYPE;
-
-  /**
-   * The feature id for the '<em><b>Semicolon Symbol</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PARSER_RULE__SEMICOLON_SYMBOL = RULE__SEMICOLON_SYMBOL;
 
   /**
    * The feature id for the '<em><b>Args</b></em>' attribute.
@@ -947,13 +957,22 @@ public interface UniMapperGeneratorPackage extends EPackage
   int PARSER_RULE__CAUGHT = RULE_FEATURE_COUNT + 6;
 
   /**
+   * The feature id for the '<em><b>Semicolon Symbol</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PARSER_RULE__SEMICOLON_SYMBOL = RULE_FEATURE_COUNT + 7;
+
+  /**
    * The number of structural features of the '<em>Parser Rule</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PARSER_RULE_FEATURE_COUNT = RULE_FEATURE_COUNT + 7;
+  int PARSER_RULE_FEATURE_COUNT = RULE_FEATURE_COUNT + 8;
 
   /**
    * The meta object id for the '{@link net.unicoen.uniMapperGenerator.impl.ExceptionGroupImpl <em>Exception Group</em>}' class.
@@ -963,7 +982,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getExceptionGroup()
    * @generated
    */
-  int EXCEPTION_GROUP = 22;
+  int EXCEPTION_GROUP = 23;
 
   /**
    * The feature id for the '<em><b>Handlers</b></em>' containment reference list.
@@ -1000,7 +1019,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getExceptionHandler()
    * @generated
    */
-  int EXCEPTION_HANDLER = 23;
+  int EXCEPTION_HANDLER = 24;
 
   /**
    * The feature id for the '<em><b>Exception</b></em>' attribute.
@@ -1037,7 +1056,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getFinallyClause()
    * @generated
    */
-  int FINALLY_CLAUSE = 24;
+  int FINALLY_CLAUSE = 25;
 
   /**
    * The feature id for the '<em><b>Body</b></em>' attribute.
@@ -1065,7 +1084,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getReturn()
    * @generated
    */
-  int RETURN = 25;
+  int RETURN = 26;
 
   /**
    * The feature id for the '<em><b>Body</b></em>' attribute.
@@ -1093,7 +1112,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getExceptions()
    * @generated
    */
-  int EXCEPTIONS = 26;
+  int EXCEPTIONS = 27;
 
   /**
    * The feature id for the '<em><b>Exceptions</b></em>' containment reference list.
@@ -1121,7 +1140,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getLocalVars()
    * @generated
    */
-  int LOCAL_VARS = 27;
+  int LOCAL_VARS = 28;
 
   /**
    * The feature id for the '<em><b>Body</b></em>' attribute.
@@ -1149,7 +1168,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getRulePrequel()
    * @generated
    */
-  int RULE_PREQUEL = 28;
+  int RULE_PREQUEL = 29;
 
   /**
    * The number of structural features of the '<em>Rule Prequel</em>' class.
@@ -1168,16 +1187,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getRuleAction()
    * @generated
    */
-  int RULE_ACTION = 29;
-
-  /**
-   * The feature id for the '<em><b>At Symbol</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RULE_ACTION__AT_SYMBOL = RULE_PREQUEL_FEATURE_COUNT + 0;
+  int RULE_ACTION = 30;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1186,7 +1196,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RULE_ACTION__NAME = RULE_PREQUEL_FEATURE_COUNT + 1;
+  int RULE_ACTION__NAME = RULE_PREQUEL_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Body</b></em>' attribute.
@@ -1195,7 +1205,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RULE_ACTION__BODY = RULE_PREQUEL_FEATURE_COUNT + 2;
+  int RULE_ACTION__BODY = RULE_PREQUEL_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>Rule Action</em>' class.
@@ -1204,7 +1214,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RULE_ACTION_FEATURE_COUNT = RULE_PREQUEL_FEATURE_COUNT + 3;
+  int RULE_ACTION_FEATURE_COUNT = RULE_PREQUEL_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link net.unicoen.uniMapperGenerator.impl.RuleAltListImpl <em>Rule Alt List</em>}' class.
@@ -1214,7 +1224,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getRuleAltList()
    * @generated
    */
-  int RULE_ALT_LIST = 30;
+  int RULE_ALT_LIST = 31;
 
   /**
    * The feature id for the '<em><b>Alternatives</b></em>' containment reference list.
@@ -1242,7 +1252,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getLabeledAlt()
    * @generated
    */
-  int LABELED_ALT = 31;
+  int LABELED_ALT = 32;
 
   /**
    * The feature id for the '<em><b>Body</b></em>' containment reference.
@@ -1254,22 +1264,13 @@ public interface UniMapperGeneratorPackage extends EPackage
   int LABELED_ALT__BODY = 0;
 
   /**
-   * The feature id for the '<em><b>Pound Symbol</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LABELED_ALT__POUND_SYMBOL = 1;
-
-  /**
    * The feature id for the '<em><b>Label</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int LABELED_ALT__LABEL = 2;
+  int LABELED_ALT__LABEL = 1;
 
   /**
    * The number of structural features of the '<em>Labeled Alt</em>' class.
@@ -1278,7 +1279,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @generated
    * @ordered
    */
-  int LABELED_ALT_FEATURE_COUNT = 3;
+  int LABELED_ALT_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link net.unicoen.uniMapperGenerator.impl.AlternativeImpl <em>Alternative</em>}' class.
@@ -1288,7 +1289,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getAlternative()
    * @generated
    */
-  int ALTERNATIVE = 32;
+  int ALTERNATIVE = 33;
 
   /**
    * The feature id for the '<em><b>Options</b></em>' containment reference.
@@ -1325,7 +1326,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getElement()
    * @generated
    */
-  int ELEMENT = 33;
+  int ELEMENT = 34;
 
   /**
    * The feature id for the '<em><b>Body</b></em>' containment reference.
@@ -1371,7 +1372,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getEbnf()
    * @generated
    */
-  int EBNF = 34;
+  int EBNF = 35;
 
   /**
    * The feature id for the '<em><b>Body</b></em>' containment reference.
@@ -1408,7 +1409,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getActionElement()
    * @generated
    */
-  int ACTION_ELEMENT = 35;
+  int ACTION_ELEMENT = 36;
 
   /**
    * The feature id for the '<em><b>Body</b></em>' attribute.
@@ -1445,7 +1446,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getLabeledElement()
    * @generated
    */
-  int LABELED_ELEMENT = 36;
+  int LABELED_ELEMENT = 37;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1491,7 +1492,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getEbnfSuffix()
    * @generated
    */
-  int EBNF_SUFFIX = 37;
+  int EBNF_SUFFIX = 38;
 
   /**
    * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1528,7 +1529,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getBlock()
    * @generated
    */
-  int BLOCK = 38;
+  int BLOCK = 39;
 
   /**
    * The feature id for the '<em><b>Options</b></em>' containment reference.
@@ -1583,7 +1584,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getAltList()
    * @generated
    */
-  int ALT_LIST = 39;
+  int ALT_LIST = 40;
 
   /**
    * The feature id for the '<em><b>Alternatives</b></em>' containment reference list.
@@ -1611,7 +1612,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getAtom()
    * @generated
    */
-  int ATOM = 40;
+  int ATOM = 41;
 
   /**
    * The feature id for the '<em><b>Body</b></em>' containment reference.
@@ -1639,7 +1640,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getRuleRef()
    * @generated
    */
-  int RULE_REF = 41;
+  int RULE_REF = 42;
 
   /**
    * The feature id for the '<em><b>Reference</b></em>' reference.
@@ -1676,16 +1677,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getElementOptions()
    * @generated
    */
-  int ELEMENT_OPTIONS = 42;
-
-  /**
-   * The feature id for the '<em><b>Begin</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ELEMENT_OPTIONS__BEGIN = 0;
+  int ELEMENT_OPTIONS = 43;
 
   /**
    * The feature id for the '<em><b>Options</b></em>' containment reference list.
@@ -1694,16 +1686,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ELEMENT_OPTIONS__OPTIONS = 1;
-
-  /**
-   * The feature id for the '<em><b>End</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ELEMENT_OPTIONS__END = 2;
+  int ELEMENT_OPTIONS__OPTIONS = 0;
 
   /**
    * The number of structural features of the '<em>Element Options</em>' class.
@@ -1712,7 +1695,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ELEMENT_OPTIONS_FEATURE_COUNT = 3;
+  int ELEMENT_OPTIONS_FEATURE_COUNT = 1;
 
   /**
    * The meta object id for the '{@link net.unicoen.uniMapperGenerator.impl.RangeImpl <em>Range</em>}' class.
@@ -1722,7 +1705,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getRange()
    * @generated
    */
-  int RANGE = 43;
+  int RANGE = 44;
 
   /**
    * The feature id for the '<em><b>From</b></em>' attribute.
@@ -1759,7 +1742,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getTerminal()
    * @generated
    */
-  int TERMINAL = 44;
+  int TERMINAL = 45;
 
   /**
    * The feature id for the '<em><b>Reference</b></em>' reference.
@@ -1814,7 +1797,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getNotSet()
    * @generated
    */
-  int NOT_SET = 46;
+  int NOT_SET = 47;
 
   /**
    * The feature id for the '<em><b>Body</b></em>' containment reference.
@@ -1842,7 +1825,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getBlockSet()
    * @generated
    */
-  int BLOCK_SET = 47;
+  int BLOCK_SET = 48;
 
   /**
    * The feature id for the '<em><b>Elements</b></em>' containment reference list.
@@ -1870,7 +1853,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getSetElement()
    * @generated
    */
-  int SET_ELEMENT = 48;
+  int SET_ELEMENT = 49;
 
   /**
    * The feature id for the '<em><b>Token Ref</b></em>' attribute.
@@ -1925,7 +1908,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getWildcard()
    * @generated
    */
-  int WILDCARD = 49;
+  int WILDCARD = 50;
 
   /**
    * The feature id for the '<em><b>Dot</b></em>' attribute.
@@ -1962,7 +1945,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getElementOption()
    * @generated
    */
-  int ELEMENT_OPTION = 50;
+  int ELEMENT_OPTION = 51;
 
   /**
    * The feature id for the '<em><b>Qualified Id</b></em>' containment reference.
@@ -2017,7 +2000,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getUnicoenTypeDec()
    * @generated
    */
-  int UNICOEN_TYPE_DEC = 51;
+  int UNICOEN_TYPE_DEC = 52;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' containment reference.
@@ -2045,7 +2028,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getUnicoenTypeIdentifiers()
    * @generated
    */
-  int UNICOEN_TYPE_IDENTIFIERS = 52;
+  int UNICOEN_TYPE_IDENTIFIERS = 53;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2100,7 +2083,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getLexerRule()
    * @generated
    */
-  int LEXER_RULE = 53;
+  int LEXER_RULE = 54;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2119,15 +2102,6 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @ordered
    */
   int LEXER_RULE__TYPE = RULE__TYPE;
-
-  /**
-   * The feature id for the '<em><b>Semicolon Symbol</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LEXER_RULE__SEMICOLON_SYMBOL = RULE__SEMICOLON_SYMBOL;
 
   /**
    * The feature id for the '<em><b>Fragment</b></em>' attribute.
@@ -2164,7 +2138,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getLexerAltList()
    * @generated
    */
-  int LEXER_ALT_LIST = 54;
+  int LEXER_ALT_LIST = 55;
 
   /**
    * The feature id for the '<em><b>Alternatives</b></em>' containment reference list.
@@ -2192,7 +2166,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getLexerAlt()
    * @generated
    */
-  int LEXER_ALT = 55;
+  int LEXER_ALT = 56;
 
   /**
    * The feature id for the '<em><b>Body</b></em>' containment reference.
@@ -2229,7 +2203,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getLexerElements()
    * @generated
    */
-  int LEXER_ELEMENTS = 56;
+  int LEXER_ELEMENTS = 57;
 
   /**
    * The feature id for the '<em><b>Elements</b></em>' containment reference list.
@@ -2257,7 +2231,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getLexerElementWithDollar()
    * @generated
    */
-  int LEXER_ELEMENT_WITH_DOLLAR = 57;
+  int LEXER_ELEMENT_WITH_DOLLAR = 58;
 
   /**
    * The feature id for the '<em><b>Body</b></em>' containment reference.
@@ -2294,7 +2268,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getLexerElement()
    * @generated
    */
-  int LEXER_ELEMENT = 58;
+  int LEXER_ELEMENT = 59;
 
   /**
    * The feature id for the '<em><b>Body</b></em>' containment reference.
@@ -2331,7 +2305,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getLabeledLexerElement()
    * @generated
    */
-  int LABELED_LEXER_ELEMENT = 59;
+  int LABELED_LEXER_ELEMENT = 60;
 
   /**
    * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -2377,7 +2351,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getLexerAtom()
    * @generated
    */
-  int LEXER_ATOM = 60;
+  int LEXER_ATOM = 61;
 
   /**
    * The feature id for the '<em><b>Body</b></em>' containment reference.
@@ -2405,7 +2379,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getLexerCharSet()
    * @generated
    */
-  int LEXER_CHAR_SET = 61;
+  int LEXER_CHAR_SET = 62;
 
   /**
    * The feature id for the '<em><b>Body</b></em>' attribute.
@@ -2433,7 +2407,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getLexerBlock()
    * @generated
    */
-  int LEXER_BLOCK = 62;
+  int LEXER_BLOCK = 63;
 
   /**
    * The feature id for the '<em><b>Options</b></em>' containment reference.
@@ -2470,7 +2444,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getLexerCommands()
    * @generated
    */
-  int LEXER_COMMANDS = 63;
+  int LEXER_COMMANDS = 64;
 
   /**
    * The feature id for the '<em><b>Keyword</b></em>' attribute.
@@ -2507,7 +2481,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getLexerCommand()
    * @generated
    */
-  int LEXER_COMMAND = 64;
+  int LEXER_COMMAND = 65;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2544,7 +2518,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getLexerCommandExpr()
    * @generated
    */
-  int LEXER_COMMAND_EXPR = 65;
+  int LEXER_COMMAND_EXPR = 66;
 
   /**
    * The feature id for the '<em><b>Ref</b></em>' reference.
@@ -2581,7 +2555,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getQualifiedId()
    * @generated
    */
-  int QUALIFIED_ID = 67;
+  int QUALIFIED_ID = 68;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute list.
@@ -2609,7 +2583,7 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getGrammarType()
    * @generated
    */
-  int GRAMMAR_TYPE = 68;
+  int GRAMMAR_TYPE = 69;
 
 
   /**
@@ -2645,6 +2619,17 @@ public interface UniMapperGeneratorPackage extends EPackage
   EAttribute getGrammar_Name();
 
   /**
+   * Returns the meta object for the containment reference '{@link net.unicoen.uniMapperGenerator.Grammar#getRoot <em>Root</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Root</em>'.
+   * @see net.unicoen.uniMapperGenerator.Grammar#getRoot()
+   * @see #getGrammar()
+   * @generated
+   */
+  EReference getGrammar_Root();
+
+  /**
    * Returns the meta object for the containment reference list '{@link net.unicoen.uniMapperGenerator.Grammar#getPrequels <em>Prequels</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2676,6 +2661,27 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @generated
    */
   EReference getGrammar_Modes();
+
+  /**
+   * Returns the meta object for class '{@link net.unicoen.uniMapperGenerator.rootSelection <em>root Selection</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>root Selection</em>'.
+   * @see net.unicoen.uniMapperGenerator.rootSelection
+   * @generated
+   */
+  EClass getrootSelection();
+
+  /**
+   * Returns the meta object for the reference '{@link net.unicoen.uniMapperGenerator.rootSelection#getRoot <em>Root</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Root</em>'.
+   * @see net.unicoen.uniMapperGenerator.rootSelection#getRoot()
+   * @see #getrootSelection()
+   * @generated
+   */
+  EReference getrootSelection_Root();
 
   /**
    * Returns the meta object for class '{@link net.unicoen.uniMapperGenerator.PrequelConstruct <em>Prequel Construct</em>}'.
@@ -3067,17 +3073,6 @@ public interface UniMapperGeneratorPackage extends EPackage
   EClass getGrammarAction();
 
   /**
-   * Returns the meta object for the attribute '{@link net.unicoen.uniMapperGenerator.GrammarAction#getAtSymbol <em>At Symbol</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>At Symbol</em>'.
-   * @see net.unicoen.uniMapperGenerator.GrammarAction#getAtSymbol()
-   * @see #getGrammarAction()
-   * @generated
-   */
-  EAttribute getGrammarAction_AtSymbol();
-
-  /**
    * Returns the meta object for the attribute '{@link net.unicoen.uniMapperGenerator.GrammarAction#getScope <em>Scope</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3186,17 +3181,6 @@ public interface UniMapperGeneratorPackage extends EPackage
   EReference getRule_Type();
 
   /**
-   * Returns the meta object for the attribute '{@link net.unicoen.uniMapperGenerator.Rule#getSemicolonSymbol <em>Semicolon Symbol</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Semicolon Symbol</em>'.
-   * @see net.unicoen.uniMapperGenerator.Rule#getSemicolonSymbol()
-   * @see #getRule()
-   * @generated
-   */
-  EAttribute getRule_SemicolonSymbol();
-
-  /**
    * Returns the meta object for class '{@link net.unicoen.uniMapperGenerator.ParserRule <em>Parser Rule</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3282,6 +3266,17 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @generated
    */
   EReference getParserRule_Caught();
+
+  /**
+   * Returns the meta object for the attribute '{@link net.unicoen.uniMapperGenerator.ParserRule#getSemicolonSymbol <em>Semicolon Symbol</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Semicolon Symbol</em>'.
+   * @see net.unicoen.uniMapperGenerator.ParserRule#getSemicolonSymbol()
+   * @see #getParserRule()
+   * @generated
+   */
+  EAttribute getParserRule_SemicolonSymbol();
 
   /**
    * Returns the meta object for class '{@link net.unicoen.uniMapperGenerator.ExceptionGroup <em>Exception Group</em>}'.
@@ -3452,17 +3447,6 @@ public interface UniMapperGeneratorPackage extends EPackage
   EClass getRuleAction();
 
   /**
-   * Returns the meta object for the attribute '{@link net.unicoen.uniMapperGenerator.RuleAction#getAtSymbol <em>At Symbol</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>At Symbol</em>'.
-   * @see net.unicoen.uniMapperGenerator.RuleAction#getAtSymbol()
-   * @see #getRuleAction()
-   * @generated
-   */
-  EAttribute getRuleAction_AtSymbol();
-
-  /**
    * Returns the meta object for the attribute '{@link net.unicoen.uniMapperGenerator.RuleAction#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3525,17 +3509,6 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @generated
    */
   EReference getLabeledAlt_Body();
-
-  /**
-   * Returns the meta object for the attribute '{@link net.unicoen.uniMapperGenerator.LabeledAlt#getPoundSymbol <em>Pound Symbol</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Pound Symbol</em>'.
-   * @see net.unicoen.uniMapperGenerator.LabeledAlt#getPoundSymbol()
-   * @see #getLabeledAlt()
-   * @generated
-   */
-  EAttribute getLabeledAlt_PoundSymbol();
 
   /**
    * Returns the meta object for the attribute '{@link net.unicoen.uniMapperGenerator.LabeledAlt#getLabel <em>Label</em>}'.
@@ -3901,17 +3874,6 @@ public interface UniMapperGeneratorPackage extends EPackage
   EClass getElementOptions();
 
   /**
-   * Returns the meta object for the attribute '{@link net.unicoen.uniMapperGenerator.ElementOptions#getBegin <em>Begin</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Begin</em>'.
-   * @see net.unicoen.uniMapperGenerator.ElementOptions#getBegin()
-   * @see #getElementOptions()
-   * @generated
-   */
-  EAttribute getElementOptions_Begin();
-
-  /**
    * Returns the meta object for the containment reference list '{@link net.unicoen.uniMapperGenerator.ElementOptions#getOptions <em>Options</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3921,17 +3883,6 @@ public interface UniMapperGeneratorPackage extends EPackage
    * @generated
    */
   EReference getElementOptions_Options();
-
-  /**
-   * Returns the meta object for the attribute '{@link net.unicoen.uniMapperGenerator.ElementOptions#getEnd <em>End</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>End</em>'.
-   * @see net.unicoen.uniMapperGenerator.ElementOptions#getEnd()
-   * @see #getElementOptions()
-   * @generated
-   */
-  EAttribute getElementOptions_End();
 
   /**
    * Returns the meta object for class '{@link net.unicoen.uniMapperGenerator.Range <em>Range</em>}'.
@@ -4760,6 +4711,14 @@ public interface UniMapperGeneratorPackage extends EPackage
     EAttribute GRAMMAR__NAME = eINSTANCE.getGrammar_Name();
 
     /**
+     * The meta object literal for the '<em><b>Root</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference GRAMMAR__ROOT = eINSTANCE.getGrammar_Root();
+
+    /**
      * The meta object literal for the '<em><b>Prequels</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4782,6 +4741,24 @@ public interface UniMapperGeneratorPackage extends EPackage
      * @generated
      */
     EReference GRAMMAR__MODES = eINSTANCE.getGrammar_Modes();
+
+    /**
+     * The meta object literal for the '{@link net.unicoen.uniMapperGenerator.impl.rootSelectionImpl <em>root Selection</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.unicoen.uniMapperGenerator.impl.rootSelectionImpl
+     * @see net.unicoen.uniMapperGenerator.impl.UniMapperGeneratorPackageImpl#getrootSelection()
+     * @generated
+     */
+    EClass ROOT_SELECTION = eINSTANCE.getrootSelection();
+
+    /**
+     * The meta object literal for the '<em><b>Root</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ROOT_SELECTION__ROOT = eINSTANCE.getrootSelection_Root();
 
     /**
      * The meta object literal for the '{@link net.unicoen.uniMapperGenerator.impl.PrequelConstructImpl <em>Prequel Construct</em>}' class.
@@ -5116,14 +5093,6 @@ public interface UniMapperGeneratorPackage extends EPackage
     EClass GRAMMAR_ACTION = eINSTANCE.getGrammarAction();
 
     /**
-     * The meta object literal for the '<em><b>At Symbol</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute GRAMMAR_ACTION__AT_SYMBOL = eINSTANCE.getGrammarAction_AtSymbol();
-
-    /**
      * The meta object literal for the '<em><b>Scope</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5208,14 +5177,6 @@ public interface UniMapperGeneratorPackage extends EPackage
     EReference RULE__TYPE = eINSTANCE.getRule_Type();
 
     /**
-     * The meta object literal for the '<em><b>Semicolon Symbol</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute RULE__SEMICOLON_SYMBOL = eINSTANCE.getRule_SemicolonSymbol();
-
-    /**
      * The meta object literal for the '{@link net.unicoen.uniMapperGenerator.impl.ParserRuleImpl <em>Parser Rule</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5280,6 +5241,14 @@ public interface UniMapperGeneratorPackage extends EPackage
      * @generated
      */
     EReference PARSER_RULE__CAUGHT = eINSTANCE.getParserRule_Caught();
+
+    /**
+     * The meta object literal for the '<em><b>Semicolon Symbol</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute PARSER_RULE__SEMICOLON_SYMBOL = eINSTANCE.getParserRule_SemicolonSymbol();
 
     /**
      * The meta object literal for the '{@link net.unicoen.uniMapperGenerator.impl.ExceptionGroupImpl <em>Exception Group</em>}' class.
@@ -5426,14 +5395,6 @@ public interface UniMapperGeneratorPackage extends EPackage
     EClass RULE_ACTION = eINSTANCE.getRuleAction();
 
     /**
-     * The meta object literal for the '<em><b>At Symbol</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute RULE_ACTION__AT_SYMBOL = eINSTANCE.getRuleAction_AtSymbol();
-
-    /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5484,14 +5445,6 @@ public interface UniMapperGeneratorPackage extends EPackage
      * @generated
      */
     EReference LABELED_ALT__BODY = eINSTANCE.getLabeledAlt_Body();
-
-    /**
-     * The meta object literal for the '<em><b>Pound Symbol</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute LABELED_ALT__POUND_SYMBOL = eINSTANCE.getLabeledAlt_PoundSymbol();
 
     /**
      * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
@@ -5788,28 +5741,12 @@ public interface UniMapperGeneratorPackage extends EPackage
     EClass ELEMENT_OPTIONS = eINSTANCE.getElementOptions();
 
     /**
-     * The meta object literal for the '<em><b>Begin</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute ELEMENT_OPTIONS__BEGIN = eINSTANCE.getElementOptions_Begin();
-
-    /**
      * The meta object literal for the '<em><b>Options</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EReference ELEMENT_OPTIONS__OPTIONS = eINSTANCE.getElementOptions_Options();
-
-    /**
-     * The meta object literal for the '<em><b>End</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute ELEMENT_OPTIONS__END = eINSTANCE.getElementOptions_End();
 
     /**
      * The meta object literal for the '{@link net.unicoen.uniMapperGenerator.impl.RangeImpl <em>Range</em>}' class.

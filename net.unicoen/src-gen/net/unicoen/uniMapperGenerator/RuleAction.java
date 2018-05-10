@@ -13,7 +13,6 @@ package net.unicoen.uniMapperGenerator;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link net.unicoen.uniMapperGenerator.RuleAction#getAtSymbol <em>At Symbol</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.RuleAction#getName <em>Name</em>}</li>
  *   <li>{@link net.unicoen.uniMapperGenerator.RuleAction#getBody <em>Body</em>}</li>
  * </ul>
@@ -24,32 +23,6 @@ package net.unicoen.uniMapperGenerator;
  */
 public interface RuleAction extends RulePrequel
 {
-  /**
-   * Returns the value of the '<em><b>At Symbol</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>At Symbol</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>At Symbol</em>' attribute.
-   * @see #setAtSymbol(String)
-   * @see net.unicoen.uniMapperGenerator.UniMapperGeneratorPackage#getRuleAction_AtSymbol()
-   * @model
-   * @generated
-   */
-  String getAtSymbol();
-
-  /**
-   * Sets the value of the '{@link net.unicoen.uniMapperGenerator.RuleAction#getAtSymbol <em>At Symbol</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>At Symbol</em>' attribute.
-   * @see #getAtSymbol()
-   * @generated
-   */
-  void setAtSymbol(String value);
-
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
