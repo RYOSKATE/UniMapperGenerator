@@ -927,7 +927,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 	 *     Range returns Range
 	 *
 	 * Constraint:
-	 *     (from=STRING to=STRING)
+	 *     (from=MYSTRING to=MYSTRING)
 	 */
 	protected void sequence_Range(ISerializationContext context, Range semanticObject) {
 		if (errorAcceptor != null) {
@@ -937,8 +937,8 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, UniMapperGeneratorPackage.Literals.RANGE__TO));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getRangeAccess().getFromSTRINGTerminalRuleCall_0_0(), semanticObject.getFrom());
-		feeder.accept(grammarAccess.getRangeAccess().getToSTRINGTerminalRuleCall_2_0(), semanticObject.getTo());
+		feeder.accept(grammarAccess.getRangeAccess().getFromMYSTRINGTerminalRuleCall_0_0(), semanticObject.getFrom());
+		feeder.accept(grammarAccess.getRangeAccess().getToMYSTRINGTerminalRuleCall_2_0(), semanticObject.getTo());
 		feeder.finish();
 	}
 	
@@ -1012,7 +1012,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 	 *     SetElement returns SetElement
 	 *
 	 * Constraint:
-	 *     (tokenRef=TOKEN_REF | stringLiteral=STRING | range=Range | charSet=ARG_OR_CHARSET)
+	 *     (tokenRef=TOKEN_REF | stringLiteral=MYSTRING | range=Range | charSet=ARG_OR_CHARSET)
 	 */
 	protected void sequence_SetElement(ISerializationContext context, SetElement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1025,7 +1025,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 	 *     StringOption returns StringOption
 	 *
 	 * Constraint:
-	 *     value=STRING
+	 *     value=MYSTRING
 	 */
 	protected void sequence_StringOption(ISerializationContext context, StringOption semanticObject) {
 		if (errorAcceptor != null) {
@@ -1033,7 +1033,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, UniMapperGeneratorPackage.Literals.STRING_OPTION__VALUE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getStringOptionAccess().getValueSTRINGTerminalRuleCall_0(), semanticObject.getValue());
+		feeder.accept(grammarAccess.getStringOptionAccess().getValueMYSTRINGTerminalRuleCall_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	
@@ -1043,7 +1043,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 	 *     Terminal returns Terminal
 	 *
 	 * Constraint:
-	 *     ((reference=[TokenRef|TOKEN_REF] options=ElementOptions?) | (literal=STRING options=ElementOptions?) | eof='EOF2')
+	 *     ((reference=[TokenRef|TOKEN_REF] options=ElementOptions?) | (literal=MYSTRING options=ElementOptions?) | eof='EOF2')
 	 */
 	protected void sequence_Terminal(ISerializationContext context, Terminal semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1109,7 +1109,7 @@ public class UniMapperGeneratorSemanticSequencer extends AbstractDelegatingSeman
 	 *     LexerCommandArg returns V3Token
 	 *
 	 * Constraint:
-	 *     (name=Id value=STRING?)
+	 *     (name=Id value=MYSTRING?)
 	 */
 	protected void sequence_V3Token(ISerializationContext context, V3Token semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

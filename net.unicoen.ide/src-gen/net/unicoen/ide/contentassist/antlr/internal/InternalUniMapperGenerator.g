@@ -8826,9 +8826,9 @@ rule__StringOption__ValueAssignment
 	}
 :
 	(
-		{ before(grammarAccess.getStringOptionAccess().getValueSTRINGTerminalRuleCall_0()); }
-		RULE_STRING
-		{ after(grammarAccess.getStringOptionAccess().getValueSTRINGTerminalRuleCall_0()); }
+		{ before(grammarAccess.getStringOptionAccess().getValueMYSTRINGTerminalRuleCall_0()); }
+		RULE_MYSTRING
+		{ after(grammarAccess.getStringOptionAccess().getValueMYSTRINGTerminalRuleCall_0()); }
 	)
 ;
 finally {
@@ -9093,9 +9093,9 @@ rule__V3Token__ValueAssignment_1_1
 	}
 :
 	(
-		{ before(grammarAccess.getV3TokenAccess().getValueSTRINGTerminalRuleCall_1_1_0()); }
-		RULE_STRING
-		{ after(grammarAccess.getV3TokenAccess().getValueSTRINGTerminalRuleCall_1_1_0()); }
+		{ before(grammarAccess.getV3TokenAccess().getValueMYSTRINGTerminalRuleCall_1_1_0()); }
+		RULE_MYSTRING
+		{ after(grammarAccess.getV3TokenAccess().getValueMYSTRINGTerminalRuleCall_1_1_0()); }
 	)
 ;
 finally {
@@ -10115,9 +10115,9 @@ rule__Range__FromAssignment_0
 	}
 :
 	(
-		{ before(grammarAccess.getRangeAccess().getFromSTRINGTerminalRuleCall_0_0()); }
-		RULE_STRING
-		{ after(grammarAccess.getRangeAccess().getFromSTRINGTerminalRuleCall_0_0()); }
+		{ before(grammarAccess.getRangeAccess().getFromMYSTRINGTerminalRuleCall_0_0()); }
+		RULE_MYSTRING
+		{ after(grammarAccess.getRangeAccess().getFromMYSTRINGTerminalRuleCall_0_0()); }
 	)
 ;
 finally {
@@ -10130,9 +10130,9 @@ rule__Range__ToAssignment_2
 	}
 :
 	(
-		{ before(grammarAccess.getRangeAccess().getToSTRINGTerminalRuleCall_2_0()); }
-		RULE_STRING
-		{ after(grammarAccess.getRangeAccess().getToSTRINGTerminalRuleCall_2_0()); }
+		{ before(grammarAccess.getRangeAccess().getToMYSTRINGTerminalRuleCall_2_0()); }
+		RULE_MYSTRING
+		{ after(grammarAccess.getRangeAccess().getToMYSTRINGTerminalRuleCall_2_0()); }
 	)
 ;
 finally {
@@ -10179,9 +10179,9 @@ rule__Terminal__LiteralAssignment_1_0
 	}
 :
 	(
-		{ before(grammarAccess.getTerminalAccess().getLiteralSTRINGTerminalRuleCall_1_0_0()); }
-		RULE_STRING
-		{ after(grammarAccess.getTerminalAccess().getLiteralSTRINGTerminalRuleCall_1_0_0()); }
+		{ before(grammarAccess.getTerminalAccess().getLiteralMYSTRINGTerminalRuleCall_1_0_0()); }
+		RULE_MYSTRING
+		{ after(grammarAccess.getTerminalAccess().getLiteralMYSTRINGTerminalRuleCall_1_0_0()); }
 	)
 ;
 finally {
@@ -10303,9 +10303,9 @@ rule__SetElement__StringLiteralAssignment_1
 	}
 :
 	(
-		{ before(grammarAccess.getSetElementAccess().getStringLiteralSTRINGTerminalRuleCall_1_0()); }
-		RULE_STRING
-		{ after(grammarAccess.getSetElementAccess().getStringLiteralSTRINGTerminalRuleCall_1_0()); }
+		{ before(grammarAccess.getSetElementAccess().getStringLiteralMYSTRINGTerminalRuleCall_1_0()); }
+		RULE_MYSTRING
+		{ after(grammarAccess.getSetElementAccess().getStringLiteralMYSTRINGTerminalRuleCall_1_0()); }
 	)
 ;
 finally {
@@ -11098,13 +11098,7 @@ fragment RULE_NAME_START_CHAR : ('A'..'Z'|'a'..'z'|'\u00C0'..'\u00D6'|'\u00D8'..
 
 RULE_INT : ('0'..'9')+;
 
-RULE_STRING : '\'' RULE_LITERAL_CHAR* '\'';
-
-fragment RULE_LITERAL_CHAR : (RULE_ESC|~(('\''|'\\')));
-
-fragment RULE_ESC : '\\' ('n'|'r'|'t'|'b'|'f'|'"'|'\''|'\\'|'>'|'u' RULE_XDIGIT RULE_XDIGIT RULE_XDIGIT RULE_XDIGIT|.);
-
-fragment RULE_XDIGIT : ('0'..'9'|'a'..'f'|'A'..'F');
+RULE_MYSTRING : ('\'\\\''|'\'' ('\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|'\''|'\\')|~(('\\'|'\'')))* '\'');
 
 RULE_ACTION : RULE_NESTED_ACTION;
 

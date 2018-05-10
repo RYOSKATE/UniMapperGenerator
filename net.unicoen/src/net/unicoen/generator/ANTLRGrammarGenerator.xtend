@@ -87,7 +87,7 @@ class ANTLRGrammarGenerator {
 	def generateParserCode(String name, String path) {
 		val platformG4filePathString = (_fsa as IFileSystemAccessExtension2).getURI(path).toPlatformString(true)
 		val platformAntlrfilePathString = platformG4filePathString.replace(path,"antlr-4.7.1-complete.jar")
-		val antlrJar = new File("C:/Users/RYOSUKE/runtime-EclipseXtext/UniMapperGenerator/src-gen/antlr-4.7.1-complete.jar")
+		val antlrJar = new File("C:/Users/RYOSUKE/runtime-EclipseApplication/UniMapperGenerator/src-gen/antlr-4.7.1-complete.jar")
 		if (!antlrJar.exists) {
 			val array = newByteArrayOfSize(1024 * 1024)
 			val input = this.class.getResource("/antlr-4.7.1-complete.jar").openStream
@@ -102,9 +102,9 @@ class ANTLRGrammarGenerator {
 		val pppp = new Path("C:/Users/RYOSUKE/runtime-EclipseXtext/UniMapperGenerator/src-gen/C.g4")
 		//val file = ResourcesPlugin.workspace.root.getFile(pppp)
 		val pb = new ProcessBuilder("java", "-cp", antlrJar.absolutePath, "org.antlr.v4.Tool", "-o",
-			"C:/Users/RYOSUKE/runtime-EclipseXtext/UniMapperGenerator/src-gen", "C:/Users/RYOSUKE/runtime-EclipseXtext/UniMapperGenerator/src-gen/C.g4")
+			"C:/Users/RYOSUKE/runtime-EclipseApplication/UniMapperGenerator/src-gen", "C:/Users/RYOSUKE/runtime-EclipseApplication/UniMapperGenerator/src-gen/C.g4")
 		pb.start.waitFor
-		val parserFile = new File("C:/Users/RYOSUKE/runtime-EclipseXtext/UniMapperGenerator/src-gen" + File.separator + name + "Parser.java")
+		val parserFile = new File("C:/Users/RYOSUKE/runtime-EclipseApplication/UniMapperGenerator/src-gen" + File.separator + name + "Parser.java")
 		val reader = Files.newReader(parserFile, StandardCharsets.UTF_8)
 		val builder = new StringBuilder
 		var line = ""
@@ -123,9 +123,6 @@ class ANTLRGrammarGenerator {
 			sb.append(it.compile + _newLine)
 		]
 		g.rules.forEach [
-			if (it.compile.toString.startsWith("	:	(	'")) {
-				System.out.println("test");
-			}
 			sb.append(it.compile + _newLine)
 		]
 		g.modes.forEach [
@@ -232,13 +229,15 @@ class ANTLRGrammarGenerator {
 	def dispatch compile(Range ra) '''«ra.from»..«ra.to» '''
 
 	def dispatch compile(Terminal te) '''«IF te.reference != null»«te.reference.refCompile»«IF te.options != null»«te.
-		options.compile»«ENDIF»«ELSEIF te.literal != null»'«te.literal»'«IF te.options != null» «te.options.compile»«ENDIF»«ENDIF»'''
+		options.compile»«ENDIF»«ELSEIF te.literal != null»
+		«te.literal»
+		«IF te.options != null» «te.options.compile»«ENDIF»«ENDIF»'''
 
 	def dispatch compile(NotSet ns) '''~«ns.body.compile»'''
 
 	def dispatch compile(BlockSet bs) '''(«FOR e : bs.elements»«IF !bs.elements.get(0).equals(e)»|«ENDIF»«e.compile»«ENDFOR»)'''
 
-	def dispatch compile(SetElement se) '''«IF se.tokenRef != null»«se.tokenRef»«ELSEIF se.stringLiteral != null»'«se.stringLiteral»'«ELSEIF se.
+	def dispatch compile(SetElement se) '''«IF se.tokenRef != null»«se.tokenRef»«ELSEIF se.stringLiteral != null»«se.stringLiteral»«ELSEIF se.
 		range != null»«se.range»«ELSE»«se.charSet»«ENDIF»'''
 
 	def dispatch compile(Wildcard wi) '''«wi.dot»«IF wi.options != null»«wi.options.compile»«ENDIF»'''

@@ -22,44 +22,41 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalUniMapperGeneratorParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_TOKEN_REF", "RULE_RULE_REF", "RULE_SEMICOLON", "RULE_COLON", "RULE_DOLLAR", "RULE_OPTIONS_SPEC", "RULE_TOKEN_VOCAB", "RULE_STRING", "RULE_ACTION", "RULE_INT", "RULE_TOKENS_SPEC", "RULE_ARG_OR_CHARSET", "RULE_RARROW", "RULE_WSNLCHARS", "RULE_NAME_CHAR", "RULE_NAME_START_CHAR", "RULE_LITERAL_CHAR", "RULE_ESC", "RULE_XDIGIT", "RULE_NESTED_ACTION", "RULE_ACTION_ESC", "RULE_ACTION_STRING_LITERAL", "RULE_ACTION_CHAR_LITERAL", "RULE_ARG_ACTION", "RULE_LEXER_CHAR_SET", "RULE_SL_COMMENT", "RULE_ML_COMMENT", "RULE_WS", "'parser'", "'lexer'", "'tree'", "'='", "'+='", "'<'", "'>'", "'mode'", "'default_hack_'", "'grammar'", "'root'", "'}'", "','", "'@'", "'catch'", "'finally'", "'returns'", "'throws'", "'locals'", "'|'", "'#'", "'('", "')'", "'..'", "'~'", "'=>'", "'.'", "'import'", "'::'", "'?'", "'*'", "'+'", "'EOF2'", "'fragment'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_TOKEN_REF", "RULE_RULE_REF", "RULE_SEMICOLON", "RULE_COLON", "RULE_DOLLAR", "RULE_OPTIONS_SPEC", "RULE_TOKEN_VOCAB", "RULE_MYSTRING", "RULE_ACTION", "RULE_INT", "RULE_TOKENS_SPEC", "RULE_ARG_OR_CHARSET", "RULE_RARROW", "RULE_WSNLCHARS", "RULE_NAME_CHAR", "RULE_NAME_START_CHAR", "RULE_NESTED_ACTION", "RULE_ACTION_ESC", "RULE_ACTION_STRING_LITERAL", "RULE_ACTION_CHAR_LITERAL", "RULE_ARG_ACTION", "RULE_LEXER_CHAR_SET", "RULE_SL_COMMENT", "RULE_ML_COMMENT", "RULE_WS", "'parser'", "'lexer'", "'tree'", "'='", "'+='", "'<'", "'>'", "'mode'", "'default_hack_'", "'grammar'", "'root'", "'}'", "','", "'@'", "'catch'", "'finally'", "'returns'", "'throws'", "'locals'", "'|'", "'#'", "'('", "')'", "'..'", "'~'", "'=>'", "'.'", "'import'", "'::'", "'?'", "'*'", "'+'", "'EOF2'", "'fragment'"
     };
     public static final int RULE_ACTION=12;
     public static final int T__50=50;
     public static final int RULE_ARG_OR_CHARSET=15;
     public static final int RULE_NAME_CHAR=18;
     public static final int T__59=59;
+    public static final int RULE_MYSTRING=11;
     public static final int T__55=55;
     public static final int T__56=56;
     public static final int T__57=57;
-    public static final int RULE_NESTED_ACTION=23;
+    public static final int RULE_NESTED_ACTION=20;
     public static final int T__58=58;
     public static final int T__51=51;
     public static final int T__52=52;
     public static final int T__53=53;
     public static final int T__54=54;
     public static final int RULE_TOKEN_VOCAB=10;
-    public static final int RULE_ACTION_ESC=24;
+    public static final int RULE_ACTION_ESC=21;
     public static final int T__60=60;
     public static final int T__61=61;
-    public static final int RULE_ESC=21;
     public static final int RULE_COLON=7;
-    public static final int RULE_LEXER_CHAR_SET=28;
-    public static final int RULE_ACTION_STRING_LITERAL=25;
+    public static final int RULE_LEXER_CHAR_SET=25;
+    public static final int RULE_ACTION_STRING_LITERAL=22;
     public static final int RULE_INT=13;
-    public static final int RULE_ML_COMMENT=30;
+    public static final int T__29=29;
+    public static final int RULE_ML_COMMENT=27;
     public static final int RULE_TOKENS_SPEC=14;
     public static final int RULE_SEMICOLON=6;
     public static final int T__62=62;
-    public static final int T__63=63;
-    public static final int T__64=64;
-    public static final int T__65=65;
     public static final int RULE_TOKEN_REF=4;
     public static final int RULE_DOLLAR=8;
     public static final int RULE_RARROW=16;
-    public static final int RULE_STRING=11;
-    public static final int RULE_ARG_ACTION=27;
-    public static final int RULE_SL_COMMENT=29;
+    public static final int RULE_ARG_ACTION=24;
+    public static final int RULE_SL_COMMENT=26;
     public static final int RULE_OPTIONS_SPEC=9;
     public static final int T__37=37;
     public static final int T__38=38;
@@ -70,15 +67,15 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
     public static final int T__35=35;
     public static final int T__36=36;
     public static final int EOF=-1;
+    public static final int T__30=30;
+    public static final int T__31=31;
     public static final int T__32=32;
-    public static final int RULE_WS=31;
-    public static final int RULE_LITERAL_CHAR=20;
+    public static final int RULE_WS=28;
     public static final int RULE_NAME_START_CHAR=19;
-    public static final int RULE_ACTION_CHAR_LITERAL=26;
+    public static final int RULE_ACTION_CHAR_LITERAL=23;
     public static final int T__48=48;
     public static final int T__49=49;
     public static final int T__44=44;
-    public static final int RULE_XDIGIT=22;
     public static final int T__45=45;
     public static final int RULE_WSNLCHARS=17;
     public static final int T__46=46;
@@ -5575,7 +5572,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 alt1=1;
                 }
                 break;
-            case 59:
+            case 56:
                 {
                 alt1=2;
                 }
@@ -5585,7 +5582,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 alt1=3;
                 }
                 break;
-            case 45:
+            case 42:
                 {
                 alt1=4;
                 }
@@ -5792,7 +5789,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 alt3=1;
                 }
                 break;
-            case RULE_STRING:
+            case RULE_MYSTRING:
                 {
                 alt3=2;
                 }
@@ -5922,10 +5919,10 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             if ( (LA4_0==RULE_TOKEN_REF) ) {
                 int LA4_1 = input.LA(2);
 
-                if ( (LA4_1==35) ) {
+                if ( (LA4_1==32) ) {
                     alt4=1;
                 }
-                else if ( (LA4_1==EOF||LA4_1==RULE_SEMICOLON||LA4_1==44) ) {
+                else if ( (LA4_1==EOF||LA4_1==RULE_SEMICOLON||LA4_1==41) ) {
                     alt4=2;
                 }
                 else {
@@ -5938,10 +5935,10 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             else if ( (LA4_0==RULE_RULE_REF) ) {
                 int LA4_2 = input.LA(2);
 
-                if ( (LA4_2==EOF||LA4_2==RULE_SEMICOLON||LA4_2==44) ) {
+                if ( (LA4_2==EOF||LA4_2==RULE_SEMICOLON||LA4_2==41) ) {
                     alt4=2;
                 }
-                else if ( (LA4_2==35) ) {
+                else if ( (LA4_2==32) ) {
                     alt4=1;
                 }
                 else {
@@ -6038,7 +6035,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
 
             if ( (LA5_0==RULE_TOKENS_SPEC) ) {
                 switch ( input.LA(2) ) {
-                case 43:
+                case 40:
                     {
                     alt5=2;
                     }
@@ -6047,10 +6044,10 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                     {
                     int LA5_3 = input.LA(3);
 
-                    if ( ((LA5_3>=43 && LA5_3<=44)) ) {
+                    if ( ((LA5_3>=40 && LA5_3<=41)) ) {
                         alt5=1;
                     }
-                    else if ( (LA5_3==RULE_SEMICOLON||LA5_3==35) ) {
+                    else if ( (LA5_3==RULE_SEMICOLON||LA5_3==32) ) {
                         alt5=3;
                     }
                     else {
@@ -6065,10 +6062,10 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                     {
                     int LA5_4 = input.LA(3);
 
-                    if ( (LA5_4==RULE_SEMICOLON||LA5_4==35) ) {
+                    if ( (LA5_4==RULE_SEMICOLON||LA5_4==32) ) {
                         alt5=3;
                     }
-                    else if ( ((LA5_4>=43 && LA5_4<=44)) ) {
+                    else if ( ((LA5_4>=40 && LA5_4<=41)) ) {
                         alt5=1;
                     }
                     else {
@@ -6178,17 +6175,17 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:1957:1: ( ( 'parser' ) | ( 'lexer' ) | ( 'tree' ) | ( ruleId ) )
             int alt6=4;
             switch ( input.LA(1) ) {
-            case 32:
+            case 29:
                 {
                 alt6=1;
                 }
                 break;
-            case 33:
+            case 30:
                 {
                 alt6=2;
                 }
                 break;
-            case 34:
+            case 31:
                 {
                 alt6=3;
                 }
@@ -6214,7 +6211,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                     // InternalUniMapperGenerator.g:1959:3: 'parser'
                     {
                      before(grammarAccess.getActionScopeAccess().getParserKeyword_0()); 
-                    match(input,32,FOLLOW_2); 
+                    match(input,29,FOLLOW_2); 
                      after(grammarAccess.getActionScopeAccess().getParserKeyword_0()); 
 
                     }
@@ -6229,7 +6226,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                     // InternalUniMapperGenerator.g:1965:3: 'lexer'
                     {
                      before(grammarAccess.getActionScopeAccess().getLexerKeyword_1()); 
-                    match(input,33,FOLLOW_2); 
+                    match(input,30,FOLLOW_2); 
                      after(grammarAccess.getActionScopeAccess().getLexerKeyword_1()); 
 
                     }
@@ -6244,7 +6241,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                     // InternalUniMapperGenerator.g:1971:3: 'tree'
                     {
                      before(grammarAccess.getActionScopeAccess().getTreeKeyword_2()); 
-                    match(input,34,FOLLOW_2); 
+                    match(input,31,FOLLOW_2); 
                      after(grammarAccess.getActionScopeAccess().getTreeKeyword_2()); 
 
                     }
@@ -6302,7 +6299,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             if ( (LA7_0==RULE_RULE_REF) ) {
                 alt7=1;
             }
-            else if ( (LA7_0==RULE_TOKEN_REF||LA7_0==65) ) {
+            else if ( (LA7_0==RULE_TOKEN_REF||LA7_0==62) ) {
                 alt7=2;
             }
             else {
@@ -6381,7 +6378,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             if ( (LA8_0==RULE_OPTIONS_SPEC) ) {
                 alt8=1;
             }
-            else if ( (LA8_0==45) ) {
+            else if ( (LA8_0==42) ) {
                 alt8=2;
             }
             else {
@@ -6460,10 +6457,10 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 {
                 int LA9_1 = input.LA(2);
 
-                if ( (LA9_1==EOF||(LA9_1>=RULE_TOKEN_REF && LA9_1<=RULE_SEMICOLON)||LA9_1==RULE_DOLLAR||(LA9_1>=RULE_STRING && LA9_1<=RULE_ACTION)||LA9_1==37||(LA9_1>=46 && LA9_1<=47)||(LA9_1>=51 && LA9_1<=54)||LA9_1==56||LA9_1==58||(LA9_1>=61 && LA9_1<=64)) ) {
+                if ( (LA9_1==EOF||(LA9_1>=RULE_TOKEN_REF && LA9_1<=RULE_SEMICOLON)||LA9_1==RULE_DOLLAR||(LA9_1>=RULE_MYSTRING && LA9_1<=RULE_ACTION)||LA9_1==34||(LA9_1>=43 && LA9_1<=44)||(LA9_1>=48 && LA9_1<=51)||LA9_1==53||LA9_1==55||(LA9_1>=58 && LA9_1<=61)) ) {
                     alt9=2;
                 }
-                else if ( ((LA9_1>=35 && LA9_1<=36)) ) {
+                else if ( ((LA9_1>=32 && LA9_1<=33)) ) {
                     alt9=1;
                 }
                 else {
@@ -6478,10 +6475,10 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 {
                 int LA9_2 = input.LA(2);
 
-                if ( ((LA9_2>=35 && LA9_2<=36)) ) {
+                if ( ((LA9_2>=32 && LA9_2<=33)) ) {
                     alt9=1;
                 }
-                else if ( (LA9_2==EOF||(LA9_2>=RULE_TOKEN_REF && LA9_2<=RULE_SEMICOLON)||LA9_2==RULE_DOLLAR||(LA9_2>=RULE_STRING && LA9_2<=RULE_ACTION)||LA9_2==37||(LA9_2>=46 && LA9_2<=47)||(LA9_2>=51 && LA9_2<=54)||LA9_2==56||LA9_2==58||(LA9_2>=61 && LA9_2<=64)) ) {
+                else if ( (LA9_2==EOF||(LA9_2>=RULE_TOKEN_REF && LA9_2<=RULE_SEMICOLON)||LA9_2==RULE_DOLLAR||(LA9_2>=RULE_MYSTRING && LA9_2<=RULE_ACTION)||LA9_2==34||(LA9_2>=43 && LA9_2<=44)||(LA9_2>=48 && LA9_2<=51)||LA9_2==53||LA9_2==55||(LA9_2>=58 && LA9_2<=61)) ) {
                     alt9=2;
                 }
                 else {
@@ -6492,15 +6489,15 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 }
                 }
                 break;
-            case RULE_STRING:
-            case 56:
-            case 58:
-            case 64:
+            case RULE_MYSTRING:
+            case 53:
+            case 55:
+            case 61:
                 {
                 alt9=2;
                 }
                 break;
-            case 53:
+            case 50:
                 {
                 alt9=3;
                 }
@@ -6646,10 +6643,10 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt10=2;
             int LA10_0 = input.LA(1);
 
-            if ( (LA10_0==35) ) {
+            if ( (LA10_0==32) ) {
                 alt10=1;
             }
-            else if ( (LA10_0==36) ) {
+            else if ( (LA10_0==33) ) {
                 alt10=2;
             }
             else {
@@ -6666,7 +6663,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                     // InternalUniMapperGenerator.g:2067:3: '='
                     {
                      before(grammarAccess.getLabeledElementAccess().getOpEqualsSignKeyword_1_0_0()); 
-                    match(input,35,FOLLOW_2); 
+                    match(input,32,FOLLOW_2); 
                      after(grammarAccess.getLabeledElementAccess().getOpEqualsSignKeyword_1_0_0()); 
 
                     }
@@ -6681,7 +6678,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                     // InternalUniMapperGenerator.g:2073:3: '+='
                     {
                      before(grammarAccess.getLabeledElementAccess().getOpPlusSignEqualsSignKeyword_1_0_1()); 
-                    match(input,36,FOLLOW_2); 
+                    match(input,33,FOLLOW_2); 
                      after(grammarAccess.getLabeledElementAccess().getOpPlusSignEqualsSignKeyword_1_0_1()); 
 
                     }
@@ -6717,10 +6714,10 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt11=2;
             int LA11_0 = input.LA(1);
 
-            if ( ((LA11_0>=RULE_TOKEN_REF && LA11_0<=RULE_RULE_REF)||LA11_0==RULE_STRING||LA11_0==56||LA11_0==58||LA11_0==64) ) {
+            if ( ((LA11_0>=RULE_TOKEN_REF && LA11_0<=RULE_RULE_REF)||LA11_0==RULE_MYSTRING||LA11_0==53||LA11_0==55||LA11_0==61) ) {
                 alt11=1;
             }
-            else if ( (LA11_0==53) ) {
+            else if ( (LA11_0==50) ) {
                 alt11=2;
             }
             else {
@@ -6807,17 +6804,17 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:2107:1: ( ( ( rule__EbnfSuffix__Group_0__0 ) ) | ( ( rule__EbnfSuffix__Group_1__0 ) ) | ( ( rule__EbnfSuffix__Group_2__0 ) ) )
             int alt12=3;
             switch ( input.LA(1) ) {
-            case 61:
+            case 58:
                 {
                 alt12=1;
                 }
                 break;
-            case 62:
+            case 59:
                 {
                 alt12=2;
                 }
                 break;
-            case 63:
+            case 60:
                 {
                 alt12=3;
                 }
@@ -6932,14 +6929,14 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:2134:1: ( ( ruleRange ) | ( ruleTerminal ) | ( ruleRuleRef ) | ( ruleNotSet ) | ( ruleWildcard ) )
             int alt13=5;
             switch ( input.LA(1) ) {
-            case RULE_STRING:
+            case RULE_MYSTRING:
                 {
                 int LA13_1 = input.LA(2);
 
-                if ( (LA13_1==EOF||(LA13_1>=RULE_TOKEN_REF && LA13_1<=RULE_SEMICOLON)||LA13_1==RULE_DOLLAR||(LA13_1>=RULE_STRING && LA13_1<=RULE_ACTION)||LA13_1==37||(LA13_1>=46 && LA13_1<=47)||(LA13_1>=51 && LA13_1<=54)||LA13_1==56||LA13_1==58||(LA13_1>=61 && LA13_1<=64)) ) {
+                if ( (LA13_1==EOF||(LA13_1>=RULE_TOKEN_REF && LA13_1<=RULE_SEMICOLON)||LA13_1==RULE_DOLLAR||(LA13_1>=RULE_MYSTRING && LA13_1<=RULE_ACTION)||LA13_1==34||(LA13_1>=43 && LA13_1<=44)||(LA13_1>=48 && LA13_1<=51)||LA13_1==53||LA13_1==55||(LA13_1>=58 && LA13_1<=61)) ) {
                     alt13=2;
                 }
-                else if ( (LA13_1==55) ) {
+                else if ( (LA13_1==52) ) {
                     alt13=1;
                 }
                 else {
@@ -6951,7 +6948,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 }
                 break;
             case RULE_TOKEN_REF:
-            case 64:
+            case 61:
                 {
                 alt13=2;
                 }
@@ -6961,12 +6958,12 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 alt13=3;
                 }
                 break;
-            case 56:
+            case 53:
                 {
                 alt13=4;
                 }
                 break;
-            case 58:
+            case 55:
                 {
                 alt13=5;
                 }
@@ -7106,12 +7103,12 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 alt14=1;
                 }
                 break;
-            case RULE_STRING:
+            case RULE_MYSTRING:
                 {
                 alt14=2;
                 }
                 break;
-            case 64:
+            case 61:
                 {
                 alt14=3;
                 }
@@ -7227,13 +7224,13 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt15=2;
             int LA15_0 = input.LA(1);
 
-            if ( (LA15_0==56) ) {
+            if ( (LA15_0==53) ) {
                 int LA15_1 = input.LA(2);
 
-                if ( (LA15_1==53) ) {
+                if ( (LA15_1==50) ) {
                     alt15=2;
                 }
-                else if ( (LA15_1==RULE_TOKEN_REF||LA15_1==RULE_STRING||LA15_1==RULE_ARG_OR_CHARSET) ) {
+                else if ( (LA15_1==RULE_TOKEN_REF||LA15_1==RULE_MYSTRING||LA15_1==RULE_ARG_OR_CHARSET) ) {
                     alt15=1;
                 }
                 else {
@@ -7332,14 +7329,14 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 alt16=1;
                 }
                 break;
-            case RULE_STRING:
+            case RULE_MYSTRING:
                 {
                 int LA16_2 = input.LA(2);
 
-                if ( (LA16_2==EOF||(LA16_2>=RULE_TOKEN_REF && LA16_2<=RULE_SEMICOLON)||LA16_2==RULE_DOLLAR||(LA16_2>=RULE_STRING && LA16_2<=RULE_ACTION)||(LA16_2>=RULE_ARG_OR_CHARSET && LA16_2<=RULE_RARROW)||(LA16_2>=46 && LA16_2<=47)||(LA16_2>=51 && LA16_2<=54)||LA16_2==56||LA16_2==58||(LA16_2>=61 && LA16_2<=64)) ) {
+                if ( (LA16_2==EOF||(LA16_2>=RULE_TOKEN_REF && LA16_2<=RULE_SEMICOLON)||LA16_2==RULE_DOLLAR||(LA16_2>=RULE_MYSTRING && LA16_2<=RULE_ACTION)||(LA16_2>=RULE_ARG_OR_CHARSET && LA16_2<=RULE_RARROW)||(LA16_2>=43 && LA16_2<=44)||(LA16_2>=48 && LA16_2<=51)||LA16_2==53||LA16_2==55||(LA16_2>=58 && LA16_2<=61)) ) {
                     alt16=2;
                 }
-                else if ( (LA16_2==55) ) {
+                else if ( (LA16_2==52) ) {
                     alt16=3;
                 }
                 else {
@@ -7494,10 +7491,10 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             if ( (LA17_0==RULE_TOKEN_REF) ) {
                 int LA17_1 = input.LA(2);
 
-                if ( (LA17_1==EOF||LA17_1==38||LA17_1==44||LA17_1==58) ) {
+                if ( (LA17_1==EOF||LA17_1==35||LA17_1==41||LA17_1==55) ) {
                     alt17=1;
                 }
-                else if ( (LA17_1==35) ) {
+                else if ( (LA17_1==32) ) {
                     alt17=2;
                 }
                 else {
@@ -7510,10 +7507,10 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             else if ( (LA17_0==RULE_RULE_REF) ) {
                 int LA17_2 = input.LA(2);
 
-                if ( (LA17_2==35) ) {
+                if ( (LA17_2==32) ) {
                     alt17=2;
                 }
-                else if ( (LA17_2==EOF||LA17_2==38||LA17_2==44||LA17_2==58) ) {
+                else if ( (LA17_2==EOF||LA17_2==35||LA17_2==41||LA17_2==55) ) {
                     alt17=1;
                 }
                 else {
@@ -7611,7 +7608,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             if ( ((LA18_0>=RULE_TOKEN_REF && LA18_0<=RULE_RULE_REF)) ) {
                 alt18=1;
             }
-            else if ( (LA18_0==53) ) {
+            else if ( (LA18_0==50) ) {
                 alt18=2;
             }
             else {
@@ -7699,10 +7696,10 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt19=2;
             int LA19_0 = input.LA(1);
 
-            if ( (LA19_0==37) ) {
+            if ( (LA19_0==34) ) {
                 alt19=1;
             }
-            else if ( (LA19_0==38) ) {
+            else if ( (LA19_0==35) ) {
                 alt19=2;
             }
             else {
@@ -7719,7 +7716,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                     // InternalUniMapperGenerator.g:2298:3: '<'
                     {
                      before(grammarAccess.getUnicoenTypeIdentifiersAccess().getDirLessThanSignKeyword_1_1_0_0()); 
-                    match(input,37,FOLLOW_2); 
+                    match(input,34,FOLLOW_2); 
                      after(grammarAccess.getUnicoenTypeIdentifiersAccess().getDirLessThanSignKeyword_1_1_0_0()); 
 
                     }
@@ -7734,7 +7731,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                     // InternalUniMapperGenerator.g:2304:3: '>'
                     {
                      before(grammarAccess.getUnicoenTypeIdentifiersAccess().getDirGreaterThanSignKeyword_1_1_0_1()); 
-                    match(input,38,FOLLOW_2); 
+                    match(input,35,FOLLOW_2); 
                      after(grammarAccess.getUnicoenTypeIdentifiersAccess().getDirGreaterThanSignKeyword_1_1_0_1()); 
 
                     }
@@ -7773,10 +7770,10 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 {
                 int LA20_1 = input.LA(2);
 
-                if ( ((LA20_1>=35 && LA20_1<=36)) ) {
+                if ( ((LA20_1>=32 && LA20_1<=33)) ) {
                     alt20=1;
                 }
-                else if ( (LA20_1==EOF||(LA20_1>=RULE_TOKEN_REF && LA20_1<=RULE_SEMICOLON)||LA20_1==RULE_DOLLAR||(LA20_1>=RULE_STRING && LA20_1<=RULE_ACTION)||(LA20_1>=RULE_ARG_OR_CHARSET && LA20_1<=RULE_RARROW)||LA20_1==37||LA20_1==51||(LA20_1>=53 && LA20_1<=54)||LA20_1==56||LA20_1==58||(LA20_1>=61 && LA20_1<=64)) ) {
+                else if ( (LA20_1==EOF||(LA20_1>=RULE_TOKEN_REF && LA20_1<=RULE_SEMICOLON)||LA20_1==RULE_DOLLAR||(LA20_1>=RULE_MYSTRING && LA20_1<=RULE_ACTION)||(LA20_1>=RULE_ARG_OR_CHARSET && LA20_1<=RULE_RARROW)||LA20_1==34||LA20_1==48||(LA20_1>=50 && LA20_1<=51)||LA20_1==53||LA20_1==55||(LA20_1>=58 && LA20_1<=61)) ) {
                     alt20=2;
                 }
                 else {
@@ -7791,10 +7788,10 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 {
                 int LA20_2 = input.LA(2);
 
-                if ( (LA20_2==EOF||(LA20_2>=RULE_TOKEN_REF && LA20_2<=RULE_SEMICOLON)||LA20_2==RULE_DOLLAR||(LA20_2>=RULE_STRING && LA20_2<=RULE_ACTION)||(LA20_2>=RULE_ARG_OR_CHARSET && LA20_2<=RULE_RARROW)||LA20_2==37||LA20_2==51||(LA20_2>=53 && LA20_2<=54)||LA20_2==56||LA20_2==58||(LA20_2>=61 && LA20_2<=64)) ) {
+                if ( (LA20_2==EOF||(LA20_2>=RULE_TOKEN_REF && LA20_2<=RULE_SEMICOLON)||LA20_2==RULE_DOLLAR||(LA20_2>=RULE_MYSTRING && LA20_2<=RULE_ACTION)||(LA20_2>=RULE_ARG_OR_CHARSET && LA20_2<=RULE_RARROW)||LA20_2==34||LA20_2==48||(LA20_2>=50 && LA20_2<=51)||LA20_2==53||LA20_2==55||(LA20_2>=58 && LA20_2<=61)) ) {
                     alt20=2;
                 }
-                else if ( ((LA20_2>=35 && LA20_2<=36)) ) {
+                else if ( ((LA20_2>=32 && LA20_2<=33)) ) {
                     alt20=1;
                 }
                 else {
@@ -7805,16 +7802,16 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 }
                 }
                 break;
-            case RULE_STRING:
+            case RULE_MYSTRING:
             case RULE_ARG_OR_CHARSET:
-            case 56:
-            case 58:
-            case 64:
+            case 53:
+            case 55:
+            case 61:
                 {
                 alt20=2;
                 }
                 break;
-            case 53:
+            case 50:
                 {
                 alt20=3;
                 }
@@ -7960,10 +7957,10 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt21=2;
             int LA21_0 = input.LA(1);
 
-            if ( (LA21_0==35) ) {
+            if ( (LA21_0==32) ) {
                 alt21=1;
             }
-            else if ( (LA21_0==36) ) {
+            else if ( (LA21_0==33) ) {
                 alt21=2;
             }
             else {
@@ -7980,7 +7977,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                     // InternalUniMapperGenerator.g:2352:3: '='
                     {
                      before(grammarAccess.getLabeledLexerElementAccess().getOpEqualsSignKeyword_1_0_0()); 
-                    match(input,35,FOLLOW_2); 
+                    match(input,32,FOLLOW_2); 
                      after(grammarAccess.getLabeledLexerElementAccess().getOpEqualsSignKeyword_1_0_0()); 
 
                     }
@@ -7995,7 +7992,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                     // InternalUniMapperGenerator.g:2358:3: '+='
                     {
                      before(grammarAccess.getLabeledLexerElementAccess().getOpPlusSignEqualsSignKeyword_1_0_1()); 
-                    match(input,36,FOLLOW_2); 
+                    match(input,33,FOLLOW_2); 
                      after(grammarAccess.getLabeledLexerElementAccess().getOpPlusSignEqualsSignKeyword_1_0_1()); 
 
                     }
@@ -8031,10 +8028,10 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt22=2;
             int LA22_0 = input.LA(1);
 
-            if ( ((LA22_0>=RULE_TOKEN_REF && LA22_0<=RULE_RULE_REF)||LA22_0==RULE_STRING||LA22_0==RULE_ARG_OR_CHARSET||LA22_0==56||LA22_0==58||LA22_0==64) ) {
+            if ( ((LA22_0>=RULE_TOKEN_REF && LA22_0<=RULE_RULE_REF)||LA22_0==RULE_MYSTRING||LA22_0==RULE_ARG_OR_CHARSET||LA22_0==53||LA22_0==55||LA22_0==61) ) {
                 alt22=1;
             }
-            else if ( (LA22_0==53) ) {
+            else if ( (LA22_0==50) ) {
                 alt22=2;
             }
             else {
@@ -8121,14 +8118,14 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:2392:1: ( ( ruleRange ) | ( ruleTerminal ) | ( ruleRuleRef ) | ( ruleNotSet ) | ( ruleWildcard ) | ( ruleLexerCharSet ) )
             int alt23=6;
             switch ( input.LA(1) ) {
-            case RULE_STRING:
+            case RULE_MYSTRING:
                 {
                 int LA23_1 = input.LA(2);
 
-                if ( (LA23_1==55) ) {
+                if ( (LA23_1==52) ) {
                     alt23=1;
                 }
-                else if ( (LA23_1==EOF||(LA23_1>=RULE_TOKEN_REF && LA23_1<=RULE_SEMICOLON)||LA23_1==RULE_DOLLAR||(LA23_1>=RULE_STRING && LA23_1<=RULE_ACTION)||(LA23_1>=RULE_ARG_OR_CHARSET && LA23_1<=RULE_RARROW)||LA23_1==37||LA23_1==51||(LA23_1>=53 && LA23_1<=54)||LA23_1==56||LA23_1==58||(LA23_1>=61 && LA23_1<=64)) ) {
+                else if ( (LA23_1==EOF||(LA23_1>=RULE_TOKEN_REF && LA23_1<=RULE_SEMICOLON)||LA23_1==RULE_DOLLAR||(LA23_1>=RULE_MYSTRING && LA23_1<=RULE_ACTION)||(LA23_1>=RULE_ARG_OR_CHARSET && LA23_1<=RULE_RARROW)||LA23_1==34||LA23_1==48||(LA23_1>=50 && LA23_1<=51)||LA23_1==53||LA23_1==55||(LA23_1>=58 && LA23_1<=61)) ) {
                     alt23=2;
                 }
                 else {
@@ -8140,7 +8137,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 }
                 break;
             case RULE_TOKEN_REF:
-            case 64:
+            case 61:
                 {
                 alt23=2;
                 }
@@ -8150,12 +8147,12 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 alt23=3;
                 }
                 break;
-            case 56:
+            case 53:
                 {
                 alt23=4;
                 }
                 break;
-            case 58:
+            case 55:
                 {
                 alt23=5;
                 }
@@ -8314,14 +8311,14 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:2437:1: ( ( ( rule__LexerCommand__Group_0__0 ) ) | ( ( rule__LexerCommand__NameAssignment_1 ) ) )
             int alt24=2;
             switch ( input.LA(1) ) {
-            case 39:
+            case 36:
                 {
                 int LA24_1 = input.LA(2);
 
-                if ( (LA24_1==53) ) {
+                if ( (LA24_1==50) ) {
                     alt24=1;
                 }
-                else if ( (LA24_1==EOF||LA24_1==RULE_SEMICOLON||LA24_1==44||LA24_1==51||LA24_1==54) ) {
+                else if ( (LA24_1==EOF||LA24_1==RULE_SEMICOLON||LA24_1==41||LA24_1==48||LA24_1==51) ) {
                     alt24=2;
                 }
                 else {
@@ -8336,10 +8333,10 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 {
                 int LA24_2 = input.LA(2);
 
-                if ( (LA24_2==53) ) {
+                if ( (LA24_2==50) ) {
                     alt24=1;
                 }
-                else if ( (LA24_2==EOF||LA24_2==RULE_SEMICOLON||LA24_2==44||LA24_2==51||LA24_2==54) ) {
+                else if ( (LA24_2==EOF||LA24_2==RULE_SEMICOLON||LA24_2==41||LA24_2==48||LA24_2==51) ) {
                     alt24=2;
                 }
                 else {
@@ -8354,10 +8351,10 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 {
                 int LA24_3 = input.LA(2);
 
-                if ( (LA24_3==53) ) {
+                if ( (LA24_3==50) ) {
                     alt24=1;
                 }
-                else if ( (LA24_3==EOF||LA24_3==RULE_SEMICOLON||LA24_3==44||LA24_3==51||LA24_3==54) ) {
+                else if ( (LA24_3==EOF||LA24_3==RULE_SEMICOLON||LA24_3==41||LA24_3==48||LA24_3==51) ) {
                     alt24=2;
                 }
                 else {
@@ -8454,7 +8451,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt25=2;
             int LA25_0 = input.LA(1);
 
-            if ( (LA25_0==39) ) {
+            if ( (LA25_0==36) ) {
                 alt25=1;
             }
             else if ( ((LA25_0>=RULE_TOKEN_REF && LA25_0<=RULE_RULE_REF)) ) {
@@ -8474,7 +8471,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                     // InternalUniMapperGenerator.g:2460:3: 'mode'
                     {
                      before(grammarAccess.getLexerCommandNameAccess().getModeKeyword_0()); 
-                    match(input,39,FOLLOW_2); 
+                    match(input,36,FOLLOW_2); 
                      after(grammarAccess.getLexerCommandNameAccess().getModeKeyword_0()); 
 
                     }
@@ -8690,22 +8687,22 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:2521:1: ( ( ( 'default_hack_' ) ) | ( ( 'lexer' ) ) | ( ( 'parser' ) ) | ( ( 'tree' ) ) )
             int alt28=4;
             switch ( input.LA(1) ) {
-            case 40:
+            case 37:
                 {
                 alt28=1;
                 }
                 break;
-            case 33:
+            case 30:
                 {
                 alt28=2;
                 }
                 break;
-            case 32:
+            case 29:
                 {
                 alt28=3;
                 }
                 break;
-            case 34:
+            case 31:
                 {
                 alt28=4;
                 }
@@ -8728,7 +8725,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                     // InternalUniMapperGenerator.g:2524:3: ( 'default_hack_' )
                     // InternalUniMapperGenerator.g:2524:4: 'default_hack_'
                     {
-                    match(input,40,FOLLOW_2); 
+                    match(input,37,FOLLOW_2); 
 
                     }
 
@@ -8749,7 +8746,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                     // InternalUniMapperGenerator.g:2530:3: ( 'lexer' )
                     // InternalUniMapperGenerator.g:2530:4: 'lexer'
                     {
-                    match(input,33,FOLLOW_2); 
+                    match(input,30,FOLLOW_2); 
 
                     }
 
@@ -8770,7 +8767,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                     // InternalUniMapperGenerator.g:2536:3: ( 'parser' )
                     // InternalUniMapperGenerator.g:2536:4: 'parser'
                     {
-                    match(input,32,FOLLOW_2); 
+                    match(input,29,FOLLOW_2); 
 
                     }
 
@@ -8791,7 +8788,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                     // InternalUniMapperGenerator.g:2542:3: ( 'tree' )
                     // InternalUniMapperGenerator.g:2542:4: 'tree'
                     {
-                    match(input,34,FOLLOW_2); 
+                    match(input,31,FOLLOW_2); 
 
                     }
 
@@ -8875,7 +8872,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt29=2;
             int LA29_0 = input.LA(1);
 
-            if ( ((LA29_0>=32 && LA29_0<=34)||LA29_0==40) ) {
+            if ( ((LA29_0>=29 && LA29_0<=31)||LA29_0==37) ) {
                 alt29=1;
             }
             switch (alt29) {
@@ -8967,7 +8964,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:2595:2: 'grammar'
             {
              before(grammarAccess.getGrammarAccess().getGrammarKeyword_1()); 
-            match(input,41,FOLLOW_2); 
+            match(input,38,FOLLOW_2); 
              after(grammarAccess.getGrammarAccess().getGrammarKeyword_1()); 
 
             }
@@ -9293,7 +9290,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 int alt30=2;
                 int LA30_0 = input.LA(1);
 
-                if ( (LA30_0==RULE_OPTIONS_SPEC||LA30_0==RULE_TOKENS_SPEC||LA30_0==45||LA30_0==59) ) {
+                if ( (LA30_0==RULE_OPTIONS_SPEC||LA30_0==RULE_TOKENS_SPEC||LA30_0==42||LA30_0==56) ) {
                     alt30=1;
                 }
 
@@ -9396,7 +9393,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 int alt31=2;
                 int LA31_0 = input.LA(1);
 
-                if ( ((LA31_0>=RULE_TOKEN_REF && LA31_0<=RULE_RULE_REF)||LA31_0==65) ) {
+                if ( ((LA31_0>=RULE_TOKEN_REF && LA31_0<=RULE_RULE_REF)||LA31_0==62) ) {
                     alt31=1;
                 }
 
@@ -9494,7 +9491,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 int alt32=2;
                 int LA32_0 = input.LA(1);
 
-                if ( (LA32_0==39) ) {
+                if ( (LA32_0==36) ) {
                     alt32=1;
                 }
 
@@ -9591,7 +9588,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:2784:2: 'root'
             {
              before(grammarAccess.getRootSelectionAccess().getRootKeyword_0()); 
-            match(input,42,FOLLOW_2); 
+            match(input,39,FOLLOW_2); 
              after(grammarAccess.getRootSelectionAccess().getRootKeyword_0()); 
 
             }
@@ -10079,7 +10076,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:2945:2: '}'
             {
              before(grammarAccess.getOptionsAccess().getRightCurlyBracketKeyword_3()); 
-            match(input,43,FOLLOW_2); 
+            match(input,40,FOLLOW_2); 
              after(grammarAccess.getOptionsAccess().getRightCurlyBracketKeyword_3()); 
 
             }
@@ -10394,7 +10391,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:3054:2: '='
             {
              before(grammarAccess.getOptionAccess().getEqualsSignKeyword_1_1()); 
-            match(input,35,FOLLOW_2); 
+            match(input,32,FOLLOW_2); 
              after(grammarAccess.getOptionAccess().getEqualsSignKeyword_1_1()); 
 
             }
@@ -10634,7 +10631,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:3135:2: '='
             {
              before(grammarAccess.getTokenVocabAccess().getEqualsSignKeyword_1()); 
-            match(input,35,FOLLOW_2); 
+            match(input,32,FOLLOW_2); 
              after(grammarAccess.getTokenVocabAccess().getEqualsSignKeyword_1()); 
 
             }
@@ -10965,7 +10962,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 int alt34=2;
                 int LA34_0 = input.LA(1);
 
-                if ( (LA34_0==44) ) {
+                if ( (LA34_0==41) ) {
                     alt34=1;
                 }
 
@@ -11132,7 +11129,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:3297:2: ','
             {
              before(grammarAccess.getImportsAccess().getCommaKeyword_2_0()); 
-            match(input,44,FOLLOW_2); 
+            match(input,41,FOLLOW_2); 
              after(grammarAccess.getImportsAccess().getCommaKeyword_2_0()); 
 
             }
@@ -11372,7 +11369,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:3378:2: '='
             {
              before(grammarAccess.getImportAccess().getEqualsSignKeyword_0_1()); 
-            match(input,35,FOLLOW_2); 
+            match(input,32,FOLLOW_2); 
              after(grammarAccess.getImportAccess().getEqualsSignKeyword_0_1()); 
 
             }
@@ -11703,7 +11700,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 int alt35=2;
                 int LA35_0 = input.LA(1);
 
-                if ( (LA35_0==44) ) {
+                if ( (LA35_0==41) ) {
                     alt35=1;
                 }
 
@@ -11795,7 +11792,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:3512:2: '}'
             {
              before(grammarAccess.getV4TokensAccess().getRightCurlyBracketKeyword_3()); 
-            match(input,43,FOLLOW_2); 
+            match(input,40,FOLLOW_2); 
              after(grammarAccess.getV4TokensAccess().getRightCurlyBracketKeyword_3()); 
 
             }
@@ -11870,7 +11867,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:3540:2: ','
             {
              before(grammarAccess.getV4TokensAccess().getCommaKeyword_2_0()); 
-            match(input,44,FOLLOW_2); 
+            match(input,41,FOLLOW_2); 
              after(grammarAccess.getV4TokensAccess().getCommaKeyword_2_0()); 
 
             }
@@ -12180,7 +12177,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:3647:2: '}'
             {
              before(grammarAccess.getEmptyTokensAccess().getRightCurlyBracketKeyword_2()); 
-            match(input,43,FOLLOW_2); 
+            match(input,40,FOLLOW_2); 
              after(grammarAccess.getEmptyTokensAccess().getRightCurlyBracketKeyword_2()); 
 
             }
@@ -12463,7 +12460,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:3735:2: '}'
             {
              before(grammarAccess.getV3TokensAccess().getRightCurlyBracketKeyword_2()); 
-            match(input,43,FOLLOW_2); 
+            match(input,40,FOLLOW_2); 
              after(grammarAccess.getV3TokensAccess().getRightCurlyBracketKeyword_2()); 
 
             }
@@ -12627,7 +12624,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt37=2;
             int LA37_0 = input.LA(1);
 
-            if ( (LA37_0==35) ) {
+            if ( (LA37_0==32) ) {
                 alt37=1;
             }
             switch (alt37) {
@@ -12789,7 +12786,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:3844:2: '='
             {
              before(grammarAccess.getV3TokenAccess().getEqualsSignKeyword_1_0()); 
-            match(input,35,FOLLOW_2); 
+            match(input,32,FOLLOW_2); 
              after(grammarAccess.getV3TokenAccess().getEqualsSignKeyword_1_0()); 
 
             }
@@ -12944,7 +12941,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:3898:2: '@'
             {
              before(grammarAccess.getGrammarActionAccess().getCommercialAtKeyword_0()); 
-            match(input,45,FOLLOW_2); 
+            match(input,42,FOLLOW_2); 
              after(grammarAccess.getGrammarActionAccess().getCommercialAtKeyword_0()); 
 
             }
@@ -13022,9 +13019,9 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:3926:2: ( rule__GrammarAction__Group_1__0 )?
             int alt38=2;
             switch ( input.LA(1) ) {
-                case 32:
-                case 33:
-                case 34:
+                case 29:
+                case 30:
+                case 31:
                     {
                     alt38=1;
                     }
@@ -13033,7 +13030,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                     {
                     int LA38_2 = input.LA(2);
 
-                    if ( (LA38_2==60) ) {
+                    if ( (LA38_2==57) ) {
                         alt38=1;
                     }
                     }
@@ -13042,7 +13039,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                     {
                     int LA38_3 = input.LA(2);
 
-                    if ( (LA38_3==60) ) {
+                    if ( (LA38_3==57) ) {
                         alt38=1;
                     }
                     }
@@ -13468,7 +13465,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:4060:2: 'mode'
             {
              before(grammarAccess.getModeAccess().getModeKeyword_0()); 
-            match(input,39,FOLLOW_2); 
+            match(input,36,FOLLOW_2); 
              after(grammarAccess.getModeAccess().getModeKeyword_0()); 
 
             }
@@ -13704,7 +13701,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 int alt39=2;
                 int LA39_0 = input.LA(1);
 
-                if ( (LA39_0==RULE_TOKEN_REF||LA39_0==65) ) {
+                if ( (LA39_0==RULE_TOKEN_REF||LA39_0==62) ) {
                     alt39=1;
                 }
 
@@ -13986,7 +13983,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt41=2;
             int LA41_0 = input.LA(1);
 
-            if ( (LA41_0==48) ) {
+            if ( (LA41_0==45) ) {
                 alt41=1;
             }
             switch (alt41) {
@@ -14082,7 +14079,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt42=2;
             int LA42_0 = input.LA(1);
 
-            if ( (LA42_0==49) ) {
+            if ( (LA42_0==46) ) {
                 alt42=1;
             }
             switch (alt42) {
@@ -14178,7 +14175,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt43=2;
             int LA43_0 = input.LA(1);
 
-            if ( (LA43_0==50) ) {
+            if ( (LA43_0==47) ) {
                 alt43=1;
             }
             switch (alt43) {
@@ -14276,7 +14273,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 int alt44=2;
                 int LA44_0 = input.LA(1);
 
-                if ( (LA44_0==RULE_OPTIONS_SPEC||LA44_0==45) ) {
+                if ( (LA44_0==RULE_OPTIONS_SPEC||LA44_0==42) ) {
                     alt44=1;
                 }
 
@@ -14377,7 +14374,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt45=2;
             int LA45_0 = input.LA(1);
 
-            if ( (LA45_0==57) ) {
+            if ( (LA45_0==54) ) {
                 alt45=1;
             }
             switch (alt45) {
@@ -14875,7 +14872,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 int alt46=2;
                 int LA46_0 = input.LA(1);
 
-                if ( (LA46_0==46) ) {
+                if ( (LA46_0==43) ) {
                     alt46=1;
                 }
 
@@ -14971,7 +14968,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt47=2;
             int LA47_0 = input.LA(1);
 
-            if ( (LA47_0==47) ) {
+            if ( (LA47_0==44) ) {
                 alt47=1;
             }
             switch (alt47) {
@@ -15063,7 +15060,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:4546:2: 'catch'
             {
              before(grammarAccess.getExceptionHandlerAccess().getCatchKeyword_0()); 
-            match(input,46,FOLLOW_2); 
+            match(input,43,FOLLOW_2); 
              after(grammarAccess.getExceptionHandlerAccess().getCatchKeyword_0()); 
 
             }
@@ -15303,7 +15300,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:4627:2: 'finally'
             {
              before(grammarAccess.getFinallyClauseAccess().getFinallyKeyword_0()); 
-            match(input,47,FOLLOW_2); 
+            match(input,44,FOLLOW_2); 
              after(grammarAccess.getFinallyClauseAccess().getFinallyKeyword_0()); 
 
             }
@@ -15458,7 +15455,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:4681:2: 'returns'
             {
              before(grammarAccess.getReturnAccess().getReturnsKeyword_0()); 
-            match(input,48,FOLLOW_2); 
+            match(input,45,FOLLOW_2); 
              after(grammarAccess.getReturnAccess().getReturnsKeyword_0()); 
 
             }
@@ -15613,7 +15610,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:4735:2: 'throws'
             {
              before(grammarAccess.getExceptionsAccess().getThrowsKeyword_0()); 
-            match(input,49,FOLLOW_2); 
+            match(input,46,FOLLOW_2); 
              after(grammarAccess.getExceptionsAccess().getThrowsKeyword_0()); 
 
             }
@@ -15774,7 +15771,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 int alt48=2;
                 int LA48_0 = input.LA(1);
 
-                if ( (LA48_0==44) ) {
+                if ( (LA48_0==41) ) {
                     alt48=1;
                 }
 
@@ -15871,7 +15868,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:4816:2: ','
             {
              before(grammarAccess.getExceptionsAccess().getCommaKeyword_2_0()); 
-            match(input,44,FOLLOW_2); 
+            match(input,41,FOLLOW_2); 
              after(grammarAccess.getExceptionsAccess().getCommaKeyword_2_0()); 
 
             }
@@ -16026,7 +16023,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:4870:2: 'locals'
             {
              before(grammarAccess.getLocalVarsAccess().getLocalsKeyword_0()); 
-            match(input,50,FOLLOW_2); 
+            match(input,47,FOLLOW_2); 
              after(grammarAccess.getLocalVarsAccess().getLocalsKeyword_0()); 
 
             }
@@ -16181,7 +16178,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:4924:2: '@'
             {
              before(grammarAccess.getRuleActionAccess().getCommercialAtKeyword_0()); 
-            match(input,45,FOLLOW_2); 
+            match(input,42,FOLLOW_2); 
              after(grammarAccess.getRuleActionAccess().getCommercialAtKeyword_0()); 
 
             }
@@ -16507,7 +16504,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 int alt49=2;
                 int LA49_0 = input.LA(1);
 
-                if ( (LA49_0==51) ) {
+                if ( (LA49_0==48) ) {
                     alt49=1;
                 }
 
@@ -16604,7 +16601,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:5059:2: '|'
             {
              before(grammarAccess.getRuleAltListAccess().getVerticalLineKeyword_1_0()); 
-            match(input,51,FOLLOW_2); 
+            match(input,48,FOLLOW_2); 
              after(grammarAccess.getRuleAltListAccess().getVerticalLineKeyword_1_0()); 
 
             }
@@ -16843,7 +16840,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt50=2;
             int LA50_0 = input.LA(1);
 
-            if ( (LA50_0==52) ) {
+            if ( (LA50_0==49) ) {
                 alt50=1;
             }
             switch (alt50) {
@@ -16935,7 +16932,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:5167:2: '#'
             {
              before(grammarAccess.getLabeledAltAccess().getNumberSignKeyword_1_0()); 
-            match(input,52,FOLLOW_2); 
+            match(input,49,FOLLOW_2); 
              after(grammarAccess.getLabeledAltAccess().getNumberSignKeyword_1_0()); 
 
             }
@@ -17169,7 +17166,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt51=2;
             int LA51_0 = input.LA(1);
 
-            if ( (LA51_0==37) ) {
+            if ( (LA51_0==34) ) {
                 alt51=1;
             }
             switch (alt51) {
@@ -17262,7 +17259,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 int alt52=2;
                 int LA52_0 = input.LA(1);
 
-                if ( ((LA52_0>=RULE_TOKEN_REF && LA52_0<=RULE_RULE_REF)||(LA52_0>=RULE_STRING && LA52_0<=RULE_ACTION)||LA52_0==53||LA52_0==56||LA52_0==58||LA52_0==64) ) {
+                if ( ((LA52_0>=RULE_TOKEN_REF && LA52_0<=RULE_RULE_REF)||(LA52_0>=RULE_MYSTRING && LA52_0<=RULE_ACTION)||LA52_0==50||LA52_0==53||LA52_0==55||LA52_0==61) ) {
                     alt52=1;
                 }
 
@@ -17443,7 +17440,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt53=2;
             int LA53_0 = input.LA(1);
 
-            if ( ((LA53_0>=61 && LA53_0<=63)) ) {
+            if ( ((LA53_0>=58 && LA53_0<=60)) ) {
                 alt53=1;
             }
             switch (alt53) {
@@ -17624,7 +17621,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt54=2;
             int LA54_0 = input.LA(1);
 
-            if ( ((LA54_0>=61 && LA54_0<=63)) ) {
+            if ( ((LA54_0>=58 && LA54_0<=60)) ) {
                 alt54=1;
             }
             switch (alt54) {
@@ -18046,7 +18043,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt56=2;
             int LA56_0 = input.LA(1);
 
-            if ( ((LA56_0>=61 && LA56_0<=63)) ) {
+            if ( ((LA56_0>=58 && LA56_0<=60)) ) {
                 alt56=1;
             }
             switch (alt56) {
@@ -18222,7 +18219,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt57=2;
             int LA57_0 = input.LA(1);
 
-            if ( (LA57_0==37) ) {
+            if ( (LA57_0==34) ) {
                 alt57=1;
             }
             switch (alt57) {
@@ -18648,7 +18645,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt58=2;
             int LA58_0 = input.LA(1);
 
-            if ( (LA58_0==61) ) {
+            if ( (LA58_0==58) ) {
                 alt58=1;
             }
             switch (alt58) {
@@ -18824,7 +18821,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt59=2;
             int LA59_0 = input.LA(1);
 
-            if ( (LA59_0==61) ) {
+            if ( (LA59_0==58) ) {
                 alt59=1;
             }
             switch (alt59) {
@@ -19000,7 +18997,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt60=2;
             int LA60_0 = input.LA(1);
 
-            if ( (LA60_0==61) ) {
+            if ( (LA60_0==58) ) {
                 alt60=1;
             }
             switch (alt60) {
@@ -19092,7 +19089,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:5842:2: '('
             {
              before(grammarAccess.getBlockAccess().getLeftParenthesisKeyword_0()); 
-            match(input,53,FOLLOW_2); 
+            match(input,50,FOLLOW_2); 
              after(grammarAccess.getBlockAccess().getLeftParenthesisKeyword_0()); 
 
             }
@@ -19171,7 +19168,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt61=2;
             int LA61_0 = input.LA(1);
 
-            if ( (LA61_0==RULE_COLON||LA61_0==RULE_OPTIONS_SPEC||LA61_0==45) ) {
+            if ( (LA61_0==RULE_COLON||LA61_0==RULE_OPTIONS_SPEC||LA61_0==42) ) {
                 alt61=1;
             }
             switch (alt61) {
@@ -19343,7 +19340,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:5922:2: ')'
             {
              before(grammarAccess.getBlockAccess().getRightParenthesisKeyword_3()); 
-            match(input,54,FOLLOW_2); 
+            match(input,51,FOLLOW_2); 
              after(grammarAccess.getBlockAccess().getRightParenthesisKeyword_3()); 
 
             }
@@ -19520,7 +19517,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 int alt63=2;
                 int LA63_0 = input.LA(1);
 
-                if ( (LA63_0==45) ) {
+                if ( (LA63_0==42) ) {
                     alt63=1;
                 }
 
@@ -19783,7 +19780,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 int alt64=2;
                 int LA64_0 = input.LA(1);
 
-                if ( (LA64_0==51) ) {
+                if ( (LA64_0==48) ) {
                     alt64=1;
                 }
 
@@ -19880,7 +19877,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:6085:2: '|'
             {
              before(grammarAccess.getAltListAccess().getVerticalLineKeyword_1_0()); 
-            match(input,51,FOLLOW_2); 
+            match(input,48,FOLLOW_2); 
              after(grammarAccess.getAltListAccess().getVerticalLineKeyword_1_0()); 
 
             }
@@ -20119,7 +20116,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt65=2;
             int LA65_0 = input.LA(1);
 
-            if ( (LA65_0==37) ) {
+            if ( (LA65_0==34) ) {
                 alt65=1;
             }
             switch (alt65) {
@@ -20286,7 +20283,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:6220:2: '<'
             {
              before(grammarAccess.getElementOptionsAccess().getLessThanSignKeyword_1()); 
-            match(input,37,FOLLOW_2); 
+            match(input,34,FOLLOW_2); 
              after(grammarAccess.getElementOptionsAccess().getLessThanSignKeyword_1()); 
 
             }
@@ -20452,7 +20449,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:6273:2: '>'
             {
              before(grammarAccess.getElementOptionsAccess().getGreaterThanSignKeyword_3()); 
-            match(input,38,FOLLOW_2); 
+            match(input,35,FOLLOW_2); 
              after(grammarAccess.getElementOptionsAccess().getGreaterThanSignKeyword_3()); 
 
             }
@@ -20613,7 +20610,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 int alt67=2;
                 int LA67_0 = input.LA(1);
 
-                if ( (LA67_0==44) ) {
+                if ( (LA67_0==41) ) {
                     alt67=1;
                 }
 
@@ -20710,7 +20707,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:6355:2: ','
             {
              before(grammarAccess.getElementOptionsAccess().getCommaKeyword_2_1_0()); 
-            match(input,44,FOLLOW_2); 
+            match(input,41,FOLLOW_2); 
              after(grammarAccess.getElementOptionsAccess().getCommaKeyword_2_1_0()); 
 
             }
@@ -20950,7 +20947,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:6436:2: '..'
             {
              before(grammarAccess.getRangeAccess().getFullStopFullStopKeyword_1()); 
-            match(input,55,FOLLOW_2); 
+            match(input,52,FOLLOW_2); 
              after(grammarAccess.getRangeAccess().getFullStopFullStopKeyword_1()); 
 
             }
@@ -21189,7 +21186,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt68=2;
             int LA68_0 = input.LA(1);
 
-            if ( (LA68_0==37) ) {
+            if ( (LA68_0==34) ) {
                 alt68=1;
             }
             switch (alt68) {
@@ -21365,7 +21362,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt69=2;
             int LA69_0 = input.LA(1);
 
-            if ( (LA69_0==37) ) {
+            if ( (LA69_0==34) ) {
                 alt69=1;
             }
             switch (alt69) {
@@ -21457,7 +21454,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:6598:2: '~'
             {
              before(grammarAccess.getNotSetAccess().getTildeKeyword_0_0()); 
-            match(input,56,FOLLOW_2); 
+            match(input,53,FOLLOW_2); 
              after(grammarAccess.getNotSetAccess().getTildeKeyword_0_0()); 
 
             }
@@ -21612,7 +21609,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:6652:2: '~'
             {
              before(grammarAccess.getNotSetAccess().getTildeKeyword_1_0()); 
-            match(input,56,FOLLOW_2); 
+            match(input,53,FOLLOW_2); 
              after(grammarAccess.getNotSetAccess().getTildeKeyword_1_0()); 
 
             }
@@ -21767,7 +21764,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:6706:2: '('
             {
              before(grammarAccess.getBlockSetAccess().getLeftParenthesisKeyword_0()); 
-            match(input,53,FOLLOW_2); 
+            match(input,50,FOLLOW_2); 
              after(grammarAccess.getBlockSetAccess().getLeftParenthesisKeyword_0()); 
 
             }
@@ -21933,7 +21930,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 int alt70=2;
                 int LA70_0 = input.LA(1);
 
-                if ( (LA70_0==51) ) {
+                if ( (LA70_0==48) ) {
                     alt70=1;
                 }
 
@@ -22025,7 +22022,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:6786:2: ')'
             {
              before(grammarAccess.getBlockSetAccess().getRightParenthesisKeyword_3()); 
-            match(input,54,FOLLOW_2); 
+            match(input,51,FOLLOW_2); 
              after(grammarAccess.getBlockSetAccess().getRightParenthesisKeyword_3()); 
 
             }
@@ -22100,7 +22097,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:6814:2: '|'
             {
              before(grammarAccess.getBlockSetAccess().getVerticalLineKeyword_2_0()); 
-            match(input,51,FOLLOW_2); 
+            match(input,48,FOLLOW_2); 
              after(grammarAccess.getBlockSetAccess().getVerticalLineKeyword_2_0()); 
 
             }
@@ -22339,7 +22336,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt71=2;
             int LA71_0 = input.LA(1);
 
-            if ( (LA71_0==37) ) {
+            if ( (LA71_0==34) ) {
                 alt71=1;
             }
             switch (alt71) {
@@ -22681,7 +22678,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:7003:2: '=>'
             {
              before(grammarAccess.getUnicoenTypeDecAccess().getEqualsSignGreaterThanSignKeyword_0()); 
-            match(input,57,FOLLOW_2); 
+            match(input,54,FOLLOW_2); 
              after(grammarAccess.getUnicoenTypeDecAccess().getEqualsSignGreaterThanSignKeyword_0()); 
 
             }
@@ -22920,7 +22917,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt72=2;
             int LA72_0 = input.LA(1);
 
-            if ( (LA72_0==37) ) {
+            if ( (LA72_0==34) ) {
                 alt72=1;
             }
             switch (alt72) {
@@ -23012,7 +23009,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:7111:2: '<'
             {
              before(grammarAccess.getUnicoenTypeIdentifiersAccess().getLessThanSignKeyword_0_1_0()); 
-            match(input,37,FOLLOW_2); 
+            match(input,34,FOLLOW_2); 
              after(grammarAccess.getUnicoenTypeIdentifiersAccess().getLessThanSignKeyword_0_1_0()); 
 
             }
@@ -23167,7 +23164,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:7164:2: '>'
             {
              before(grammarAccess.getUnicoenTypeIdentifiersAccess().getGreaterThanSignKeyword_0_1_2()); 
-            match(input,38,FOLLOW_2); 
+            match(input,35,FOLLOW_2); 
              after(grammarAccess.getUnicoenTypeIdentifiersAccess().getGreaterThanSignKeyword_0_1_2()); 
 
             }
@@ -23242,7 +23239,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:7192:2: '('
             {
              before(grammarAccess.getUnicoenTypeIdentifiersAccess().getLeftParenthesisKeyword_1_0()); 
-            match(input,53,FOLLOW_2); 
+            match(input,50,FOLLOW_2); 
              after(grammarAccess.getUnicoenTypeIdentifiersAccess().getLeftParenthesisKeyword_1_0()); 
 
             }
@@ -23493,7 +23490,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 int alt73=2;
                 int LA73_0 = input.LA(1);
 
-                if ( (LA73_0==44) ) {
+                if ( (LA73_0==41) ) {
                     alt73=1;
                 }
 
@@ -23585,7 +23582,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:7299:2: ')'
             {
              before(grammarAccess.getUnicoenTypeIdentifiersAccess().getRightParenthesisKeyword_1_4()); 
-            match(input,54,FOLLOW_2); 
+            match(input,51,FOLLOW_2); 
              after(grammarAccess.getUnicoenTypeIdentifiersAccess().getRightParenthesisKeyword_1_4()); 
 
             }
@@ -23660,7 +23657,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:7327:2: ','
             {
              before(grammarAccess.getUnicoenTypeIdentifiersAccess().getCommaKeyword_1_3_0()); 
-            match(input,44,FOLLOW_2); 
+            match(input,41,FOLLOW_2); 
              after(grammarAccess.getUnicoenTypeIdentifiersAccess().getCommaKeyword_1_3_0()); 
 
             }
@@ -23819,7 +23816,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt74=2;
             int LA74_0 = input.LA(1);
 
-            if ( (LA74_0==65) ) {
+            if ( (LA74_0==62) ) {
                 alt74=1;
             }
             switch (alt74) {
@@ -24000,7 +23997,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt75=2;
             int LA75_0 = input.LA(1);
 
-            if ( (LA75_0==57) ) {
+            if ( (LA75_0==54) ) {
                 alt75=1;
             }
             switch (alt75) {
@@ -24408,7 +24405,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 int alt76=2;
                 int LA76_0 = input.LA(1);
 
-                if ( (LA76_0==51) ) {
+                if ( (LA76_0==48) ) {
                     alt76=1;
                 }
 
@@ -24505,7 +24502,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:7597:2: '|'
             {
              before(grammarAccess.getLexerAltListAccess().getVerticalLineKeyword_1_0()); 
-            match(input,51,FOLLOW_2); 
+            match(input,48,FOLLOW_2); 
              after(grammarAccess.getLexerAltListAccess().getVerticalLineKeyword_1_0()); 
 
             }
@@ -24912,7 +24909,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 int alt78=2;
                 int LA78_0 = input.LA(1);
 
-                if ( ((LA78_0>=RULE_TOKEN_REF && LA78_0<=RULE_RULE_REF)||(LA78_0>=RULE_STRING && LA78_0<=RULE_ACTION)||LA78_0==RULE_ARG_OR_CHARSET||LA78_0==53||LA78_0==56||LA78_0==58||LA78_0==64) ) {
+                if ( ((LA78_0>=RULE_TOKEN_REF && LA78_0<=RULE_RULE_REF)||(LA78_0>=RULE_MYSTRING && LA78_0<=RULE_ACTION)||LA78_0==RULE_ARG_OR_CHARSET||LA78_0==50||LA78_0==53||LA78_0==55||LA78_0==61) ) {
                     alt78=1;
                 }
 
@@ -25424,7 +25421,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt80=2;
             int LA80_0 = input.LA(1);
 
-            if ( ((LA80_0>=61 && LA80_0<=63)) ) {
+            if ( ((LA80_0>=58 && LA80_0<=60)) ) {
                 alt80=1;
             }
             switch (alt80) {
@@ -25600,7 +25597,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt81=2;
             int LA81_0 = input.LA(1);
 
-            if ( ((LA81_0>=61 && LA81_0<=63)) ) {
+            if ( ((LA81_0>=58 && LA81_0<=60)) ) {
                 alt81=1;
             }
             switch (alt81) {
@@ -25776,7 +25773,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             int alt82=2;
             int LA82_0 = input.LA(1);
 
-            if ( ((LA82_0>=61 && LA82_0<=63)) ) {
+            if ( ((LA82_0>=58 && LA82_0<=60)) ) {
                 alt82=1;
             }
             switch (alt82) {
@@ -26118,7 +26115,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:8110:2: '('
             {
              before(grammarAccess.getLexerBlockAccess().getLeftParenthesisKeyword_0()); 
-            match(input,53,FOLLOW_2); 
+            match(input,50,FOLLOW_2); 
              after(grammarAccess.getLexerBlockAccess().getLeftParenthesisKeyword_0()); 
 
             }
@@ -26369,7 +26366,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:8190:2: ')'
             {
              before(grammarAccess.getLexerBlockAccess().getRightParenthesisKeyword_3()); 
-            match(input,54,FOLLOW_2); 
+            match(input,51,FOLLOW_2); 
              after(grammarAccess.getLexerBlockAccess().getRightParenthesisKeyword_3()); 
 
             }
@@ -26770,7 +26767,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 int alt84=2;
                 int LA84_0 = input.LA(1);
 
-                if ( (LA84_0==44) ) {
+                if ( (LA84_0==41) ) {
                     alt84=1;
                 }
 
@@ -26867,7 +26864,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:8353:2: ','
             {
              before(grammarAccess.getLexerCommandsAccess().getCommaKeyword_2_0()); 
-            match(input,44,FOLLOW_2); 
+            match(input,41,FOLLOW_2); 
              after(grammarAccess.getLexerCommandsAccess().getCommaKeyword_2_0()); 
 
             }
@@ -27107,7 +27104,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:8434:2: '('
             {
              before(grammarAccess.getLexerCommandAccess().getLeftParenthesisKeyword_0_1()); 
-            match(input,53,FOLLOW_2); 
+            match(input,50,FOLLOW_2); 
              after(grammarAccess.getLexerCommandAccess().getLeftParenthesisKeyword_0_1()); 
 
             }
@@ -27262,7 +27259,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:8487:2: ')'
             {
              before(grammarAccess.getLexerCommandAccess().getRightParenthesisKeyword_0_3()); 
-            match(input,54,FOLLOW_2); 
+            match(input,51,FOLLOW_2); 
              after(grammarAccess.getLexerCommandAccess().getRightParenthesisKeyword_0_3()); 
 
             }
@@ -27423,7 +27420,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
                 int alt85=2;
                 int LA85_0 = input.LA(1);
 
-                if ( (LA85_0==58) ) {
+                if ( (LA85_0==55) ) {
                     alt85=1;
                 }
 
@@ -27520,7 +27517,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:8569:2: '.'
             {
              before(grammarAccess.getQualifiedIdAccess().getFullStopKeyword_1_0()); 
-            match(input,58,FOLLOW_2); 
+            match(input,55,FOLLOW_2); 
              after(grammarAccess.getQualifiedIdAccess().getFullStopKeyword_1_0()); 
 
             }
@@ -28202,21 +28199,21 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
 
 
     // $ANTLR start "rule__StringOption__ValueAssignment"
-    // InternalUniMapperGenerator.g:8823:1: rule__StringOption__ValueAssignment : ( RULE_STRING ) ;
+    // InternalUniMapperGenerator.g:8823:1: rule__StringOption__ValueAssignment : ( RULE_MYSTRING ) ;
     public final void rule__StringOption__ValueAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalUniMapperGenerator.g:8827:1: ( ( RULE_STRING ) )
-            // InternalUniMapperGenerator.g:8828:2: ( RULE_STRING )
+            // InternalUniMapperGenerator.g:8827:1: ( ( RULE_MYSTRING ) )
+            // InternalUniMapperGenerator.g:8828:2: ( RULE_MYSTRING )
             {
-            // InternalUniMapperGenerator.g:8828:2: ( RULE_STRING )
-            // InternalUniMapperGenerator.g:8829:3: RULE_STRING
+            // InternalUniMapperGenerator.g:8828:2: ( RULE_MYSTRING )
+            // InternalUniMapperGenerator.g:8829:3: RULE_MYSTRING
             {
-             before(grammarAccess.getStringOptionAccess().getValueSTRINGTerminalRuleCall_0()); 
-            match(input,RULE_STRING,FOLLOW_2); 
-             after(grammarAccess.getStringOptionAccess().getValueSTRINGTerminalRuleCall_0()); 
+             before(grammarAccess.getStringOptionAccess().getValueMYSTRINGTerminalRuleCall_0()); 
+            match(input,RULE_MYSTRING,FOLLOW_2); 
+             after(grammarAccess.getStringOptionAccess().getValueMYSTRINGTerminalRuleCall_0()); 
 
             }
 
@@ -28330,7 +28327,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:8876:4: 'import'
             {
              before(grammarAccess.getImportsAccess().getKeywordImportKeyword_0_0()); 
-            match(input,59,FOLLOW_2); 
+            match(input,56,FOLLOW_2); 
              after(grammarAccess.getImportsAccess().getKeywordImportKeyword_0_0()); 
 
             }
@@ -28895,21 +28892,21 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
 
 
     // $ANTLR start "rule__V3Token__ValueAssignment_1_1"
-    // InternalUniMapperGenerator.g:9090:1: rule__V3Token__ValueAssignment_1_1 : ( RULE_STRING ) ;
+    // InternalUniMapperGenerator.g:9090:1: rule__V3Token__ValueAssignment_1_1 : ( RULE_MYSTRING ) ;
     public final void rule__V3Token__ValueAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalUniMapperGenerator.g:9094:1: ( ( RULE_STRING ) )
-            // InternalUniMapperGenerator.g:9095:2: ( RULE_STRING )
+            // InternalUniMapperGenerator.g:9094:1: ( ( RULE_MYSTRING ) )
+            // InternalUniMapperGenerator.g:9095:2: ( RULE_MYSTRING )
             {
-            // InternalUniMapperGenerator.g:9095:2: ( RULE_STRING )
-            // InternalUniMapperGenerator.g:9096:3: RULE_STRING
+            // InternalUniMapperGenerator.g:9095:2: ( RULE_MYSTRING )
+            // InternalUniMapperGenerator.g:9096:3: RULE_MYSTRING
             {
-             before(grammarAccess.getV3TokenAccess().getValueSTRINGTerminalRuleCall_1_1_0()); 
-            match(input,RULE_STRING,FOLLOW_2); 
-             after(grammarAccess.getV3TokenAccess().getValueSTRINGTerminalRuleCall_1_1_0()); 
+             before(grammarAccess.getV3TokenAccess().getValueMYSTRINGTerminalRuleCall_1_1_0()); 
+            match(input,RULE_MYSTRING,FOLLOW_2); 
+             after(grammarAccess.getV3TokenAccess().getValueMYSTRINGTerminalRuleCall_1_1_0()); 
 
             }
 
@@ -28990,7 +28987,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:9128:4: '::'
             {
              before(grammarAccess.getGrammarActionAccess().getColonSymbolColonColonKeyword_1_1_0()); 
-            match(input,60,FOLLOW_2); 
+            match(input,57,FOLLOW_2); 
              after(grammarAccess.getGrammarActionAccess().getColonSymbolColonColonKeyword_1_1_0()); 
 
             }
@@ -30883,7 +30880,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:9837:4: '?'
             {
              before(grammarAccess.getEbnfSuffixAccess().getOperatorQuestionMarkKeyword_0_0_0()); 
-            match(input,61,FOLLOW_2); 
+            match(input,58,FOLLOW_2); 
              after(grammarAccess.getEbnfSuffixAccess().getOperatorQuestionMarkKeyword_0_0_0()); 
 
             }
@@ -30928,7 +30925,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:9856:4: '?'
             {
              before(grammarAccess.getEbnfSuffixAccess().getNongreedyQuestionMarkKeyword_0_1_0()); 
-            match(input,61,FOLLOW_2); 
+            match(input,58,FOLLOW_2); 
              after(grammarAccess.getEbnfSuffixAccess().getNongreedyQuestionMarkKeyword_0_1_0()); 
 
             }
@@ -30973,7 +30970,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:9875:4: '*'
             {
              before(grammarAccess.getEbnfSuffixAccess().getOperatorAsteriskKeyword_1_0_0()); 
-            match(input,62,FOLLOW_2); 
+            match(input,59,FOLLOW_2); 
              after(grammarAccess.getEbnfSuffixAccess().getOperatorAsteriskKeyword_1_0_0()); 
 
             }
@@ -31018,7 +31015,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:9894:4: '?'
             {
              before(grammarAccess.getEbnfSuffixAccess().getNongreedyQuestionMarkKeyword_1_1_0()); 
-            match(input,61,FOLLOW_2); 
+            match(input,58,FOLLOW_2); 
              after(grammarAccess.getEbnfSuffixAccess().getNongreedyQuestionMarkKeyword_1_1_0()); 
 
             }
@@ -31063,7 +31060,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:9913:4: '+'
             {
              before(grammarAccess.getEbnfSuffixAccess().getOperatorPlusSignKeyword_2_0_0()); 
-            match(input,63,FOLLOW_2); 
+            match(input,60,FOLLOW_2); 
              after(grammarAccess.getEbnfSuffixAccess().getOperatorPlusSignKeyword_2_0_0()); 
 
             }
@@ -31108,7 +31105,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:9932:4: '?'
             {
              before(grammarAccess.getEbnfSuffixAccess().getNongreedyQuestionMarkKeyword_2_1_0()); 
-            match(input,61,FOLLOW_2); 
+            match(input,58,FOLLOW_2); 
              after(grammarAccess.getEbnfSuffixAccess().getNongreedyQuestionMarkKeyword_2_1_0()); 
 
             }
@@ -31593,21 +31590,21 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
 
 
     // $ANTLR start "rule__Range__FromAssignment_0"
-    // InternalUniMapperGenerator.g:10112:1: rule__Range__FromAssignment_0 : ( RULE_STRING ) ;
+    // InternalUniMapperGenerator.g:10112:1: rule__Range__FromAssignment_0 : ( RULE_MYSTRING ) ;
     public final void rule__Range__FromAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalUniMapperGenerator.g:10116:1: ( ( RULE_STRING ) )
-            // InternalUniMapperGenerator.g:10117:2: ( RULE_STRING )
+            // InternalUniMapperGenerator.g:10116:1: ( ( RULE_MYSTRING ) )
+            // InternalUniMapperGenerator.g:10117:2: ( RULE_MYSTRING )
             {
-            // InternalUniMapperGenerator.g:10117:2: ( RULE_STRING )
-            // InternalUniMapperGenerator.g:10118:3: RULE_STRING
+            // InternalUniMapperGenerator.g:10117:2: ( RULE_MYSTRING )
+            // InternalUniMapperGenerator.g:10118:3: RULE_MYSTRING
             {
-             before(grammarAccess.getRangeAccess().getFromSTRINGTerminalRuleCall_0_0()); 
-            match(input,RULE_STRING,FOLLOW_2); 
-             after(grammarAccess.getRangeAccess().getFromSTRINGTerminalRuleCall_0_0()); 
+             before(grammarAccess.getRangeAccess().getFromMYSTRINGTerminalRuleCall_0_0()); 
+            match(input,RULE_MYSTRING,FOLLOW_2); 
+             after(grammarAccess.getRangeAccess().getFromMYSTRINGTerminalRuleCall_0_0()); 
 
             }
 
@@ -31630,21 +31627,21 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
 
 
     // $ANTLR start "rule__Range__ToAssignment_2"
-    // InternalUniMapperGenerator.g:10127:1: rule__Range__ToAssignment_2 : ( RULE_STRING ) ;
+    // InternalUniMapperGenerator.g:10127:1: rule__Range__ToAssignment_2 : ( RULE_MYSTRING ) ;
     public final void rule__Range__ToAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalUniMapperGenerator.g:10131:1: ( ( RULE_STRING ) )
-            // InternalUniMapperGenerator.g:10132:2: ( RULE_STRING )
+            // InternalUniMapperGenerator.g:10131:1: ( ( RULE_MYSTRING ) )
+            // InternalUniMapperGenerator.g:10132:2: ( RULE_MYSTRING )
             {
-            // InternalUniMapperGenerator.g:10132:2: ( RULE_STRING )
-            // InternalUniMapperGenerator.g:10133:3: RULE_STRING
+            // InternalUniMapperGenerator.g:10132:2: ( RULE_MYSTRING )
+            // InternalUniMapperGenerator.g:10133:3: RULE_MYSTRING
             {
-             before(grammarAccess.getRangeAccess().getToSTRINGTerminalRuleCall_2_0()); 
-            match(input,RULE_STRING,FOLLOW_2); 
-             after(grammarAccess.getRangeAccess().getToSTRINGTerminalRuleCall_2_0()); 
+             before(grammarAccess.getRangeAccess().getToMYSTRINGTerminalRuleCall_2_0()); 
+            match(input,RULE_MYSTRING,FOLLOW_2); 
+             after(grammarAccess.getRangeAccess().getToMYSTRINGTerminalRuleCall_2_0()); 
 
             }
 
@@ -31753,21 +31750,21 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
 
 
     // $ANTLR start "rule__Terminal__LiteralAssignment_1_0"
-    // InternalUniMapperGenerator.g:10176:1: rule__Terminal__LiteralAssignment_1_0 : ( RULE_STRING ) ;
+    // InternalUniMapperGenerator.g:10176:1: rule__Terminal__LiteralAssignment_1_0 : ( RULE_MYSTRING ) ;
     public final void rule__Terminal__LiteralAssignment_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalUniMapperGenerator.g:10180:1: ( ( RULE_STRING ) )
-            // InternalUniMapperGenerator.g:10181:2: ( RULE_STRING )
+            // InternalUniMapperGenerator.g:10180:1: ( ( RULE_MYSTRING ) )
+            // InternalUniMapperGenerator.g:10181:2: ( RULE_MYSTRING )
             {
-            // InternalUniMapperGenerator.g:10181:2: ( RULE_STRING )
-            // InternalUniMapperGenerator.g:10182:3: RULE_STRING
+            // InternalUniMapperGenerator.g:10181:2: ( RULE_MYSTRING )
+            // InternalUniMapperGenerator.g:10182:3: RULE_MYSTRING
             {
-             before(grammarAccess.getTerminalAccess().getLiteralSTRINGTerminalRuleCall_1_0_0()); 
-            match(input,RULE_STRING,FOLLOW_2); 
-             after(grammarAccess.getTerminalAccess().getLiteralSTRINGTerminalRuleCall_1_0_0()); 
+             before(grammarAccess.getTerminalAccess().getLiteralMYSTRINGTerminalRuleCall_1_0_0()); 
+            match(input,RULE_MYSTRING,FOLLOW_2); 
+             after(grammarAccess.getTerminalAccess().getLiteralMYSTRINGTerminalRuleCall_1_0_0()); 
 
             }
 
@@ -31848,7 +31845,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:10214:4: 'EOF2'
             {
              before(grammarAccess.getTerminalAccess().getEofEOF2Keyword_2_0()); 
-            match(input,64,FOLLOW_2); 
+            match(input,61,FOLLOW_2); 
              after(grammarAccess.getTerminalAccess().getEofEOF2Keyword_2_0()); 
 
             }
@@ -32077,21 +32074,21 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
 
 
     // $ANTLR start "rule__SetElement__StringLiteralAssignment_1"
-    // InternalUniMapperGenerator.g:10300:1: rule__SetElement__StringLiteralAssignment_1 : ( RULE_STRING ) ;
+    // InternalUniMapperGenerator.g:10300:1: rule__SetElement__StringLiteralAssignment_1 : ( RULE_MYSTRING ) ;
     public final void rule__SetElement__StringLiteralAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalUniMapperGenerator.g:10304:1: ( ( RULE_STRING ) )
-            // InternalUniMapperGenerator.g:10305:2: ( RULE_STRING )
+            // InternalUniMapperGenerator.g:10304:1: ( ( RULE_MYSTRING ) )
+            // InternalUniMapperGenerator.g:10305:2: ( RULE_MYSTRING )
             {
-            // InternalUniMapperGenerator.g:10305:2: ( RULE_STRING )
-            // InternalUniMapperGenerator.g:10306:3: RULE_STRING
+            // InternalUniMapperGenerator.g:10305:2: ( RULE_MYSTRING )
+            // InternalUniMapperGenerator.g:10306:3: RULE_MYSTRING
             {
-             before(grammarAccess.getSetElementAccess().getStringLiteralSTRINGTerminalRuleCall_1_0()); 
-            match(input,RULE_STRING,FOLLOW_2); 
-             after(grammarAccess.getSetElementAccess().getStringLiteralSTRINGTerminalRuleCall_1_0()); 
+             before(grammarAccess.getSetElementAccess().getStringLiteralMYSTRINGTerminalRuleCall_1_0()); 
+            match(input,RULE_MYSTRING,FOLLOW_2); 
+             after(grammarAccess.getSetElementAccess().getStringLiteralMYSTRINGTerminalRuleCall_1_0()); 
 
             }
 
@@ -32209,7 +32206,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:10353:4: '.'
             {
              before(grammarAccess.getWildcardAccess().getDotFullStopKeyword_0_0()); 
-            match(input,58,FOLLOW_2); 
+            match(input,55,FOLLOW_2); 
              after(grammarAccess.getWildcardAccess().getDotFullStopKeyword_0_0()); 
 
             }
@@ -32377,7 +32374,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:10417:4: '='
             {
              before(grammarAccess.getElementOptionAccess().getAssignEqualsSignKeyword_1_1_0()); 
-            match(input,35,FOLLOW_2); 
+            match(input,32,FOLLOW_2); 
              after(grammarAccess.getElementOptionAccess().getAssignEqualsSignKeyword_1_1_0()); 
 
             }
@@ -32715,7 +32712,7 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
             // InternalUniMapperGenerator.g:10541:4: 'fragment'
             {
              before(grammarAccess.getLexerRuleAccess().getFragmentFragmentKeyword_0_0()); 
-            match(input,65,FOLLOW_2); 
+            match(input,62,FOLLOW_2); 
              after(grammarAccess.getLexerRuleAccess().getFragmentFragmentKeyword_0_0()); 
 
             }
@@ -34187,72 +34184,72 @@ public class InternalUniMapperGeneratorParser extends AbstractInternalContentAss
 
     public static final BitSet FOLLOW_1 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_2 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_3 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_3 = new BitSet(new long[]{0x0000004000000000L});
     public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x0000000000000030L});
     public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000040000000000L});
-    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x0800208000004230L,0x0000000000000002L});
-    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0800200000004202L});
-    public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x0000000000000032L,0x0000000000000002L});
-    public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000008000000002L});
+    public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000008000000000L});
+    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x4100041000004230L});
+    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0100040000004202L});
+    public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x4000000000000032L});
+    public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000001000000002L});
     public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_12 = new BitSet(new long[]{0x0000000000000200L});
-    public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0000080000000430L});
+    public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0000010000000430L});
     public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x0000000000000432L});
-    public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000000800000000L});
+    public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000000100000000L});
     public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x0000000000003830L});
-    public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x0000100000000040L});
-    public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000100000000002L});
-    public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000180000000000L});
+    public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x0000020000000040L});
+    public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000020000000002L});
+    public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000030000000000L});
     public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000080000000000L});
+    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000010000000000L});
     public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000000000000032L});
-    public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000000800000040L});
+    public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000000100000040L});
     public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000000000000800L});
-    public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000000700000030L});
+    public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x00000000E0000030L});
     public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x1000000000000000L});
-    public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0000000000000030L,0x0000000000000002L});
-    public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x0207200000008280L});
-    public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x0000200000000202L});
-    public static final BitSet FOLLOW_31 = new BitSet(new long[]{0x0520002000001830L,0x0000000000000001L});
-    public static final BitSet FOLLOW_32 = new BitSet(new long[]{0x0000C00000000000L});
-    public static final BitSet FOLLOW_33 = new BitSet(new long[]{0x0000400000000002L});
+    public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0200000000000000L});
+    public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x4000000000000030L});
+    public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x0040E40000008280L});
+    public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x0000040000000202L});
+    public static final BitSet FOLLOW_31 = new BitSet(new long[]{0x20A4000400001830L});
+    public static final BitSet FOLLOW_32 = new BitSet(new long[]{0x0000180000000000L});
+    public static final BitSet FOLLOW_33 = new BitSet(new long[]{0x0000080000000002L});
     public static final BitSet FOLLOW_34 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_35 = new BitSet(new long[]{0x0000100000000000L});
-    public static final BitSet FOLLOW_36 = new BitSet(new long[]{0x0008000000000000L});
-    public static final BitSet FOLLOW_37 = new BitSet(new long[]{0x0008000000000002L});
-    public static final BitSet FOLLOW_38 = new BitSet(new long[]{0x0010000000000000L});
-    public static final BitSet FOLLOW_39 = new BitSet(new long[]{0x0520000000001832L,0x0000000000000001L});
-    public static final BitSet FOLLOW_40 = new BitSet(new long[]{0xE000000000000000L});
-    public static final BitSet FOLLOW_41 = new BitSet(new long[]{0xE000000000000100L});
-    public static final BitSet FOLLOW_42 = new BitSet(new long[]{0x0000002000000000L});
-    public static final BitSet FOLLOW_43 = new BitSet(new long[]{0x0000001800000000L});
-    public static final BitSet FOLLOW_44 = new BitSet(new long[]{0x0520000000000830L,0x0000000000000001L});
-    public static final BitSet FOLLOW_45 = new BitSet(new long[]{0x2000000000000000L});
-    public static final BitSet FOLLOW_46 = new BitSet(new long[]{0x0520202000001AB0L,0x0000000000000001L});
-    public static final BitSet FOLLOW_47 = new BitSet(new long[]{0x0040000000000000L});
-    public static final BitSet FOLLOW_48 = new BitSet(new long[]{0x0000200000000280L});
-    public static final BitSet FOLLOW_49 = new BitSet(new long[]{0x0000004000000030L});
-    public static final BitSet FOLLOW_50 = new BitSet(new long[]{0x0080000000000000L});
+    public static final BitSet FOLLOW_35 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_36 = new BitSet(new long[]{0x0001000000000000L});
+    public static final BitSet FOLLOW_37 = new BitSet(new long[]{0x0001000000000002L});
+    public static final BitSet FOLLOW_38 = new BitSet(new long[]{0x0002000000000000L});
+    public static final BitSet FOLLOW_39 = new BitSet(new long[]{0x20A4000000001832L});
+    public static final BitSet FOLLOW_40 = new BitSet(new long[]{0x1C00000000000000L});
+    public static final BitSet FOLLOW_41 = new BitSet(new long[]{0x1C00000000000100L});
+    public static final BitSet FOLLOW_42 = new BitSet(new long[]{0x0000000400000000L});
+    public static final BitSet FOLLOW_43 = new BitSet(new long[]{0x0000000300000000L});
+    public static final BitSet FOLLOW_44 = new BitSet(new long[]{0x20A4000000000830L});
+    public static final BitSet FOLLOW_45 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_46 = new BitSet(new long[]{0x20A4040400001AB0L});
+    public static final BitSet FOLLOW_47 = new BitSet(new long[]{0x0008000000000000L});
+    public static final BitSet FOLLOW_48 = new BitSet(new long[]{0x0000040000000280L});
+    public static final BitSet FOLLOW_49 = new BitSet(new long[]{0x0000000800000030L});
+    public static final BitSet FOLLOW_50 = new BitSet(new long[]{0x0010000000000000L});
     public static final BitSet FOLLOW_51 = new BitSet(new long[]{0x0000000000008810L});
-    public static final BitSet FOLLOW_52 = new BitSet(new long[]{0x0020000000000000L});
-    public static final BitSet FOLLOW_53 = new BitSet(new long[]{0x0048000000000000L});
-    public static final BitSet FOLLOW_54 = new BitSet(new long[]{0x0020000000000030L});
-    public static final BitSet FOLLOW_55 = new BitSet(new long[]{0x0000004000000000L});
-    public static final BitSet FOLLOW_56 = new BitSet(new long[]{0x0000006000000000L});
-    public static final BitSet FOLLOW_57 = new BitSet(new long[]{0x0040100000000000L});
-    public static final BitSet FOLLOW_58 = new BitSet(new long[]{0x0200000000000080L});
-    public static final BitSet FOLLOW_59 = new BitSet(new long[]{0x0520000000009830L,0x0000000000000001L});
+    public static final BitSet FOLLOW_52 = new BitSet(new long[]{0x0004000000000000L});
+    public static final BitSet FOLLOW_53 = new BitSet(new long[]{0x0009000000000000L});
+    public static final BitSet FOLLOW_54 = new BitSet(new long[]{0x0004000000000030L});
+    public static final BitSet FOLLOW_55 = new BitSet(new long[]{0x0000000800000000L});
+    public static final BitSet FOLLOW_56 = new BitSet(new long[]{0x0000000C00000000L});
+    public static final BitSet FOLLOW_57 = new BitSet(new long[]{0x0008020000000000L});
+    public static final BitSet FOLLOW_58 = new BitSet(new long[]{0x0040000000000080L});
+    public static final BitSet FOLLOW_59 = new BitSet(new long[]{0x20A4000000009830L});
     public static final BitSet FOLLOW_60 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_61 = new BitSet(new long[]{0x0520000000009832L,0x0000000000000001L});
+    public static final BitSet FOLLOW_61 = new BitSet(new long[]{0x20A4000000009832L});
     public static final BitSet FOLLOW_62 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_63 = new BitSet(new long[]{0x0520000000008830L,0x0000000000000001L});
-    public static final BitSet FOLLOW_64 = new BitSet(new long[]{0x0520000000009A30L,0x0000000000000001L});
+    public static final BitSet FOLLOW_63 = new BitSet(new long[]{0x20A4000000008830L});
+    public static final BitSet FOLLOW_64 = new BitSet(new long[]{0x20A4000000009A30L});
     public static final BitSet FOLLOW_65 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_66 = new BitSet(new long[]{0x0000008000000030L});
+    public static final BitSet FOLLOW_66 = new BitSet(new long[]{0x0000001000000030L});
     public static final BitSet FOLLOW_67 = new BitSet(new long[]{0x0000000000002030L});
-    public static final BitSet FOLLOW_68 = new BitSet(new long[]{0x0400000000000000L});
-    public static final BitSet FOLLOW_69 = new BitSet(new long[]{0x0400000000000002L});
+    public static final BitSet FOLLOW_68 = new BitSet(new long[]{0x0080000000000000L});
+    public static final BitSet FOLLOW_69 = new BitSet(new long[]{0x0080000000000002L});
 
 }

@@ -605,9 +605,9 @@ ruleStringOption returns [EObject current=null]
 }:
 	(
 		(
-			lv_value_0_0=RULE_STRING
+			lv_value_0_0=RULE_MYSTRING
 			{
-				newLeafNode(lv_value_0_0, grammarAccess.getStringOptionAccess().getValueSTRINGTerminalRuleCall_0());
+				newLeafNode(lv_value_0_0, grammarAccess.getStringOptionAccess().getValueMYSTRINGTerminalRuleCall_0());
 			}
 			{
 				if ($current==null) {
@@ -617,7 +617,7 @@ ruleStringOption returns [EObject current=null]
 					$current,
 					"value",
 					lv_value_0_0,
-					"net.unicoen.UniMapperGenerator.STRING");
+					"net.unicoen.UniMapperGenerator.MYSTRING");
 			}
 		)
 	)
@@ -1167,9 +1167,9 @@ ruleV3Token returns [EObject current=null]
 			}
 			(
 				(
-					lv_value_2_0=RULE_STRING
+					lv_value_2_0=RULE_MYSTRING
 					{
-						newLeafNode(lv_value_2_0, grammarAccess.getV3TokenAccess().getValueSTRINGTerminalRuleCall_1_1_0());
+						newLeafNode(lv_value_2_0, grammarAccess.getV3TokenAccess().getValueMYSTRINGTerminalRuleCall_1_1_0());
 					}
 					{
 						if ($current==null) {
@@ -1179,7 +1179,7 @@ ruleV3Token returns [EObject current=null]
 							$current,
 							"value",
 							lv_value_2_0,
-							"net.unicoen.UniMapperGenerator.STRING");
+							"net.unicoen.UniMapperGenerator.MYSTRING");
 					}
 				)
 			)
@@ -3156,9 +3156,9 @@ ruleRange returns [EObject current=null]
 	(
 		(
 			(
-				lv_from_0_0=RULE_STRING
+				lv_from_0_0=RULE_MYSTRING
 				{
-					newLeafNode(lv_from_0_0, grammarAccess.getRangeAccess().getFromSTRINGTerminalRuleCall_0_0());
+					newLeafNode(lv_from_0_0, grammarAccess.getRangeAccess().getFromMYSTRINGTerminalRuleCall_0_0());
 				}
 				{
 					if ($current==null) {
@@ -3168,7 +3168,7 @@ ruleRange returns [EObject current=null]
 						$current,
 						"from",
 						lv_from_0_0,
-						"net.unicoen.UniMapperGenerator.STRING");
+						"net.unicoen.UniMapperGenerator.MYSTRING");
 				}
 			)
 		)
@@ -3178,9 +3178,9 @@ ruleRange returns [EObject current=null]
 		}
 		(
 			(
-				lv_to_2_0=RULE_STRING
+				lv_to_2_0=RULE_MYSTRING
 				{
-					newLeafNode(lv_to_2_0, grammarAccess.getRangeAccess().getToSTRINGTerminalRuleCall_2_0());
+					newLeafNode(lv_to_2_0, grammarAccess.getRangeAccess().getToMYSTRINGTerminalRuleCall_2_0());
 				}
 				{
 					if ($current==null) {
@@ -3190,7 +3190,7 @@ ruleRange returns [EObject current=null]
 						$current,
 						"to",
 						lv_to_2_0,
-						"net.unicoen.UniMapperGenerator.STRING");
+						"net.unicoen.UniMapperGenerator.MYSTRING");
 				}
 			)
 		)
@@ -3251,9 +3251,9 @@ ruleTerminal returns [EObject current=null]
 		(
 			(
 				(
-					lv_literal_2_0=RULE_STRING
+					lv_literal_2_0=RULE_MYSTRING
 					{
-						newLeafNode(lv_literal_2_0, grammarAccess.getTerminalAccess().getLiteralSTRINGTerminalRuleCall_1_0_0());
+						newLeafNode(lv_literal_2_0, grammarAccess.getTerminalAccess().getLiteralMYSTRINGTerminalRuleCall_1_0_0());
 					}
 					{
 						if ($current==null) {
@@ -3263,7 +3263,7 @@ ruleTerminal returns [EObject current=null]
 							$current,
 							"literal",
 							lv_literal_2_0,
-							"net.unicoen.UniMapperGenerator.STRING");
+							"net.unicoen.UniMapperGenerator.MYSTRING");
 					}
 				)
 			)
@@ -3483,9 +3483,9 @@ ruleSetElement returns [EObject current=null]
 		    |
 		(
 			(
-				lv_stringLiteral_1_0=RULE_STRING
+				lv_stringLiteral_1_0=RULE_MYSTRING
 				{
-					newLeafNode(lv_stringLiteral_1_0, grammarAccess.getSetElementAccess().getStringLiteralSTRINGTerminalRuleCall_1_0());
+					newLeafNode(lv_stringLiteral_1_0, grammarAccess.getSetElementAccess().getStringLiteralMYSTRINGTerminalRuleCall_1_0());
 				}
 				{
 					if ($current==null) {
@@ -3495,7 +3495,7 @@ ruleSetElement returns [EObject current=null]
 						$current,
 						"stringLiteral",
 						lv_stringLiteral_1_0,
-						"net.unicoen.UniMapperGenerator.STRING");
+						"net.unicoen.UniMapperGenerator.MYSTRING");
 				}
 			)
 		)
@@ -5112,13 +5112,7 @@ fragment RULE_NAME_START_CHAR : ('A'..'Z'|'a'..'z'|'\u00C0'..'\u00D6'|'\u00D8'..
 
 RULE_INT : ('0'..'9')+;
 
-RULE_STRING : '\'' RULE_LITERAL_CHAR* '\'';
-
-fragment RULE_LITERAL_CHAR : (RULE_ESC|~(('\''|'\\')));
-
-fragment RULE_ESC : '\\' ('n'|'r'|'t'|'b'|'f'|'"'|'\''|'\\'|'>'|'u' RULE_XDIGIT RULE_XDIGIT RULE_XDIGIT RULE_XDIGIT|.);
-
-fragment RULE_XDIGIT : ('0'..'9'|'a'..'f'|'A'..'F');
+RULE_MYSTRING : ('\'\\\''|'\'' ('\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|'\''|'\\')|~(('\\'|'\'')))* '\'');
 
 RULE_ACTION : RULE_NESTED_ACTION;
 

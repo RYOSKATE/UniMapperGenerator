@@ -40,7 +40,7 @@ QualifiedOption:
 	value=QualifiedId;
 
 StringOption:
-	value=STRING;
+	value=MYSTRING;
 
 ActionOption:
 	value=ACTION;
@@ -72,7 +72,7 @@ V3Tokens:
 	keyword=TOKENS_SPEC tokens+=V3Token+ '}';
 
 V3Token:
-	name=Id ('=' value=STRING)? SEMICOLON;
+	name=Id ('=' value=MYSTRING)? SEMICOLON;
 
 /** Grammar Actions */
 GrammarAction:
@@ -173,11 +173,11 @@ ElementOptions:
 	{ElementOptions} '<' (options+=ElementOption (',' options+=ElementOption)*)? '>';
 
 Range:
-	from=STRING '..' to=STRING;
+	from=MYSTRING '..' to=MYSTRING;
 
 Terminal:
 	reference=[TokenRef|TOKEN_REF] options=ElementOptions? 
-	| literal=STRING options=ElementOptions? | eof='EOF2';
+	| literal=MYSTRING options=ElementOptions? | eof='EOF2';
 
 TokenRef:
 	V3Token | V4Token | LexerRule;
@@ -194,7 +194,7 @@ BlockSet:
 	'(' elements+=SetElement ('|' elements+=SetElement)* ')';
 
 SetElement:
-	tokenRef=TOKEN_REF | stringLiteral=STRING | range=Range | charSet=ARG_OR_CHARSET;
+	tokenRef=TOKEN_REF | stringLiteral=MYSTRING | range=Range | charSet=ARG_OR_CHARSET;
 
 Wildcard:
 	dot='.' options=ElementOptions?;
@@ -324,34 +324,8 @@ terminal INT returns ecore::EInt:
 	('0'..'9')+;
 
 /** String literal */
-terminal STRING:
-	"'" LITERAL_CHAR* "'";
-
-terminal fragment LITERAL_CHAR:
-	ESC
-	|
-	!("'"
-	| '\\');
-
-terminal fragment ESC:
-	'\\'
-	('n'
-	| 'r'
-	| 't'
-	| 'b'
-	| 'f'
-	| '"'
-	| "'"
-	| '\\'
-	| '>'
-	| 'u' XDIGIT XDIGIT XDIGIT XDIGIT
-	| . // unknown, leave as it is
-);
-
-terminal fragment XDIGIT:
-	'0'..'9'
-	| 'a'..'f'
-	| 'A'..'F';
+terminal MYSTRING:
+	("\'\\\'") | ("'" ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|"'") )* "'");
 
 /** Language action (a.k.a language code) */
 terminal ACTION:

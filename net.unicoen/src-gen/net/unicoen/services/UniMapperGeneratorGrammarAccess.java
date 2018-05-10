@@ -317,17 +317,17 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	public class StringOptionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.StringOption");
 		private final Assignment cValueAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cValueSTRINGTerminalRuleCall_0 = (RuleCall)cValueAssignment.eContents().get(0);
+		private final RuleCall cValueMYSTRINGTerminalRuleCall_0 = (RuleCall)cValueAssignment.eContents().get(0);
 		
 		//StringOption:
-		//	value=STRING;
+		//	value=MYSTRING;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//value=STRING
+		//value=MYSTRING
 		public Assignment getValueAssignment() { return cValueAssignment; }
 		
-		//STRING
-		public RuleCall getValueSTRINGTerminalRuleCall_0() { return cValueSTRINGTerminalRuleCall_0; }
+		//MYSTRING
+		public RuleCall getValueMYSTRINGTerminalRuleCall_0() { return cValueMYSTRINGTerminalRuleCall_0; }
 	}
 	public class ActionOptionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.ActionOption");
@@ -608,14 +608,14 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Keyword cEqualsSignKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final Assignment cValueAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cValueSTRINGTerminalRuleCall_1_1_0 = (RuleCall)cValueAssignment_1_1.eContents().get(0);
+		private final RuleCall cValueMYSTRINGTerminalRuleCall_1_1_0 = (RuleCall)cValueAssignment_1_1.eContents().get(0);
 		private final RuleCall cSEMICOLONTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
 		
 		//V3Token:
-		//	name=Id ('=' value=STRING)? SEMICOLON;
+		//	name=Id ('=' value=MYSTRING)? SEMICOLON;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//name=Id ('=' value=STRING)? SEMICOLON
+		//name=Id ('=' value=MYSTRING)? SEMICOLON
 		public Group getGroup() { return cGroup; }
 		
 		//name=Id
@@ -624,17 +624,17 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		//Id
 		public RuleCall getNameIdParserRuleCall_0_0() { return cNameIdParserRuleCall_0_0; }
 		
-		//('=' value=STRING)?
+		//('=' value=MYSTRING)?
 		public Group getGroup_1() { return cGroup_1; }
 		
 		//'='
 		public Keyword getEqualsSignKeyword_1_0() { return cEqualsSignKeyword_1_0; }
 		
-		//value=STRING
+		//value=MYSTRING
 		public Assignment getValueAssignment_1_1() { return cValueAssignment_1_1; }
 		
-		//STRING
-		public RuleCall getValueSTRINGTerminalRuleCall_1_1_0() { return cValueSTRINGTerminalRuleCall_1_1_0; }
+		//MYSTRING
+		public RuleCall getValueMYSTRINGTerminalRuleCall_1_1_0() { return cValueMYSTRINGTerminalRuleCall_1_1_0; }
 		
 		//SEMICOLON
 		public RuleCall getSEMICOLONTerminalRuleCall_2() { return cSEMICOLONTerminalRuleCall_2; }
@@ -1679,32 +1679,32 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.Range");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cFromAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cFromSTRINGTerminalRuleCall_0_0 = (RuleCall)cFromAssignment_0.eContents().get(0);
+		private final RuleCall cFromMYSTRINGTerminalRuleCall_0_0 = (RuleCall)cFromAssignment_0.eContents().get(0);
 		private final Keyword cFullStopFullStopKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cToAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cToSTRINGTerminalRuleCall_2_0 = (RuleCall)cToAssignment_2.eContents().get(0);
+		private final RuleCall cToMYSTRINGTerminalRuleCall_2_0 = (RuleCall)cToAssignment_2.eContents().get(0);
 		
 		//Range:
-		//	from=STRING '..' to=STRING;
+		//	from=MYSTRING '..' to=MYSTRING;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//from=STRING '..' to=STRING
+		//from=MYSTRING '..' to=MYSTRING
 		public Group getGroup() { return cGroup; }
 		
-		//from=STRING
+		//from=MYSTRING
 		public Assignment getFromAssignment_0() { return cFromAssignment_0; }
 		
-		//STRING
-		public RuleCall getFromSTRINGTerminalRuleCall_0_0() { return cFromSTRINGTerminalRuleCall_0_0; }
+		//MYSTRING
+		public RuleCall getFromMYSTRINGTerminalRuleCall_0_0() { return cFromMYSTRINGTerminalRuleCall_0_0; }
 		
 		//'..'
 		public Keyword getFullStopFullStopKeyword_1() { return cFullStopFullStopKeyword_1; }
 		
-		//to=STRING
+		//to=MYSTRING
 		public Assignment getToAssignment_2() { return cToAssignment_2; }
 		
-		//STRING
-		public RuleCall getToSTRINGTerminalRuleCall_2_0() { return cToSTRINGTerminalRuleCall_2_0; }
+		//MYSTRING
+		public RuleCall getToMYSTRINGTerminalRuleCall_2_0() { return cToMYSTRINGTerminalRuleCall_2_0; }
 	}
 	public class TerminalElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.Terminal");
@@ -1717,7 +1717,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final RuleCall cOptionsElementOptionsParserRuleCall_0_1_0 = (RuleCall)cOptionsAssignment_0_1.eContents().get(0);
 		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
 		private final Assignment cLiteralAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
-		private final RuleCall cLiteralSTRINGTerminalRuleCall_1_0_0 = (RuleCall)cLiteralAssignment_1_0.eContents().get(0);
+		private final RuleCall cLiteralMYSTRINGTerminalRuleCall_1_0_0 = (RuleCall)cLiteralAssignment_1_0.eContents().get(0);
 		private final Assignment cOptionsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cOptionsElementOptionsParserRuleCall_1_1_0 = (RuleCall)cOptionsAssignment_1_1.eContents().get(0);
 		private final Assignment cEofAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
@@ -1725,10 +1725,10 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		
 		//Terminal:
 		//	reference=[TokenRef|TOKEN_REF] options=ElementOptions?
-		//	| literal=STRING options=ElementOptions? | eof='EOF2';
+		//	| literal=MYSTRING options=ElementOptions? | eof='EOF2';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//reference=[TokenRef|TOKEN_REF] options=ElementOptions? | literal=STRING options=ElementOptions? | eof='EOF2'
+		//reference=[TokenRef|TOKEN_REF] options=ElementOptions? | literal=MYSTRING options=ElementOptions? | eof='EOF2'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//reference=[TokenRef|TOKEN_REF] options=ElementOptions?
@@ -1749,14 +1749,14 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		//ElementOptions
 		public RuleCall getOptionsElementOptionsParserRuleCall_0_1_0() { return cOptionsElementOptionsParserRuleCall_0_1_0; }
 		
-		//literal=STRING options=ElementOptions?
+		//literal=MYSTRING options=ElementOptions?
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//literal=STRING
+		//literal=MYSTRING
 		public Assignment getLiteralAssignment_1_0() { return cLiteralAssignment_1_0; }
 		
-		//STRING
-		public RuleCall getLiteralSTRINGTerminalRuleCall_1_0_0() { return cLiteralSTRINGTerminalRuleCall_1_0_0; }
+		//MYSTRING
+		public RuleCall getLiteralMYSTRINGTerminalRuleCall_1_0_0() { return cLiteralMYSTRINGTerminalRuleCall_1_0_0; }
 		
 		//options=ElementOptions?
 		public Assignment getOptionsAssignment_1_1() { return cOptionsAssignment_1_1; }
@@ -1890,17 +1890,17 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		private final Assignment cTokenRefAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
 		private final RuleCall cTokenRefTOKEN_REFTerminalRuleCall_0_0 = (RuleCall)cTokenRefAssignment_0.eContents().get(0);
 		private final Assignment cStringLiteralAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
-		private final RuleCall cStringLiteralSTRINGTerminalRuleCall_1_0 = (RuleCall)cStringLiteralAssignment_1.eContents().get(0);
+		private final RuleCall cStringLiteralMYSTRINGTerminalRuleCall_1_0 = (RuleCall)cStringLiteralAssignment_1.eContents().get(0);
 		private final Assignment cRangeAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
 		private final RuleCall cRangeRangeParserRuleCall_2_0 = (RuleCall)cRangeAssignment_2.eContents().get(0);
 		private final Assignment cCharSetAssignment_3 = (Assignment)cAlternatives.eContents().get(3);
 		private final RuleCall cCharSetARG_OR_CHARSETTerminalRuleCall_3_0 = (RuleCall)cCharSetAssignment_3.eContents().get(0);
 		
 		//SetElement:
-		//	tokenRef=TOKEN_REF | stringLiteral=STRING | range=Range | charSet=ARG_OR_CHARSET;
+		//	tokenRef=TOKEN_REF | stringLiteral=MYSTRING | range=Range | charSet=ARG_OR_CHARSET;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//tokenRef=TOKEN_REF | stringLiteral=STRING | range=Range | charSet=ARG_OR_CHARSET
+		//tokenRef=TOKEN_REF | stringLiteral=MYSTRING | range=Range | charSet=ARG_OR_CHARSET
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//tokenRef=TOKEN_REF
@@ -1909,11 +1909,11 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		//TOKEN_REF
 		public RuleCall getTokenRefTOKEN_REFTerminalRuleCall_0_0() { return cTokenRefTOKEN_REFTerminalRuleCall_0_0; }
 		
-		//stringLiteral=STRING
+		//stringLiteral=MYSTRING
 		public Assignment getStringLiteralAssignment_1() { return cStringLiteralAssignment_1; }
 		
-		//STRING
-		public RuleCall getStringLiteralSTRINGTerminalRuleCall_1_0() { return cStringLiteralSTRINGTerminalRuleCall_1_0; }
+		//MYSTRING
+		public RuleCall getStringLiteralMYSTRINGTerminalRuleCall_1_0() { return cStringLiteralMYSTRINGTerminalRuleCall_1_0; }
 		
 		//range=Range
 		public Assignment getRangeAssignment_2() { return cRangeAssignment_2; }
@@ -2882,10 +2882,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	private final TerminalRule tNAME_CHAR;
 	private final TerminalRule tNAME_START_CHAR;
 	private final TerminalRule tINT;
-	private final TerminalRule tSTRING;
-	private final TerminalRule tLITERAL_CHAR;
-	private final TerminalRule tESC;
-	private final TerminalRule tXDIGIT;
+	private final TerminalRule tMYSTRING;
 	private final TerminalRule tACTION;
 	private final TerminalRule tNESTED_ACTION;
 	private final TerminalRule tACTION_STRING_LITERAL;
@@ -2989,10 +2986,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		this.tNAME_CHAR = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.NAME_CHAR");
 		this.tNAME_START_CHAR = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.NAME_START_CHAR");
 		this.tINT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.INT");
-		this.tSTRING = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.STRING");
-		this.tLITERAL_CHAR = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.LITERAL_CHAR");
-		this.tESC = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.ESC");
-		this.tXDIGIT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.XDIGIT");
+		this.tMYSTRING = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.MYSTRING");
 		this.tACTION = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.ACTION");
 		this.tNESTED_ACTION = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.NESTED_ACTION");
 		this.tACTION_STRING_LITERAL = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.ACTION_STRING_LITERAL");
@@ -3130,7 +3124,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//StringOption:
-	//	value=STRING;
+	//	value=MYSTRING;
 	public StringOptionElements getStringOptionAccess() {
 		return pStringOption;
 	}
@@ -3230,7 +3224,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//V3Token:
-	//	name=Id ('=' value=STRING)? SEMICOLON;
+	//	name=Id ('=' value=MYSTRING)? SEMICOLON;
 	public V3TokenElements getV3TokenAccess() {
 		return pV3Token;
 	}
@@ -3515,7 +3509,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//Range:
-	//	from=STRING '..' to=STRING;
+	//	from=MYSTRING '..' to=MYSTRING;
 	public RangeElements getRangeAccess() {
 		return pRange;
 	}
@@ -3526,7 +3520,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	
 	//Terminal:
 	//	reference=[TokenRef|TOKEN_REF] options=ElementOptions?
-	//	| literal=STRING options=ElementOptions? | eof='EOF2';
+	//	| literal=MYSTRING options=ElementOptions? | eof='EOF2';
 	public TerminalElements getTerminalAccess() {
 		return pTerminal;
 	}
@@ -3571,7 +3565,7 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//SetElement:
-	//	tokenRef=TOKEN_REF | stringLiteral=STRING | range=Range | charSet=ARG_OR_CHARSET;
+	//	tokenRef=TOKEN_REF | stringLiteral=MYSTRING | range=Range | charSet=ARG_OR_CHARSET;
 	public SetElementElements getSetElementAccess() {
 		return pSetElement;
 	}
@@ -3874,42 +3868,10 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		return tINT;
 	}
 	
-	//terminal STRING:
-	//	"'" LITERAL_CHAR* "'";
-	public TerminalRule getSTRINGRule() {
-		return tSTRING;
-	}
-	
-	//terminal fragment LITERAL_CHAR:
-	//	ESC
-	//	| !("'"
-	//	| '\\');
-	public TerminalRule getLITERAL_CHARRule() {
-		return tLITERAL_CHAR;
-	}
-	
-	//terminal fragment ESC:
-	//	'\\' ('n'
-	//	| 'r'
-	//	| 't'
-	//	| 'b'
-	//	| 'f'
-	//	| '"'
-	//	| "'"
-	//	| '\\'
-	//	| '>'
-	//	| 'u' XDIGIT XDIGIT XDIGIT XDIGIT
-	//	| .);
-	public TerminalRule getESCRule() {
-		return tESC;
-	}
-	
-	//terminal fragment XDIGIT:
-	//	'0'..'9'
-	//	| 'a'..'f'
-	//	| 'A'..'F';
-	public TerminalRule getXDIGITRule() {
-		return tXDIGIT;
+	//terminal MYSTRING:
+	//	"\'\\\'" | "'" ('\\' ('b' | 't' | 'n' | 'f' | 'r' | 'u' | '"' | "'" | '\\') | !('\\' | "'"))* "'";
+	public TerminalRule getMYSTRINGRule() {
+		return tMYSTRING;
 	}
 	
 	//terminal ACTION:

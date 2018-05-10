@@ -111,7 +111,7 @@ public class ANTLRGrammarGenerator {
       {
         final String platformG4filePathString = ((IFileSystemAccessExtension2) this._fsa).getURI(path).toPlatformString(true);
         final String platformAntlrfilePathString = platformG4filePathString.replace(path, "antlr-4.7.1-complete.jar");
-        final File antlrJar = new File("C:/Users/RYOSUKE/runtime-EclipseXtext/UniMapperGenerator/src-gen/antlr-4.7.1-complete.jar");
+        final File antlrJar = new File("C:/Users/RYOSUKE/runtime-EclipseApplication/UniMapperGenerator/src-gen/antlr-4.7.1-complete.jar");
         boolean _exists = antlrJar.exists();
         boolean _not = (!_exists);
         if (_not) {
@@ -128,9 +128,9 @@ public class ANTLRGrammarGenerator {
         final Path pppp = new Path("C:/Users/RYOSUKE/runtime-EclipseXtext/UniMapperGenerator/src-gen/C.g4");
         String _absolutePath = antlrJar.getAbsolutePath();
         final ProcessBuilder pb = new ProcessBuilder("java", "-cp", _absolutePath, "org.antlr.v4.Tool", "-o", 
-          "C:/Users/RYOSUKE/runtime-EclipseXtext/UniMapperGenerator/src-gen", "C:/Users/RYOSUKE/runtime-EclipseXtext/UniMapperGenerator/src-gen/C.g4");
+          "C:/Users/RYOSUKE/runtime-EclipseApplication/UniMapperGenerator/src-gen", "C:/Users/RYOSUKE/runtime-EclipseApplication/UniMapperGenerator/src-gen/C.g4");
         pb.start().waitFor();
-        final File parserFile = new File(((("C:/Users/RYOSUKE/runtime-EclipseXtext/UniMapperGenerator/src-gen" + File.separator) + name) + "Parser.java"));
+        final File parserFile = new File(((("C:/Users/RYOSUKE/runtime-EclipseApplication/UniMapperGenerator/src-gen" + File.separator) + name) + "Parser.java"));
         final BufferedReader reader = Files.newReader(parserFile, StandardCharsets.UTF_8);
         final StringBuilder builder = new StringBuilder();
         String line = "";
@@ -164,10 +164,6 @@ public class ANTLRGrammarGenerator {
       };
       g.getPrequels().forEach(_function);
       final Consumer<Rule> _function_1 = (Rule it) -> {
-        boolean _startsWith = this.compile(it).toString().startsWith("\t:\t(\t\'");
-        if (_startsWith) {
-          System.out.println("test");
-        }
         Object _compile = this.compile(it);
         String _plus_2 = (_compile + this._newLine);
         sb.append(_plus_2);
@@ -803,10 +799,10 @@ public class ANTLRGrammarGenerator {
         String _literal = te.getLiteral();
         boolean _notEquals_2 = (!Objects.equal(_literal, null));
         if (_notEquals_2) {
-          _builder.append("\'");
+          _builder.newLineIfNotEmpty();
           String _literal_1 = te.getLiteral();
           _builder.append(_literal_1);
-          _builder.append("\'");
+          _builder.newLineIfNotEmpty();
           {
             ElementOptions _options_1 = te.getOptions();
             boolean _notEquals_3 = (!Objects.equal(_options_1, null));
@@ -863,10 +859,8 @@ public class ANTLRGrammarGenerator {
         String _stringLiteral = se.getStringLiteral();
         boolean _notEquals_1 = (!Objects.equal(_stringLiteral, null));
         if (_notEquals_1) {
-          _builder.append("\'");
           String _stringLiteral_1 = se.getStringLiteral();
           _builder.append(_stringLiteral_1);
-          _builder.append("\'");
         } else {
           Range _range = se.getRange();
           boolean _notEquals_2 = (!Objects.equal(_range, null));
