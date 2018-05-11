@@ -3,14 +3,36 @@
  */
 package net.unicoen.generator;
 
+import com.google.common.base.Objects;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.HashSet;
+import java.util.List;
+import java.util.function.Consumer;
 import net.unicoen.generator.ANTLRGrammarGenerator;
+import net.unicoen.uniMapperGenerator.Atom;
+import net.unicoen.uniMapperGenerator.Element;
 import net.unicoen.uniMapperGenerator.Grammar;
+import net.unicoen.uniMapperGenerator.LexerRule;
+import net.unicoen.uniMapperGenerator.ParserRule;
+import net.unicoen.uniMapperGenerator.QualifiedId;
+import net.unicoen.uniMapperGenerator.RuleRef;
+import net.unicoen.uniMapperGenerator.Terminal;
+import net.unicoen.uniMapperGenerator.TokenRef;
+import net.unicoen.uniMapperGenerator.UnicoenTypeDec;
 import net.unicoen.util.InvokingStateAnalyzer;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.generator.AbstractGenerator;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
+import org.eclipse.xtext.xbase.lib.CollectionLiterals;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
@@ -33,14 +55,1962 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
       final String parserCode = g4Generator.generate(this._grammarName, it);
       InvokingStateAnalyzer _invokingStateAnalyzer = new InvokingStateAnalyzer(parserCode, it);
       this._analyzer = _invokingStateAnalyzer;
-      fsa.generateFile((this._grammarName + "Mapper.ts"), "sample generate");
+      fsa.generateFile((this._grammarName + "Mapper.xtend"), this.generateMapper(it));
     };
     IteratorExtensions.<Grammar>forEach(Iterators.<Grammar>filter(resource.getAllContents(), Grammar.class), _function);
+  }
+  
+  public CharSequence generateImports() {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package net.unicoen.mapper");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("import java.io.FileInputStream");
+    _builder.newLine();
+    _builder.append("import java.util.List");
+    _builder.newLine();
+    _builder.append("import java.util.ArrayList");
+    _builder.newLine();
+    _builder.append("import java.util.Map");
+    _builder.newLine();
+    _builder.append("import net.unicoen.node.*");
+    _builder.newLine();
+    _builder.append("import net.unicoen.parser.");
+    _builder.append(this._grammarName);
+    _builder.append("BaseVisitor");
+    _builder.newLineIfNotEmpty();
+    _builder.append("import net.unicoen.parser.");
+    _builder.append(this._grammarName);
+    _builder.append("Lexer");
+    _builder.newLineIfNotEmpty();
+    _builder.append("import net.unicoen.parser.");
+    _builder.append(this._grammarName);
+    _builder.append("Parser");
+    _builder.newLineIfNotEmpty();
+    _builder.append("import org.antlr.v4.runtime.ANTLRInputStream");
+    _builder.newLine();
+    _builder.append("import org.antlr.v4.runtime.CharStream");
+    _builder.newLine();
+    _builder.append("import org.antlr.v4.runtime.CommonTokenStream");
+    _builder.newLine();
+    _builder.append("import org.antlr.v4.runtime.ParserRuleContext");
+    _builder.newLine();
+    _builder.append("import org.antlr.v4.runtime.RuleContext");
+    _builder.newLine();
+    _builder.append("import org.antlr.v4.runtime.Token");
+    _builder.newLine();
+    _builder.append("import org.antlr.v4.runtime.tree.ParseTree");
+    _builder.newLine();
+    _builder.append("import org.antlr.v4.runtime.tree.RuleNode");
+    _builder.newLine();
+    _builder.append("import org.antlr.v4.runtime.tree.TerminalNode");
+    _builder.newLine();
+    _builder.append("import org.antlr.v4.runtime.tree.TerminalNodeImpl");
+    _builder.newLine();
+    _builder.append("import org.eclipse.xtext.xbase.lib.Functions.Function1");
+    _builder.newLine();
+    _builder.append("import java.lang.reflect.ParameterizedType");
+    _builder.newLine();
+    _builder.append("import net.unicoen.node_helper.CodeLocation");
+    _builder.newLine();
+    _builder.append("import net.unicoen.node_helper.CodeRange");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence generateMapper(final Grammar g) {
+    StringConcatenation _builder = new StringConcatenation();
+    CharSequence _generateImports = this.generateImports();
+    _builder.append(_generateImports);
+    _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    _builder.append("class ");
+    _builder.append(this._grammarName);
+    _builder.append("Mapper extends ");
+    _builder.append(this._grammarName);
+    _builder.append("BaseVisitor<Object> {");
+    _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("val boolean _isDebugMode");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("val List<Comment> _comments = new ArrayList<Comment>;");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("var CommonTokenStream _stream;");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("var UniNode _lastNode;");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("var int _nextTokenIndex;");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("static class Comment {");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("val List<String> contents");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("var ParseTree parent");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("new(List<String> contents, ParseTree parent) {");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("this.contents = contents");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("this.parent = parent");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("new(boolean isDebugMode) {");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("_isDebugMode = isDebugMode");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("def parse(String code) {");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("parseCore(new ANTLRInputStream(code))");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("def parseFile(String path) {");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("val inputStream = new FileInputStream(path)");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("try {");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("parseCore(new ANTLRInputStream(inputStream))");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("} finally {");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("inputStream.close");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("def parseCore(CharStream chars) {");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("parseCore(chars, [parser|parser.");
+    String _name = g.getRoot().getRoot().getName();
+    _builder.append(_name, "\t\t");
+    _builder.append("])");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("def parse(String code, Function1<");
+    _builder.append(this._grammarName, "\t");
+    _builder.append("Parser, ParseTree> parseAction) {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    _builder.append("parseCore(new ANTLRInputStream(code), parseAction)");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("def parseFile(String path, Function1<");
+    _builder.append(this._grammarName, "\t");
+    _builder.append("Parser, ParseTree> parseAction) {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    _builder.append("val inputStream = new FileInputStream(path)");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("try {");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("parseCore(new ANTLRInputStream(inputStream), parseAction)");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("} finally {");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("inputStream.close");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("def parseCore(CharStream chars, Function1<");
+    _builder.append(this._grammarName, "\t");
+    _builder.append("Parser, ParseTree> parseAction) {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    _builder.append("val lexer = new ");
+    _builder.append(this._grammarName, "\t\t");
+    _builder.append("Lexer(chars)");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    _builder.append("val tokens = new CommonTokenStream(lexer)");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("val parser = new ");
+    _builder.append(this._grammarName, "\t\t");
+    _builder.append("Parser(tokens)");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    _builder.append("val tree = parseAction.apply(parser) // parse");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("_comments.clear()");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("_stream = tokens");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("_lastNode = null");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("_nextTokenIndex = 0");
+    _builder.newLine();
+    _builder.newLine();
+    {
+      int _size = g.getRules().size();
+      boolean _greaterThan = (_size > 0);
+      if (_greaterThan) {
+        _builder.append("\t\t");
+        _builder.append("val ret = tree.visit.flatten");
+        _builder.newLine();
+        _builder.newLine();
+        _builder.append("\t\t");
+        _builder.append("if (_lastNode !== null) {");
+        _builder.newLine();
+        _builder.append("\t\t");
+        _builder.append("\t");
+        _builder.append("val count = _stream.size - 1");
+        _builder.newLine();
+        _builder.append("\t\t");
+        _builder.append("\t");
+        _builder.append("for (var i = _nextTokenIndex; i < count; i++) {");
+        _builder.newLine();
+        _builder.append("\t\t");
+        _builder.append("\t\t");
+        _builder.append("val hiddenToken = _stream.get(i) // Includes skipped tokens (maybe)");
+        _builder.newLine();
+        _builder.append("\t\t");
+        _builder.append("\t\t");
+        _builder.append("if (_lastNode.comments === null) {");
+        _builder.newLine();
+        _builder.append("\t\t");
+        _builder.append("\t\t\t");
+        _builder.append("_lastNode.comments = newArrayList");
+        _builder.newLine();
+        _builder.append("\t\t");
+        _builder.append("\t\t");
+        _builder.append("}");
+        _builder.newLine();
+        _builder.append("\t\t");
+        _builder.append("\t\t");
+        _builder.append("_lastNode.comments += hiddenToken.text");
+        _builder.newLine();
+        _builder.append("\t\t");
+        _builder.append("\t");
+        _builder.append("}");
+        _builder.newLine();
+        _builder.append("\t\t");
+        _builder.append("}");
+        _builder.newLine();
+        _builder.append("\t\t");
+        _builder.append("ret");
+        _builder.newLine();
+      }
+    }
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("override public visitChildren(RuleNode node) {");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("val n = node.childCount");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("val list = newArrayList()");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("(0 ..< n).forEach [ i |");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("val c = node.getChild(i)");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("val childResult = c.visit");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("list += childResult");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("]");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("list.flatten");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("override public visit(ParseTree tree) {");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("val result = if (_isDebugMode && tree instanceof RuleContext) {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("val ruleName = ");
+    _builder.append(this._grammarName, "\t\t\t\t");
+    _builder.append("Parser.ruleNames.get((tree as ParserRuleContext).ruleIndex)");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t\t\t");
+    _builder.append("println(\"enter \" + ruleName + \" : \" + tree.text)");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("val ret = tree.accept(this)");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("println(\"exit \" + ruleName + \" : \" + ret)");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("ret");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("} else {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("tree.accept(this)");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("val node = if (result instanceof List<?>) {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("if(result.size == 1) result.get(0) else result");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("} else {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("result");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("if (node instanceof UniNode) {");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("if (tree instanceof RuleContext)");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("{");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("val start = (tree as ParserRuleContext).start");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("val stop = (tree as ParserRuleContext).stop");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("val begin = new CodeLocation(start.charPositionInLine,start.line)");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("val endPos = stop.charPositionInLine");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("val length = 1 + stop.stopIndex - stop.startIndex");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("val end = new CodeLocation(endPos + length, stop.line)");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("node.codeRange = new CodeRange(begin,end)");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("var List<String> contents = newArrayList");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("for (var i = _comments.size - 1; i >= 0 && _comments.get(i).parent == tree; i--) {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("_comments.get(i).contents += contents");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("contents = _comments.get(i).contents");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("_comments.remove(i)");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("if (contents.size > 0) {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("if (node.comments === null) {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t");
+    _builder.append("node.comments = contents");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("} else {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t");
+    _builder.append("node.comments += contents");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("_lastNode = node");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("} else {");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("for (var i = _comments.size - 1; i >= 0 && _comments.get(i).parent == tree; i--) {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("_comments.get(i).parent = _comments.get(i).parent.parent");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("_lastNode = null");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("result");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("def boolean isNonEmptyNode(ParseTree node) {");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("if (node instanceof ParserRuleContext) {");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("if (node.childCount > 1) {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("return true");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("node.childCount == 1 && node.children.exists[isNonEmptyNode]");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("} else {");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("true");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("override public visitTerminal(TerminalNode node) {");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("if (_isDebugMode) {");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("println(\"visit TERMINAL : \" + node.text)");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("val token = node.symbol");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("if (token.type > 0) {");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("val count = token.tokenIndex");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("val List<String> contents = newArrayList");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("var i = _nextTokenIndex");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("for (; i < count; i++) {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("val hiddenToken = _stream.get(i) // Includes skipped tokens (maybe)");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("if (_lastNode !== null && _stream.get(_nextTokenIndex - 1).line == hiddenToken.line) {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t");
+    _builder.append("if (_lastNode.comments === null) {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t");
+    _builder.append("_lastNode.comments = newArrayList");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t");
+    _builder.append("_lastNode.comments += hiddenToken.text");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("} else {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t");
+    _builder.append("contents += hiddenToken.text");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("val count2 = _stream.size - 1");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("for (i = count + 1; i < count2 && _stream.get(i).channel == Token.HIDDEN_CHANNEL &&");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("_stream.get(count).line == _stream.get(i).line; i++) {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("contents += _stream.get(i).text");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("if (contents.size > 0) {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("_comments.add(new Comment(contents, node.parent))");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("_nextTokenIndex = i");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("node.text");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("private def Object flatten(Object obj) {");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("if (obj instanceof List<?>) {");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("if (obj.size == 1) {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("return obj.get(0).flatten");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("val ret = newArrayList");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("obj.forEach [");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("ret += it.flatten");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("]");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("return ret");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("if (obj instanceof Map<?, ?>) {");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("if (obj.size == 1) {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("return obj.get(obj.keySet.get(0)).flatten");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("val ret = newHashMap");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("obj.forEach [ key, value |");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("ret.put(key, value.flatten)");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("]");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("return ret");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("obj");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("public def <T> List<T> castToList(Object obj, Class<T> clazz) {");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("val temp = obj.flatten");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("val ret = newArrayList");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("if (temp instanceof Map<?, ?>) {");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("val add = temp.containsKey(\"add\")");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("temp.forEach [ key, value |");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("switch key {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t");
+    _builder.append("case \"add\": {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t");
+    _builder.append("if (value instanceof Map<?, ?>) {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t\t");
+    _builder.append("ret += value.castTo(clazz)");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t");
+    _builder.append("} else if (value instanceof List<?>) {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t\t");
+    _builder.append("value.forEach [");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t\t\t");
+    _builder.append("val t = it.castTo(clazz)");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t\t\t");
+    _builder.append("if (t != null) {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t\t\t\t");
+    _builder.append("ret += t");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t\t");
+    _builder.append("]");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t");
+    _builder.append("} else {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t\t");
+    _builder.append("ret += value.castToList(clazz)");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t");
+    _builder.append("default: {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t");
+    _builder.append("if (!add) {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t\t");
+    _builder.append("ret += value.castToList(clazz)");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("]");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("} else if (temp instanceof List<?>) {");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("temp.forEach [");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("ret += it.castToList(clazz)");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("]");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("} else {");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("ret += temp.castTo(clazz)");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("ret");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("public def <T> T castTo(Object obj, Class<T> clazz) {");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("val temp = obj.flatten");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("if (temp instanceof Map<?, ?>) {");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("if (String.isAssignableFrom(clazz)) {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("val builder = new StringBuilder");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("val hasAdd = temp.containsKey(\"add\")");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("temp.forEach [ key, value |");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t");
+    _builder.append("switch (key) {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t");
+    _builder.append("case \"add\": {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t\t");
+    _builder.append("builder.append(value.castTo(clazz))");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t");
+    _builder.append("default: {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t\t");
+    _builder.append("if (!hasAdd) {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t\t\t");
+    _builder.append("builder.append(value.castTo(clazz))");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("]");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("return if (builder.length > 0) clazz.getConstructor(StringBuilder).newInstance(builder) else null");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("val instance = clazz.newInstance");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("val fields = clazz.fields");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("val fieldsName = newArrayList");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("fields.forEach[fieldsName.add(it.name)]");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("temp.forEach [ key, value |");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("if (fieldsName.contains(key)) {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t");
+    _builder.append("val field = fields.get(fieldsName.indexOf(key))");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t");
+    _builder.append("field.set(instance,");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t");
+    _builder.append("if (List.isAssignableFrom(field.type)) {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t\t");
+    _builder.append("value.castToList(");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t\t\t");
+    _builder.append("(field.genericType as ParameterizedType).actualTypeArguments.get(0) as Class<?>)");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t");
+    _builder.append("} else {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t\t");
+    _builder.append("value.castTo(field.type)");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t\t");
+    _builder.append("})");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("]");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("return instance");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("if (temp instanceof List<?>) {");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("if (String.isAssignableFrom(clazz)) {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("val builder = new StringBuilder");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("temp.forEach [");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t");
+    _builder.append("builder.append(it.castTo(clazz))");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("]");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("return if (builder.length > 0) clazz.getConstructor(StringBuilder).newInstance(builder) else null");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("val first = temp.findFirst[clazz.isAssignableFrom(it.class)]");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("return if (first === null) {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("try {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t");
+    _builder.append("clazz.newInstance");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("} catch (InstantiationException e) {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t\t");
+    _builder.append("null");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("} else");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("first.castTo(clazz)");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("clazz.cast(temp)");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    {
+      Iterable<ParserRule> _filter = Iterables.<ParserRule>filter(g.getRules(), ParserRule.class);
+      for(final ParserRule r : _filter) {
+        {
+          if ((((r.getType() != null) && (r.getType().getType().getName() != null)) && r.getType().getType().getName().endsWith("Literal"))) {
+            _builder.append("\t");
+            CharSequence _makeLiteralMethod = this.makeLiteralMethod(r);
+            _builder.append(_makeLiteralMethod, "\t");
+            _builder.newLineIfNotEmpty();
+            _builder.newLine();
+          } else {
+            if (((r.getType() != null) || (IteratorExtensions.<Element>findFirst(Iterators.<Element>filter(r.eAllContents(), Element.class), ((Function1<Element, Boolean>) (Element it) -> {
+              String _op = it.getOp();
+              return Boolean.valueOf((_op != null));
+            })) != null))) {
+              _builder.append("\t");
+              CharSequence _makeVisitMethod = this.makeVisitMethod(r);
+              _builder.append(_makeVisitMethod, "\t");
+              _builder.newLineIfNotEmpty();
+              _builder.newLine();
+            }
+          }
+        }
+      }
+    }
+    _builder.append("}");
+    _builder.newLine();
+    return _builder;
   }
   
   public String toCamelCase(final String str) {
     char _upperCase = Character.toUpperCase(str.charAt(0));
     String _substring = str.substring(1);
     return (Character.valueOf(_upperCase) + _substring);
+  }
+  
+  public CharSequence makeVisitMethod(final ParserRule r) {
+    CharSequence _xblockexpression = null;
+    {
+      final String ruleName = this.toCamelCase(r.getName());
+      String _xifexpression = null;
+      UnicoenTypeDec _type = r.getType();
+      boolean _tripleNotEquals = (_type != null);
+      if (_tripleNotEquals) {
+        _xifexpression = r.getType().getType().getName();
+      } else {
+        _xifexpression = new String();
+      }
+      final String typeName = _xifexpression;
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("override public visit");
+      _builder.append(ruleName);
+      _builder.append("(");
+      _builder.append(this._grammarName);
+      _builder.append("Parser.");
+      _builder.append(ruleName);
+      _builder.append("Context ctx) {");
+      _builder.newLineIfNotEmpty();
+      {
+        boolean _equals = Objects.equal(typeName, "List");
+        if (_equals) {
+          _builder.append("\t");
+          CharSequence _makeListMethodBody = this.makeListMethodBody(r, r.getType().getType().getTypevalue());
+          _builder.append(_makeListMethodBody, "\t");
+          _builder.newLineIfNotEmpty();
+        } else {
+          _builder.append("\t");
+          CharSequence _makeMethodBody = this.makeMethodBody(r);
+          _builder.append(_makeMethodBody, "\t");
+          _builder.newLineIfNotEmpty();
+        }
+      }
+      _builder.append("}");
+      _builder.newLine();
+      _xblockexpression = _builder;
+    }
+    return _xblockexpression;
+  }
+  
+  public CharSequence makeMethodBody(final ParserRule r) {
+    CharSequence _xblockexpression = null;
+    {
+      final HashSet<String> annotationList = CollectionLiterals.<String>newHashSet();
+      final Function1<Element, Boolean> _function = (Element it) -> {
+        String _op = it.getOp();
+        return Boolean.valueOf((_op != null));
+      };
+      final List<Element> elementList = IteratorExtensions.<Element>toList(IteratorExtensions.<Element>filter(Iterators.<Element>filter(r.eAllContents(), Element.class), _function));
+      final Function1<Element, Boolean> _function_1 = (Element it) -> {
+        String _op = it.getOp();
+        return Boolean.valueOf(Objects.equal(_op, "MERGE"));
+      };
+      Element _findFirst = IterableExtensions.<Element>findFirst(elementList, _function_1);
+      final boolean hasMerge = (_findFirst != null);
+      final Function1<Element, Boolean> _function_2 = (Element it) -> {
+        String _op = it.getOp();
+        return Boolean.valueOf(Objects.equal(_op, "RETURN"));
+      };
+      Element _findFirst_1 = IterableExtensions.<Element>findFirst(elementList, _function_2);
+      final boolean hasReturn = (_findFirst_1 != null);
+      final Consumer<Element> _function_3 = (Element it) -> {
+        String _op = it.getOp();
+        annotationList.add(_op);
+      };
+      elementList.forEach(_function_3);
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("val map = newHashMap");
+      _builder.newLine();
+      _builder.append("val none = newArrayList");
+      _builder.newLine();
+      _builder.append("map.put(\"none\", none)");
+      _builder.newLine();
+      {
+        for(final String it : annotationList) {
+          {
+            boolean _notEquals = (!Objects.equal(it, "MERGE"));
+            if (_notEquals) {
+              _builder.append("val ");
+              String _xifexpression = null;
+              boolean _equals = Objects.equal(it, "ADD");
+              if (_equals) {
+                _xifexpression = it.toLowerCase();
+              } else {
+                String _xifexpression_1 = null;
+                boolean _equals_1 = Objects.equal(it, "RETURN");
+                if (_equals_1) {
+                  _xifexpression_1 = "ret";
+                } else {
+                  _xifexpression_1 = it;
+                }
+                _xifexpression = _xifexpression_1;
+              }
+              _builder.append(_xifexpression);
+              _builder.append(" = newArrayList");
+              _builder.newLineIfNotEmpty();
+              {
+                boolean _notEquals_1 = (!Objects.equal(it, "RETURN"));
+                if (_notEquals_1) {
+                  _builder.append("map.put(\"");
+                  String _xifexpression_2 = null;
+                  boolean _equals_2 = Objects.equal(it, "ADD");
+                  if (_equals_2) {
+                    _xifexpression_2 = it.toLowerCase();
+                  } else {
+                    _xifexpression_2 = it;
+                  }
+                  _builder.append(_xifexpression_2);
+                  _builder.append("\", ");
+                  String _xifexpression_3 = null;
+                  boolean _equals_3 = Objects.equal(it, "ADD");
+                  if (_equals_3) {
+                    _xifexpression_3 = it.toLowerCase();
+                  } else {
+                    _xifexpression_3 = it;
+                  }
+                  _builder.append(_xifexpression_3);
+                  _builder.append(")");
+                  _builder.newLineIfNotEmpty();
+                }
+              }
+            }
+          }
+        }
+      }
+      {
+        if (hasMerge) {
+          _builder.append("val merge = newArrayList");
+          _builder.newLine();
+        }
+      }
+      _builder.append("ctx.children.forEach [");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("if (it instanceof RuleContext) {");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("switch it.invokingState {");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      final HashSet<Integer> stateList = CollectionLiterals.<Integer>newHashSet();
+      _builder.newLineIfNotEmpty();
+      {
+        for(final Element it_1 : elementList) {
+          _builder.append("\t\t\t");
+          final EObject atom = it_1.getBody();
+          _builder.newLineIfNotEmpty();
+          {
+            if ((atom instanceof Atom)) {
+              _builder.append("\t\t\t");
+              final EObject ref = ((Atom)atom).getBody();
+              _builder.newLineIfNotEmpty();
+              {
+                if ((ref instanceof RuleRef)) {
+                  _builder.append("\t\t\t");
+                  final Integer invokingState = this.getInvokingState(r);
+                  _builder.newLineIfNotEmpty();
+                  {
+                    boolean _add = stateList.add(invokingState);
+                    if (_add) {
+                      _builder.append("\t\t\t");
+                      _builder.append("case ");
+                      _builder.append(invokingState, "\t\t\t");
+                      _builder.append(": {");
+                      _builder.newLineIfNotEmpty();
+                      _builder.append("\t\t\t");
+                      _builder.append("\t");
+                      String _xifexpression_4 = null;
+                      if ((Objects.equal(it_1.getOp(), "MERGE") || Objects.equal(it_1.getOp(), "ADD"))) {
+                        _xifexpression_4 = it_1.getOp().toLowerCase();
+                      } else {
+                        String _xifexpression_5 = null;
+                        String _op = it_1.getOp();
+                        boolean _equals_4 = Objects.equal(_op, "RETURN");
+                        if (_equals_4) {
+                          _xifexpression_5 = "ret";
+                        } else {
+                          _xifexpression_5 = it_1.getOp();
+                        }
+                        _xifexpression_4 = _xifexpression_5;
+                      }
+                      _builder.append(_xifexpression_4, "\t\t\t\t");
+                      _builder.append(" += it.visit");
+                      {
+                        if (((r.getType() != null) && (r.getType().getType().getDir() != null))) {
+                          _builder.append(".flatten");
+                        }
+                      }
+                      _builder.newLineIfNotEmpty();
+                      _builder.append("\t\t\t");
+                      _builder.append("}");
+                      _builder.newLine();
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      _builder.append("\t\t\t");
+      _builder.append("default: {");
+      _builder.newLine();
+      _builder.append("\t\t\t\t");
+      _builder.append("none += it.visit");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("} else if (it instanceof TerminalNode) {");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("switch it.symbol.type {");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      final HashSet<String> nameList = CollectionLiterals.<String>newHashSet();
+      _builder.newLineIfNotEmpty();
+      {
+        for(final Element it_2 : elementList) {
+          _builder.append("\t\t\t");
+          final EObject atom_1 = it_2.getBody();
+          _builder.newLineIfNotEmpty();
+          {
+            if ((atom_1 instanceof Atom)) {
+              _builder.append("\t\t\t");
+              final EObject ref_1 = ((Atom)atom_1).getBody();
+              _builder.newLineIfNotEmpty();
+              {
+                if (((ref_1 instanceof Terminal) && nameList.add(this.getTerminalName(it_2)))) {
+                  _builder.append("\t\t\t");
+                  _builder.append("case ");
+                  _builder.append(this._grammarName, "\t\t\t");
+                  _builder.append("Parser.");
+                  String _terminalName = this.getTerminalName(it_2);
+                  _builder.append(_terminalName, "\t\t\t");
+                  _builder.append(": {");
+                  _builder.newLineIfNotEmpty();
+                  _builder.append("\t\t\t");
+                  _builder.append("\t");
+                  String _xifexpression_6 = null;
+                  if ((Objects.equal(it_2.getOp(), "MERGE") || Objects.equal(it_2.getOp(), "ADD"))) {
+                    _xifexpression_6 = it_2.getOp().toLowerCase();
+                  } else {
+                    String _xifexpression_7 = null;
+                    String _op_1 = it_2.getOp();
+                    boolean _equals_5 = Objects.equal(_op_1, "RETURN");
+                    if (_equals_5) {
+                      _xifexpression_7 = "ret";
+                    } else {
+                      _xifexpression_7 = it_2.getOp();
+                    }
+                    _xifexpression_6 = _xifexpression_7;
+                  }
+                  _builder.append(_xifexpression_6, "\t\t\t\t");
+                  _builder.append(" += it.visit.flatten");
+                  _builder.newLineIfNotEmpty();
+                  _builder.append("\t\t\t");
+                  _builder.append("}");
+                  _builder.newLine();
+                }
+              }
+            }
+          }
+        }
+      }
+      _builder.append("\t\t\t");
+      _builder.append("default: {");
+      _builder.newLine();
+      _builder.append("\t\t\t\t");
+      _builder.append("none += it.visit");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("]");
+      _builder.newLine();
+      {
+        if (hasReturn) {
+          _builder.append("if (!ret.isEmpty) {");
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("return ret");
+          _builder.newLine();
+          _builder.append("}");
+          _builder.newLine();
+        }
+      }
+      {
+        UnicoenTypeDec _type = r.getType();
+        boolean _tripleNotEquals = (_type != null);
+        if (_tripleNotEquals) {
+          {
+            String _name = r.getType().getType().getName();
+            boolean _tripleNotEquals_1 = (_name != null);
+            if (_tripleNotEquals_1) {
+              {
+                if (hasMerge) {
+                  _builder.append("val node = ");
+                }
+              }
+              _builder.append("map.castTo(");
+              String _name_1 = r.getType().getType().getName();
+              _builder.append(_name_1);
+              _builder.append(")");
+              _builder.newLineIfNotEmpty();
+              {
+                if (hasMerge) {
+                  _builder.append("merge.forEach[node.merge(it.castTo(");
+                  String _name_2 = r.getType().getType().getName();
+                  _builder.append(_name_2);
+                  _builder.append("))]");
+                  _builder.newLineIfNotEmpty();
+                  _builder.append("node");
+                  _builder.newLine();
+                }
+              }
+            } else {
+              {
+                String _dir = r.getType().getType().getDir();
+                boolean _equals_6 = Objects.equal(_dir, ">");
+                if (_equals_6) {
+                  _builder.append("add.reverse");
+                  _builder.newLine();
+                }
+              }
+              _builder.append("var node = add.get(0) as UniExpr");
+              _builder.newLine();
+              _builder.append("add.remove(node)");
+              _builder.newLine();
+              _builder.append("for (Object obj : add) {");
+              _builder.newLine();
+              _builder.append("\t");
+              _builder.append("switch (obj) {");
+              _builder.newLine();
+              {
+                EList<QualifiedId> _fieldvalue = r.getType().getType().getFieldvalue();
+                for(final QualifiedId field : _fieldvalue) {
+                  _builder.append("\t\t");
+                  String _get = field.getName().get(0);
+                  _builder.append(_get, "\t\t");
+                  _builder.append(": {");
+                  _builder.newLineIfNotEmpty();
+                  _builder.append("\t\t");
+                  _builder.append("\t");
+                  _builder.append("obj.");
+                  String _get_1 = field.getName().get(1);
+                  _builder.append(_get_1, "\t\t\t");
+                  _builder.append(" = node");
+                  _builder.newLineIfNotEmpty();
+                  _builder.append("\t\t");
+                  _builder.append("\t");
+                  _builder.append("node = obj");
+                  _builder.newLine();
+                  _builder.append("\t\t");
+                  _builder.append("}");
+                  _builder.newLine();
+                }
+              }
+              _builder.append("\t");
+              _builder.append("}");
+              _builder.newLine();
+              _builder.append("}");
+              _builder.newLine();
+              _builder.append("node");
+              _builder.newLine();
+            }
+          }
+        } else {
+          {
+            if (hasMerge) {
+              _builder.append("merge.forEach [");
+              _builder.newLine();
+              _builder.append("\t");
+              _builder.append("if (it instanceof Map<?, ?>) {");
+              _builder.newLine();
+              _builder.append("\t\t");
+              _builder.append("it.forEach [ k, v |");
+              _builder.newLine();
+              _builder.append("\t\t\t");
+              _builder.append("if (map.containsKey(k)) {");
+              _builder.newLine();
+              _builder.append("\t\t\t\t");
+              _builder.append("map.get(k) += v");
+              _builder.newLine();
+              _builder.append("\t\t\t");
+              _builder.append("} else {");
+              _builder.newLine();
+              _builder.append("\t\t\t\t");
+              _builder.append("map.put(k, v as ArrayList<Object>)");
+              _builder.newLine();
+              _builder.append("\t\t\t");
+              _builder.append("}");
+              _builder.newLine();
+              _builder.append("\t\t");
+              _builder.append("]");
+              _builder.newLine();
+              _builder.append("\t");
+              _builder.append("}");
+              _builder.newLine();
+              _builder.append("]");
+              _builder.newLine();
+            }
+          }
+          _builder.append("map");
+          _builder.newLine();
+        }
+      }
+      _xblockexpression = _builder;
+    }
+    return _xblockexpression;
+  }
+  
+  public String getReferenceReturnType(final Element r) {
+    String _xblockexpression = null;
+    {
+      EObject _body = r.getBody();
+      final EObject ref = ((Atom) _body).getBody();
+      String _xifexpression = null;
+      if ((ref instanceof RuleRef)) {
+        String _xifexpression_1 = null;
+        UnicoenTypeDec _type = ((RuleRef)ref).getReference().getType();
+        boolean _tripleNotEquals = (_type != null);
+        if (_tripleNotEquals) {
+          _xifexpression_1 = ((RuleRef)ref).getReference().getType().getType().getName();
+        }
+        _xifexpression = _xifexpression_1;
+      }
+      _xblockexpression = _xifexpression;
+    }
+    return _xblockexpression;
+  }
+  
+  public String getTerminalName(final Element r) {
+    String _xblockexpression = null;
+    {
+      EObject _body = r.getBody();
+      final EObject ref = ((Atom) _body).getBody();
+      String _xifexpression = null;
+      if ((ref instanceof Terminal)) {
+        TokenRef _reference = ((Terminal)ref).getReference();
+        _xifexpression = ((LexerRule) _reference).getName();
+      }
+      _xblockexpression = _xifexpression;
+    }
+    return _xblockexpression;
+  }
+  
+  public String getTypeName(final Type type) {
+    boolean _matched = false;
+    if (type instanceof Class) {
+      _matched=true;
+      return ((Class<?>)type).getName();
+    }
+    if (!_matched) {
+      if (type instanceof ParameterizedType) {
+        _matched=true;
+        final StringBuilder sb = new StringBuilder();
+        sb.append(((ParameterizedType)type).getTypeName()).append("<");
+        boolean isFirst = true;
+        Type[] _actualTypeArguments = ((ParameterizedType)type).getActualTypeArguments();
+        for (final Type arg : _actualTypeArguments) {
+          {
+            if ((!isFirst)) {
+              sb.append(",");
+            }
+            sb.append(arg.getTypeName());
+          }
+        }
+        sb.append(">");
+        return sb.toString();
+      }
+    }
+    String _string = type.toString();
+    String _plus = ("Unknown type:" + _string);
+    this.die(_plus);
+    return null;
+  }
+  
+  public CharSequence makeListMethodBody(final ParserRule r, final String itemClassName) {
+    CharSequence _xblockexpression = null;
+    {
+      final HashSet<String> annotationList = CollectionLiterals.<String>newHashSet();
+      final Function1<Element, Boolean> _function = (Element it) -> {
+        String _op = it.getOp();
+        return Boolean.valueOf((_op != null));
+      };
+      final List<Element> elementList = IteratorExtensions.<Element>toList(IteratorExtensions.<Element>filter(Iterators.<Element>filter(r.eAllContents(), Element.class), _function));
+      final Function1<Element, Boolean> _function_1 = (Element it) -> {
+        String _op = it.getOp();
+        return Boolean.valueOf(Objects.equal(_op, "MERGE"));
+      };
+      Element _findFirst = IterableExtensions.<Element>findFirst(elementList, _function_1);
+      final boolean hasMerge = (_findFirst != null);
+      final Function1<Element, Boolean> _function_2 = (Element it) -> {
+        String _op = it.getOp();
+        return Boolean.valueOf(Objects.equal(_op, "RETURN"));
+      };
+      Element _findFirst_1 = IterableExtensions.<Element>findFirst(elementList, _function_2);
+      final boolean hasReturn = (_findFirst_1 != null);
+      final Consumer<Element> _function_3 = (Element it) -> {
+        String _op = it.getOp();
+        annotationList.add(_op);
+      };
+      elementList.forEach(_function_3);
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("val map = newHashMap");
+      _builder.newLine();
+      _builder.append("val none = newArrayList");
+      _builder.newLine();
+      _builder.append("map.put(\"none\", none)");
+      _builder.newLine();
+      {
+        for(final String it : annotationList) {
+          {
+            boolean _notEquals = (!Objects.equal(it, "MERGE"));
+            if (_notEquals) {
+              _builder.append("val ");
+              String _xifexpression = null;
+              boolean _equals = Objects.equal(it, "ADD");
+              if (_equals) {
+                _xifexpression = it.toLowerCase();
+              } else {
+                String _xifexpression_1 = null;
+                boolean _equals_1 = Objects.equal(it, "RETURN");
+                if (_equals_1) {
+                  _xifexpression_1 = "ret";
+                } else {
+                  _xifexpression_1 = it;
+                }
+                _xifexpression = _xifexpression_1;
+              }
+              _builder.append(_xifexpression);
+              _builder.append(" = newArrayList");
+              _builder.newLineIfNotEmpty();
+              {
+                boolean _notEquals_1 = (!Objects.equal(it, "RETURN"));
+                if (_notEquals_1) {
+                  _builder.append("map.put(\"");
+                  String _xifexpression_2 = null;
+                  boolean _equals_2 = Objects.equal(it, "ADD");
+                  if (_equals_2) {
+                    _xifexpression_2 = it.toLowerCase();
+                  } else {
+                    _xifexpression_2 = it;
+                  }
+                  _builder.append(_xifexpression_2);
+                  _builder.append("\", ");
+                  String _xifexpression_3 = null;
+                  boolean _equals_3 = Objects.equal(it, "ADD");
+                  if (_equals_3) {
+                    _xifexpression_3 = it.toLowerCase();
+                  } else {
+                    _xifexpression_3 = it;
+                  }
+                  _builder.append(_xifexpression_3);
+                  _builder.append(")");
+                  _builder.newLineIfNotEmpty();
+                }
+              }
+            }
+          }
+        }
+      }
+      {
+        if (hasMerge) {
+          _builder.append("val merge = newArrayList");
+          _builder.newLine();
+        }
+      }
+      _builder.append("if (ctx.children != null) {");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("ctx.children.forEach [");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("if (it instanceof RuleContext) {");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("switch it.invokingState {");
+      _builder.newLine();
+      _builder.append("\t\t\t\t");
+      final HashSet<Integer> stateList = CollectionLiterals.<Integer>newHashSet();
+      _builder.newLineIfNotEmpty();
+      {
+        for(final Element it_1 : elementList) {
+          _builder.append("\t\t\t\t");
+          final EObject atom = it_1.getBody();
+          _builder.newLineIfNotEmpty();
+          {
+            if ((atom instanceof Atom)) {
+              _builder.append("\t\t\t\t");
+              final EObject ref = ((Atom)atom).getBody();
+              _builder.newLineIfNotEmpty();
+              {
+                if ((ref instanceof RuleRef)) {
+                  _builder.append("\t\t\t\t");
+                  final Integer invokingState = this.getInvokingState(r);
+                  _builder.newLineIfNotEmpty();
+                  {
+                    boolean _add = stateList.add(invokingState);
+                    if (_add) {
+                      _builder.append("\t\t\t\t");
+                      _builder.append("case ");
+                      _builder.append(invokingState, "\t\t\t\t");
+                      _builder.append(": {");
+                      _builder.newLineIfNotEmpty();
+                      _builder.append("\t\t\t\t");
+                      _builder.append("\t");
+                      String _xifexpression_4 = null;
+                      String _op = it_1.getOp();
+                      boolean _equals_4 = Objects.equal(_op, "MERGE");
+                      if (_equals_4) {
+                        _xifexpression_4 = it_1.getOp().toLowerCase();
+                      } else {
+                        String _xifexpression_5 = null;
+                        String _op_1 = it_1.getOp();
+                        boolean _equals_5 = Objects.equal(_op_1, "ADD");
+                        if (_equals_5) {
+                          _xifexpression_5 = "val results = it.visit.flatten\r\nif(results instanceof ArrayList<?>){\r\n\tfor (result: results)\r\n\t\tadd += result\r\n}\r\nelse\r\n\tadd";
+                        } else {
+                          String _xifexpression_6 = null;
+                          String _op_2 = it_1.getOp();
+                          boolean _equals_6 = Objects.equal(_op_2, "RETURN");
+                          if (_equals_6) {
+                            _xifexpression_6 = "ret";
+                          } else {
+                            _xifexpression_6 = it_1.getOp();
+                          }
+                          _xifexpression_5 = _xifexpression_6;
+                        }
+                        _xifexpression_4 = _xifexpression_5;
+                      }
+                      _builder.append(_xifexpression_4, "\t\t\t\t\t");
+                      _builder.append(" += it.visit");
+                      _builder.newLineIfNotEmpty();
+                      _builder.append("\t\t\t\t");
+                      _builder.append("}");
+                      _builder.newLine();
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      _builder.append("\t\t\t\t");
+      _builder.append("default: {");
+      _builder.newLine();
+      _builder.append("\t\t\t\t\t");
+      _builder.append("none += it.visit");
+      _builder.newLine();
+      _builder.append("\t\t\t\t");
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("} else if (it instanceof TerminalNode) {");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("switch it.symbol.type {");
+      _builder.newLine();
+      _builder.append("\t\t\t\t");
+      final HashSet<String> nameList = CollectionLiterals.<String>newHashSet();
+      _builder.newLineIfNotEmpty();
+      {
+        for(final Element it_2 : elementList) {
+          _builder.append("\t\t\t\t");
+          final EObject atom_1 = it_2.getBody();
+          _builder.newLineIfNotEmpty();
+          {
+            if ((atom_1 instanceof Atom)) {
+              _builder.append("\t\t\t\t");
+              final EObject ref_1 = ((Atom)atom_1).getBody();
+              _builder.newLineIfNotEmpty();
+              {
+                if (((ref_1 instanceof Terminal) && nameList.add(this.getTerminalName(it_2)))) {
+                  _builder.append("\t\t\t\t");
+                  _builder.append("case ");
+                  _builder.append(this._grammarName, "\t\t\t\t");
+                  _builder.append("Parser.");
+                  String _terminalName = this.getTerminalName(it_2);
+                  _builder.append(_terminalName, "\t\t\t\t");
+                  _builder.append(": {");
+                  _builder.newLineIfNotEmpty();
+                  _builder.append("\t\t\t\t");
+                  _builder.append("\t");
+                  String _xifexpression_7 = null;
+                  if ((Objects.equal(it_2.getOp(), "MERGE") || Objects.equal(it_2.getOp(), "ADD"))) {
+                    _xifexpression_7 = it_2.getOp().toLowerCase();
+                  } else {
+                    String _xifexpression_8 = null;
+                    String _op_3 = it_2.getOp();
+                    boolean _equals_7 = Objects.equal(_op_3, "RETURN");
+                    if (_equals_7) {
+                      _xifexpression_8 = "ret";
+                    } else {
+                      _xifexpression_8 = it_2.getOp();
+                    }
+                    _xifexpression_7 = _xifexpression_8;
+                  }
+                  _builder.append(_xifexpression_7, "\t\t\t\t\t");
+                  _builder.append(" += it.visit");
+                  _builder.newLineIfNotEmpty();
+                  _builder.append("\t\t\t\t");
+                  _builder.append("}");
+                  _builder.newLine();
+                }
+              }
+            }
+          }
+        }
+      }
+      _builder.append("\t\t\t\t");
+      _builder.append("default: {");
+      _builder.newLine();
+      _builder.append("\t\t\t\t\t");
+      _builder.append("none += it.visit");
+      _builder.newLine();
+      _builder.append("\t\t\t\t");
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("}");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("]");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      {
+        if (hasReturn) {
+          _builder.append("if (!ret.isEmpty) {");
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("return ret");
+          _builder.newLine();
+          _builder.append("}");
+          _builder.newLine();
+        }
+      }
+      {
+        if (hasMerge) {
+          _builder.append("val node = ");
+        }
+      }
+      _builder.append("map");
+      {
+        UnicoenTypeDec _type = r.getType();
+        boolean _tripleNotEquals = (_type != null);
+        if (_tripleNotEquals) {
+          _builder.append(".castTo");
+          {
+            if ((!hasMerge)) {
+              _builder.append("List");
+            }
+          }
+          _builder.append("(");
+          _builder.append(itemClassName);
+          _builder.append(")");
+        }
+      }
+      _builder.newLineIfNotEmpty();
+      {
+        if (hasMerge) {
+          _builder.append("val ret = newArrayList");
+          _builder.newLine();
+          _builder.append("merge.castToList(");
+          _builder.append(itemClassName);
+          _builder.append(").forEach [");
+          _builder.newLineIfNotEmpty();
+          _builder.append("\t");
+          _builder.append("it.merge(node)");
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("ret += it");
+          _builder.newLine();
+          _builder.append("]");
+          _builder.newLine();
+          _builder.append("ret");
+          _builder.newLine();
+        }
+      }
+      _xblockexpression = _builder;
+    }
+    return _xblockexpression;
+  }
+  
+  public CharSequence makeStringMethodBody(final ParserRule r) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("val map = newHashMap");
+    _builder.newLine();
+    _builder.append("val none = newArrayList");
+    _builder.newLine();
+    _builder.append("map.put(\"none\", none)");
+    _builder.newLine();
+    _builder.append("if (ctx.children != null) {");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("ctx.children.forEach [");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("none += it.visit");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("]");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("map");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence makeLiteralMethod(final ParserRule r) {
+    StringConcatenation _builder = new StringConcatenation();
+    String _camelCase = this.toCamelCase(r.getName());
+    final String methodName = ("visit" + _camelCase);
+    _builder.newLineIfNotEmpty();
+    _builder.append("override public ");
+    _builder.append(methodName);
+    _builder.append("(");
+    _builder.append(this._grammarName);
+    _builder.append("Parser.");
+    String _camelCase_1 = this.toCamelCase(r.getName());
+    _builder.append(_camelCase_1);
+    _builder.append("Context ctx) {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("val text = ctx.children.findFirst [");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("if (it instanceof TerminalNodeImpl) {");
+    _builder.newLine();
+    {
+      List<Element> _list = IteratorExtensions.<Element>toList(Iterators.<Element>filter(r.eAllContents(), Element.class));
+      for(final Element it : _list) {
+        {
+          String _op = it.getOp();
+          boolean _tripleNotEquals = (_op != null);
+          if (_tripleNotEquals) {
+            {
+              String _op_1 = it.getOp();
+              boolean _equals = Objects.equal(_op_1, "value");
+              if (_equals) {
+                _builder.append("\t\t\t");
+                _builder.append("if (it.symbol.type == ");
+                _builder.append(this._grammarName, "\t\t\t");
+                _builder.append("Parser.");
+                String _terminalName = this.getTerminalName(it);
+                _builder.append(_terminalName, "\t\t\t");
+                _builder.append(") {");
+                _builder.newLineIfNotEmpty();
+                _builder.append("\t\t\t");
+                _builder.append("\t");
+                _builder.append("return true");
+                _builder.newLine();
+                _builder.append("\t\t\t");
+                _builder.append("}");
+                _builder.newLine();
+              }
+            }
+          }
+        }
+      }
+    }
+    _builder.append("\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("return false");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("].visit as String");
+    _builder.newLine();
+    {
+      String _name = r.getType().getType().getName();
+      boolean _equals_1 = Objects.equal(_name, "UniIntLiteral");
+      if (_equals_1) {
+        _builder.append("\t");
+        _builder.append("return new UniIntLiteral(Integer.parseInt(text))");
+        _builder.newLine();
+      } else {
+        String _name_1 = r.getType().getType().getName();
+        boolean _equals_2 = Objects.equal(_name_1, "UniBoolLiteral");
+        if (_equals_2) {
+          _builder.append("\t");
+          _builder.append("return new UniBoolLiteral(Boolean.parseBoolean(text))");
+          _builder.newLine();
+        } else {
+          String _name_2 = r.getType().getType().getName();
+          boolean _equals_3 = Objects.equal(_name_2, "UniDoubleLiteral");
+          if (_equals_3) {
+            _builder.append("\t");
+            _builder.append("return new UniDoubleLiteral(Double.parseDouble(text))");
+            _builder.newLine();
+          } else {
+            String _name_3 = r.getType().getType().getName();
+            boolean _equals_4 = Objects.equal(_name_3, "UniStringLiteral");
+            if (_equals_4) {
+              _builder.append("\t");
+              _builder.append("return new UniStringLiteral(text.substring(1, text.length - 1))");
+              _builder.newLine();
+            } else {
+              String _name_4 = r.getType().getType().getName();
+              boolean _equals_5 = Objects.equal(_name_4, "UniCharacterLiteral");
+              if (_equals_5) {
+                _builder.append("\t");
+                _builder.append("return new UniCharacterLiteral(text.substring(1, text.length - 1).charAt(0))");
+                _builder.newLine();
+              } else {
+                _builder.append("\t");
+                _builder.append("throw new RuntimeException(\"Unimplemented Method: ");
+                _builder.append(methodName, "\t");
+                _builder.append("\")");
+                _builder.newLineIfNotEmpty();
+              }
+            }
+          }
+        }
+      }
+    }
+    _builder.append("}");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public void die(final String message) {
+    throw new RuntimeException(message);
+  }
+  
+  public Integer getInvokingState(final ParserRule r) {
+    return this._analyzer.getInvokingState(r);
   }
 }

@@ -64,10 +64,10 @@ import net.unicoen.uniMapperGenerator.V3Tokens
 import net.unicoen.uniMapperGenerator.V4Token
 import net.unicoen.uniMapperGenerator.V4Tokens
 import net.unicoen.uniMapperGenerator.Wildcard
-import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.core.runtime.Path
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IFileSystemAccessExtension2
+import org.eclipse.core.resources.ResourcesPlugin
 
 class ANTLRGrammarGenerator {
 	private val IFileSystemAccess _fsa
@@ -83,37 +83,58 @@ class ANTLRGrammarGenerator {
 		_fsa.generateFile(path, grammar.compile)
 		generateParserCode(name, path)
 	}
-
-	def generateParserCode(String name, String path) {
-		val platformG4filePathString = (_fsa as IFileSystemAccessExtension2).getURI(path).toPlatformString(true)
-		val platformAntlrfilePathString = platformG4filePathString.replace(path,"antlr-4.7.1-complete.jar")
-		val antlrJar = new File("C:/Users/RYOSUKE/runtime-EclipseApplication/UniMapperGenerator/src-gen/antlr-4.7.1-complete.jar")
-		if (!antlrJar.exists) {
-			val array = newByteArrayOfSize(1024 * 1024)
-			val input = this.class.getResource("/antlr-4.7.1-complete.jar").openStream
-			val output = new FileOutputStream(antlrJar)
-			var size = 0
-			while ((size = input.read(array)) > 0) {
-				output.write(array, 0, size)
-			}
-			input.close
-			output.close
+	
+	def getAntlr4AbsPath() {
+		// パッケージエクスプローラー上のANTLRGrammarGeneratorと同じ
+		val antlrJarFileName = "antlr-4.7.1-complete.jar"// パッケージエクスプローラー上のANTLRGrammarGeneratorと同じ
+		val file = this.class.getResource(antlrJarFileName)//先頭に区切り文字"/"があると見つからない(Windows)
+		val input = file.openStream
+		var tmpdir = System.getProperty( "java.io.tmpdir" );
+		if(!tmpdir.endsWith( File.separator )){
+			tmpdir += File.separator
 		}
-		val pppp = new Path("C:/Users/RYOSUKE/runtime-EclipseXtext/UniMapperGenerator/src-gen/C.g4")
-		//val file = ResourcesPlugin.workspace.root.getFile(pppp)
-		val pb = new ProcessBuilder("java", "-cp", antlrJar.absolutePath, "org.antlr.v4.Tool", "-o",
-			"C:/Users/RYOSUKE/runtime-EclipseApplication/UniMapperGenerator/src-gen", "C:/Users/RYOSUKE/runtime-EclipseApplication/UniMapperGenerator/src-gen/C.g4")
-		pb.start.waitFor
-		val parserFile = new File("C:/Users/RYOSUKE/runtime-EclipseApplication/UniMapperGenerator/src-gen" + File.separator + name + "Parser.java")
+		val antlrJar = new File(tmpdir + antlrJarFileName)
+		val output = new FileOutputStream(antlrJar)
+		var size = 0
+		val array = newByteArrayOfSize(1024 * 1024)
+		while ((size = input.read(array)) > 0) {
+			output.write(array, 0, size)
+		}
+		input.close
+		output.close
+		antlrJar.absolutePath
+	}
+	
+	def readParserFile(String runtimeDir, String name){
+		val parserFile = new File(runtimeDir +"src-gen" 
+			+ File.separator + name + "Parser.js"
+		)
 		val reader = Files.newReader(parserFile, StandardCharsets.UTF_8)
 		val builder = new StringBuilder
 		var line = ""
-		while ((line = reader.readLine) != null) {
+		while ((line = reader.readLine) !== null) {
 			builder.append(line)
 			builder.append(_newLine)
 		}
 		reader.close
 		builder.toString
+	}
+
+	def generateParserCode(String name, String path) {
+		// "/UniMapperGenerator/src-gen/C.g4"
+		//val platformG4filePathString = (_fsa as IFileSystemAccessExtension2).getURI(path).toPlatformString(true)
+		val antlrPath = getAntlr4AbsPath()		
+//		val resource = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(""));
+//		val loc = resource.getLocation().toOSString()
+		//"/UniMapperGenerator/src-gen/C.g4"
+		val runtimeDir = "C:/Users/RYOSUKE/runtime-EclipseApplication/UniMapperGenerator/"//ここをなんとか実行環境のパスにしたい。
+		val pb = new ProcessBuilder("java", "-cp", antlrPath, "org.antlr.v4.Tool", 
+		"-visitor", 
+		"-no-listener", 
+		"-Dlanguage=JavaScript", 
+		"-o", runtimeDir + "src-gen/", runtimeDir + "src-gen/C.g4")
+		pb.start.waitFor
+		readParserFile(runtimeDir, name)
 	}
 
 	def dispatch compile(Grammar g) {

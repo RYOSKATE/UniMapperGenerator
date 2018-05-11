@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.function.Consumer;
@@ -74,12 +75,10 @@ import net.unicoen.uniMapperGenerator.V3Tokens;
 import net.unicoen.uniMapperGenerator.V4Token;
 import net.unicoen.uniMapperGenerator.V4Tokens;
 import net.unicoen.uniMapperGenerator.Wildcard;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.generator.IFileSystemAccess;
-import org.eclipse.xtext.generator.IFileSystemAccessExtension2;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 
@@ -105,36 +104,46 @@ public class ANTLRGrammarGenerator {
     return _xblockexpression;
   }
   
-  public String generateParserCode(final String name, final String path) {
+  public String getAntlr4AbsPath() {
     try {
       String _xblockexpression = null;
       {
-        final String platformG4filePathString = ((IFileSystemAccessExtension2) this._fsa).getURI(path).toPlatformString(true);
-        final String platformAntlrfilePathString = platformG4filePathString.replace(path, "antlr-4.7.1-complete.jar");
-        final File antlrJar = new File("C:/Users/RYOSUKE/runtime-EclipseApplication/UniMapperGenerator/src-gen/antlr-4.7.1-complete.jar");
-        boolean _exists = antlrJar.exists();
-        boolean _not = (!_exists);
+        final String antlrJarFileName = "antlr-4.7.1-complete.jar";
+        final URL file = this.getClass().getResource(antlrJarFileName);
+        final InputStream input = file.openStream();
+        String tmpdir = System.getProperty("java.io.tmpdir");
+        boolean _endsWith = tmpdir.endsWith(File.separator);
+        boolean _not = (!_endsWith);
         if (_not) {
-          final byte[] array = new byte[(1024 * 1024)];
-          final InputStream input = this.getClass().getResource("/antlr-4.7.1-complete.jar").openStream();
-          final FileOutputStream output = new FileOutputStream(antlrJar);
-          int size = 0;
-          while (((size = input.read(array)) > 0)) {
-            output.write(array, 0, size);
-          }
-          input.close();
-          output.close();
+          String _tmpdir = tmpdir;
+          tmpdir = (_tmpdir + File.separator);
         }
-        final Path pppp = new Path("C:/Users/RYOSUKE/runtime-EclipseXtext/UniMapperGenerator/src-gen/C.g4");
-        String _absolutePath = antlrJar.getAbsolutePath();
-        final ProcessBuilder pb = new ProcessBuilder("java", "-cp", _absolutePath, "org.antlr.v4.Tool", "-o", 
-          "C:/Users/RYOSUKE/runtime-EclipseApplication/UniMapperGenerator/src-gen", "C:/Users/RYOSUKE/runtime-EclipseApplication/UniMapperGenerator/src-gen/C.g4");
-        pb.start().waitFor();
-        final File parserFile = new File(((("C:/Users/RYOSUKE/runtime-EclipseApplication/UniMapperGenerator/src-gen" + File.separator) + name) + "Parser.java"));
+        final File antlrJar = new File((tmpdir + antlrJarFileName));
+        final FileOutputStream output = new FileOutputStream(antlrJar);
+        int size = 0;
+        final byte[] array = new byte[(1024 * 1024)];
+        while (((size = input.read(array)) > 0)) {
+          output.write(array, 0, size);
+        }
+        input.close();
+        output.close();
+        _xblockexpression = antlrJar.getAbsolutePath();
+      }
+      return _xblockexpression;
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  public String readParserFile(final String runtimeDir, final String name) {
+    try {
+      String _xblockexpression = null;
+      {
+        final File parserFile = new File(((((runtimeDir + "src-gen") + File.separator) + name) + "Parser.js"));
         final BufferedReader reader = Files.newReader(parserFile, StandardCharsets.UTF_8);
         final StringBuilder builder = new StringBuilder();
         String line = "";
-        while ((!Objects.equal((line = reader.readLine()), null))) {
+        while (((line = reader.readLine()) != null)) {
           {
             builder.append(line);
             builder.append(this._newLine);
@@ -142,6 +151,26 @@ public class ANTLRGrammarGenerator {
         }
         reader.close();
         _xblockexpression = builder.toString();
+      }
+      return _xblockexpression;
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  public String generateParserCode(final String name, final String path) {
+    try {
+      String _xblockexpression = null;
+      {
+        final String antlrPath = this.getAntlr4AbsPath();
+        final String runtimeDir = "C:/Users/RYOSUKE/runtime-EclipseApplication/UniMapperGenerator/";
+        final ProcessBuilder pb = new ProcessBuilder("java", "-cp", antlrPath, "org.antlr.v4.Tool", 
+          "-visitor", 
+          "-no-listener", 
+          "-Dlanguage=JavaScript", 
+          "-o", (runtimeDir + "src-gen/"), (runtimeDir + "src-gen/C.g4"));
+        pb.start().waitFor();
+        _xblockexpression = this.readParserFile(runtimeDir, name);
       }
       return _xblockexpression;
     } catch (Throwable _e) {
