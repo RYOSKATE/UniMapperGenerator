@@ -325,7 +325,33 @@ terminal INT returns ecore::EInt:
 
 /** String literal */
 terminal MYSTRING:
-	("\'\\\'") | ("'" ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|"'") )* "'");
+	"'" LITERAL_CHAR* "'";
+
+terminal fragment LITERAL_CHAR:
+	ESC
+	|
+	!("'"
+	| '\\');
+
+terminal fragment ESC:
+	'\\'
+	('n'
+	| 'r'
+	| 't'
+	| 'b'
+	| 'f'
+	| '"'
+	| "'"
+	| '\\'
+	| '>'
+	| 'u' XDIGIT XDIGIT XDIGIT XDIGIT
+	| . // unknown, leave as it is
+);
+
+terminal fragment XDIGIT:
+	'0'..'9'
+	| 'a'..'f'
+	| 'A'..'F';
 
 /** Language action (a.k.a language code) */
 terminal ACTION:

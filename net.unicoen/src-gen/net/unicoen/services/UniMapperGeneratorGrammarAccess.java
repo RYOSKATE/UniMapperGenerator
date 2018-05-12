@@ -2883,6 +2883,9 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	private final TerminalRule tNAME_START_CHAR;
 	private final TerminalRule tINT;
 	private final TerminalRule tMYSTRING;
+	private final TerminalRule tLITERAL_CHAR;
+	private final TerminalRule tESC;
+	private final TerminalRule tXDIGIT;
 	private final TerminalRule tACTION;
 	private final TerminalRule tNESTED_ACTION;
 	private final TerminalRule tACTION_STRING_LITERAL;
@@ -2987,6 +2990,9 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 		this.tNAME_START_CHAR = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.NAME_START_CHAR");
 		this.tINT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.INT");
 		this.tMYSTRING = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.MYSTRING");
+		this.tLITERAL_CHAR = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.LITERAL_CHAR");
+		this.tESC = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.ESC");
+		this.tXDIGIT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.XDIGIT");
 		this.tACTION = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.ACTION");
 		this.tNESTED_ACTION = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.NESTED_ACTION");
 		this.tACTION_STRING_LITERAL = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "net.unicoen.UniMapperGenerator.ACTION_STRING_LITERAL");
@@ -3869,9 +3875,41 @@ public class UniMapperGeneratorGrammarAccess extends AbstractGrammarElementFinde
 	}
 	
 	//terminal MYSTRING:
-	//	"\'\\\'" | "'" ('\\' ('b' | 't' | 'n' | 'f' | 'r' | 'u' | '"' | "'" | '\\') | !('\\' | "'"))* "'";
+	//	"'" LITERAL_CHAR* "'";
 	public TerminalRule getMYSTRINGRule() {
 		return tMYSTRING;
+	}
+	
+	//terminal fragment LITERAL_CHAR:
+	//	ESC
+	//	| !("'"
+	//	| '\\');
+	public TerminalRule getLITERAL_CHARRule() {
+		return tLITERAL_CHAR;
+	}
+	
+	//terminal fragment ESC:
+	//	'\\' ('n'
+	//	| 'r'
+	//	| 't'
+	//	| 'b'
+	//	| 'f'
+	//	| '"'
+	//	| "'"
+	//	| '\\'
+	//	| '>'
+	//	| 'u' XDIGIT XDIGIT XDIGIT XDIGIT
+	//	| .);
+	public TerminalRule getESCRule() {
+		return tESC;
+	}
+	
+	//terminal fragment XDIGIT:
+	//	'0'..'9'
+	//	| 'a'..'f'
+	//	| 'A'..'F';
+	public TerminalRule getXDIGITRule() {
+		return tXDIGIT;
 	}
 	
 	//terminal ACTION:

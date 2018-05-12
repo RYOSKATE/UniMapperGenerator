@@ -4,9 +4,9 @@ import com.google.common.base.Objects;
 import com.google.common.io.Files;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.function.Consumer;
@@ -86,48 +86,47 @@ import org.eclipse.xtext.xbase.lib.StringExtensions;
 public class ANTLRGrammarGenerator {
   private final IFileSystemAccess _fsa;
   
+  private final String _newLine = System.getProperty("line.separator");
+  
+  private final String _fileSep = File.separator;
+  
   private final String _fileExtension = ".g4";
   
-  private final String _newLine = System.getProperty("line.separator");
+  private final String _targetExt = ".java";
+  
+  private final String editorProjectName = "UniMapperGenerator";
+  
+  private final String antlrJarFileName = "antlr-4.7.1-complete.jar";
   
   public ANTLRGrammarGenerator(final IFileSystemAccess fsa) {
     this._fsa = fsa;
   }
   
-  public String generate(final String name, final Grammar grammar) {
+  public String generate(final String basename, final Grammar grammar) {
     String _xblockexpression = null;
     {
-      final String path = (name + this._fileExtension);
-      this._fsa.generateFile(path, this.compile(grammar));
-      _xblockexpression = this.generateParserCode(name, path);
+      final String filename = (basename + this._fileExtension);
+      this._fsa.generateFile(filename, this.compile(grammar));
+      _xblockexpression = this.generateParserCode(basename, filename);
     }
     return _xblockexpression;
   }
   
-  public String getAntlr4AbsPath() {
+  public String getProjectDirPath() {
     try {
       String _xblockexpression = null;
       {
-        final String antlrJarFileName = "antlr-4.7.1-complete.jar";
-        final URL file = this.getClass().getResource(antlrJarFileName);
-        final InputStream input = file.openStream();
-        String tmpdir = System.getProperty("java.io.tmpdir");
-        boolean _endsWith = tmpdir.endsWith(File.separator);
-        boolean _not = (!_endsWith);
+        final URL location = this.getClass().getProtectionDomain().getCodeSource().getLocation();
+        final String path = location.getPath().replace("/", this._fileSep);
+        final String docodePath = URLDecoder.decode(path.replaceAll("\\+", "%2b"), "UTF-8");
+        final File file = new File(docodePath);
+        boolean _exists = file.exists();
+        boolean _not = (!_exists);
         if (_not) {
-          String _tmpdir = tmpdir;
-          tmpdir = (_tmpdir + File.separator);
+          throw new FileNotFoundException((docodePath + " is not found."));
         }
-        final File antlrJar = new File((tmpdir + antlrJarFileName));
-        final FileOutputStream output = new FileOutputStream(antlrJar);
-        int size = 0;
-        final byte[] array = new byte[(1024 * 1024)];
-        while (((size = input.read(array)) > 0)) {
-          output.write(array, 0, size);
-        }
-        input.close();
-        output.close();
-        _xblockexpression = antlrJar.getAbsolutePath();
+        String _absolutePath = file.getAbsolutePath();
+        _xblockexpression = (_absolutePath + this._fileSep);
       }
       return _xblockexpression;
     } catch (Throwable _e) {
@@ -135,11 +134,31 @@ public class ANTLRGrammarGenerator {
     }
   }
   
-  public String readParserFile(final String runtimeDir, final String name) {
+  public String getAntlr4AbsPath(final String projectDirPath) {
     try {
       String _xblockexpression = null;
       {
-        final File parserFile = new File(((((runtimeDir + "src-gen") + File.separator) + name) + "Parser.js"));
+        final String antlr4FilePath = (projectDirPath + this.antlrJarFileName);
+        final File antlr4File = new File(antlr4FilePath);
+        boolean _exists = antlr4File.exists();
+        boolean _not = (!_exists);
+        if (_not) {
+          throw new FileNotFoundException((antlr4FilePath + " is not found."));
+        }
+        _xblockexpression = antlr4File.getAbsolutePath();
+      }
+      return _xblockexpression;
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  public String readParserFile(final String srcGenDirPath, final String basename) {
+    try {
+      String _xblockexpression = null;
+      {
+        final String parserFilePath = (((srcGenDirPath + basename) + "Parser") + this._targetExt);
+        final File parserFile = new File(parserFilePath);
         final BufferedReader reader = Files.newReader(parserFile, StandardCharsets.UTF_8);
         final StringBuilder builder = new StringBuilder();
         String line = "";
@@ -158,19 +177,21 @@ public class ANTLRGrammarGenerator {
     }
   }
   
-  public String generateParserCode(final String name, final String path) {
+  public String generateParserCode(final String basename, final String filename) {
     try {
       String _xblockexpression = null;
       {
-        final String antlrPath = this.getAntlr4AbsPath();
-        final String runtimeDir = "C:/Users/RYOSUKE/runtime-EclipseApplication/UniMapperGenerator/";
+        final String projectDirPath = this.getProjectDirPath();
+        final String antlrPath = this.getAntlr4AbsPath(projectDirPath);
+        final String editorProjectDirPath = ((projectDirPath + this.editorProjectName) + this._fileSep);
+        final String editorProjectSrcGenDirPath = ((editorProjectDirPath + "src-gen") + this._fileSep);
+        final String g4FilePath = (editorProjectSrcGenDirPath + filename);
         final ProcessBuilder pb = new ProcessBuilder("java", "-cp", antlrPath, "org.antlr.v4.Tool", 
           "-visitor", 
           "-no-listener", 
-          "-Dlanguage=JavaScript", 
-          "-o", (runtimeDir + "src-gen/"), (runtimeDir + "src-gen/C.g4"));
+          "-o", editorProjectSrcGenDirPath, g4FilePath);
         pb.start().waitFor();
-        _xblockexpression = this.readParserFile(runtimeDir, name);
+        _xblockexpression = this.readParserFile(editorProjectSrcGenDirPath, basename);
       }
       return _xblockexpression;
     } catch (Throwable _e) {

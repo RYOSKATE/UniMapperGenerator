@@ -26,13 +26,16 @@ import net.unicoen.util.InvokingStateAnalyzer
 class UniMapperGeneratorGenerator extends AbstractGenerator {
 	private String _grammarName
 	private InvokingStateAnalyzer _analyzer
+	
+	private String _mapperFileExt = ".xtend"//".ts"
+	
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		val g4Generator = new ANTLRGrammarGenerator(fsa)
 		resource.allContents.filter(Grammar).forEach [
 			_grammarName = it.name.toCamelCase
 			val parserCode = g4Generator.generate(_grammarName, it)
 			_analyzer = new InvokingStateAnalyzer(parserCode, it)
-			fsa.generateFile(_grammarName + "Mapper.xtend", it.generateMapper)
+			fsa.generateFile(_grammarName + "Mapper" + _mapperFileExt, it.generateMapper)
 		]
 	}
 	

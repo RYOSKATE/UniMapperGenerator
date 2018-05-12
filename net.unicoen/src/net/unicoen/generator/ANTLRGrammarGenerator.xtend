@@ -67,48 +67,59 @@ import net.unicoen.uniMapperGenerator.Wildcard
 import org.eclipse.core.runtime.Path
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IFileSystemAccessExtension2
-import org.eclipse.core.resources.ResourcesPlugin
+import java.io.FileNotFoundException
+
+//import org.eclipse.core.resources.ResourcesPlugin
 
 class ANTLRGrammarGenerator {
 	private val IFileSystemAccess _fsa
-	private val _fileExtension = ".g4";
 	private val _newLine = System.getProperty("line.separator")
-
+	private val _fileSep = File.separator
+	private val _fileExtension = ".g4";
+	
+	//以下はユーザーが必要に応じて設定する変数
+	private val _targetExt = ".java"//".js"
+	//以下はnet.unicoenディレクトリ内に配置
+	private val editorProjectName = "UniMapperGenerator"
+	//さらに以下はパッケージエクスプローラー上に表示されていること。
+	private val antlrJarFileName = "antlr-4.7.1-complete.jar"
+	
 	new(IFileSystemAccess fsa) {
 		_fsa = fsa
 	}
 
-	def generate(String name, Grammar grammar) {
-		val path = name + _fileExtension;
-		_fsa.generateFile(path, grammar.compile)
-		generateParserCode(name, path)
+	def generate(String basename, Grammar grammar) {
+		val filename = basename + _fileExtension;
+		_fsa.generateFile(filename, grammar.compile)
+		generateParserCode(basename, filename)
 	}
 	
-	def getAntlr4AbsPath() {
-		// パッケージエクスプローラー上のANTLRGrammarGeneratorと同じ
-		val antlrJarFileName = "antlr-4.7.1-complete.jar"// パッケージエクスプローラー上のANTLRGrammarGeneratorと同じ
-		val file = this.class.getResource(antlrJarFileName)//先頭に区切り文字"/"があると見つからない(Windows)
-		val input = file.openStream
-		var tmpdir = System.getProperty( "java.io.tmpdir" );
-		if(!tmpdir.endsWith( File.separator )){
-			tmpdir += File.separator
+	// "C:/~/~/(workspace-name)/net.unicoen/"
+	def getProjectDirPath(){
+		val location = this.class.getProtectionDomain().getCodeSource().getLocation()
+		val path = location.getPath().replace("/",_fileSep)
+		val docodePath = java.net.URLDecoder.decode(path.replaceAll("\\+", "%2b"), "UTF-8");
+		val file = new File(docodePath);
+		if(!file.exists()){
+			throw new FileNotFoundException(docodePath + " is not found.")
 		}
-		val antlrJar = new File(tmpdir + antlrJarFileName)
-		val output = new FileOutputStream(antlrJar)
-		var size = 0
-		val array = newByteArrayOfSize(1024 * 1024)
-		while ((size = input.read(array)) > 0) {
-			output.write(array, 0, size)
-		}
-		input.close
-		output.close
-		antlrJar.absolutePath
+		file.getAbsolutePath() + _fileSep
 	}
 	
-	def readParserFile(String runtimeDir, String name){
-		val parserFile = new File(runtimeDir +"src-gen" 
-			+ File.separator + name + "Parser.js"
-		)
+	// "/C:/~/~/(workspace-name)/net.unicoen/(antlrJarFileName)"の存在チェックと絶対パス取得
+	def getAntlr4AbsPath(String projectDirPath) {
+		val antlr4FilePath = projectDirPath + antlrJarFileName
+		val antlr4File = new File(antlr4FilePath)
+		if(!antlr4File.exists()){
+			throw new FileNotFoundException(antlr4FilePath + " is not found.")
+		}
+		antlr4File.absolutePath
+	}
+	
+	// (Lang)Parse.(_targetExt)の読み込み
+	def readParserFile(String srcGenDirPath, String basename){
+		val parserFilePath = srcGenDirPath + basename + "Parser" + _targetExt
+		val parserFile = new File(parserFilePath)
 		val reader = Files.newReader(parserFile, StandardCharsets.UTF_8)
 		val builder = new StringBuilder
 		var line = ""
@@ -120,21 +131,20 @@ class ANTLRGrammarGenerator {
 		builder.toString
 	}
 
-	def generateParserCode(String name, String path) {
-		// "/UniMapperGenerator/src-gen/C.g4"
-		//val platformG4filePathString = (_fsa as IFileSystemAccessExtension2).getURI(path).toPlatformString(true)
-		val antlrPath = getAntlr4AbsPath()		
-//		val resource = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(""));
-//		val loc = resource.getLocation().toOSString()
-		//"/UniMapperGenerator/src-gen/C.g4"
-		val runtimeDir = "C:/Users/RYOSUKE/runtime-EclipseApplication/UniMapperGenerator/"//ここをなんとか実行環境のパスにしたい。
+	def generateParserCode(String basename, String filename) {
+		val projectDirPath = getProjectDirPath()
+		val antlrPath = getAntlr4AbsPath(projectDirPath)		
+		val editorProjectDirPath = projectDirPath + editorProjectName + _fileSep
+		val editorProjectSrcGenDirPath = editorProjectDirPath + "src-gen" + _fileSep
+		val g4FilePath = editorProjectSrcGenDirPath + filename// パッケージエクスプローラー上のANTLRGrammarGeneratorと同じ
+		
 		val pb = new ProcessBuilder("java", "-cp", antlrPath, "org.antlr.v4.Tool", 
 		"-visitor", 
 		"-no-listener", 
-		"-Dlanguage=JavaScript", 
-		"-o", runtimeDir + "src-gen/", runtimeDir + "src-gen/C.g4")
+		//"-Dlanguage=JavaScript", 
+		"-o", editorProjectSrcGenDirPath, g4FilePath)
 		pb.start.waitFor
-		readParserFile(runtimeDir, name)
+		readParserFile(editorProjectSrcGenDirPath, basename)
 	}
 
 	def dispatch compile(Grammar g) {

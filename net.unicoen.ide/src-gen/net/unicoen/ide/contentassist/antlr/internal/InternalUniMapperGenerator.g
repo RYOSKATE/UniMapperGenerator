@@ -11098,7 +11098,13 @@ fragment RULE_NAME_START_CHAR : ('A'..'Z'|'a'..'z'|'\u00C0'..'\u00D6'|'\u00D8'..
 
 RULE_INT : ('0'..'9')+;
 
-RULE_MYSTRING : ('\'\\\''|'\'' ('\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|'\''|'\\')|~(('\\'|'\'')))* '\'');
+RULE_MYSTRING : '\'' RULE_LITERAL_CHAR* '\'';
+
+fragment RULE_LITERAL_CHAR : (RULE_ESC|~(('\''|'\\')));
+
+fragment RULE_ESC : '\\' ('n'|'r'|'t'|'b'|'f'|'"'|'\''|'\\'|'>'|'u' RULE_XDIGIT RULE_XDIGIT RULE_XDIGIT RULE_XDIGIT|.);
+
+fragment RULE_XDIGIT : ('0'..'9'|'a'..'f'|'A'..'F');
 
 RULE_ACTION : RULE_NESTED_ACTION;
 

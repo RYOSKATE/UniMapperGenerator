@@ -47,6 +47,8 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
   
   private InvokingStateAnalyzer _analyzer;
   
+  private String _mapperFileExt = ".xtend";
+  
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
     final ANTLRGrammarGenerator g4Generator = new ANTLRGrammarGenerator(fsa);
@@ -55,7 +57,7 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
       final String parserCode = g4Generator.generate(this._grammarName, it);
       InvokingStateAnalyzer _invokingStateAnalyzer = new InvokingStateAnalyzer(parserCode, it);
       this._analyzer = _invokingStateAnalyzer;
-      fsa.generateFile((this._grammarName + "Mapper.xtend"), this.generateMapper(it));
+      fsa.generateFile(((this._grammarName + "Mapper") + this._mapperFileExt), this.generateMapper(it));
     };
     IteratorExtensions.<Grammar>forEach(Iterators.<Grammar>filter(resource.getAllContents(), Grammar.class), _function);
   }
