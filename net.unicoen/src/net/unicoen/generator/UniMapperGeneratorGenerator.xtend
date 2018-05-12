@@ -27,7 +27,7 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 	private String _grammarName
 	private InvokingStateAnalyzer _analyzer
 	
-	private String _mapperFileExt = ".xtend"//".ts"
+	private String _mapperFileExt = ".ts"//".xtend"
 	
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		val g4Generator = new ANTLRGrammarGenerator(fsa)

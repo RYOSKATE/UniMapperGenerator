@@ -47,7 +47,7 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
   
   private InvokingStateAnalyzer _analyzer;
   
-  private String _mapperFileExt = ".xtend";
+  private String _mapperFileExt = ".ts";
   
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {

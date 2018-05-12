@@ -25,7 +25,6 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 /** C 2011 grammar built from the C11 Spec */
 grammar C;
 
@@ -75,7 +74,7 @@ argumentExpressionList
     |   argumentExpressionList ',' assignmentExpression
     ;
 
-unaryExpression => UniUnaryOp
+unaryExpression// => UniUnaryOp
     :   postfixExpression
     |   '++' unaryExpression
     |   '--' unaryExpression

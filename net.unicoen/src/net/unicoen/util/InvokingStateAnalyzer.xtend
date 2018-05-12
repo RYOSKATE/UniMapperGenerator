@@ -1,13 +1,15 @@
 package net.unicoen.util
 
-import java.util.HashMap
-import java.util.List
-import com.google.common.collect.Lists
 import net.unicoen.uniMapperGenerator.Grammar
 import net.unicoen.uniMapperGenerator.ParserRule
-import net.unicoen.uniMapperGenerator.Element
+import java.util.List
 import net.unicoen.uniMapperGenerator.Atom
+import net.unicoen.uniMapperGenerator.Element
+import java.util.HashMap
 import net.unicoen.uniMapperGenerator.RuleRef
+import java.util.ArrayList
+import com.google.common.collect.Lists
+import net.unicoen.uniMapperGenerator.Alternative
 
 class InvokingStateAnalyzer {
 	private val invokingStates = new HashMap<String, List<Integer>>
@@ -19,7 +21,7 @@ class InvokingStateAnalyzer {
 				return
 			}
 			val ruleName = rule.name
-			var pos = code.indexOf('''?aruleName?a() throws''')
+			var pos = code.indexOf('''«ruleName»() throws''')
 			val list = Lists.newArrayList
 			val trypos = code.indexOf("try", pos)
 			val hasLeftRecursion = code.substring(pos, trypos).contains("enterRecursionRule")
@@ -30,7 +32,7 @@ class InvokingStateAnalyzer {
 				val str = code.substring(start + 18, last)
 				recursionState = Integer.parseInt(str)
 			}
-			for (element : rule.eAllContents.filter(Element).filter[it.op !== null].toList) {
+			for (element : rule.eAllContents.filter(Element).filter[it.op != null].toList) {
 				val atom = element.body
 				if (atom instanceof Atom) {
 					val ref = atom.body
@@ -38,8 +40,8 @@ class InvokingStateAnalyzer {
 						if (ref.reference == rule && hasLeftRecursion) {
 							list.add(recursionState)
 						} else {
-							// val refName = ref.reference.name
-							pos = code.indexOf('''?arefName?a(''', pos)
+							val refName = ref.reference.name
+							pos = code.indexOf('''«refName»(''', pos)
 							val start = code.lastIndexOf("setState(", pos)
 							val last = code.indexOf(')', start)
 							val str = code.substring(start + 9, last)
@@ -67,6 +69,6 @@ class InvokingStateAnalyzer {
 	}
 
 	private def hasNoAnnotations(ParserRule rule) {
-		rule.type === null && rule.eAllContents.filter(Element).findFirst[it.op !== null] === null
+		rule.type == null && rule.eAllContents.filter(Element).findFirst[it.op != null] == null
 	}
 }

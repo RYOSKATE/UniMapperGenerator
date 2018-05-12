@@ -32,7 +32,8 @@ public class InvokingStateAnalyzer {
       }
       final String ruleName = rule.getName();
       StringConcatenation _builder = new StringConcatenation();
-      _builder.append("?aruleName?a() throws");
+      _builder.append(ruleName);
+      _builder.append("() throws");
       int pos = code.indexOf(_builder.toString());
       final ArrayList<Integer> list = Lists.<Integer>newArrayList();
       final int trypos = code.indexOf("try", pos);
@@ -46,7 +47,7 @@ public class InvokingStateAnalyzer {
       }
       final Function1<Element, Boolean> _function_1 = (Element it) -> {
         String _op = it.getOp();
-        return Boolean.valueOf((_op != null));
+        return Boolean.valueOf((!Objects.equal(_op, null)));
       };
       List<Element> _list = IteratorExtensions.<Element>toList(IteratorExtensions.<Element>filter(Iterators.<Element>filter(rule.eAllContents(), Element.class), _function_1));
       for (final Element element : _list) {
@@ -58,8 +59,10 @@ public class InvokingStateAnalyzer {
               if ((Objects.equal(((RuleRef)ref).getReference(), rule) && hasLeftRecursion)) {
                 list.add(Integer.valueOf(recursionState));
               } else {
+                final String refName = ((RuleRef)ref).getReference().getName();
                 StringConcatenation _builder_1 = new StringConcatenation();
-                _builder_1.append("?arefName?a(");
+                _builder_1.append(refName);
+                _builder_1.append("(");
                 pos = code.indexOf(_builder_1.toString(), pos);
                 final int start_1 = code.lastIndexOf("setState(", pos);
                 final int last_1 = code.indexOf(")", start_1);
@@ -98,9 +101,9 @@ public class InvokingStateAnalyzer {
   }
   
   private boolean hasNoAnnotations(final ParserRule rule) {
-    return ((rule.getType() == null) && (IteratorExtensions.<Element>findFirst(Iterators.<Element>filter(rule.eAllContents(), Element.class), ((Function1<Element, Boolean>) (Element it) -> {
+    return (Objects.equal(rule.getType(), null) && Objects.equal(IteratorExtensions.<Element>findFirst(Iterators.<Element>filter(rule.eAllContents(), Element.class), ((Function1<Element, Boolean>) (Element it) -> {
       String _op = it.getOp();
-      return Boolean.valueOf((_op != null));
-    })) == null));
+      return Boolean.valueOf((!Objects.equal(_op, null)));
+    })), null));
   }
 }
