@@ -78,7 +78,7 @@ class ANTLRGrammarGenerator {
 	private val _fileExtension = ".g4";
 	
 	//以下はユーザーが必要に応じて設定する変数
-	private val _targetExt = ".js"//".java"
+	private val _targetExt = ".java"//".js"
 	//以下はnet.unicoenディレクトリ内に配置
 	private val editorProjectName = "UniMapperGenerator"
 	//さらに以下はパッケージエクスプローラー上に表示されていること。
@@ -141,7 +141,7 @@ class ANTLRGrammarGenerator {
 		val pb = new ProcessBuilder("java", "-cp", antlrPath, "org.antlr.v4.Tool", 
 		"-visitor", 
 		"-no-listener", 
-		"-Dlanguage=JavaScript", 
+		//"-Dlanguage=JavaScript", 
 		"-o", editorProjectSrcGenDirPath, g4FilePath)
 		pb.start.waitFor
 		readParserFile(editorProjectSrcGenDirPath, basename)

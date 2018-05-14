@@ -92,7 +92,7 @@ public class ANTLRGrammarGenerator {
   
   private final String _fileExtension = ".g4";
   
-  private final String _targetExt = ".js";
+  private final String _targetExt = ".java";
   
   private final String editorProjectName = "UniMapperGenerator";
   
@@ -189,7 +189,6 @@ public class ANTLRGrammarGenerator {
         final ProcessBuilder pb = new ProcessBuilder("java", "-cp", antlrPath, "org.antlr.v4.Tool", 
           "-visitor", 
           "-no-listener", 
-          "-Dlanguage=JavaScript", 
           "-o", editorProjectSrcGenDirPath, g4FilePath);
         pb.start().waitFor();
         _xblockexpression = this.readParserFile(editorProjectSrcGenDirPath, basename);

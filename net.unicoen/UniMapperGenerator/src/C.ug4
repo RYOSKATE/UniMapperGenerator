@@ -103,10 +103,10 @@ multiplicativeExpression
     |   multiplicativeExpression '%' castExpression
     ;
 
-additiveExpression
+additiveExpression => UniBinOp 
     :   multiplicativeExpression
-    |   additiveExpression '+' multiplicativeExpression
-    |   additiveExpression '-' multiplicativeExpression
+    |   additiveExpression$left Plus$operator multiplicativeExpression$right
+    |   additiveExpression$left Minus$operator multiplicativeExpression$right
     ;
 
 shiftExpression
@@ -537,8 +537,8 @@ externalDeclaration
     |   ';' // stray ;
     ;
 
-functionDefinition
-    :   declarationSpecifiers? declarator declarationList? compoundStatement
+functionDefinition => UniFunctionDec
+    :   declarationSpecifiers? declarator declarationList? compoundStatement$block
     ;
 
 declarationList

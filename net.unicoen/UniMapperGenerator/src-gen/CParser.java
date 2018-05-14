@@ -1232,6 +1232,8 @@ public class CParser extends Parser {
 		public AdditiveExpressionContext additiveExpression() {
 			return getRuleContext(AdditiveExpressionContext.class,0);
 		}
+		public TerminalNode Plus() { return getToken(CParser.Plus, 0); }
+		public TerminalNode Minus() { return getToken(CParser.Minus, 0); }
 		public AdditiveExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
