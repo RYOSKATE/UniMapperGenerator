@@ -321,7 +321,7 @@ alignmentSpecifier
     |   '_Alignas' '(' constantExpression ')'
     ;
 
-declarator
+declarator//UniFunctionDec$name, UniFunctionDec$params
     :   pointer? directDeclarator gccDeclaratorExtension*
     ;
 
@@ -467,16 +467,16 @@ labeledStatement
     |   'default' ':' statement
     ;
 
-compoundStatement
-    :   '{' blockItemList? '}'
+compoundStatement => UniBlock
+    :   '{' blockItemList?$body '}'
     ;
 
-blockItemList
-    :   blockItem
-    |   blockItemList blockItem
+blockItemList => List<UniStatement>
+    :   blockItem$ADD
+    |   blockItemList$ADD blockItem$ADD
     ;
 
-blockItem
+blockItem => UniStatement
     :   declaration
     |   statement
     ;
@@ -514,21 +514,21 @@ forExpression
     |   forExpression ',' assignmentExpression
     ;
 
-jumpStatement
+jumpStatement => UniReturn
     :   'goto' Identifier ';'
     |   'continue' ';'
     |   'break' ';'
-    |   'return' expression? ';'
+    |   'return' expression?$expr ';'
     |   'goto' unaryExpression ';' // GCC extension
     ;
 
-compilationUnit
-    :   translationUnit? EOF2
+compilationUnit => UniBlock
+    :   translationUnit?$body EOF2
     ;
 
-translationUnit
-    :   externalDeclaration
-    |   translationUnit externalDeclaration
+translationUnit => List<UniStatement>
+    :   externalDeclaration$ADD
+    |   translationUnit$ADD externalDeclaration$ADD
     ;
 
 externalDeclaration
@@ -538,7 +538,7 @@ externalDeclaration
     ;
 
 functionDefinition => UniFunctionDec
-    :   declarationSpecifiers? declarator declarationList? compoundStatement$block
+    :   declarationSpecifiers?$returnType declarator$name declarationList? compoundStatement$block
     ;
 
 declarationList
@@ -647,7 +647,7 @@ Arrow : '->';
 Dot : '.';
 Ellipsis : '...';
 
-Identifier
+Identifier => String
     :   IdentifierNondigit
         (   IdentifierNondigit
         |   Digit

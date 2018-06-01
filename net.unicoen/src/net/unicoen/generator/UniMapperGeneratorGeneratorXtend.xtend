@@ -23,7 +23,7 @@ import net.unicoen.util.InvokingStateAnalyzer
  * 
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
  */
-class UniMapperGeneratorGenerator extends AbstractGenerator {
+class UniMapperGeneratorGeneratorXtend extends AbstractGenerator {
 	private String _grammarName
 	private InvokingStateAnalyzer _analyzer
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
@@ -32,42 +32,49 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 			_grammarName = it.name.toCamelCase
 			val parserCode = g4Generator.generate(_grammarName, it)
 			_analyzer = new InvokingStateAnalyzer(parserCode, it)
-			fsa.generateFile(_grammarName + "Mapper.ts", it.generateMapper)
+			fsa.generateFile(_grammarName + "Mapper.xtend", it.generateMapper)
 		]
 	}
 	
 	def generateImports() '''
-		import UniProgram from '../node/UniProgram';
-		import UniParam from '../node/UniParam';
-		import UniBlock from '../node/UniBlock';
-		import UniFunctionDec from '../node/UniFunctionDec';
-		import UniStringLiteral from '../node/UniStringLiteral';
-		import UniIntLiteral from '../node/UniIntLiteral';
-		import UniNumberLiteral from '../node/UniNumberLiteral';
-		import UniReturn from '../node/UniReturn';
-		import UniStatement from '../node/UniStatement';
-		
-		import { InputStream, CommonTokenStream } from 'antlr4';
-		import { RuleContext }from 'antlr4/RuleContext';
-		import { TerminalNode }from 'antlr4/tree/Tree';
-		import { CLexer } from './CLexer';
-		import { CParser } from './CParser';
-		import { CVisitor } from './CVisitor';
+		package net.unicoen.mapper
+
+		import java.io.FileInputStream
+		import java.util.List
+		import java.util.ArrayList
+		import java.util.Map
+		import net.unicoen.node.*
+		import net.unicoen.parser.«_grammarName»BaseVisitor
+		import net.unicoen.parser.«_grammarName»Lexer
+		import net.unicoen.parser.«_grammarName»Parser
+		import org.antlr.v4.runtime.ANTLRInputStream
+		import org.antlr.v4.runtime.CharStream
+		import org.antlr.v4.runtime.CommonTokenStream
+		import org.antlr.v4.runtime.ParserRuleContext
+		import org.antlr.v4.runtime.RuleContext
+		import org.antlr.v4.runtime.Token
+		import org.antlr.v4.runtime.tree.ParseTree
+		import org.antlr.v4.runtime.tree.RuleNode
+		import org.antlr.v4.runtime.tree.TerminalNode
+		import org.antlr.v4.runtime.tree.TerminalNodeImpl
+		import org.eclipse.xtext.xbase.lib.Functions.Function1
+		import java.lang.reflect.ParameterizedType
+		import net.unicoen.node_helper.CodeLocation
+		import net.unicoen.node_helper.CodeRange
 	'''
 
 	def generateMapper(Grammar g) '''
 		«generateImports»
 		
-		export default class «_grammarName»Mapper extends «_grammarName»Visitor {
+		class «_grammarName»Mapper extends «_grammarName»BaseVisitor<Object> {
 		
-			private isDebugMode:boolean = false;
-			private parser:CParser;
-			//val List<Comment> _comments = new ArrayList<Comment>;
-			//var CommonTokenStream _stream;
-			//var UniNode _lastNode;
-			//var int _nextTokenIndex;
+			val boolean _isDebugMode
+			val List<Comment> _comments = new ArrayList<Comment>;
+			var CommonTokenStream _stream;
+			var UniNode _lastNode;
+			var int _nextTokenIndex;
 		
-			/*static class Comment {
+			static class Comment {
 				val List<String> contents
 				var ParseTree parent
 		
@@ -75,32 +82,17 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 					this.contents = contents
 					this.parent = parent
 				}
-			}*/
-		
-			setIsDebugMode(isDebugMode:boolean) {
-			    this.isDebugMode = isDebugMode;
 			}
 		
-			parse(code) {
-			    const chars = new InputStream(code);
-			    const [tree, parser] = this.parseCore(chars);
-			    return this.visit(tree);
+			new(boolean isDebugMode) {
+				_isDebugMode = isDebugMode
 			}
-			getRawTree(code) {
-			    const chars = new InputStream(code);
-			    return this.parseCore(chars);
+		
+			def parse(String code) {
+				parseCore(new ANTLRInputStream(code))
 			}
-			
-			parseCore(chars) {
-			    const lexer = new CLexer(chars);
-			    const tokens = new CommonTokenStream(lexer);
-			    this.parser = new CParser(tokens);
-			    this.parser.buildParseTrees = true;
-			    const tree = this.parser.compilationUnit();
-			    return [tree, this.parser];
-			}
-			
-			/*def parseFile(String path) {
+		
+			def parseFile(String path) {
 				val inputStream = new FileInputStream(path)
 				try {
 					parseCore(new ANTLRInputStream(inputStream))
@@ -151,34 +143,31 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 					}
 					ret
       			«ENDIF»
-			}*/
+			}
 
-			public visitChildren(node:RuleNode) {
-			    const n = node.getChildCount();
-			    const list:any[] = [];
-			    for (let i = 0; i < n;++i) {
-			      const c = node.getChild(i);
-			      const childResult = this.visit(c);
-			      list.push(childResult);
-			    }
-			    const flatten = this.flatten(list);
-			    return flatten;
-			  }
+			override public visitChildren(RuleNode node) {
+				val n = node.childCount
+				val list = newArrayList()
+				(0 ..< n).forEach [ i |
+					val c = node.getChild(i)
+					val childResult = c.visit
+					list += childResult
+				]
+				list.flatten
+			}
 		
-			public visit(node:ParseTree) {
-			    if (!this.isDebugMode) {
-			      return node.accept(this);
-			    }
-			    if (!this.isInstanceofRuleContext(node)) {
-			      return node.accept(this);
-			    }
-			    const ruleName = this.getRuleName(node);
-			    console.log('*** visit Rule : ' + ruleName + ' ***');
-			    const ret = node.accept(this);
-			    console.log('returned: ' + ret);
-			    return ret;
+			override public visit(ParseTree tree) {
+				val result = if (_isDebugMode && tree instanceof RuleContext) {
+						val ruleName = «_grammarName»Parser.ruleNames.get((tree as ParserRuleContext).ruleIndex)
+						println("enter " + ruleName + " : " + tree.text)
+						val ret = tree.accept(this)
+						println("exit " + ruleName + " : " + ret)
+						ret
+					} else {
+						tree.accept(this)
+					}
 		
-				/*val node = if (result instanceof List<?>) {
+				val node = if (result instanceof List<?>) {
 						if(result.size == 1) result.get(0) else result
 					} else {
 						result
@@ -215,20 +204,18 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 					_lastNode = null
 				}
 		
-				result*/
+				result
 			}
 
-			isNonEmptyNode(node:ParseTree):boolean {
-			    if (node instanceof ParserRuleContext) {
-			      const n = node.getChildCount();
-			      if (n > 1) {
-			        return true;
-			      }
-			      // n === 1 && node.children.exists[isNonEmptyNode]
-			      return n === 1;
-			    } else {
-			      return true;
-			    }
+			def boolean isNonEmptyNode(ParseTree node) {
+				if (node instanceof ParserRuleContext) {
+					if (node.childCount > 1) {
+						return true
+					}
+					node.childCount == 1 && node.children.exists[isNonEmptyNode]
+				} else {
+					true
+				}
 			}
 
 			override public visitTerminal(TerminalNode node) {
@@ -265,30 +252,28 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 				node.text
 			}
 		
-			private flatten(obj:any) {
-			    if (Array.isArray(obj)) {
-			      if (obj.length === 1) {
-			        return this.flatten(obj[0]);
-			      }
-			      const ret = [];
-			      obj.forEach((it:any) => {
-			        ret.push(this.flatten(it));
-			      });
-			      return ret;
-			    }
-			
-			    if (obj instanceof Map) {
-			      if (obj.size === 1) {
-			        return this.flatten(obj.get(obj.keys[0]));
-			      }
-			      const ret = new Map<any, any>();
-			      obj.forEach((value: any, key: any) => {
-			        ret.set(key, this.flatten(value));
-			      });
-			      return ret;
-			    }
-			
-			    return obj;
+			private def Object flatten(Object obj) {
+				if (obj instanceof List<?>) {
+					if (obj.size == 1) {
+						return obj.get(0).flatten
+					}
+					val ret = newArrayList
+					obj.forEach [
+						ret += it.flatten
+					]
+					return ret
+				}
+				if (obj instanceof Map<?, ?>) {
+					if (obj.size == 1) {
+						return obj.get(obj.keySet.get(0)).flatten
+					}
+					val ret = newHashMap
+					obj.forEach [ key, value |
+						ret.put(key, value.flatten)
+					]
+					return ret
+				}
+				obj
 			}
 		
 			public def <T> List<T> castToList(Object obj, Class<T> clazz) {

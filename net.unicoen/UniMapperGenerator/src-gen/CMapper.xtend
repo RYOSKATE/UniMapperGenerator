@@ -22,7 +22,7 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1
 import java.lang.reflect.ParameterizedType
 import net.unicoen.node_helper.CodeLocation
 import net.unicoen.node_helper.CodeRange
-
+;
 class CMapper extends CBaseVisitor<Object> {
 
 	val boolean _isDebugMode
@@ -102,7 +102,7 @@ class CMapper extends CBaseVisitor<Object> {
 
 	override public visitChildren(RuleNode node) {
 		val n = node.childCount
-		val list = newArrayList()
+		val list = new ArrayList()
 		(0 ..< n).forEach [ i |
 			val c = node.getChild(i)
 			val childResult = c.visit
@@ -212,12 +212,13 @@ class CMapper extends CBaseVisitor<Object> {
 			if (obj.size == 1) {
 				return obj.get(0).flatten
 			}
-			val ret = newArrayList
+			val ret = new ArrayList
 			obj.forEach [
 				ret += it.flatten
 			]
 			return ret
 		}
+		
 		if (obj instanceof Map<?, ?>) {
 			if (obj.size == 1) {
 				return obj.get(obj.keySet.get(0)).flatten
@@ -371,15 +372,234 @@ class CMapper extends CBaseVisitor<Object> {
 		map.castTo(UniBinOp)
 	}
 
+	override public visitCompoundStatement(CParser.CompoundStatementContext ctx) {
+		val map = newHashMap
+		val none = newArrayList
+		map.put("none", none)
+		val body = newArrayList
+		map.put("body", body)
+		ctx.children.forEach [
+			if (it instanceof RuleContext) {
+				switch it.invokingState {
+					case 1124: {
+						body += it.visit
+					}
+					default: {
+						none += it.visit
+					}
+				}
+			} else if (it instanceof TerminalNode) {
+				switch it.symbol.type {
+					default: {
+						none += it.visit
+					}
+				}
+			}
+		]
+		map.castTo(UniBlock)
+	}
+
+	override public visitBlockItemList(CParser.BlockItemListContext ctx) {
+		val map = newHashMap
+		val none = newArrayList
+		map.put("none", none)
+		val add = newArrayList
+		map.put("add", add)
+		if (ctx.children != null) {
+			ctx.children.forEach [
+				if (it instanceof RuleContext) {
+					switch it.invokingState {
+						case 1130: {
+							val results = it.visit.flatten
+							if(results instanceof ArrayList<?>){
+								for (result: results)
+									add += result
+							}
+							else
+								add += it.visit
+						}
+						case 146: {
+							val results = it.visit.flatten
+							if(results instanceof ArrayList<?>){
+								for (result: results)
+									add += result
+							}
+							else
+								add += it.visit
+						}
+						case 1133: {
+							val results = it.visit.flatten
+							if(results instanceof ArrayList<?>){
+								for (result: results)
+									add += result
+							}
+							else
+								add += it.visit
+						}
+						default: {
+							none += it.visit
+						}
+					}
+				} else if (it instanceof TerminalNode) {
+					switch it.symbol.type {
+						default: {
+							none += it.visit
+						}
+					}
+				}
+			]
+		}
+		map.castToList(UniStatement)
+	}
+
+	override public visitBlockItem(CParser.BlockItemContext ctx) {
+		val map = newHashMap
+		val none = newArrayList
+		map.put("none", none)
+		ctx.children.forEach [
+			if (it instanceof RuleContext) {
+				switch it.invokingState {
+					default: {
+						none += it.visit
+					}
+				}
+			} else if (it instanceof TerminalNode) {
+				switch it.symbol.type {
+					default: {
+						none += it.visit
+					}
+				}
+			}
+		]
+		map.castTo(UniStatement)
+	}
+
+	override public visitJumpStatement(CParser.JumpStatementContext ctx) {
+		val map = newHashMap
+		val none = newArrayList
+		map.put("none", none)
+		val expr = newArrayList
+		map.put("expr", expr)
+		ctx.children.forEach [
+			if (it instanceof RuleContext) {
+				switch it.invokingState {
+					case 1234: {
+						expr += it.visit
+					}
+					default: {
+						none += it.visit
+					}
+				}
+			} else if (it instanceof TerminalNode) {
+				switch it.symbol.type {
+					default: {
+						none += it.visit
+					}
+				}
+			}
+		]
+		map.castTo(UniReturn)
+	}
+
+	override public visitCompilationUnit(CParser.CompilationUnitContext ctx) {
+		val map = newHashMap
+		val none = newArrayList
+		map.put("none", none)
+		val body = newArrayList
+		map.put("body", body)
+		ctx.children.forEach [
+			if (it instanceof RuleContext) {
+				switch it.invokingState {
+					case 1244: {
+						body += it.visit
+					}
+					default: {
+						none += it.visit
+					}
+				}
+			} else if (it instanceof TerminalNode) {
+				switch it.symbol.type {
+					default: {
+						none += it.visit
+					}
+				}
+			}
+		]
+		map.castTo(UniBlock)
+	}
+
+	override public visitTranslationUnit(CParser.TranslationUnitContext ctx) {
+		val map = newHashMap
+		val none = newArrayList
+		map.put("none", none)
+		val add = newArrayList
+		map.put("add", add)
+		if (ctx.children != null) {
+			ctx.children.forEach [
+				if (it instanceof RuleContext) {
+					switch it.invokingState {
+						case 1248: {
+							val results = it.visit.flatten
+							if(results instanceof ArrayList<?>){
+								for (result: results)
+									add += result
+							}
+							else
+								add += it.visit
+						}
+						case 166: {
+							val results = it.visit.flatten
+							if(results instanceof ArrayList<?>){
+								for (result: results)
+									add += result
+							}
+							else
+								add += it.visit
+						}
+						case 1251: {
+							val results = it.visit.flatten
+							if(results instanceof ArrayList<?>){
+								for (result: results)
+									add += result
+							}
+							else
+								add += it.visit
+						}
+						default: {
+							none += it.visit
+						}
+					}
+				} else if (it instanceof TerminalNode) {
+					switch it.symbol.type {
+						default: {
+							none += it.visit
+						}
+					}
+				}
+			]
+		}
+		map.castToList(UniStatement)
+	}
+
 	override public visitFunctionDefinition(CParser.FunctionDefinitionContext ctx) {
 		val map = newHashMap
 		val none = newArrayList
 		map.put("none", none)
+		val name = newArrayList
+		map.put("name", name)
 		val block = newArrayList
 		map.put("block", block)
+		val returnType = newArrayList
+		map.put("returnType", returnType)
 		ctx.children.forEach [
 			if (it instanceof RuleContext) {
 				switch it.invokingState {
+					case 1262: {
+						returnType += it.visit
+					}
+					case 1265: {
+						name += it.visit
+					}
 					case 1269: {
 						block += it.visit
 					}
