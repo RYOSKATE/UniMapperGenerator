@@ -32,15 +32,16 @@ public class InvokingStateAnalyzer {
       }
       final String ruleName = rule.getName();
       StringConcatenation _builder = new StringConcatenation();
+      _builder.append("Parser.prototype.");
       _builder.append(ruleName);
-      _builder.append("() throws");
+      _builder.append(" = function(");
       int pos = code.indexOf(_builder.toString());
       final ArrayList<Integer> list = Lists.<Integer>newArrayList();
       final int trypos = code.indexOf("try", pos);
       final boolean hasLeftRecursion = code.substring(pos, trypos).contains("enterRecursionRule");
       int recursionState = (-1);
       if (hasLeftRecursion) {
-        final int start = code.indexOf("int _startState = ", pos);
+        final int start = code.indexOf("var _startState = ", pos);
         final int last = code.indexOf(";", start);
         final String str = code.substring((start + 18), last);
         recursionState = Integer.parseInt(str);
@@ -64,9 +65,9 @@ public class InvokingStateAnalyzer {
                 _builder_1.append(refName);
                 _builder_1.append("(");
                 pos = code.indexOf(_builder_1.toString(), pos);
-                final int start_1 = code.lastIndexOf("setState(", pos);
-                final int last_1 = code.indexOf(")", start_1);
-                final String str_1 = code.substring((start_1 + 9), last_1);
+                final int start_1 = code.lastIndexOf("this.state = ", pos);
+                final int last_1 = code.indexOf(";", start_1);
+                final String str_1 = code.substring((start_1 + 13), last_1);
                 final int state = Integer.parseInt(str_1);
                 list.add(Integer.valueOf(state));
                 pos++;
