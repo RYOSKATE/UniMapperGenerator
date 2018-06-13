@@ -290,7 +290,7 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 					}
 					_nextTokenIndex = i
 				}*/
-				return node.text;
+				return token.text;
 			}
 		
 			private flatten(obj:any) {
@@ -354,19 +354,17 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 			        ret.push(this.castToList(it, clazz));
 			      });
 			    } else {
-			      ret.push(this.castTo(it, clazz));
+			      ret.push(this.castTo(temp, clazz));
 			    }
 			    return ret;
 			  }
 			
 			  public castTo<T extends Function|String>(obj:any, clazz:any) {
-			    const t = new clazz();
 			    const temp = this.flatten(obj);
-			    const instance = clazz;
-			    // val fields = clazz.fields
+			    const instance = new clazz();
+			    const fields = instance.fileds;
 			    const fieldsName = [];
 			    for (let it in instance) {
-			      it = null;
 			      fieldsName.push(it);
 			    }
 			    if (temp instanceof Map) {
@@ -378,23 +376,25 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 			            case 'add': {
 			              builder += this.castTo<T>(value, clazz);
 			            }
+			            break;
 			            default: {
 			              if (!hasAdd) {
 			                builder += this.castTo<T>(value, clazz);
 			              }
 			            }
+			            break;
 			          }
 			        });
 			        return (builder.length > 0) ? builder : null;
 			      }
 			      temp.forEach((value: any, key: any) => {
 			        if (fieldsName.includes(key)) {
-			          const field:Function|String = instance['key'];
+			          const field:Function = fields.get(key);
 			          if (Array.isArray(field)) {
-			            instance['key'] = this.castToList(value, field);
-			            // instance["key"] = value.castToList((field.genericType as ParameterizedType).actualTypeArguments.get(0) as Class<?>);
+			            instance[key] = this.castToList(value, field);
+			            // instance[key] = value.castToList((field.genericType as ParameterizedType).actualTypeArguments.get(0) as Class<?>);
 			          } else {
-			            instance['key'] = this.castTo(value, field);
+			            instance[key] = this.castTo(value, field);
 			          }
 			        }
 			      });
@@ -496,6 +496,7 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 										else if (it.op == "RETURN") "ret;" 
 										else it.op».push(«IF r.type !== null && r.type.type.dir !== null»this.flatten(«ENDIF»this.visit(it)«IF r.type !== null && r.type.type.dir !== null»)«ENDIF»);
 									}
+									break;
 								«ENDIF»
 							«ENDIF»
 						«ENDIF»
@@ -503,6 +504,7 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 					default: {
 						none.push(this.visit(it));
 					}
+					break;
 				}
 			} else if (it instanceof TerminalNode) {
 				switch (it.symbol.type) {
@@ -515,12 +517,14 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 								case «_grammarName»Parser.«it.terminalName»: {
 									«if (it.op == "MERGE" || it.op == "ADD") it.op.toLowerCase else if (it.op == "RETURN") "ret" else it.op».push(this.flatten(this.visit(it)));
 								}
+								break;
 							«ENDIF»
 						«ENDIF»
 					«ENDFOR»
 					default: {
 						none.push(this.visit(it));
 					}
+					break;
 				}
 			}
 		}
@@ -657,6 +661,7 @@ else
 											else if (it.op == "RETURN") "ret" 
 											else it.op».push(this.visit(it));
 										}
+										break;
 									«ENDIF»
 								«ENDIF»
 							«ENDIF»
@@ -664,6 +669,7 @@ else
 						default: {
 							none.push(this.visit(it));
 						}
+						break;
 					}
 				} else if (it instanceof TerminalNode) {
 					switch (it.symbol.type) {
@@ -676,12 +682,14 @@ else
 									case «_grammarName»Parser.«it.terminalName»: {
 										«if (it.op == "MERGE" || it.op == "ADD") it.op.toLowerCase else if (it.op == "RETURN") "ret" else it.op».push(this.visit(it));
 									}
+									break;
 								«ENDIF»
 							«ENDIF»
 						«ENDFOR»
 						default: {
 							none.push(this.visit(it));
 						}
+						break;
 					}
 				}
 			}
