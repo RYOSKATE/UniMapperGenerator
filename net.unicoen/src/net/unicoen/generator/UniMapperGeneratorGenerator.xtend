@@ -37,35 +37,59 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 	}
 	
 	def generateImports() '''
-		import UniProgram from '../node/UniProgram';
+		import CodeLocation from '../node_helper/CodeLocation';
+		import CodeRange from '../node_helper/CodeRange';
+		import UniNode from '../node/UniNode';
 		import UniParam from '../node/UniParam';
-		import UniBlock from '../node/UniBlock';
-		import UniFunctionDec from '../node/UniFunctionDec';
-		import UniStringLiteral from '../node/UniStringLiteral';
-		import UniIntLiteral from '../node/UniIntLiteral';
+		import UniExpr from '../node/UniExpr';
+		import UniArray from '../node/UniArray';
 		import UniNumberLiteral from '../node/UniNumberLiteral';
-		import UniReturn from '../node/UniReturn';
+		import UniBinOp from '../node/UniBinOp';
+		import UniBlock from '../node/UniBlock';
+		import UniBoolLiteral from '../node/UniBoolLiteral';
+		import UniBreak from '../node/UniBreak';
+		import UniCast from '../node/UniCast';
+		import UniContinue from '../node/UniContinue';
+		import UniDoWhile from '../node/UniDoWhile';
+		import UniEmptyStatement from '../node/UniEmptyStatement';
+		import UniFunctionDec from '../node/UniFunctionDec';
+		import UniFor from '../node/UniFor';
+		import UniIdent from '../node/UniIdent';
+		import UniIf from '../node/UniIf';
+		import UniIntLiteral from '../node/UniIntLiteral';
+		import UniWhile from '../node/UniWhile';
+		import UniUnaryOp from '../node/UniUnaryOp';
+		import UniTernaryOp from '../node/UniTernaryOp';
 		import UniStatement from '../node/UniStatement';
+		import UniStringLiteral from '../node/UniStringLiteral';
+		import UniReturn from '../node/UniReturn';
+		import UniVariableDec from '../node/UniVariableDec';
+		import UniVariableDef from '../node/UniVariableDef';
+		import UniSwitchUnit from '../node/UniSwitchUnit';
+		import UniSwitch from '../node/UniSwitch';
+		import UniMethodCall from '../node/UniMethodCall';
+		import UniProgram from '../node/UniProgram';
 		
-		import { InputStream, CommonTokenStream } from 'antlr4';
+		import { InputStream, CommonTokenStream, ParserRuleContext } from 'antlr4';
 		import { RuleContext }from 'antlr4/RuleContext';
-		import { TerminalNode }from 'antlr4/tree/Tree';
+		import { TerminalNode, RuleNode, ParseTree }from 'antlr4/tree/Tree';
 		import { CLexer } from './CLexer';
 		import { CParser } from './CParser';
 		import { CVisitor } from './CVisitor';
 	'''
 
 	def generateMapper(Grammar g) '''
+		// tslint:disable
 		«generateImports»
 		
 		export default class «_grammarName»Mapper extends «_grammarName»Visitor {
 		
 			private isDebugMode:boolean = false;
 			private parser:CParser;
-			//val List<Comment> _comments = new ArrayList<Comment>;
-			//var CommonTokenStream _stream;
-			//var UniNode _lastNode;
-			//var int _nextTokenIndex;
+			// val List<Comment> _comments = new ArrayList<Comment>;
+			// var CommonTokenStream _stream;
+			// var UniNode _lastNode;
+			// var int _nextTokenIndex;
 		
 			/*static class Comment {
 				val List<String> contents
@@ -169,7 +193,7 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 			    if (!this.isDebugMode) {
 			      return node.accept(this);
 			    }
-			    if (!this.isInstanceofRuleContext(node)) {
+			    if (!(node instanceof RuleContext)) {
 			      return node.accept(this);
 			    }
 			    const ruleName = this.getRuleName(node);
@@ -230,14 +254,18 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 			      return true;
 			    }
 			}
+			
+			getRuleName(node) {
+			  return this.parser.ruleNames[node.ruleIndex];
+			}
 
-			override public visitTerminal(TerminalNode node) {
-				if (_isDebugMode) {
-					println("visit TERMINAL : " + node.text)
+			public visitTerminal(node:TerminalNode) {
+				if (this.isDebugMode) {
+					console.log("visit TERMINAL : " + node.text);
 				}
 		
-				val token = node.symbol
-				if (token.type > 0) {
+				const token = node.symbol;
+				/*if (token.type > 0) {
 					val count = token.tokenIndex
 					val List<String> contents = newArrayList
 					var i = _nextTokenIndex
@@ -261,8 +289,8 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 						_comments.add(new Comment(contents, node.parent))
 					}
 					_nextTokenIndex = i
-				}
-				node.text
+				}*/
+				return node.text;
 			}
 		
 			private flatten(obj:any) {
@@ -291,102 +319,110 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 			    return obj;
 			}
 		
-			public def <T> List<T> castToList(Object obj, Class<T> clazz) {
-				val temp = obj.flatten
-				val ret = newArrayList
-				if (temp instanceof Map<?, ?>) {
-					val add = temp.containsKey("add")
-					temp.forEach [ key, value |
-						switch key {
-							case "add": {
-								if (value instanceof Map<?, ?>) {
-									ret += value.castTo(clazz)
-								} else if (value instanceof List<?>) {
-									value.forEach [
-										val t = it.castTo(clazz)
-										if (t != null) {
-											ret += t
-										}
-									]
-								} else {
-									ret += value.castToList(clazz)
-								}
-							}
-							default: {
-								if (!add) {
-									ret += value.castToList(clazz)
-								}
-							}
-						}
-					]
-				} else if (temp instanceof List<?>) {
-					temp.forEach [
-						ret += it.castToList(clazz)
-					]
-				} else {
-					ret += temp.castTo(clazz)
-				}
-				ret
-			}
-		
-			public def <T> T castTo(Object obj, Class<T> clazz) {
-				val temp = obj.flatten
-				if (temp instanceof Map<?, ?>) {
-					if (String.isAssignableFrom(clazz)) {
-						val builder = new StringBuilder
-						val hasAdd = temp.containsKey("add")
-						temp.forEach [ key, value |
-							switch (key) {
-								case "add": {
-									builder.append(value.castTo(clazz))
-								}
-								default: {
-									if (!hasAdd) {
-										builder.append(value.castTo(clazz))
-									}
-								}
-							}
-						]
-						return if (builder.length > 0) clazz.getConstructor(StringBuilder).newInstance(builder) else null
-					}
-					val instance = clazz.newInstance
-					val fields = clazz.fields
-					val fieldsName = newArrayList
-					fields.forEach[fieldsName.add(it.name)]
-					temp.forEach [ key, value |
-						if (fieldsName.contains(key)) {
-							val field = fields.get(fieldsName.indexOf(key))
-							field.set(instance,
-								if (List.isAssignableFrom(field.type)) {
-									value.castToList(
-										(field.genericType as ParameterizedType).actualTypeArguments.get(0) as Class<?>)
-								} else {
-									value.castTo(field.type)
-								})
-						}
-					]
-					return instance
-				}
-				if (temp instanceof List<?>) {
-					if (String.isAssignableFrom(clazz)) {
-						val builder = new StringBuilder
-						temp.forEach [
-							builder.append(it.castTo(clazz))
-						]
-						return if (builder.length > 0) clazz.getConstructor(StringBuilder).newInstance(builder) else null
-					}
-					val first = temp.findFirst[clazz.isAssignableFrom(it.class)]
-					return if (first === null) {
-						try {
-							clazz.newInstance
-						} catch (InstantiationException e) {
-							null
-						}
-					} else
-						first.castTo(clazz)
-				}
-				clazz.cast(temp)
-			}
+			// tslint:disable-next-line:prefer-array-literal
+			  public castToList<T extends Function|String>(obj:any, clazz:T):Array<T> {
+			    const temp = this.flatten(obj);
+			    const ret = [];
+			    if (temp instanceof Map) {
+			      const add = temp.has('add');
+			      temp.forEach((value: any, key: any) => {
+			        switch (key) {
+			          case 'add': {
+			            if (value instanceof Map) {
+			              ret.push(this.castTo<T>(value, clazz));
+			            } else if (Array.isArray(value)) {
+			              value.forEach((it:any) => {
+			                const t = this.castTo(it, clazz);
+			                if (t != null) {
+			                  ret.push(t);
+			                }
+			              });
+			            } else {
+			              ret.push(this.castToList(value, clazz));
+			            }
+			          } 
+			            break;
+			          default:
+			            if (!add) {
+			              ret.push(this.castToList(value, clazz));
+			            }
+			            break;
+			        }    
+			      });
+			    } else if (Array.isArray(temp)) {
+			      temp.forEach((it:any) => {
+			        ret.push(this.castToList(it, clazz));
+			      });
+			    } else {
+			      ret.push(this.castTo(it, clazz));
+			    }
+			    return ret;
+			  }
+			
+			  public castTo<T extends Function|String>(obj:any, clazz:any) {
+			    const t = new clazz();
+			    const temp = this.flatten(obj);
+			    const instance = clazz;
+			    // val fields = clazz.fields
+			    const fieldsName = [];
+			    for (let it in instance) {
+			      it = null;
+			      fieldsName.push(it);
+			    }
+			    if (temp instanceof Map) {
+			      if (clazz instanceof String) {
+			        let builder = '';
+			        const hasAdd = temp.has('add');
+			        temp.forEach((value: any, key: any) => {
+			          switch (key) {
+			            case 'add': {
+			              builder += this.castTo<T>(value, clazz);
+			            }
+			            default: {
+			              if (!hasAdd) {
+			                builder += this.castTo<T>(value, clazz);
+			              }
+			            }
+			          }
+			        });
+			        return (builder.length > 0) ? builder : null;
+			      }
+			      temp.forEach((value: any, key: any) => {
+			        if (fieldsName.includes(key)) {
+			          const field:Function|String = instance['key'];
+			          if (Array.isArray(field)) {
+			            instance['key'] = this.castToList(value, field);
+			            // instance["key"] = value.castToList((field.genericType as ParameterizedType).actualTypeArguments.get(0) as Class<?>);
+			          } else {
+			            instance['key'] = this.castTo(value, field);
+			          }
+			        }
+			      });
+			      return instance;
+			    }
+			    if (Array.isArray(temp)) {
+			      if (clazz instanceof String) {
+			        let builder = '';
+			        temp.forEach((it:any) => {
+			          builder += (this.castTo(it, clazz));
+			        });
+			        return (builder.length > 0) ? builder : null;
+			      }
+			      const first = temp.find((it) => {
+			        return it instanceof clazz;
+			      });
+			      if (first === null) {
+			        try {
+			          return instance;
+			        } catch (e) {
+			          return null;
+			        }
+			      } else {
+			        return this.castTo<T>(first,clazz);
+			      }
+			    }
+			    return temp as T;
+			  }
 		
 			«FOR r : g.rules.filter(ParserRule)»
 				«IF r.type !== null && r.type.type.name !== null && r.type.type.name.endsWith("Literal")»
@@ -412,7 +448,7 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 			new String
 		}
 		'''
-			override public visit«ruleName»(«_grammarName»Parser.«ruleName»Context ctx) {
+			public visit«ruleName»(ctx:«_grammarName»Parser.«ruleName»Context) {
 				«IF typeName=="List"»
 					«r.makeListMethodBody(r.type.type.typevalue)»
 				«ELSE»
@@ -431,20 +467,22 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 			annotationList += it.op
 		]
 	'''
-		val map = newHashMap
-		val none = newArrayList
-		map.put("none", none)
+		const map = new Map<string,any>();
+		const none = [];
+		map.set("none", none);
 		«FOR it : annotationList»«IF it != "MERGE"»
-		val «if (it == "ADD") it.toLowerCase else if (it == "RETURN") "ret" else it» = newArrayList
+		const «if (it == "ADD") it.toLowerCase else if (it == "RETURN") "ret" else it» = [];
 		«IF it != "RETURN"»
-		map.put("«if (it == "ADD") it.toLowerCase else it»", «if (it == "ADD") it.toLowerCase else it»)
+		map.set("«if (it == "ADD") it.toLowerCase else it»", «if (it == "ADD") it.toLowerCase else it»);
 		«ENDIF»«ENDIF»«ENDFOR»
 		«IF hasMerge»
-		val merge = newArrayList
+		const merge = [];
 		«ENDIF»
-		ctx.children.forEach [
+		const n = ctx.getChildCount();
+		for (let i = 0; i < n;++i) {
+			const it = ctx.getChild(i);	
 			if (it instanceof RuleContext) {
-				switch it.invokingState {
+				switch (it.invokingState) {
 					«val stateList = newHashSet»
 					«FOR it : elementList»
 						«val atom = it.body»
@@ -455,19 +493,19 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 								«IF stateList.add(invokingState)»
 									case «invokingState»: {
 										«if (it.op == "MERGE" || it.op == "ADD") it.op.toLowerCase 
-										else if (it.op == "RETURN") "ret" 
-										else it.op» += it.visit«IF r.type !== null && r.type.type.dir !== null».flatten«ENDIF»
+										else if (it.op == "RETURN") "ret;" 
+										else it.op».push(«IF r.type !== null && r.type.type.dir !== null»this.flatten(«ENDIF»this.visit(it)«IF r.type !== null && r.type.type.dir !== null»)«ENDIF»);
 									}
 								«ENDIF»
 							«ENDIF»
 						«ENDIF»
 					«ENDFOR»
 					default: {
-						none += it.visit
+						none.push(this.visit(it));
 					}
 				}
 			} else if (it instanceof TerminalNode) {
-				switch it.symbol.type {
+				switch (it.symbol.type) {
 					«val nameList = newHashSet»
 					«FOR it : elementList»
 						«val atom = it.body»
@@ -475,35 +513,34 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 							«val ref = atom.body»
 							«IF ref instanceof Terminal && nameList.add(it.terminalName)»
 								case «_grammarName»Parser.«it.terminalName»: {
-									«if (it.op == "MERGE" || it.op == "ADD") it.op.toLowerCase else if (it.op == "RETURN") "ret" else it.op» += it.visit.flatten
+									«if (it.op == "MERGE" || it.op == "ADD") it.op.toLowerCase else if (it.op == "RETURN") "ret" else it.op».push(this.flatten(this.visit(it)));
 								}
 							«ENDIF»
 						«ENDIF»
 					«ENDFOR»
 					default: {
-						none += it.visit
+						none.push(this.visit(it));
 					}
 				}
 			}
-		]
+		}
 		«IF hasReturn»
-			if (!ret.isEmpty) {
-				return ret
+			if (ret != []) {
+				return ret;
 			}
 		«ENDIF»
 		«IF r.type !== null»
 			«IF r.type.type.name !== null»
-				«IF hasMerge»val node = «ENDIF»map.castTo(«r.type.type.name»)
+				«IF hasMerge»const node = «ENDIF»this.castTo(map, «r.type.type.name»);
 				«IF hasMerge»
-					merge.forEach[node.merge(it.castTo(«r.type.type.name»))]
-					node
+					merge.forEach((it:any) => { node.merge(this.castTo(it, «r.type.type.name»));});
+					return node;
 				«ENDIF»
 			«ELSE»
 				«IF r.type.type.dir == '>'»
-					add.reverse
+					add.reverse();
 				«ENDIF»
-				var node = add.get(0) as UniExpr
-				add.remove(node)
+				const node = add[0] as UniExpr;
 				for (Object obj : add) {
 					switch (obj) {
 						«FOR field:r.type.type.fieldvalue»
@@ -582,21 +619,23 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 		]
 		
 	'''
-		val map = newHashMap
-		val none = newArrayList
-		map.put("none", none)
+		const map = new Map<string,any>();
+		const none = [];
+		map.set("none", none);
 		«FOR it : annotationList»«IF it != "MERGE"»
-		val «if (it == "ADD") it.toLowerCase else if (it == "RETURN") "ret" else it» = newArrayList
+		const «if (it == "ADD") it.toLowerCase else if (it == "RETURN") "ret" else it» = [];
 		«IF it != "RETURN"»
-		map.put("«if (it == "ADD") it.toLowerCase else it»", «if (it == "ADD") it.toLowerCase else it»)
+		map.set("«if (it == "ADD") it.toLowerCase else it»", «if (it == "ADD") it.toLowerCase else it»);
 		«ENDIF»«ENDIF»«ENDFOR»
 		«IF hasMerge»
-		val merge = newArrayList
+		const merge = [];
 		«ENDIF»
-		if (ctx.children != null) {
-			ctx.children.forEach [
+		const n = ctx.getChildCount();
+		if (0<n) {
+			for (let i = 0; i < n;++i) {
+				const it = ctx.getChild(i);
 				if (it instanceof RuleContext) {
-					switch it.invokingState {
+					switch (it.invokingState) {
 						«val stateList = newHashSet»
 						«FOR it : elementList»
 							«val atom = it.body»
@@ -608,26 +647,26 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 										case «invokingState»: {
 											«if (it.op == "MERGE") it.op.toLowerCase 
 											else if (it.op == "ADD")
-"val results = it.visit.flatten
-if(results instanceof ArrayList<?>){
-	for (result: results)
-		add += result
+"const results = this.flatten(this.visit(it));
+if(Array.isArray(results)){
+	for (const result of results)
+		add.push(result);
 }
 else
 	add"
 											else if (it.op == "RETURN") "ret" 
-											else it.op» += it.visit
+											else it.op».push(this.visit(it));
 										}
 									«ENDIF»
 								«ENDIF»
 							«ENDIF»
 						«ENDFOR»
 						default: {
-							none += it.visit
+							none.push(this.visit(it));
 						}
 					}
 				} else if (it instanceof TerminalNode) {
-					switch it.symbol.type {
+					switch (it.symbol.type) {
 						«val nameList = newHashSet»
 						«FOR it : elementList»
 							«val atom = it.body»
@@ -635,77 +674,77 @@ else
 								«val ref = atom.body»
 								«IF ref instanceof Terminal && nameList.add(it.terminalName)»
 									case «_grammarName»Parser.«it.terminalName»: {
-										«if (it.op == "MERGE" || it.op == "ADD") it.op.toLowerCase else if (it.op == "RETURN") "ret" else it.op» += it.visit
+										«if (it.op == "MERGE" || it.op == "ADD") it.op.toLowerCase else if (it.op == "RETURN") "ret" else it.op».push(this.visit(it));
 									}
 								«ENDIF»
 							«ENDIF»
 						«ENDFOR»
 						default: {
-							none += it.visit
+							none.push(this.visit(it));
 						}
 					}
 				}
-			]
+			}
 		}
 		«IF hasReturn»
-			if (!ret.isEmpty) {
-				return ret
+			if (ret != []) {
+				return ret;
 			}
 		«ENDIF»
-		«IF hasMerge»val node = «ENDIF»map«IF r.type !== null».castTo«IF !hasMerge»List«ENDIF»(«itemClassName»)«ENDIF»
+		«IF hasMerge»const node = «ENDIF»«IF r.type === null»map«ENDIF»«IF r.type !== null»this.castTo«IF !hasMerge»List«ENDIF»(map, «itemClassName»)«ENDIF»
 		«IF hasMerge»
-		val ret = newArrayList
-		merge.castToList(«itemClassName»).forEach [
-			it.merge(node)
-			ret += it
-		]
-		ret
+		const ret = [];
+		this.castToList(merge, «itemClassName»).forEach( (it) => {
+			it.merge(node);
+			ret.push(it);
+		});
+		return ret;
 		«ENDIF»
 	'''
 	}
 
 	def makeStringMethodBody(ParserRule r) '''
-		val map = newHashMap
-		val none = newArrayList
-		map.put("none", none)
-		if (ctx.children != null) {
-			ctx.children.forEach [
-				none += it.visit
-			]
+		const map = new Map<string, any>();
+		const none = [];
+		map.set("none", none);
+		const n = node.getChildCount();
+		for (let i = 0; i < n;++i) {
+			const it = node.getChild(i);
+		    none.push(this.visit(it));
 		}
-		map
+		return map;
 	'''
 
 
 	def makeLiteralMethod(ParserRule r) '''
 		«val methodName = "visit" + r.name.toCamelCase»
-		override public «methodName»(«_grammarName»Parser.«r.name.toCamelCase»Context ctx) {
-			val text = ctx.children.findFirst [
+		public «methodName»(ctx:«_grammarName»Parser.«r.name.toCamelCase»Context) {
+			const text = this.visit(ctx.getChildren().find( (it) => {
 				if (it instanceof TerminalNodeImpl) {
 					«FOR it : r.eAllContents.filter(Element).toList»
 						«IF it.op !== null»
 							«IF it.op == "value"»
 								if (it.symbol.type == «_grammarName»Parser.«it.terminalName») {
-									return true
+									return true;
 								}
 							«ENDIF»
 						«ENDIF»
 					«ENDFOR»
 				}
-				return false
-			].visit as String
+				return false;
+			})) as String;
 			«IF r.type.type.name == "UniIntLiteral"»
-				return new UniIntLiteral(Integer.parseInt(text))
+				return new UniIntLiteral(Number(text));
 			«ELSEIF r.type.type.name == "UniBoolLiteral"»
-				return new UniBoolLiteral(Boolean.parseBoolean(text))
+				return new UniBoolLiteral(Boolean(text));
 			«ELSEIF r.type.type.name == "UniDoubleLiteral"»
-				return new UniDoubleLiteral(Double.parseDouble(text))
+				return new UniDoubleLiteral(Number(text));
 			«ELSEIF r.type.type.name == "UniStringLiteral"»
-				return new UniStringLiteral(text.substring(1, text.length - 1))
+				return new UniStringLiteral(text.substring(1, text.length - 1));
 			«ELSEIF r.type.type.name == "UniCharacterLiteral"»
-				return new UniCharacterLiteral(text.substring(1, text.length - 1).charAt(0))
+				return new UniCharacterLiteral(text.substring(1, text.length - 1).charAt(0));
 			«ELSE»
-				throw new RuntimeException("Unimplemented Method: «methodName»")
+				throw new RuntimeException("Unimplemented Method: «methodName»");
 			«ENDIF»
 		}
 	'''
