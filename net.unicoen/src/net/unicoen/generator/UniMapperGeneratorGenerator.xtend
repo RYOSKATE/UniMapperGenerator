@@ -108,7 +108,7 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 			parse(code) {
 			    const chars = new InputStream(code);
 			    const [tree, parser] = this.parseCore(chars);
-			    return this.visit(tree);
+			    return new UniProgram(this.visit(tree));
 			}
 			getRawTree(code) {
 			    const chars = new InputStream(code);
@@ -389,9 +389,8 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 			    temp.forEach((value: any, key: any) => {
 			      if (fieldsName.includes(key)) {
 			        const field:Function = fields.get(key);
-			        if (Array.isArray(field)) {
-			          instance[key] = this.castToList(value, field);
-			          // instance[key] = value.castToList((field.genericType as ParameterizedType).actualTypeArguments.get(0) as Class<?>);
+			        if (Array.isArray(instance[key])) {
+			          instance[key] = this.flatten(this.castToList(value, field));
 			        } else {
 			          instance[key] = this.castTo(value, field);
 			        }
@@ -420,7 +419,7 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 			      return this.castTo<T>(first,clazz);
 			    }
 			  }
-			 return temp as T;
+			  return temp as T;
 			}
 		
 			«FOR r : g.rules.filter(ParserRule)»
