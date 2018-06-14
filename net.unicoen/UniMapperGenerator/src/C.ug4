@@ -32,7 +32,7 @@ root compilationUnit;
 
 primaryExpression
     :   Identifier
-    |   Constant
+    |   constant
     |   StringLiteral+
     |   '(' expression ')'
     |   genericSelection
@@ -74,8 +74,8 @@ argumentExpressionList
     |   argumentExpressionList ',' assignmentExpression
     ;
 
-unaryExpression// => UniUnaryOp
-    :   postfixExpression
+unaryExpression => UniUnaryOp
+    :   postfixExpression$RETURN
     |   '++' unaryExpression
     |   '--' unaryExpression
     |   unaryOperator castExpression
@@ -104,7 +104,7 @@ multiplicativeExpression
     ;
 
 additiveExpression => UniBinOp 
-    :   multiplicativeExpression
+    :   multiplicativeExpression$RETURN
     |   additiveExpression$left Plus$operator multiplicativeExpression$right
     |   additiveExpression$left Minus$operator multiplicativeExpression$right
     ;
@@ -476,7 +476,7 @@ blockItemList => List<UniStatement>
     |   blockItemList$ADD blockItem$ADD
     ;
 
-blockItem => UniStatement
+blockItem
     :   declaration
     |   statement
     ;
@@ -518,7 +518,7 @@ jumpStatement => UniReturn
     :   'goto' Identifier ';'
     |   'continue' ';'
     |   'break' ';'
-    |   'return' expression?$expr ';'
+    |   'return' expression?$value ';'
     |   'goto' unaryExpression ';' // GCC extension
     ;
 
@@ -681,6 +681,10 @@ fragment
 HexQuad
     :   HexadecimalDigit HexadecimalDigit HexadecimalDigit HexadecimalDigit
     ;
+
+constant => UniIntLiteral
+	: Constant$value
+	;
 
 Constant
     :   IntegerConstant
