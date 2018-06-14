@@ -390,7 +390,12 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 			      if (fieldsName.includes(key)) {
 			        const field:Function = fields.get(key);
 			        if (Array.isArray(instance[key])) {
-			          instance[key] = this.flatten(this.castToList(value, field));
+			       	  const list  = this.flatten(this.castToList(value, field));
+			          if(!Array.isArray(list)) {
+						instance[key] = [list];
+					  } else {
+						instance[key] = list;
+					  }
 			        } else {
 			          instance[key] = this.castTo(value, field);
 			        }
@@ -419,7 +424,10 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 			      return this.castTo<T>(first,clazz);
 			    }
 			  }
-			  return temp as T;
+	  		if(temp != null) {
+	  			return temp as T;
+	  		}
+	  		return instance;
 			}
 		
 			«FOR r : g.rules.filter(ParserRule)»
@@ -553,7 +561,7 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 						«ENDFOR»
 					}
 				}
-				node
+				return node;
 			«ENDIF»
 		«ELSE»
 			«IF hasMerge»
@@ -569,7 +577,7 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 					}
 				]
 			«ENDIF»
-			map
+			return map;
 		«ENDIF»
 	'''}
 

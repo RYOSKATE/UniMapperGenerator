@@ -28,6 +28,7 @@
 /** C 2011 grammar built from the C11 Spec */
 grammar C;
 
+
 root compilationUnit;
 
 primaryExpression
@@ -321,19 +322,19 @@ alignmentSpecifier
     |   '_Alignas' '(' constantExpression ')'
     ;
 
-declarator//UniFunctionDec$name, UniFunctionDec$params
-    :   pointer? directDeclarator gccDeclaratorExtension*
+declarator => UniFunctionDec
+    :   pointer? directDeclarator$MERGE gccDeclaratorExtension*
     ;
 
-directDeclarator
-    :   Identifier
+directDeclarator => UniFunctionDec
+    :   Identifier$name
     |   '(' declarator ')'
     |   directDeclarator '[' typeQualifierList? assignmentExpression? ']'
     |   directDeclarator '[' 'static' typeQualifierList? assignmentExpression ']'
     |   directDeclarator '[' typeQualifierList 'static' assignmentExpression ']'
     |   directDeclarator '[' typeQualifierList? '*' ']'
-    |   directDeclarator '(' parameterTypeList ')'
-    |   directDeclarator '(' identifierList? ')'
+    |   directDeclarator$MERGE '(' parameterTypeList ')'
+    |   directDeclarator$MERGE '(' identifierList? ')'
     |   Identifier ':' DigitSequence  // bit field
     ;
 
@@ -538,7 +539,7 @@ externalDeclaration
     ;
 
 functionDefinition => UniFunctionDec
-    :   declarationSpecifiers?$returnType declarator$name declarationList? compoundStatement$block
+    :   declarationSpecifiers?$returnType declarator$MERGE declarationList? compoundStatement$block
     ;
 
 declarationList
