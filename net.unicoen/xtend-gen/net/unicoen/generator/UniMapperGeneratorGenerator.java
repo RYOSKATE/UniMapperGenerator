@@ -62,42 +62,110 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
   
   public CharSequence generateImports() {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("import UniProgram from \'../node/UniProgram\';");
+    _builder.append("import CodeLocation from \'../../node_helper/CodeLocation\';");
     _builder.newLine();
-    _builder.append("import UniParam from \'../node/UniParam\';");
+    _builder.append("import CodeRange from \'../../node_helper/CodeRange\';");
     _builder.newLine();
-    _builder.append("import UniBlock from \'../node/UniBlock\';");
+    _builder.append("import UniNode from \'../../node/UniNode\';");
     _builder.newLine();
-    _builder.append("import UniFunctionDec from \'../node/UniFunctionDec\';");
+    _builder.append("import UniParam from \'../../node/UniParam\';");
     _builder.newLine();
-    _builder.append("import UniStringLiteral from \'../node/UniStringLiteral\';");
+    _builder.append("import UniEnhancedFor from \'../../node/UniEnhancedFor\';");
     _builder.newLine();
-    _builder.append("import UniIntLiteral from \'../node/UniIntLiteral\';");
+    _builder.append("import UniExpr from \'../../node/UniExpr\';");
     _builder.newLine();
-    _builder.append("import UniNumberLiteral from \'../node/UniNumberLiteral\';");
+    _builder.append("import UniArray from \'../../node/UniArray\';");
     _builder.newLine();
-    _builder.append("import UniReturn from \'../node/UniReturn\';");
+    _builder.append("import UniNumberLiteral from \'../../node/UniNumberLiteral\';");
     _builder.newLine();
-    _builder.append("import UniStatement from \'../node/UniStatement\';");
+    _builder.append("import UniBinOp from \'../../node/UniBinOp\';");
+    _builder.newLine();
+    _builder.append("import UniBlock from \'../../node/UniBlock\';");
+    _builder.newLine();
+    _builder.append("import UniBoolLiteral from \'../../node/UniBoolLiteral\';");
+    _builder.newLine();
+    _builder.append("import UniBreak from \'../../node/UniBreak\';");
+    _builder.newLine();
+    _builder.append("import UniCast from \'../../node/UniCast\';");
+    _builder.newLine();
+    _builder.append("import UniContinue from \'../../node/UniContinue\';");
+    _builder.newLine();
+    _builder.append("import UniClassDec from \'../../node/UniClassDec\';");
+    _builder.newLine();
+    _builder.append("import UniDoWhile from \'../../node/UniDoWhile\';");
+    _builder.newLine();
+    _builder.append("import UniEmptyStatement from \'../../node/UniEmptyStatement\';");
+    _builder.newLine();
+    _builder.append("import UniFunctionDec from \'../../node/UniFunctionDec\';");
+    _builder.newLine();
+    _builder.append("import UniFor from \'../../node/UniFor\';");
+    _builder.newLine();
+    _builder.append("import UniIdent from \'../../node/UniIdent\';");
+    _builder.newLine();
+    _builder.append("import UniIf from \'../../node/UniIf\';");
+    _builder.newLine();
+    _builder.append("import UniIntLiteral from \'../../node/UniIntLiteral\';\t\t");
+    _builder.newLine();
+    _builder.append("import UniDoubleLiteral from \'../../node/UniDoubleLiteral\';");
+    _builder.newLine();
+    _builder.append("import UniCharacterLiteral from \'../../node/UniCharacterLiteral\';");
+    _builder.newLine();
+    _builder.append("import UniWhile from \'../../node/UniWhile\';");
+    _builder.newLine();
+    _builder.append("import UniUnaryOp from \'../../node/UniUnaryOp\';");
+    _builder.newLine();
+    _builder.append("import UniTernaryOp from \'../../node/UniTernaryOp\';");
+    _builder.newLine();
+    _builder.append("import UniStatement from \'../../node/UniStatement\';");
+    _builder.newLine();
+    _builder.append("import UniStringLiteral from \'../../node/UniStringLiteral\';");
+    _builder.newLine();
+    _builder.append("import UniReturn from \'../../node/UniReturn\';");
+    _builder.newLine();
+    _builder.append("import UniVariableDec from \'../../node/UniVariableDec\';");
+    _builder.newLine();
+    _builder.append("import UniVariableDef from \'../../node/UniVariableDef\';");
+    _builder.newLine();
+    _builder.append("import UniSwitchUnit from \'../../node/UniSwitchUnit\';");
+    _builder.newLine();
+    _builder.append("import UniSwitch from \'../../node/UniSwitch\';");
+    _builder.newLine();
+    _builder.append("import UniMethodCall from \'../../node/UniMethodCall\';");
+    _builder.newLine();
+    _builder.append("import UniProgram from \'../../node/UniProgram\';");
     _builder.newLine();
     _builder.newLine();
-    _builder.append("import { InputStream, CommonTokenStream } from \'antlr4\';");
+    _builder.append("import { InputStream, CommonTokenStream, ParserRuleContext } from \'antlr4\';");
     _builder.newLine();
     _builder.append("import { RuleContext }from \'antlr4/RuleContext\';");
     _builder.newLine();
-    _builder.append("import { TerminalNode }from \'antlr4/tree/Tree\';");
+    _builder.append("import { TerminalNode, TerminalNodeImpl, RuleNode, ParseTree }from \'antlr4/tree/Tree\';");
     _builder.newLine();
-    _builder.append("import { CLexer } from \'./CLexer\';");
-    _builder.newLine();
-    _builder.append("import { CParser } from \'./CParser\';");
-    _builder.newLine();
-    _builder.append("import { CVisitor } from \'./CVisitor\';");
-    _builder.newLine();
+    _builder.append("import { ");
+    _builder.append(this._grammarName);
+    _builder.append("Lexer } from \'./");
+    _builder.append(this._grammarName);
+    _builder.append("Lexer\';");
+    _builder.newLineIfNotEmpty();
+    _builder.append("import { ");
+    _builder.append(this._grammarName);
+    _builder.append("Parser } from \'./");
+    _builder.append(this._grammarName);
+    _builder.append("Parser\';");
+    _builder.newLineIfNotEmpty();
+    _builder.append("import { ");
+    _builder.append(this._grammarName);
+    _builder.append("Visitor } from \'./");
+    _builder.append(this._grammarName);
+    _builder.append("Visitor\';");
+    _builder.newLineIfNotEmpty();
     return _builder;
   }
   
   public CharSequence generateMapper(final Grammar g) {
     StringConcatenation _builder = new StringConcatenation();
+    _builder.append("// tslint:disable");
+    _builder.newLine();
     CharSequence _generateImports = this.generateImports();
     _builder.append(_generateImports);
     _builder.newLineIfNotEmpty();
@@ -113,19 +181,21 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
     _builder.append("private isDebugMode:boolean = false;");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append("private parser:CParser;");
+    _builder.append("private parser:");
+    _builder.append(this._grammarName, "\t");
+    _builder.append("Parser;");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("// val List<Comment> _comments = new ArrayList<Comment>;");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append("//val List<Comment> _comments = new ArrayList<Comment>;");
+    _builder.append("// var CommonTokenStream _stream;");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append("//var CommonTokenStream _stream;");
+    _builder.append("// var UniNode _lastNode;");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append("//var UniNode _lastNode;");
-    _builder.newLine();
-    _builder.append("\t");
-    _builder.append("//var int _nextTokenIndex;");
+    _builder.append("// var int _nextTokenIndex;");
     _builder.newLine();
     _builder.newLine();
     _builder.append("\t");
@@ -174,7 +244,7 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
     _builder.append("const [tree, parser] = this.parseCore(chars);");
     _builder.newLine();
     _builder.append("\t    ");
-    _builder.append("return this.visit(tree);");
+    _builder.append("return new UniProgram(this.visit(tree));");
     _builder.newLine();
     _builder.append("\t");
     _builder.append("}");
@@ -197,20 +267,27 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
     _builder.append("parseCore(chars) {");
     _builder.newLine();
     _builder.append("\t    ");
-    _builder.append("const lexer = new CLexer(chars);");
-    _builder.newLine();
+    _builder.append("const lexer = new ");
+    _builder.append(this._grammarName, "\t    ");
+    _builder.append("Lexer(chars);");
+    _builder.newLineIfNotEmpty();
     _builder.append("\t    ");
     _builder.append("const tokens = new CommonTokenStream(lexer);");
     _builder.newLine();
     _builder.append("\t    ");
-    _builder.append("this.parser = new CParser(tokens);");
-    _builder.newLine();
+    _builder.append("this.parser = new ");
+    _builder.append(this._grammarName, "\t    ");
+    _builder.append("Parser(tokens);");
+    _builder.newLineIfNotEmpty();
     _builder.append("\t    ");
     _builder.append("this.parser.buildParseTrees = true;");
     _builder.newLine();
     _builder.append("\t    ");
-    _builder.append("const tree = this.parser.compilationUnit();");
-    _builder.newLine();
+    _builder.append("const tree = this.parser.");
+    String _name = g.getRoot().getRoot().getName();
+    _builder.append(_name, "\t    ");
+    _builder.append("();");
+    _builder.newLineIfNotEmpty();
     _builder.append("\t    ");
     _builder.append("return [tree, this.parser];");
     _builder.newLine();
@@ -249,8 +326,8 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
     _builder.newLine();
     _builder.append("\t\t");
     _builder.append("parseCore(chars, [parser|parser.");
-    String _name = g.getRoot().getRoot().getName();
-    _builder.append(_name, "\t\t");
+    String _name_1 = g.getRoot().getRoot().getName();
+    _builder.append(_name_1, "\t\t");
     _builder.append("])");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
@@ -432,7 +509,7 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
     _builder.append("}");
     _builder.newLine();
     _builder.append("\t    ");
-    _builder.append("if (!this.isInstanceofRuleContext(node)) {");
+    _builder.append("if (!(node instanceof RuleContext)) {");
     _builder.newLine();
     _builder.append("\t      ");
     _builder.append("return node.accept(this);");
@@ -608,25 +685,36 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
     _builder.append("\t");
     _builder.append("}");
     _builder.newLine();
+    _builder.append("\t");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append("override public visitTerminal(TerminalNode node) {");
+    _builder.append("getRuleName(node) {");
+    _builder.newLine();
+    _builder.append("\t  ");
+    _builder.append("return this.parser.ruleNames[node.ruleIndex];");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("public visitTerminal(node:TerminalNode) {");
     _builder.newLine();
     _builder.append("\t\t");
-    _builder.append("if (_isDebugMode) {");
+    _builder.append("if (this.isDebugMode) {");
     _builder.newLine();
     _builder.append("\t\t\t");
-    _builder.append("println(\"visit TERMINAL : \" + node.text)");
+    _builder.append("console.log(\"visit TERMINAL : \" + node.text);");
     _builder.newLine();
     _builder.append("\t\t");
     _builder.append("}");
     _builder.newLine();
     _builder.newLine();
     _builder.append("\t\t");
-    _builder.append("val token = node.symbol");
+    _builder.append("const token = node.symbol;");
     _builder.newLine();
     _builder.append("\t\t");
-    _builder.append("if (token.type > 0) {");
+    _builder.append("/*if (token.type > 0) {");
     _builder.newLine();
     _builder.append("\t\t\t");
     _builder.append("val count = token.tokenIndex");
@@ -698,10 +786,10 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
     _builder.append("_nextTokenIndex = i");
     _builder.newLine();
     _builder.append("\t\t");
-    _builder.append("}");
+    _builder.append("}*/");
     _builder.newLine();
     _builder.append("\t\t");
-    _builder.append("node.text");
+    _builder.append("return token.text;");
     _builder.newLine();
     _builder.append("\t");
     _builder.append("}");
@@ -746,12 +834,12 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
     _builder.append("if (obj instanceof Map) {");
     _builder.newLine();
     _builder.append("\t      ");
-    _builder.append("if (obj.size === 1) {");
+    _builder.append("for (const value of obj.values()) {");
     _builder.newLine();
-    _builder.append("\t        ");
-    _builder.append("return this.flatten(obj.get(obj.keys[0]));");
+    _builder.append("\t\t\t");
+    _builder.append("return this.flatten(value);");
     _builder.newLine();
-    _builder.append("\t      ");
+    _builder.append("\t\t  ");
     _builder.append("}");
     _builder.newLine();
     _builder.append("\t      ");
@@ -782,287 +870,331 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
     _builder.newLine();
     _builder.newLine();
     _builder.append("\t");
-    _builder.append("public def <T> List<T> castToList(Object obj, Class<T> clazz) {");
-    _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("val temp = obj.flatten");
-    _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("val ret = newArrayList");
-    _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("if (temp instanceof Map<?, ?>) {");
-    _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("val add = temp.containsKey(\"add\")");
-    _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("temp.forEach [ key, value |");
-    _builder.newLine();
-    _builder.append("\t\t\t\t");
-    _builder.append("switch key {");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t");
-    _builder.append("case \"add\": {");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t\t");
-    _builder.append("if (value instanceof Map<?, ?>) {");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t\t\t");
-    _builder.append("ret += value.castTo(clazz)");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t\t");
-    _builder.append("} else if (value instanceof List<?>) {");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t\t\t");
-    _builder.append("value.forEach [");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t\t\t\t");
-    _builder.append("val t = it.castTo(clazz)");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t\t\t\t");
-    _builder.append("if (t != null) {");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t\t\t\t\t");
-    _builder.append("ret += t");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t\t\t\t");
-    _builder.append("}");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t\t\t");
-    _builder.append("]");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t\t");
-    _builder.append("} else {");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t\t\t");
-    _builder.append("ret += value.castToList(clazz)");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t\t");
-    _builder.append("}");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t");
-    _builder.append("}");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t");
-    _builder.append("default: {");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t\t");
-    _builder.append("if (!add) {");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t\t\t");
-    _builder.append("ret += value.castToList(clazz)");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t\t");
-    _builder.append("}");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t");
-    _builder.append("}");
-    _builder.newLine();
-    _builder.append("\t\t\t\t");
-    _builder.append("}");
-    _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("]");
-    _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("} else if (temp instanceof List<?>) {");
-    _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("temp.forEach [");
-    _builder.newLine();
-    _builder.append("\t\t\t\t");
-    _builder.append("ret += it.castToList(clazz)");
-    _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("]");
-    _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("} else {");
-    _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("ret += temp.castTo(clazz)");
-    _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("}");
-    _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("ret");
+    _builder.append("// tslint:disable-next-line:prefer-array-literal");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append("}");
+    _builder.append("public castToList<T extends Function|String>(obj:any, clazz:T):Array<T> {");
     _builder.newLine();
+    _builder.append("\t  ");
+    _builder.append("const temp = this.flatten(obj);");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("public def <T> T castTo(Object obj, Class<T> clazz) {");
+    _builder.append("\t  ");
+    _builder.append("const ret = [];");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("val temp = obj.flatten");
+    _builder.append("\t  ");
+    _builder.append("if (temp instanceof Map) {");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("if (temp instanceof Map<?, ?>) {");
+    _builder.append("\t    ");
+    _builder.append("const add = temp.has(\'add\');");
     _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("if (String.isAssignableFrom(clazz)) {");
+    _builder.append("\t    ");
+    _builder.append("temp.forEach((value: any, key: any) => {");
     _builder.newLine();
-    _builder.append("\t\t\t\t");
-    _builder.append("val builder = new StringBuilder");
-    _builder.newLine();
-    _builder.append("\t\t\t\t");
-    _builder.append("val hasAdd = temp.containsKey(\"add\")");
-    _builder.newLine();
-    _builder.append("\t\t\t\t");
-    _builder.append("temp.forEach [ key, value |");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t");
+    _builder.append("\t      ");
     _builder.append("switch (key) {");
     _builder.newLine();
-    _builder.append("\t\t\t\t\t\t");
-    _builder.append("case \"add\": {");
+    _builder.append("\t        ");
+    _builder.append("case \'add\': {");
     _builder.newLine();
-    _builder.append("\t\t\t\t\t\t\t");
-    _builder.append("builder.append(value.castTo(clazz))");
+    _builder.append("\t          ");
+    _builder.append("if (value instanceof Map) {");
     _builder.newLine();
-    _builder.append("\t\t\t\t\t\t");
+    _builder.append("\t            ");
+    _builder.append("ret.push(this.castTo<T>(value, clazz));");
+    _builder.newLine();
+    _builder.append("\t          ");
+    _builder.append("} else if (Array.isArray(value)) {");
+    _builder.newLine();
+    _builder.append("\t            ");
+    _builder.append("value.forEach((it:any) => {");
+    _builder.newLine();
+    _builder.append("\t              ");
+    _builder.append("const t = this.castTo(it, clazz);");
+    _builder.newLine();
+    _builder.append("\t              ");
+    _builder.append("if (t != null) {");
+    _builder.newLine();
+    _builder.append("\t                ");
+    _builder.append("ret.push(t);");
+    _builder.newLine();
+    _builder.append("\t              ");
     _builder.append("}");
     _builder.newLine();
-    _builder.append("\t\t\t\t\t\t");
-    _builder.append("default: {");
+    _builder.append("\t            ");
+    _builder.append("});");
     _builder.newLine();
-    _builder.append("\t\t\t\t\t\t\t");
-    _builder.append("if (!hasAdd) {");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t\t\t\t");
-    _builder.append("builder.append(value.castTo(clazz))");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t\t\t");
-    _builder.append("}");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t\t");
-    _builder.append("}");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t");
-    _builder.append("}");
-    _builder.newLine();
-    _builder.append("\t\t\t\t");
-    _builder.append("]");
-    _builder.newLine();
-    _builder.append("\t\t\t\t");
-    _builder.append("return if (builder.length > 0) clazz.getConstructor(StringBuilder).newInstance(builder) else null");
-    _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("}");
-    _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("val instance = clazz.newInstance");
-    _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("val fields = clazz.fields");
-    _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("val fieldsName = newArrayList");
-    _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("fields.forEach[fieldsName.add(it.name)]");
-    _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("temp.forEach [ key, value |");
-    _builder.newLine();
-    _builder.append("\t\t\t\t");
-    _builder.append("if (fieldsName.contains(key)) {");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t");
-    _builder.append("val field = fields.get(fieldsName.indexOf(key))");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t");
-    _builder.append("field.set(instance,");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t\t");
-    _builder.append("if (List.isAssignableFrom(field.type)) {");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t\t\t");
-    _builder.append("value.castToList(");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t\t\t\t");
-    _builder.append("(field.genericType as ParameterizedType).actualTypeArguments.get(0) as Class<?>)");
-    _builder.newLine();
-    _builder.append("\t\t\t\t\t\t");
+    _builder.append("\t          ");
     _builder.append("} else {");
     _builder.newLine();
-    _builder.append("\t\t\t\t\t\t\t");
-    _builder.append("value.castTo(field.type)");
+    _builder.append("\t            ");
+    _builder.append("ret.push(this.castToList(value, clazz));");
     _builder.newLine();
-    _builder.append("\t\t\t\t\t\t");
-    _builder.append("})");
-    _builder.newLine();
-    _builder.append("\t\t\t\t");
+    _builder.append("\t          ");
     _builder.append("}");
     _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("]");
+    _builder.append("\t        ");
+    _builder.append("} ");
     _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("return instance");
+    _builder.append("\t          ");
+    _builder.append("break;");
     _builder.newLine();
-    _builder.append("\t\t");
+    _builder.append("\t        ");
+    _builder.append("default:");
+    _builder.newLine();
+    _builder.append("\t          ");
+    _builder.append("if (!add) {");
+    _builder.newLine();
+    _builder.append("\t            ");
+    _builder.append("ret.push(this.castToList(value, clazz));");
+    _builder.newLine();
+    _builder.append("\t          ");
     _builder.append("}");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("if (temp instanceof List<?>) {");
+    _builder.append("\t          ");
+    _builder.append("break;");
     _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("if (String.isAssignableFrom(clazz)) {");
+    _builder.append("\t      ");
+    _builder.append("}    ");
     _builder.newLine();
-    _builder.append("\t\t\t\t");
-    _builder.append("val builder = new StringBuilder");
+    _builder.append("\t    ");
+    _builder.append("});");
     _builder.newLine();
-    _builder.append("\t\t\t\t");
-    _builder.append("temp.forEach [");
+    _builder.append("\t  ");
+    _builder.append("} else if (Array.isArray(temp)) {");
     _builder.newLine();
-    _builder.append("\t\t\t\t\t");
-    _builder.append("builder.append(it.castTo(clazz))");
+    _builder.append("\t    ");
+    _builder.append("temp.forEach((it:any) => {");
     _builder.newLine();
-    _builder.append("\t\t\t\t");
-    _builder.append("]");
+    _builder.append("\t      ");
+    _builder.append("ret.push(this.castToList(it, clazz));");
     _builder.newLine();
-    _builder.append("\t\t\t\t");
-    _builder.append("return if (builder.length > 0) clazz.getConstructor(StringBuilder).newInstance(builder) else null");
+    _builder.append("\t    ");
+    _builder.append("});");
     _builder.newLine();
-    _builder.append("\t\t\t");
+    _builder.append("\t  ");
+    _builder.append("} else {");
+    _builder.newLine();
+    _builder.append("\t    ");
+    _builder.append("ret.push(this.castTo(temp, clazz));");
+    _builder.newLine();
+    _builder.append("\t  ");
     _builder.append("}");
     _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("val first = temp.findFirst[clazz.isAssignableFrom(it.class)]");
+    _builder.append("\t  ");
+    _builder.append("return ret;");
     _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("return if (first === null) {");
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("public castTo<T extends Function|String>(obj:any, clazz:any) {");
+    _builder.newLine();
+    _builder.append("\t  ");
+    _builder.append("const temp = this.flatten(obj);");
+    _builder.newLine();
+    _builder.append("\t  ");
+    _builder.append("const instance = new clazz();");
+    _builder.newLine();
+    _builder.append("\t  ");
+    _builder.append("const fields = instance.fields;");
+    _builder.newLine();
+    _builder.append("\t  ");
+    _builder.append("const fieldsName = [];");
+    _builder.newLine();
+    _builder.append("\t  ");
+    _builder.append("for (let it in instance) {");
+    _builder.newLine();
+    _builder.append("\t    ");
+    _builder.append("fieldsName.push(it);");
+    _builder.newLine();
+    _builder.append("\t  ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t  ");
+    _builder.append("if (temp instanceof Map) {");
+    _builder.newLine();
+    _builder.append("\t    ");
+    _builder.append("if (clazz instanceof String) {");
+    _builder.newLine();
+    _builder.append("\t      ");
+    _builder.append("let builder = \'\';");
+    _builder.newLine();
+    _builder.append("\t      ");
+    _builder.append("const hasAdd = temp.has(\'add\');");
+    _builder.newLine();
+    _builder.append("\t      ");
+    _builder.append("temp.forEach((value: any, key: any) => {");
+    _builder.newLine();
+    _builder.append("\t        ");
+    _builder.append("switch (key) {");
+    _builder.newLine();
+    _builder.append("\t          ");
+    _builder.append("case \'add\': {");
+    _builder.newLine();
+    _builder.append("\t            ");
+    _builder.append("builder += this.castTo<T>(value, clazz);");
+    _builder.newLine();
+    _builder.append("\t          ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t          ");
+    _builder.append("break;");
+    _builder.newLine();
+    _builder.append("\t          ");
+    _builder.append("default: {");
+    _builder.newLine();
+    _builder.append("\t            ");
+    _builder.append("if (!hasAdd) {");
+    _builder.newLine();
+    _builder.append("\t              ");
+    _builder.append("builder += this.castTo<T>(value, clazz);");
+    _builder.newLine();
+    _builder.append("\t            ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t          ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t          ");
+    _builder.append("break;");
+    _builder.newLine();
+    _builder.append("\t        ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t      ");
+    _builder.append("});");
+    _builder.newLine();
+    _builder.append("\t      ");
+    _builder.append("return (builder.length > 0) ? builder : null;");
+    _builder.newLine();
+    _builder.append("\t    ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t    ");
+    _builder.append("temp.forEach((value: any, key: any) => {");
+    _builder.newLine();
+    _builder.append("\t      ");
+    _builder.append("if (fieldsName.includes(key)) {");
+    _builder.newLine();
+    _builder.append("\t        ");
+    _builder.append("const field:Function = fields.get(key);");
+    _builder.newLine();
+    _builder.append("\t        ");
+    _builder.append("if (Array.isArray(instance[key])) {");
+    _builder.newLine();
+    _builder.append("\t       \t  ");
+    _builder.append("const list  = this.flatten(this.castToList(value, field));");
+    _builder.newLine();
+    _builder.append("\t          ");
+    _builder.append("if(!Array.isArray(list)) {");
     _builder.newLine();
     _builder.append("\t\t\t\t");
+    _builder.append("instance[key] = [list];");
+    _builder.newLine();
+    _builder.append("\t\t\t  ");
+    _builder.append("} else {");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("instance[key] = list;");
+    _builder.newLine();
+    _builder.append("\t\t\t  ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t        ");
+    _builder.append("} else {");
+    _builder.newLine();
+    _builder.append("\t          ");
+    _builder.append("instance[key] = this.castTo(value, field);");
+    _builder.newLine();
+    _builder.append("\t        ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t      ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t    ");
+    _builder.append("});");
+    _builder.newLine();
+    _builder.append("\t    ");
+    _builder.append("return instance;");
+    _builder.newLine();
+    _builder.append("\t  ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t  ");
+    _builder.append("if (Array.isArray(temp)) {");
+    _builder.newLine();
+    _builder.append("\t    ");
+    _builder.append("if (clazz instanceof String) {");
+    _builder.newLine();
+    _builder.append("\t      ");
+    _builder.append("let builder = \'\';");
+    _builder.newLine();
+    _builder.append("\t      ");
+    _builder.append("temp.forEach((it:any) => {");
+    _builder.newLine();
+    _builder.append("\t        ");
+    _builder.append("builder += (this.castTo(it, clazz));");
+    _builder.newLine();
+    _builder.append("\t      ");
+    _builder.append("});");
+    _builder.newLine();
+    _builder.append("\t      ");
+    _builder.append("return (builder.length > 0) ? builder : null;");
+    _builder.newLine();
+    _builder.append("\t    ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t    ");
+    _builder.append("const first = temp.find((it) => {");
+    _builder.newLine();
+    _builder.append("\t      ");
+    _builder.append("return it instanceof clazz;");
+    _builder.newLine();
+    _builder.append("\t    ");
+    _builder.append("});");
+    _builder.newLine();
+    _builder.append("\t    ");
+    _builder.append("if (first === null) {");
+    _builder.newLine();
+    _builder.append("\t      ");
     _builder.append("try {");
     _builder.newLine();
-    _builder.append("\t\t\t\t\t");
-    _builder.append("clazz.newInstance");
+    _builder.append("\t        ");
+    _builder.append("return instance;");
     _builder.newLine();
-    _builder.append("\t\t\t\t");
-    _builder.append("} catch (InstantiationException e) {");
+    _builder.append("\t      ");
+    _builder.append("} catch (e) {");
     _builder.newLine();
-    _builder.append("\t\t\t\t\t");
-    _builder.append("null");
+    _builder.append("\t        ");
+    _builder.append("return null;");
     _builder.newLine();
-    _builder.append("\t\t\t\t");
+    _builder.append("\t      ");
     _builder.append("}");
     _builder.newLine();
-    _builder.append("\t\t\t");
-    _builder.append("} else");
+    _builder.append("\t    ");
+    _builder.append("} else {");
     _builder.newLine();
-    _builder.append("\t\t\t\t");
-    _builder.append("first.castTo(clazz)");
+    _builder.append("\t      ");
+    _builder.append("return this.castTo<T>(first,clazz);");
     _builder.newLine();
-    _builder.append("\t\t");
+    _builder.append("\t    ");
     _builder.append("}");
     _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("clazz.cast(temp)");
+    _builder.append("\t  ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t  ");
+    _builder.append("if(temp != null) {");
+    _builder.newLine();
+    _builder.append("\t    ");
+    _builder.append("return temp as T;");
+    _builder.newLine();
+    _builder.append("\t  ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t  ");
+    _builder.append("return instance;");
     _builder.newLine();
     _builder.append("\t");
     _builder.append("}");
@@ -1118,13 +1250,13 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
       }
       final String typeName = _xifexpression;
       StringConcatenation _builder = new StringConcatenation();
-      _builder.append("override public visit");
+      _builder.append("public visit");
       _builder.append(ruleName);
-      _builder.append("(");
+      _builder.append("(ctx:");
       _builder.append(this._grammarName);
       _builder.append("Parser.");
       _builder.append(ruleName);
-      _builder.append("Context ctx) {");
+      _builder.append("Context) {");
       _builder.newLineIfNotEmpty();
       {
         boolean _equals = Objects.equal(typeName, "List");
@@ -1174,18 +1306,18 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
       };
       elementList.forEach(_function_3);
       StringConcatenation _builder = new StringConcatenation();
-      _builder.append("val map = newHashMap");
+      _builder.append("const map = new Map<string,any>();");
       _builder.newLine();
-      _builder.append("val none = newArrayList");
+      _builder.append("const none = [];");
       _builder.newLine();
-      _builder.append("map.put(\"none\", none)");
+      _builder.append("map.set(\"none\", none);");
       _builder.newLine();
       {
         for(final String it : annotationList) {
           {
             boolean _notEquals = (!Objects.equal(it, "MERGE"));
             if (_notEquals) {
-              _builder.append("val ");
+              _builder.append("const ");
               String _xifexpression = null;
               boolean _equals = Objects.equal(it, "ADD");
               if (_equals) {
@@ -1201,12 +1333,12 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
                 _xifexpression = _xifexpression_1;
               }
               _builder.append(_xifexpression);
-              _builder.append(" = newArrayList");
+              _builder.append(" = [];");
               _builder.newLineIfNotEmpty();
               {
                 boolean _notEquals_1 = (!Objects.equal(it, "RETURN"));
                 if (_notEquals_1) {
-                  _builder.append("map.put(\"");
+                  _builder.append("map.set(\"");
                   String _xifexpression_2 = null;
                   boolean _equals_2 = Objects.equal(it, "ADD");
                   if (_equals_2) {
@@ -1224,7 +1356,7 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
                     _xifexpression_3 = it;
                   }
                   _builder.append(_xifexpression_3);
-                  _builder.append(")");
+                  _builder.append(");");
                   _builder.newLineIfNotEmpty();
                 }
               }
@@ -1234,17 +1366,22 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
       }
       {
         if (hasMerge) {
-          _builder.append("val merge = newArrayList");
+          _builder.append("const merge = [];");
           _builder.newLine();
         }
       }
-      _builder.append("ctx.children.forEach [");
+      _builder.append("const n = ctx.getChildCount();");
+      _builder.newLine();
+      _builder.append("for (let i = 0; i < n;++i) {");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("const it = ctx.getChild(i);\t");
       _builder.newLine();
       _builder.append("\t");
       _builder.append("if (it instanceof RuleContext) {");
       _builder.newLine();
       _builder.append("\t\t");
-      _builder.append("switch it.invokingState {");
+      _builder.append("switch (it.invokingState) {");
       _builder.newLine();
       _builder.append("\t\t\t");
       final HashSet<Integer> stateList = CollectionLiterals.<Integer>newHashSet();
@@ -1289,15 +1426,25 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
                         _xifexpression_4 = _xifexpression_5;
                       }
                       _builder.append(_xifexpression_4, "\t\t\t\t");
-                      _builder.append(" += it.visit");
+                      _builder.append(".push(");
                       {
                         if (((r.getType() != null) && (r.getType().getType().getDir() != null))) {
-                          _builder.append(".flatten");
+                          _builder.append("this.flatten(");
                         }
                       }
+                      _builder.append("this.visit(it)");
+                      {
+                        if (((r.getType() != null) && (r.getType().getType().getDir() != null))) {
+                          _builder.append(")");
+                        }
+                      }
+                      _builder.append(");");
                       _builder.newLineIfNotEmpty();
                       _builder.append("\t\t\t");
                       _builder.append("}");
+                      _builder.newLine();
+                      _builder.append("\t\t\t");
+                      _builder.append("break;");
                       _builder.newLine();
                     }
                   }
@@ -1311,10 +1458,13 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
       _builder.append("default: {");
       _builder.newLine();
       _builder.append("\t\t\t\t");
-      _builder.append("none += it.visit");
+      _builder.append("none.push(this.visit(it));");
       _builder.newLine();
       _builder.append("\t\t\t");
       _builder.append("}");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("break;");
       _builder.newLine();
       _builder.append("\t\t");
       _builder.append("}");
@@ -1323,7 +1473,7 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
       _builder.append("} else if (it instanceof TerminalNode) {");
       _builder.newLine();
       _builder.append("\t\t");
-      _builder.append("switch it.symbol.type {");
+      _builder.append("switch (it.symbol.type) {");
       _builder.newLine();
       _builder.append("\t\t\t");
       final HashSet<String> nameList = CollectionLiterals.<String>newHashSet();
@@ -1365,10 +1515,13 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
                     _xifexpression_6 = _xifexpression_7;
                   }
                   _builder.append(_xifexpression_6, "\t\t\t\t");
-                  _builder.append(" += it.visit.flatten");
+                  _builder.append(".push(this.flatten(this.visit(it)));");
                   _builder.newLineIfNotEmpty();
                   _builder.append("\t\t\t");
                   _builder.append("}");
+                  _builder.newLine();
+                  _builder.append("\t\t\t");
+                  _builder.append("break;");
                   _builder.newLine();
                 }
               }
@@ -1380,10 +1533,13 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
       _builder.append("default: {");
       _builder.newLine();
       _builder.append("\t\t\t\t");
-      _builder.append("none += it.visit");
+      _builder.append("none.push(this.visit(it));");
       _builder.newLine();
       _builder.append("\t\t\t");
       _builder.append("}");
+      _builder.newLine();
+      _builder.append("\t\t\t");
+      _builder.append("break;");
       _builder.newLine();
       _builder.append("\t\t");
       _builder.append("}");
@@ -1391,14 +1547,14 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
       _builder.append("\t");
       _builder.append("}");
       _builder.newLine();
-      _builder.append("]");
+      _builder.append("}");
       _builder.newLine();
       {
         if (hasReturn) {
-          _builder.append("if (!ret.isEmpty) {");
+          _builder.append("if (ret != []) {");
           _builder.newLine();
           _builder.append("\t");
-          _builder.append("return ret");
+          _builder.append("return ret;");
           _builder.newLine();
           _builder.append("}");
           _builder.newLine();
@@ -1412,39 +1568,32 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
             String _name = r.getType().getType().getName();
             boolean _tripleNotEquals_1 = (_name != null);
             if (_tripleNotEquals_1) {
-              {
-                if (hasMerge) {
-                  _builder.append("val node = ");
-                }
-              }
-              _builder.append("map.castTo(");
+              _builder.append("const node = this.castTo(map, ");
               String _name_1 = r.getType().getType().getName();
               _builder.append(_name_1);
-              _builder.append(")");
+              _builder.append(");");
               _builder.newLineIfNotEmpty();
               {
                 if (hasMerge) {
-                  _builder.append("merge.forEach[node.merge(it.castTo(");
+                  _builder.append("merge.forEach((it:any) => { node.merge(this.castTo(it, ");
                   String _name_2 = r.getType().getType().getName();
                   _builder.append(_name_2);
-                  _builder.append("))]");
+                  _builder.append("));});");
                   _builder.newLineIfNotEmpty();
-                  _builder.append("node");
-                  _builder.newLine();
                 }
               }
+              _builder.append("return node;");
+              _builder.newLine();
             } else {
               {
                 String _dir = r.getType().getType().getDir();
                 boolean _equals_6 = Objects.equal(_dir, ">");
                 if (_equals_6) {
-                  _builder.append("add.reverse");
+                  _builder.append("add.reverse();");
                   _builder.newLine();
                 }
               }
-              _builder.append("var node = add.get(0) as UniExpr");
-              _builder.newLine();
-              _builder.append("add.remove(node)");
+              _builder.append("const node = add[0] as UniExpr;");
               _builder.newLine();
               _builder.append("for (Object obj : add) {");
               _builder.newLine();
@@ -1480,7 +1629,7 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
               _builder.newLine();
               _builder.append("}");
               _builder.newLine();
-              _builder.append("node");
+              _builder.append("return node;");
               _builder.newLine();
             }
           }
@@ -1520,7 +1669,7 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
               _builder.newLine();
             }
           }
-          _builder.append("map");
+          _builder.append("return map;");
           _builder.newLine();
         }
       }
@@ -1622,18 +1771,18 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
       };
       elementList.forEach(_function_3);
       StringConcatenation _builder = new StringConcatenation();
-      _builder.append("val map = newHashMap");
+      _builder.append("const map = new Map<string,any>();");
       _builder.newLine();
-      _builder.append("val none = newArrayList");
+      _builder.append("const none = [];");
       _builder.newLine();
-      _builder.append("map.put(\"none\", none)");
+      _builder.append("map.set(\"none\", none);");
       _builder.newLine();
       {
         for(final String it : annotationList) {
           {
             boolean _notEquals = (!Objects.equal(it, "MERGE"));
             if (_notEquals) {
-              _builder.append("val ");
+              _builder.append("const ");
               String _xifexpression = null;
               boolean _equals = Objects.equal(it, "ADD");
               if (_equals) {
@@ -1649,12 +1798,12 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
                 _xifexpression = _xifexpression_1;
               }
               _builder.append(_xifexpression);
-              _builder.append(" = newArrayList");
+              _builder.append(" = [];");
               _builder.newLineIfNotEmpty();
               {
                 boolean _notEquals_1 = (!Objects.equal(it, "RETURN"));
                 if (_notEquals_1) {
-                  _builder.append("map.put(\"");
+                  _builder.append("map.set(\"");
                   String _xifexpression_2 = null;
                   boolean _equals_2 = Objects.equal(it, "ADD");
                   if (_equals_2) {
@@ -1672,7 +1821,7 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
                     _xifexpression_3 = it;
                   }
                   _builder.append(_xifexpression_3);
-                  _builder.append(")");
+                  _builder.append(");");
                   _builder.newLineIfNotEmpty();
                 }
               }
@@ -1682,20 +1831,25 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
       }
       {
         if (hasMerge) {
-          _builder.append("val merge = newArrayList");
+          _builder.append("const merge = [];");
           _builder.newLine();
         }
       }
-      _builder.append("if (ctx.children != null) {");
+      _builder.append("const n = ctx.getChildCount();");
+      _builder.newLine();
+      _builder.append("if (0<n) {");
       _builder.newLine();
       _builder.append("\t");
-      _builder.append("ctx.children.forEach [");
+      _builder.append("for (let i = 0; i < n;++i) {");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("const it = ctx.getChild(i);");
       _builder.newLine();
       _builder.append("\t\t");
       _builder.append("if (it instanceof RuleContext) {");
       _builder.newLine();
       _builder.append("\t\t\t");
-      _builder.append("switch it.invokingState {");
+      _builder.append("switch (it.invokingState) {");
       _builder.newLine();
       _builder.append("\t\t\t\t");
       final HashSet<Integer> stateList = CollectionLiterals.<Integer>newHashSet();
@@ -1723,37 +1877,75 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
                       _builder.append(invokingState, "\t\t\t\t");
                       _builder.append(": {");
                       _builder.newLineIfNotEmpty();
-                      _builder.append("\t\t\t\t");
-                      _builder.append("\t");
-                      String _xifexpression_4 = null;
-                      String _op = it_1.getOp();
-                      boolean _equals_4 = Objects.equal(_op, "MERGE");
-                      if (_equals_4) {
-                        _xifexpression_4 = it_1.getOp().toLowerCase();
-                      } else {
-                        String _xifexpression_5 = null;
-                        String _op_1 = it_1.getOp();
-                        boolean _equals_5 = Objects.equal(_op_1, "ADD");
-                        if (_equals_5) {
-                          _xifexpression_5 = "val results = it.visit.flatten\r\nif(results instanceof ArrayList<?>){\r\n\tfor (result: results)\r\n\t\tadd += result\r\n}\r\nelse\r\n\tadd";
-                        } else {
-                          String _xifexpression_6 = null;
-                          String _op_2 = it_1.getOp();
-                          boolean _equals_6 = Objects.equal(_op_2, "RETURN");
-                          if (_equals_6) {
-                            _xifexpression_6 = "ret";
-                          } else {
-                            _xifexpression_6 = it_1.getOp();
-                          }
-                          _xifexpression_5 = _xifexpression_6;
+                      {
+                        String _op = it_1.getOp();
+                        boolean _equals_4 = Objects.equal(_op, "ADD");
+                        if (_equals_4) {
+                          _builder.append("\t\t\t\t");
+                          _builder.append("\t");
+                          _builder.append("const results = this.flatten(this.visit(it));");
+                          _builder.newLine();
+                          _builder.append("\t\t\t\t");
+                          _builder.append("\t");
+                          _builder.append("if(Array.isArray(results)){");
+                          _builder.newLine();
+                          _builder.append("\t\t\t\t");
+                          _builder.append("\t");
+                          _builder.append("\t");
+                          _builder.append("for (const result of results)");
+                          _builder.newLine();
+                          _builder.append("\t\t\t\t");
+                          _builder.append("\t");
+                          _builder.append("\t\t");
+                          _builder.append("add.push(result);");
+                          _builder.newLine();
+                          _builder.append("\t\t\t\t");
+                          _builder.append("\t");
+                          _builder.append("}");
+                          _builder.newLine();
+                          _builder.append("\t\t\t\t");
+                          _builder.append("\t");
+                          _builder.append("else");
+                          _builder.newLine();
+                          _builder.append("\t\t\t\t");
+                          _builder.append("\t");
+                          _builder.append("\t");
+                          _builder.append("add.push(results);");
+                          _builder.newLine();
                         }
-                        _xifexpression_4 = _xifexpression_5;
                       }
-                      _builder.append(_xifexpression_4, "\t\t\t\t\t");
-                      _builder.append(" += it.visit");
-                      _builder.newLineIfNotEmpty();
+                      {
+                        String _op_1 = it_1.getOp();
+                        boolean _notEquals_2 = (!Objects.equal(_op_1, "ADD"));
+                        if (_notEquals_2) {
+                          _builder.append("\t\t\t\t");
+                          _builder.append("\t");
+                          String _xifexpression_4 = null;
+                          String _op_2 = it_1.getOp();
+                          boolean _equals_5 = Objects.equal(_op_2, "MERGE");
+                          if (_equals_5) {
+                            _xifexpression_4 = it_1.getOp().toLowerCase();
+                          } else {
+                            String _xifexpression_5 = null;
+                            String _op_3 = it_1.getOp();
+                            boolean _equals_6 = Objects.equal(_op_3, "RETURN");
+                            if (_equals_6) {
+                              _xifexpression_5 = "ret";
+                            } else {
+                              _xifexpression_5 = it_1.getOp();
+                            }
+                            _xifexpression_4 = _xifexpression_5;
+                          }
+                          _builder.append(_xifexpression_4, "\t\t\t\t\t");
+                          _builder.append(".push(this.visit(it));");
+                          _builder.newLineIfNotEmpty();
+                        }
+                      }
                       _builder.append("\t\t\t\t");
                       _builder.append("}");
+                      _builder.newLine();
+                      _builder.append("\t\t\t\t");
+                      _builder.append("break;");
                       _builder.newLine();
                     }
                   }
@@ -1767,10 +1959,13 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
       _builder.append("default: {");
       _builder.newLine();
       _builder.append("\t\t\t\t\t");
-      _builder.append("none += it.visit");
+      _builder.append("none.push(this.visit(it));");
       _builder.newLine();
       _builder.append("\t\t\t\t");
       _builder.append("}");
+      _builder.newLine();
+      _builder.append("\t\t\t\t");
+      _builder.append("break;");
       _builder.newLine();
       _builder.append("\t\t\t");
       _builder.append("}");
@@ -1779,7 +1974,7 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
       _builder.append("} else if (it instanceof TerminalNode) {");
       _builder.newLine();
       _builder.append("\t\t\t");
-      _builder.append("switch it.symbol.type {");
+      _builder.append("switch (it.symbol.type) {");
       _builder.newLine();
       _builder.append("\t\t\t\t");
       final HashSet<String> nameList = CollectionLiterals.<String>newHashSet();
@@ -1806,25 +2001,28 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
                   _builder.newLineIfNotEmpty();
                   _builder.append("\t\t\t\t");
                   _builder.append("\t");
-                  String _xifexpression_7 = null;
+                  String _xifexpression_6 = null;
                   if ((Objects.equal(it_2.getOp(), "MERGE") || Objects.equal(it_2.getOp(), "ADD"))) {
-                    _xifexpression_7 = it_2.getOp().toLowerCase();
+                    _xifexpression_6 = it_2.getOp().toLowerCase();
                   } else {
-                    String _xifexpression_8 = null;
-                    String _op_3 = it_2.getOp();
-                    boolean _equals_7 = Objects.equal(_op_3, "RETURN");
+                    String _xifexpression_7 = null;
+                    String _op_4 = it_2.getOp();
+                    boolean _equals_7 = Objects.equal(_op_4, "RETURN");
                     if (_equals_7) {
-                      _xifexpression_8 = "ret";
+                      _xifexpression_7 = "ret";
                     } else {
-                      _xifexpression_8 = it_2.getOp();
+                      _xifexpression_7 = it_2.getOp();
                     }
-                    _xifexpression_7 = _xifexpression_8;
+                    _xifexpression_6 = _xifexpression_7;
                   }
-                  _builder.append(_xifexpression_7, "\t\t\t\t\t");
-                  _builder.append(" += it.visit");
+                  _builder.append(_xifexpression_6, "\t\t\t\t\t");
+                  _builder.append(".push(this.visit(it));");
                   _builder.newLineIfNotEmpty();
                   _builder.append("\t\t\t\t");
                   _builder.append("}");
+                  _builder.newLine();
+                  _builder.append("\t\t\t\t");
+                  _builder.append("break;");
                   _builder.newLine();
                 }
               }
@@ -1836,10 +2034,13 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
       _builder.append("default: {");
       _builder.newLine();
       _builder.append("\t\t\t\t\t");
-      _builder.append("none += it.visit");
+      _builder.append("none.push(this.visit(it));");
       _builder.newLine();
       _builder.append("\t\t\t\t");
       _builder.append("}");
+      _builder.newLine();
+      _builder.append("\t\t\t\t");
+      _builder.append("break;");
       _builder.newLine();
       _builder.append("\t\t\t");
       _builder.append("}");
@@ -1848,60 +2049,68 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
       _builder.append("}");
       _builder.newLine();
       _builder.append("\t");
-      _builder.append("]");
+      _builder.append("}");
       _builder.newLine();
       _builder.append("}");
       _builder.newLine();
       {
         if (hasReturn) {
-          _builder.append("if (!ret.isEmpty) {");
+          _builder.append("if (ret != []) {");
           _builder.newLine();
           _builder.append("\t");
-          _builder.append("return ret");
+          _builder.append("return ret;");
           _builder.newLine();
           _builder.append("}");
           _builder.newLine();
         }
       }
-      {
-        if (hasMerge) {
-          _builder.append("val node = ");
-        }
-      }
-      _builder.append("map");
+      _builder.append("const node = ");
       {
         UnicoenTypeDec _type = r.getType();
-        boolean _tripleNotEquals = (_type != null);
+        boolean _tripleEquals = (_type == null);
+        if (_tripleEquals) {
+          _builder.append("map");
+        }
+      }
+      {
+        UnicoenTypeDec _type_1 = r.getType();
+        boolean _tripleNotEquals = (_type_1 != null);
         if (_tripleNotEquals) {
-          _builder.append(".castTo");
+          _builder.append("this.castTo");
           {
             if ((!hasMerge)) {
               _builder.append("List");
             }
           }
-          _builder.append("(");
+          _builder.append("(map, ");
           _builder.append(itemClassName);
           _builder.append(")");
         }
       }
       _builder.newLineIfNotEmpty();
       {
-        if (hasMerge) {
-          _builder.append("val ret = newArrayList");
+        if ((!hasMerge)) {
+          _builder.append("return node;");
           _builder.newLine();
-          _builder.append("merge.castToList(");
+        }
+      }
+      {
+        if (hasMerge) {
+          _builder.append("const ret = [];");
+          _builder.newLine();
+          _builder.append("this.castToList(merge, ");
           _builder.append(itemClassName);
-          _builder.append(").forEach [");
+          _builder.append(").forEach( (it:any) => {");
           _builder.newLineIfNotEmpty();
           _builder.append("\t");
-          _builder.append("it.merge(node)");
+          _builder.append("it.merge(node);");
           _builder.newLine();
           _builder.append("\t");
-          _builder.append("ret += it");
+          _builder.append("ret.push(it);");
           _builder.newLine();
-          _builder.append("]");
+          _builder.append("});");
           _builder.newLine();
-          _builder.append("ret");
+          _builder.append("return ret;");
           _builder.newLine();
         }
       }
@@ -1912,26 +2121,25 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
   
   public CharSequence makeStringMethodBody(final ParserRule r) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("val map = newHashMap");
+    _builder.append("const map = new Map<string, any>();");
     _builder.newLine();
-    _builder.append("val none = newArrayList");
+    _builder.append("const none = [];");
     _builder.newLine();
-    _builder.append("map.put(\"none\", none)");
+    _builder.append("map.set(\"none\", none);");
     _builder.newLine();
-    _builder.append("if (ctx.children != null) {");
+    _builder.append("const n = node.getChildCount();");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("ctx.children.forEach [");
-    _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("none += it.visit");
+    _builder.append("for (let i = 0; i < n;++i) {");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append("]");
+    _builder.append("const it = node.getChild(i);");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("none.push(this.visit(it));");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    _builder.append("map");
+    _builder.append("return map;");
     _builder.newLine();
     return _builder;
   }
@@ -1941,19 +2149,28 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
     String _camelCase = this.toCamelCase(r.getName());
     final String methodName = ("visit" + _camelCase);
     _builder.newLineIfNotEmpty();
-    _builder.append("override public ");
+    _builder.append("public ");
     _builder.append(methodName);
-    _builder.append("(");
+    _builder.append("(ctx:");
     _builder.append(this._grammarName);
     _builder.append("Parser.");
     String _camelCase_1 = this.toCamelCase(r.getName());
     _builder.append(_camelCase_1);
-    _builder.append("Context ctx) {");
+    _builder.append("Context) {");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
-    _builder.append("val text = ctx.children.findFirst [");
+    _builder.append("const findFirst = (ctx) => {");
     _builder.newLine();
     _builder.append("\t\t");
+    _builder.append("const n = ctx.getChildCount();");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("for (let i = 0; i < n;++i) {");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("const it = ctx.getChild(i);\t");
+    _builder.newLine();
+    _builder.append("\t\t\t");
     _builder.append("if (it instanceof TerminalNodeImpl) {");
     _builder.newLine();
     {
@@ -1967,19 +2184,19 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
               String _op_1 = it.getOp();
               boolean _equals = Objects.equal(_op_1, "value");
               if (_equals) {
-                _builder.append("\t\t\t");
+                _builder.append("\t\t\t\t");
                 _builder.append("if (it.symbol.type == ");
-                _builder.append(this._grammarName, "\t\t\t");
+                _builder.append(this._grammarName, "\t\t\t\t");
                 _builder.append("Parser.");
                 String _terminalName = this.getTerminalName(it);
-                _builder.append(_terminalName, "\t\t\t");
+                _builder.append(_terminalName, "\t\t\t\t");
                 _builder.append(") {");
                 _builder.newLineIfNotEmpty();
-                _builder.append("\t\t\t");
+                _builder.append("\t\t\t\t");
                 _builder.append("\t");
-                _builder.append("return true");
+                _builder.append("return it;");
                 _builder.newLine();
-                _builder.append("\t\t\t");
+                _builder.append("\t\t\t\t");
                 _builder.append("}");
                 _builder.newLine();
               }
@@ -1988,55 +2205,61 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
         }
       }
     }
+    _builder.append("\t\t\t");
+    _builder.append("}");
+    _builder.newLine();
     _builder.append("\t\t");
     _builder.append("}");
     _builder.newLine();
     _builder.append("\t\t");
-    _builder.append("return false");
+    _builder.append("return undefined;");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append("].visit as String");
+    _builder.append("};");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("const text = this.visit(findFirst(ctx)) as String;");
     _builder.newLine();
     {
       String _name = r.getType().getType().getName();
       boolean _equals_1 = Objects.equal(_name, "UniIntLiteral");
       if (_equals_1) {
         _builder.append("\t");
-        _builder.append("return new UniIntLiteral(Integer.parseInt(text))");
+        _builder.append("return new UniIntLiteral(Number(text));");
         _builder.newLine();
       } else {
         String _name_1 = r.getType().getType().getName();
         boolean _equals_2 = Objects.equal(_name_1, "UniBoolLiteral");
         if (_equals_2) {
           _builder.append("\t");
-          _builder.append("return new UniBoolLiteral(Boolean.parseBoolean(text))");
+          _builder.append("return new UniBoolLiteral(Boolean(text));");
           _builder.newLine();
         } else {
           String _name_2 = r.getType().getType().getName();
           boolean _equals_3 = Objects.equal(_name_2, "UniDoubleLiteral");
           if (_equals_3) {
             _builder.append("\t");
-            _builder.append("return new UniDoubleLiteral(Double.parseDouble(text))");
+            _builder.append("return new UniDoubleLiteral(Number(text));");
             _builder.newLine();
           } else {
             String _name_3 = r.getType().getType().getName();
             boolean _equals_4 = Objects.equal(_name_3, "UniStringLiteral");
             if (_equals_4) {
               _builder.append("\t");
-              _builder.append("return new UniStringLiteral(text.substring(1, text.length - 1))");
+              _builder.append("return new UniStringLiteral(text.substring(1, text.length - 1));");
               _builder.newLine();
             } else {
               String _name_4 = r.getType().getType().getName();
               boolean _equals_5 = Objects.equal(_name_4, "UniCharacterLiteral");
               if (_equals_5) {
                 _builder.append("\t");
-                _builder.append("return new UniCharacterLiteral(text.substring(1, text.length - 1).charAt(0))");
+                _builder.append("return new UniCharacterLiteral(text.substring(1, text.length - 1).charAt(0));");
                 _builder.newLine();
               } else {
                 _builder.append("\t");
                 _builder.append("throw new RuntimeException(\"Unimplemented Method: ");
                 _builder.append(methodName, "\t");
-                _builder.append("\")");
+                _builder.append("\");");
                 _builder.newLineIfNotEmpty();
               }
             }

@@ -41,6 +41,7 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 		import CodeRange from '../../node_helper/CodeRange';
 		import UniNode from '../../node/UniNode';
 		import UniParam from '../../node/UniParam';
+		import UniEnhancedFor from '../../node/UniEnhancedFor';
 		import UniExpr from '../../node/UniExpr';
 		import UniArray from '../../node/UniArray';
 		import UniNumberLiteral from '../../node/UniNumberLiteral';
@@ -50,13 +51,16 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 		import UniBreak from '../../node/UniBreak';
 		import UniCast from '../../node/UniCast';
 		import UniContinue from '../../node/UniContinue';
+		import UniClassDec from '../../node/UniClassDec';
 		import UniDoWhile from '../../node/UniDoWhile';
 		import UniEmptyStatement from '../../node/UniEmptyStatement';
 		import UniFunctionDec from '../../node/UniFunctionDec';
 		import UniFor from '../../node/UniFor';
 		import UniIdent from '../../node/UniIdent';
 		import UniIf from '../../node/UniIf';
-		import UniIntLiteral from '../../node/UniIntLiteral';
+		import UniIntLiteral from '../../node/UniIntLiteral';		
+		import UniDoubleLiteral from '../../node/UniDoubleLiteral';
+		import UniCharacterLiteral from '../../node/UniCharacterLiteral';
 		import UniWhile from '../../node/UniWhile';
 		import UniUnaryOp from '../../node/UniUnaryOp';
 		import UniTernaryOp from '../../node/UniTernaryOp';
@@ -120,7 +124,7 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 			    const tokens = new CommonTokenStream(lexer);
 			    this.parser = new «_grammarName»Parser(tokens);
 			    this.parser.buildParseTrees = true;
-			    const tree = this.parser.compilationUnit();
+			    const tree = this.parser.«g.root.root.name»();
 			    return [tree, this.parser];
 			}
 			
@@ -306,9 +310,9 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 			    }
 			
 			    if (obj instanceof Map) {
-			      if (obj.size === 1) {
-			        return this.flatten(obj.get(obj.keys[0]));
-			      }
+			      for (const value of obj.values()) {
+					return this.flatten(value);
+				  }
 			      const ret = new Map<any, any>();
 			      obj.forEach((value: any, key: any) => {
 			        ret.set(key, this.flatten(value));
@@ -424,10 +428,10 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 			      return this.castTo<T>(first,clazz);
 			    }
 			  }
-	  		if(temp != null) {
-	  			return temp as T;
-	  		}
-	  		return instance;
+			  if(temp != null) {
+			    return temp as T;
+			  }
+			  return instance;
 			}
 		
 			«FOR r : g.rules.filter(ParserRule)»
@@ -714,7 +718,7 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 		«ENDIF»
 		«IF hasMerge»
 		const ret = [];
-		this.castToList(merge, «itemClassName»).forEach( (it) => {
+		this.castToList(merge, «itemClassName»).forEach( (it:any) => {
 			it.merge(node);
 			ret.push(it);
 		});

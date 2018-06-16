@@ -184,7 +184,7 @@ declaration
     |   staticAssertDeclaration
     ;
 
-declarationSpecifiers
+declarationSpecifiers//static const int inlineなど
     :   declarationSpecifier+
     ;
 
@@ -193,10 +193,10 @@ declarationSpecifiers2
     ;
 
 declarationSpecifier
-    :   storageClassSpecifier
-    |   typeSpecifier
-    |   typeQualifier
-    |   functionSpecifier
+    :   storageClassSpecifier// staticなど
+    |   typeSpecifier//変数の定義
+    |   typeQualifier//const
+    |   functionSpecifier//inline
     |   alignmentSpecifier
     ;
 

@@ -1,4 +1,4 @@
-// Generated from C:\Program Files\Eclipse 4.7.3\eclipse\..\..\..\Users\Ryosuke\eclipse-workspace\net.unicoen\UniMapperGenerator\src-gen\C.g4 by ANTLR 4.7.1
+// Generated from C:\Users\RYOSUKE\eclipse\java-oxygen\eclipse\..\..\..\eclipse-workspace\net.unicoen\UniMapperGenerator\src-gen\C.g4 by ANTLR 4.7.1
 // jshint ignore: start
 var antlr4 = require('antlr4/index');
 
@@ -530,6 +530,12 @@ CVisitor.prototype.visitFunctionDefinition = function(ctx) {
 
 // Visit a parse tree produced by CParser#declarationList.
 CVisitor.prototype.visitDeclarationList = function(ctx) {
+  return this.visitChildren(ctx);
+};
+
+
+// Visit a parse tree produced by CParser#constant.
+CVisitor.prototype.visitConstant = function(ctx) {
   return this.visitChildren(ctx);
 };
 
