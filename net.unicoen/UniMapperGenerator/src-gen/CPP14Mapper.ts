@@ -266,7 +266,9 @@ export default class CPP14Mapper extends CPP14Visitor {
 	
 	    if (obj instanceof Map) {
 	      if (obj.size === 1) {
-	        return this.flatten(obj.values().next().value);
+	        for (const value of obj.values()) {
+	          return this.flatten(value);
+	        }
 	      }
 	      const ret = new Map<any, any>();
 	      obj.forEach((value: any, key: any) => {
@@ -458,7 +460,7 @@ export default class CPP14Mapper extends CPP14Visitor {
 				}
 			}
 		}
-		if (ret != []) {
+		if (ret.length != 0) {
 			return ret;
 		}
 		const node = this.castTo(map, UniUnaryOp);
@@ -625,7 +627,7 @@ export default class CPP14Mapper extends CPP14Visitor {
 				}
 			}
 		}
-		if (ret != []) {
+		if (ret.length != 0) {
 			return ret;
 		}
 		const node = this.castTo(map, UniBinOp);
@@ -705,7 +707,7 @@ export default class CPP14Mapper extends CPP14Visitor {
 				}
 			}
 		}
-		if (ret != []) {
+		if (ret.length != 0) {
 			return ret;
 		}
 		const node = this.castTo(map, UniBinOp);
@@ -796,7 +798,7 @@ export default class CPP14Mapper extends CPP14Visitor {
 				}
 			}
 		}
-		if (ret != []) {
+		if (ret.length != 0) {
 			return ret;
 		}
 		const node = this.castTo(map, UniUnaryOp);
@@ -882,7 +884,7 @@ export default class CPP14Mapper extends CPP14Visitor {
 				}
 			}
 		}
-		if (ret != []) {
+		if (ret.length != 0) {
 			return ret;
 		}
 		const node = this.castTo(map, UniCast);
@@ -943,7 +945,7 @@ export default class CPP14Mapper extends CPP14Visitor {
 				}
 			}
 		}
-		if (ret != []) {
+		if (ret.length != 0) {
 			return ret;
 		}
 		const node = this.castTo(map, UniBinOp);
@@ -1012,7 +1014,7 @@ export default class CPP14Mapper extends CPP14Visitor {
 				}
 			}
 		}
-		if (ret != []) {
+		if (ret.length != 0) {
 			return ret;
 		}
 		const node = this.castTo(map, UniBinOp);
@@ -1073,7 +1075,7 @@ export default class CPP14Mapper extends CPP14Visitor {
 				}
 			}
 		}
-		if (ret != []) {
+		if (ret.length != 0) {
 			return ret;
 		}
 		const node = this.castTo(map, UniBinOp);
@@ -1134,7 +1136,7 @@ export default class CPP14Mapper extends CPP14Visitor {
 				}
 			}
 		}
-		if (ret != []) {
+		if (ret.length != 0) {
 			return ret;
 		}
 		const node = this.castTo(map, UniBinOp);
@@ -1211,7 +1213,7 @@ export default class CPP14Mapper extends CPP14Visitor {
 				}
 			}
 		}
-		if (ret != []) {
+		if (ret.length != 0) {
 			return ret;
 		}
 		const node = this.castTo(map, UniBinOp);
@@ -1272,7 +1274,7 @@ export default class CPP14Mapper extends CPP14Visitor {
 				}
 			}
 		}
-		if (ret != []) {
+		if (ret.length != 0) {
 			return ret;
 		}
 		const node = this.castTo(map, UniBinOp);
@@ -1325,7 +1327,7 @@ export default class CPP14Mapper extends CPP14Visitor {
 				}
 			}
 		}
-		if (ret != []) {
+		if (ret.length != 0) {
 			return ret;
 		}
 		const node = this.castTo(map, UniBinOp);
@@ -1378,7 +1380,7 @@ export default class CPP14Mapper extends CPP14Visitor {
 				}
 			}
 		}
-		if (ret != []) {
+		if (ret.length != 0) {
 			return ret;
 		}
 		const node = this.castTo(map, UniBinOp);
@@ -1431,7 +1433,7 @@ export default class CPP14Mapper extends CPP14Visitor {
 				}
 			}
 		}
-		if (ret != []) {
+		if (ret.length != 0) {
 			return ret;
 		}
 		const node = this.castTo(map, UniBinOp);
@@ -1484,7 +1486,7 @@ export default class CPP14Mapper extends CPP14Visitor {
 				}
 			}
 		}
-		if (ret != []) {
+		if (ret.length != 0) {
 			return ret;
 		}
 		const node = this.castTo(map, UniBinOp);
@@ -1537,7 +1539,7 @@ export default class CPP14Mapper extends CPP14Visitor {
 				}
 			}
 		}
-		if (ret != []) {
+		if (ret.length != 0) {
 			return ret;
 		}
 		const node = this.castTo(map, UniBinOp);
@@ -1586,7 +1588,7 @@ export default class CPP14Mapper extends CPP14Visitor {
 				}
 			}
 		}
-		if (ret != []) {
+		if (ret.length != 0) {
 			return ret;
 		}
 		const node = this.castTo(map, UniTernaryOp);
@@ -1639,7 +1641,7 @@ export default class CPP14Mapper extends CPP14Visitor {
 				}
 			}
 		}
-		if (ret != []) {
+		if (ret.length != 0) {
 			return ret;
 		}
 		const node = this.castTo(map, UniBinOp);
@@ -1674,7 +1676,7 @@ export default class CPP14Mapper extends CPP14Visitor {
 				}
 			}
 		}
-		if (ret != []) {
+		if (ret.length != 0) {
 			return ret;
 		}
 		return map;
@@ -2286,7 +2288,7 @@ export default class CPP14Mapper extends CPP14Visitor {
 				}
 			}
 		}
-		if (ret != []) {
+		if (ret.length != 0) {
 			return ret;
 		}
 		const node = this.castToList(map, UniVariableDec)
@@ -3219,7 +3221,7 @@ export default class CPP14Mapper extends CPP14Visitor {
 				}
 			}
 		}
-		if (ret != []) {
+		if (ret.length != 0) {
 			return ret;
 		}
 		const node = this.castToList(map, UniVariableDec)

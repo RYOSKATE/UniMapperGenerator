@@ -3,6 +3,7 @@ import CodeLocation from '../../node_helper/CodeLocation';
 import CodeRange from '../../node_helper/CodeRange';
 import UniNode from '../../node/UniNode';
 import UniParam from '../../node/UniParam';
+import UniEnhancedFor from '../../node/UniEnhancedFor';
 import UniExpr from '../../node/UniExpr';
 import UniArray from '../../node/UniArray';
 import UniNumberLiteral from '../../node/UniNumberLiteral';
@@ -12,13 +13,16 @@ import UniBoolLiteral from '../../node/UniBoolLiteral';
 import UniBreak from '../../node/UniBreak';
 import UniCast from '../../node/UniCast';
 import UniContinue from '../../node/UniContinue';
+import UniClassDec from '../../node/UniClassDec';
 import UniDoWhile from '../../node/UniDoWhile';
 import UniEmptyStatement from '../../node/UniEmptyStatement';
 import UniFunctionDec from '../../node/UniFunctionDec';
 import UniFor from '../../node/UniFor';
 import UniIdent from '../../node/UniIdent';
 import UniIf from '../../node/UniIf';
-import UniIntLiteral from '../../node/UniIntLiteral';
+import UniIntLiteral from '../../node/UniIntLiteral';		
+import UniDoubleLiteral from '../../node/UniDoubleLiteral';
+import UniCharacterLiteral from '../../node/UniCharacterLiteral';
 import UniWhile from '../../node/UniWhile';
 import UniUnaryOp from '../../node/UniUnaryOp';
 import UniTernaryOp from '../../node/UniTernaryOp';
@@ -261,9 +265,9 @@ export default class CMapper extends CVisitor {
 	    }
 	
 	    if (obj instanceof Map) {
-	      if (obj.size === 1) {
-	        return this.flatten(obj.get(obj.keys[0]));
-	      }
+	      for (const value of obj.values()) {
+			return this.flatten(value);
+		  }
 	      const ret = new Map<any, any>();
 	      obj.forEach((value: any, key: any) => {
 	        ret.set(key, this.flatten(value));
@@ -379,10 +383,10 @@ export default class CMapper extends CVisitor {
 	      return this.castTo<T>(first,clazz);
 	    }
 	  }
-	  		if(temp != null) {
-	  			return temp as T;
-	  		}
-	  		return instance;
+	  if(temp != null) {
+	    return temp as T;
+	  }
+	  return instance;
 	}
 
 	public visitUnaryExpression(ctx:CParser.UnaryExpressionContext) {

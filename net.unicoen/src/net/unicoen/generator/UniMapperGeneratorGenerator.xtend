@@ -310,9 +310,11 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 			    }
 			
 			    if (obj instanceof Map) {
-			      for (const value of obj.values()) {
-					return this.flatten(value);
-				  }
+			      if (obj.size === 1) {
+			        for (const value of obj.values()) {
+			          return this.flatten(value);
+			        }
+			      }
 			      const ret = new Map<any, any>();
 			      obj.forEach((value: any, key: any) => {
 			        ret.set(key, this.flatten(value));
@@ -539,7 +541,7 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 			}
 		}
 		«IF hasReturn»
-			if (ret != []) {
+			if (ret.length != 0) {
 				return ret;
 			}
 		«ENDIF»
@@ -708,7 +710,7 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 			}
 		}
 		«IF hasReturn»
-			if (ret != []) {
+			if (ret.length != 0) {
 				return ret;
 			}
 		«ENDIF»

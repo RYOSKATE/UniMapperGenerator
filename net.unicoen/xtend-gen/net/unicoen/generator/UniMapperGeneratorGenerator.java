@@ -834,12 +834,18 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
     _builder.append("if (obj instanceof Map) {");
     _builder.newLine();
     _builder.append("\t      ");
+    _builder.append("if (obj.size === 1) {");
+    _builder.newLine();
+    _builder.append("\t        ");
     _builder.append("for (const value of obj.values()) {");
     _builder.newLine();
-    _builder.append("\t\t\t");
+    _builder.append("\t          ");
     _builder.append("return this.flatten(value);");
     _builder.newLine();
-    _builder.append("\t\t  ");
+    _builder.append("\t        ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t      ");
     _builder.append("}");
     _builder.newLine();
     _builder.append("\t      ");
@@ -1551,7 +1557,7 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
       _builder.newLine();
       {
         if (hasReturn) {
-          _builder.append("if (ret != []) {");
+          _builder.append("if (ret.length != 0) {");
           _builder.newLine();
           _builder.append("\t");
           _builder.append("return ret;");
@@ -2055,7 +2061,7 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
       _builder.newLine();
       {
         if (hasReturn) {
-          _builder.append("if (ret != []) {");
+          _builder.append("if (ret.length != 0) {");
           _builder.newLine();
           _builder.append("\t");
           _builder.append("return ret;");

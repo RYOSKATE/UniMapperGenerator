@@ -1091,8 +1091,6 @@ parameterdeclaration => UniParam
 	initializerclause
 ;
 
-
-
 functiondefinition => UniFunctionDec
 :
 	/*attributespecifierseq? declspecifierseq? declarator virtspecifierseq? functionbody*/
