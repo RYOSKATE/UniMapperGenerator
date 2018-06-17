@@ -44,7 +44,6 @@
  * 
  ******************************************************************************/
 grammar CPP14;
-
 root translationunit;
 
 /*Basic concepts*/
@@ -609,11 +608,12 @@ variableDeclaratorList => List<UniVariableDef>
 :
 	| variableDeclarator$ADD (',' variableDeclarator$ADD)*
 ;
-	
+
 variableDeclarator => UniVariableDef
 :
 	/*declarator initializer?*/
-	ptroperator*$name declaratorid$name (LeftBracket$name expression?$arrayLength RightBracket$name)* ('=' initializerclause$value)?
+	//ptroperator*$name declaratorid$name (LeftBracket$typeSuffix expression?$typeSuffix RightBracket$typeSuffix)* ('=' initializerclause$value)?
+	ptroperator*$name declaratorid$name (LeftBracket$typeSuffix Integerliteral?$typeSuffix RightBracket$typeSuffix)* ('=' initializerclause$value)?
 ;
 
 dims => String

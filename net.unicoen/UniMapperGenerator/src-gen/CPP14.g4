@@ -555,7 +555,7 @@ variableDeclaratorList
 	;
 
 variableDeclarator
-	:	ptroperator* declaratorid (LeftBracket expression? RightBracket )* ('='
+	:	ptroperator* declaratorid (LeftBracket Integerliteral? RightBracket )* ('='
 	initializerclause )? 
 	;
 

@@ -373,7 +373,7 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 			    fieldsName.push(it);
 			  }
 			  if (temp instanceof Map) {
-			    if (clazz instanceof String) {
+			    if (clazz === String) {
 			      let builder = '';
 			      const hasAdd = temp.has('add');
 			      temp.forEach((value: any, key: any) => {
@@ -398,22 +398,22 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 			        if (Array.isArray(instance[key])) {
 			       	  const list  = this.flatten(this.castToList(value, field));
 			          if(!Array.isArray(list)) {
-						instance[key] = [list];
-					  } else {
-						instance[key] = list;
-					  }
-					} else if (value.length == 0
-					  && (field == UniExpr || field == UniStatement )){
-					  instance[key] = null;
-					} else {
-					  instance[key] = this.castTo(value, field);
-					}
+			            instance[key] = [list];
+			          } else {
+			            instance[key] = list;
+			          }
+			        } else if (value.length == 0
+			          && (field == UniExpr || field == UniStatement )){
+			          instance[key] = null;
+			        } else {
+			          instance[key] = this.castTo(value, field);
+			        }
 			      }
 			    });
 			    return instance;
 			  }
 			  if (Array.isArray(temp)) {
-			    if (clazz instanceof String) {
+			    if (clazz === String) {
 			      let builder = '';
 			      temp.forEach((it:any) => {
 			        builder += (this.castTo(it, clazz));
