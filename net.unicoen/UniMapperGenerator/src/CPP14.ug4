@@ -160,12 +160,17 @@ idexpressionlapper => UniIdent
 	idexpression$name
 ;
 
+functioncallexpression => UniMethodCall
+:
+	primaryexpression$methodName LeftParen initializerlist?$args RightParen
+;
 postfixexpression => UniBinOp
 :
 	primaryexpression$RETURN
+	| functioncallexpression$RETURN
 	| postfixexpression$left LeftBracket$operator assignmentexpression$right RightBracket$operator//changed expression to assignmentexpression
 	| postfixexpression '[' bracedinitlist ']'
-	| postfixexpression$left LeftParen$operator expressionlist?$right RightParen$operator
+//	| postfixexpression$left LeftParen$operator expressionlist?$right RightParen$operator
 	| simpletypespecifier '(' expressionlist? ')'
 	| typenamespecifier '(' expressionlist? ')'
 	| simpletypespecifier bracedinitlist
@@ -1084,11 +1089,11 @@ parameterdeclarationlist => List<UniParam>
 
 parameterdeclaration => UniParam
 :
-	attributespecifierseq? declspecifierseq$type declarator$name
-	| attributespecifierseq? declspecifierseq$type declarator$name '=' initializerclause
-	| attributespecifierseq? declspecifierseq$type abstractdeclarator?$name
-	| attributespecifierseq? declspecifierseq$type abstractdeclarator?$name '='
-	initializerclause
+	attributespecifierseq? declspecifierseqwithouttype?$modifiers typespecifier$type variableDeclaratorList?$variables
+//	attributespecifierseq? declspecifierseq$type declarator$name
+//	| attributespecifierseq? declspecifierseq$type declarator$name '=' initializerclause
+//	| attributespecifierseq? declspecifierseq$type abstractdeclarator?$name
+//	| attributespecifierseq? declspecifierseq$type abstractdeclarator?$name '=' initializerclause
 ;
 
 functiondefinition => UniFunctionDec

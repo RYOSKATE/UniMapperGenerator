@@ -402,9 +402,12 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 					  } else {
 						instance[key] = list;
 					  }
-			        } else {
-			          instance[key] = this.castTo(value, field);
-			        }
+					} else if (value.length == 0
+					  && (field == UniExpr || field == UniStatement )){
+					  instance[key] = null;
+					} else {
+					  instance[key] = this.castTo(value, field);
+					}
 			      }
 			    });
 			    return instance;

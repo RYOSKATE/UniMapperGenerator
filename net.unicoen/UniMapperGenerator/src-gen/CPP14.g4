@@ -105,12 +105,16 @@ idexpressionlapper
 	:	idexpression 
 	;
 
+functioncallexpression
+	:	primaryexpression LeftParen initializerlist? RightParen 
+	;
+
 postfixexpression
 	:	primaryexpression 
+	|	functioncallexpression 
 	|	postfixexpression LeftBracket assignmentexpression RightBracket 
 	|	postfixexpression '['
 	bracedinitlist ']'
-	|	postfixexpression LeftParen expressionlist? RightParen 
 	|	simpletypespecifier '('
 	expressionlist? ')'
 	|	typenamespecifier '('
@@ -998,12 +1002,7 @@ parameterdeclarationlist
 	;
 
 parameterdeclaration
-	:	attributespecifierseq? declspecifierseq declarator 
-	|	attributespecifierseq? declspecifierseq declarator '='
-	initializerclause 
-	|	attributespecifierseq? declspecifierseq abstractdeclarator? 
-	|	attributespecifierseq? declspecifierseq abstractdeclarator? '='
-	initializerclause 
+	:	attributespecifierseq? declspecifierseqwithouttype? typespecifier variableDeclaratorList? 
 	;
 
 functiondefinition
