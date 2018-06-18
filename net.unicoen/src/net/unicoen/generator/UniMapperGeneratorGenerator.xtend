@@ -75,6 +75,7 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 		import UniProgram from '../../node/UniProgram';
 		
 		import { InputStream, CommonTokenStream, ParserRuleContext } from 'antlr4';
+		import { Token }from 'antlr4/Token';
 		import { RuleContext }from 'antlr4/RuleContext';
 		import { TerminalNode, TerminalNodeImpl, RuleNode, ParseTree }from 'antlr4/tree/Tree';
 		import { «_grammarName»Lexer } from './«_grammarName»Lexer';
@@ -86,46 +87,66 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 		// tslint:disable
 		«generateImports»
 		
+		class Comment {
+			constructor(readonly contents:string[], public parent:ParseTree){
+			}
+		}
+		
 		export default class «_grammarName»Mapper extends «_grammarName»Visitor {
 		
 			private isDebugMode:boolean = false;
 			private parser:«_grammarName»Parser;
-			// val List<Comment> _comments = new ArrayList<Comment>;
-			// var CommonTokenStream _stream;
-			// var UniNode _lastNode;
-			// var int _nextTokenIndex;
-		
-			/*static class Comment {
-				val List<String> contents
-				var ParseTree parent
-		
-				new(List<String> contents, ParseTree parent) {
-					this.contents = contents
-					this.parent = parent
-				}
-			}*/
-		
+			private _comments:Comment[] = [];
+			private _lastNode:UniNode;
+			private _nextTokenIndex:number;
+			private _stream:CommonTokenStream;
+
 			setIsDebugMode(isDebugMode:boolean) {
-			    this.isDebugMode = isDebugMode;
+				this.isDebugMode = isDebugMode;
+			}
+			
+			getRawTree(code) {
+				const chars = new InputStream(code);
+				const lexer = new «_grammarName»Lexer(chars);
+				const tokens = new CommonTokenStream(lexer);
+				this.parser = new «_grammarName»Parser(tokens);
+				this.parser.buildParseTrees = true;
+				const tree = this.parser.translationunit();
+				return [tree, this.parser];
 			}
 		
 			parse(code) {
-			    const chars = new InputStream(code);
-			    const [tree, parser] = this.parseCore(chars);
-			    return new UniProgram(this.visit(tree));
+				return this.parseCore(new InputStream(code));
 			}
-			getRawTree(code) {
-			    const chars = new InputStream(code);
-			    return this.parseCore(chars);
-			}
+		
 			
 			parseCore(chars) {
-			    const lexer = new «_grammarName»Lexer(chars);
-			    const tokens = new CommonTokenStream(lexer);
-			    this.parser = new «_grammarName»Parser(tokens);
-			    this.parser.buildParseTrees = true;
-			    const tree = this.parser.«g.root.root.name»();
-			    return [tree, this.parser];
+				const lexer = new CPP14Lexer(chars);
+				const tokens = new CommonTokenStream(lexer);
+				this.parser = new CPP14Parser(tokens);
+				this.parser.buildParseTrees = true;
+				const tree = this.parser.«g.root.root.name»();
+		
+				this._comments = [];
+				this._stream = tokens;
+				this._lastNode = null;
+				this._nextTokenIndex = 0;
+				«IF g.rules.size > 0»
+				const ret = new UniProgram(this.visit(tree));
+				ret.codeRange = ret.block.codeRange;
+				
+				if (this._lastNode !== null) {
+					const count = this._stream.tokens.length - 1
+					for (var i = this._nextTokenIndex; i < count; i++) {
+						const hiddenToken = this._stream.tokens[i]; // Includes skipped tokens (maybe)
+						if (this._lastNode.comments === null) {
+							this._lastNode.comments = [];
+						}
+						this._lastNode.comments += hiddenToken.text
+					}
+				}
+				return ret;
+			  «ENDIF»
 			}
 			
 			/*def parseFile(String path) {
@@ -136,15 +157,7 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 					inputStream.close
 				}
 			}
-		
-			def parseCore(CharStream chars) {
-				parseCore(chars, [parser|parser.«g.root.root.name»])
-			}
-		
-			def parse(String code, Function1<«_grammarName»Parser, ParseTree> parseAction) {
-				parseCore(new ANTLRInputStream(code), parseAction)
-			}
-		
+			
 			def parseFile(String path, Function1<«_grammarName»Parser, ParseTree> parseAction) {
 				val inputStream = new FileInputStream(path)
 				try {
@@ -152,115 +165,86 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 				} finally {
 					inputStream.close
 				}
-			}
-		
-			def parseCore(CharStream chars, Function1<«_grammarName»Parser, ParseTree> parseAction) {
-				val lexer = new «_grammarName»Lexer(chars)
-				val tokens = new CommonTokenStream(lexer)
-				val parser = new «_grammarName»Parser(tokens)
-				val tree = parseAction.apply(parser) // parse
-				_comments.clear()
-				_stream = tokens
-				_lastNode = null
-				_nextTokenIndex = 0
-
-				«IF g.rules.size > 0»
-					val ret = tree.visit.flatten
-
-					if (_lastNode !== null) {
-						val count = _stream.size - 1
-						for (var i = _nextTokenIndex; i < count; i++) {
-							val hiddenToken = _stream.get(i) // Includes skipped tokens (maybe)
-							if (_lastNode.comments === null) {
-								_lastNode.comments = newArrayList
-							}
-							_lastNode.comments += hiddenToken.text
-						}
-					}
-					ret
-      			«ENDIF»
 			}*/
 
 			public visitChildren(node:RuleNode) {
-			    const n = node.getChildCount();
-			    const list:any[] = [];
-			    for (let i = 0; i < n;++i) {
-			      const c = node.getChild(i);
-			      const childResult = this.visit(c);
-			      list.push(childResult);
-			    }
-			    const flatten = this.flatten(list);
-			    return flatten;
-			  }
+				const n = node.getChildCount();
+				const list:any[] = [];
+				for (let i = 0; i < n;++i) {
+					const c = node.getChild(i);
+					const childResult = this.visit(c);
+					list.push(childResult);
+				}
+				const flatten = this.flatten(list);
+				return flatten;
+			}
 		
-			public visit(node:ParseTree) {
-			    if (!this.isDebugMode) {
-			      return node.accept(this);
-			    }
-			    if (!(node instanceof RuleContext)) {
-			      return node.accept(this);
-			    }
-			    const ruleName = this.getRuleName(node);
-			    console.log('*** visit Rule : ' + ruleName + ' ***');
-			    const ret = node.accept(this);
-			    console.log('returned: ' + ret);
-			    return ret;
-		
-				/*val node = if (result instanceof List<?>) {
-						if(result.size == 1) result.get(0) else result
-					} else {
-						result
+			public visit(tree:ParseTree) {
+				const result = (() => {
+					if (!this.isDebugMode) {
+						return tree.accept(this);
 					}
+			 		if (!(tree instanceof RuleContext)) {
+						return tree.accept(this);
+					}
+					const ruleName = this.getRuleName(tree);
+					console.log('*** visit Rule : ' + ruleName + ' ***');
+					const result = tree.accept(this);
+					console.log('returned: ' + result);
+					return result;
+				})();
+		
+				const node = (Array.isArray(result) && result.length == 1) ? result[0] : result;
 				if (node instanceof UniNode) {
-					if (tree instanceof RuleContext)
-					{
-						val start = (tree as ParserRuleContext).start
-						val stop = (tree as ParserRuleContext).stop
-						val begin = new CodeLocation(start.charPositionInLine,start.line)
-						val endPos = stop.charPositionInLine
-						val length = 1 + stop.stopIndex - stop.startIndex
-						val end = new CodeLocation(endPos + length, stop.line)
-						node.codeRange = new CodeRange(begin,end)
+					if(tree instanceof RuleContext) {
+						const start = tree.start;
+						const begin = new CodeLocation(start.column,start.line);
+						const stop = tree.stop;
+						const endPos = stop.column;
+						const length = 1 + stop.stop - stop.start;
+						const end = new CodeLocation(endPos + length, stop.line);
+						node.codeRange = new CodeRange(begin,end);
 					}
-					var List<String> contents = newArrayList
-					for (var i = _comments.size - 1; i >= 0 && _comments.get(i).parent == tree; i--) {
-						_comments.get(i).contents += contents
-						contents = _comments.get(i).contents
-						_comments.remove(i)
+					let contents:string[]  = [];
+					for (let i = this._comments.length - 1; i >= 0 && this._comments[i].parent == tree; i--) {
+						for(const content of contents) {
+							this._comments[i].contents.push(content);
+						}
+						contents = this._comments[i].contents;
+						this._comments.splice(i, 1);
 					}
-					if (contents.size > 0) {
+					if (contents.length > 0) {
 						if (node.comments === null) {
-							node.comments = contents
+							node.comments = contents;
 						} else {
-							node.comments += contents
+							node.comments = node.comments.concat(contents);
 						}
 					}
-					_lastNode = node
+					this._lastNode = node;
 				} else {
-					for (var i = _comments.size - 1; i >= 0 && _comments.get(i).parent == tree; i--) {
-						_comments.get(i).parent = _comments.get(i).parent.parent
+					for (var i = this._comments.length - 1; i >= 0 && this._comments[i].parent == tree; i--) {
+						this._comments[i].parent = this._comments[i].parent.parent
 					}
-					_lastNode = null
+					this._lastNode = null
 				}
-		
-				result*/
+				return result;
 			}
 
 			isNonEmptyNode(node:ParseTree):boolean {
-			    if (node instanceof ParserRuleContext) {
-			      const n = node.getChildCount();
-			      if (n > 1) {
-			        return true;
-			      }
-			      // n === 1 && node.children.exists[isNonEmptyNode]
-			      return n === 1;
-			    } else {
-			      return true;
-			    }
+				if (node instanceof ParserRuleContext) {
+					const n = node.getChildCount();
+					if (n > 1) {
+					return true;
+					}
+					// n === 1 && node.children.exists[isNonEmptyNode]
+					return n === 1;
+				} else {
+					return true;
+				}
 			}
 			
 			getRuleName(node) {
-			  return this.parser.ruleNames[node.ruleIndex];
+				return this.parser.ruleNames[node.ruleIndex];
 			}
 
 			public visitTerminal(node:TerminalNode) {
@@ -269,174 +253,173 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 				}
 		
 				const token = node.symbol;
-				/*if (token.type > 0) {
-					val count = token.tokenIndex
-					val List<String> contents = newArrayList
-					var i = _nextTokenIndex
+				if (token.type > 0) {
+					const count = token.tokenIndex;
+					const contents:string[] = [];
+					let i = this._nextTokenIndex;
 					for (; i < count; i++) {
-						val hiddenToken = _stream.get(i) // Includes skipped tokens (maybe)
-						if (_lastNode !== null && _stream.get(_nextTokenIndex - 1).line == hiddenToken.line) {
-							if (_lastNode.comments === null) {
-								_lastNode.comments = newArrayList
+						const hiddenToken = this._stream.tokens[i]; // Includes skipped tokens (maybe)
+						if (this._lastNode !== null && this._stream.tokens[this._nextTokenIndex - 1].line == hiddenToken.line) {
+							if (this._lastNode.comments === null) {
+								this._lastNode.comments = [];
 							}
-							_lastNode.comments += hiddenToken.text
+							this._lastNode.comments += hiddenToken.text;
 						} else {
-							contents += hiddenToken.text
+							contents.push(hiddenToken.text);
 						}
 					}
-					val count2 = _stream.size - 1
-					for (i = count + 1; i < count2 && _stream.get(i).channel == Token.HIDDEN_CHANNEL &&
-						_stream.get(count).line == _stream.get(i).line; i++) {
-						contents += _stream.get(i).text
+					const count2 = this._stream.tokens.length - 1;
+					for (i = count + 1; i < count2 && this._stream.tokens[i].channel == Token.HIDDEN_CHANNEL &&
+						this._stream.tokens[count].line == this._stream.tokens[i].line; i++) {
+						contents.push(this._stream.tokens[i].text);
 					}
-					if (contents.size > 0) {
-						_comments.add(new Comment(contents, node.parent))
+					if (contents.length > 0) {
+						this._comments.push(new Comment(contents, node.parent));
 					}
-					_nextTokenIndex = i
-				}*/
+					this._nextTokenIndex = i;
+				}
 				return token.text;
 			}
 		
 			private flatten(obj:any) {
-			    if (Array.isArray(obj)) {
-			      if (obj.length === 1) {
-			        return this.flatten(obj[0]);
-			      }
-			      const ret = [];
-			      obj.forEach((it:any) => {
-			        ret.push(this.flatten(it));
-			      });
-			      return ret;
-			    }
+				if (Array.isArray(obj)) {
+					if (obj.length === 1) {
+					return this.flatten(obj[0]);
+					}
+					const ret = [];
+					obj.forEach((it:any) => {
+					ret.push(this.flatten(it));
+					});
+					return ret;
+				}
 			
-			    if (obj instanceof Map) {
-			      if (obj.size === 1) {
-			        for (const value of obj.values()) {
-			          return this.flatten(value);
-			        }
-			      }
-			      const ret = new Map<any, any>();
-			      obj.forEach((value: any, key: any) => {
-			        ret.set(key, this.flatten(value));
-			      });
-			      return ret;
-			    }
+				if (obj instanceof Map) {
+					if (obj.size === 1) {
+					for (const value of obj.values()) {
+						return this.flatten(value);
+					}
+					}
+					const ret = new Map<any, any>();
+					obj.forEach((value: any, key: any) => {
+					ret.set(key, this.flatten(value));
+					});
+					return ret;
+				}
 			
-			    return obj;
+				return obj;
 			}
 		
-			// tslint:disable-next-line:prefer-array-literal
-			public castToList<T extends Function|String>(obj:any, clazz:T):Array<T> {
-			  const temp = this.flatten(obj);
-			  const ret = [];
-			  if (temp instanceof Map) {
-			    const add = temp.has('add');
-			    temp.forEach((value: any, key: any) => {
-			      switch (key) {
-			        case 'add': {
-			          if (value instanceof Map) {
-			            ret.push(this.castTo<T>(value, clazz));
-			          } else if (Array.isArray(value)) {
-			            value.forEach((it:any) => {
-			              const t = this.castTo(it, clazz);
-			              if (t != null) {
-			                ret.push(t);
-			              }
-			            });
-			          } else {
-			            ret.push(this.castToList(value, clazz));
-			          }
-			        } 
-			          break;
-			        default:
-			          if (!add) {
-			            ret.push(this.castToList(value, clazz));
-			          }
-			          break;
-			      }    
-			    });
-			  } else if (Array.isArray(temp)) {
-			    temp.forEach((it:any) => {
-			      ret.push(this.castToList(it, clazz));
-			    });
-			  } else {
-			    ret.push(this.castTo(temp, clazz));
-			  }
-			  return ret;
+			public castToList<T extends Function|String>(obj:any, clazz:T):T[] {
+				const temp = this.flatten(obj);
+				const ret = [];
+				if (temp instanceof Map) {
+				const add = temp.has('add');
+				temp.forEach((value: any, key: any) => {
+					switch (key) {
+					case 'add': {
+						if (value instanceof Map) {
+						ret.push(this.castTo<T>(value, clazz));
+						} else if (Array.isArray(value)) {
+						value.forEach((it:any) => {
+							const t = this.castTo(it, clazz);
+							if (t != null) {
+							ret.push(t);
+							}
+						});
+						} else {
+						ret.push(this.castToList(value, clazz));
+						}
+					} 
+						break;
+					default:
+						if (!add) {
+						ret.push(this.castToList(value, clazz));
+						}
+						break;
+					}	
+				});
+				} else if (Array.isArray(temp)) {
+				temp.forEach((it:any) => {
+					ret.push(this.castToList(it, clazz));
+				});
+				} else {
+				ret.push(this.castTo(temp, clazz));
+				}
+				return ret;
 			}
 			public castTo<T extends Function|String>(obj:any, clazz:any) {
-			  const temp = this.flatten(obj);
-			  const instance = new clazz();
-			  const fields = instance.fields;
-			  const fieldsName = [];
-			  for (let it in instance) {
-			    fieldsName.push(it);
-			  }
-			  if (temp instanceof Map) {
-			    if (clazz === String) {
-			      let builder = '';
-			      const hasAdd = temp.has('add');
-			      temp.forEach((value: any, key: any) => {
-			        switch (key) {
-			          case 'add': {
-			            builder += this.castTo<T>(value, clazz);
-			          }
-			          break;
-			          default: {
-			            if (!hasAdd) {
-			              builder += this.castTo<T>(value, clazz);
-			            }
-			          }
-			          break;
-			        }
-			      });
-			      return (builder.length > 0) ? builder : null;
-			    }
-			    temp.forEach((value: any, key: any) => {
-			      if (fieldsName.includes(key)) {
-			        const field:Function = fields.get(key);
-			        if (Array.isArray(instance[key])) {
-			       	  const list  = this.flatten(this.castToList(value, field));
-			          if(!Array.isArray(list)) {
-			            instance[key] = [list];
-			          } else {
-			            instance[key] = list;
-			          }
-			        } else if (value.length == 0
-			          && (field == UniExpr || field == UniStatement )){
-			          instance[key] = null;
-			        } else {
-			          instance[key] = this.castTo(value, field);
-			        }
-			      }
-			    });
-			    return instance;
-			  }
-			  if (Array.isArray(temp)) {
-			    if (clazz === String) {
-			      let builder = '';
-			      temp.forEach((it:any) => {
-			        builder += (this.castTo(it, clazz));
-			      });
-			      return (builder.length > 0) ? builder : null;
-			    }
-			    const first = temp.find((it) => {
-			      return it instanceof clazz;
-			    });
-			    if (first === null) {
-			      try {
-			        return instance;
-			      } catch (e) {
-			        return null;
-			      }
-			    } else {
-			      return this.castTo<T>(first,clazz);
-			    }
-			  }
-			  if(temp != null) {
-			    return temp as T;
-			  }
-			  return instance;
+				const temp = this.flatten(obj);
+				const instance = new clazz();
+				const fields = instance.fields;
+				const fieldsName = [];
+				for (let it in instance) {
+				fieldsName.push(it);
+				}
+				if (temp instanceof Map) {
+				if (clazz === String) {
+					let builder = '';
+					const hasAdd = temp.has('add');
+					temp.forEach((value: any, key: any) => {
+					switch (key) {
+						case 'add': {
+						builder += this.castTo<T>(value, clazz);
+						}
+						break;
+						default: {
+						if (!hasAdd) {
+							builder += this.castTo<T>(value, clazz);
+						}
+						}
+						break;
+					}
+					});
+					return (builder.length > 0) ? builder : null;
+				}
+				temp.forEach((value: any, key: any) => {
+					if (fieldsName.includes(key)) {
+					const field:Function = fields.get(key);
+					if (Array.isArray(instance[key])) {
+					 		const list	= this.flatten(this.castToList(value, field));
+						if(!Array.isArray(list)) {
+						instance[key] = [list];
+						} else {
+						instance[key] = list;
+						}
+					} else if (value.length == 0
+						&& (field == UniExpr || field == UniStatement )){
+						instance[key] = null;
+					} else {
+						instance[key] = this.castTo(value, field);
+					}
+					}
+				});
+				return instance;
+				}
+				if (Array.isArray(temp)) {
+				if (clazz === String) {
+					let builder = '';
+					temp.forEach((it:any) => {
+					builder += (this.castTo(it, clazz));
+					});
+					return (builder.length > 0) ? builder : null;
+				}
+				const first = temp.find((it) => {
+					return it instanceof clazz;
+				});
+				if (first === null) {
+					try {
+					return instance;
+					} catch (e) {
+					return null;
+					}
+				} else {
+					return this.castTo<T>(first,clazz);
+				}
+				}
+				if(temp != null) {
+				return temp as T;
+				}
+				return instance;
 			}
 		
 			«FOR r : g.rules.filter(ParserRule)»
@@ -739,7 +722,7 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 		const n = node.getChildCount();
 		for (let i = 0; i < n;++i) {
 			const it = node.getChild(i);
-		    none.push(this.visit(it));
+			none.push(this.visit(it));
 		}
 		return map;
 	'''
