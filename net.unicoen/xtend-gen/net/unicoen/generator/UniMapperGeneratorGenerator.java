@@ -1510,7 +1510,7 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
       _builder.newLine();
       {
         if (hasReturn) {
-          _builder.append("if (ret.length != 0) {");
+          _builder.append("if (!ret.isEmpty()) {");
           _builder.newLine();
           _builder.append("\t");
           _builder.append("return ret;");
@@ -2014,7 +2014,7 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
       _builder.newLine();
       {
         if (hasReturn) {
-          _builder.append("if (ret.length != 0) {");
+          _builder.append("if (!ret.isEmpty()) {");
           _builder.newLine();
           _builder.append("\t");
           _builder.append("return ret;");

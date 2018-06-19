@@ -527,7 +527,7 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 			}
 		}
 		«IF hasReturn»
-			if (ret.length != 0) {
+			if (!ret.isEmpty()) {
 				return ret;
 			}
 		«ENDIF»
@@ -696,7 +696,7 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 			}
 		}
 		«IF hasReturn»
-			if (ret.length != 0) {
+			if (!ret.isEmpty()) {
 				return ret;
 			}
 		«ENDIF»
