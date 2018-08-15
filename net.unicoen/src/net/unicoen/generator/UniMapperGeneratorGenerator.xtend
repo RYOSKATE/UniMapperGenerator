@@ -52,6 +52,7 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 		import UniCast from '../../node/UniCast';
 		import UniContinue from '../../node/UniContinue';
 		import UniClassDec from '../../node/UniClassDec';
+		import UniDecralation from '../../node/UniDecralation';
 		import UniDoWhile from '../../node/UniDoWhile';
 		import UniEmptyStatement from '../../node/UniEmptyStatement';
 		import UniFunctionDec from '../../node/UniFunctionDec';
@@ -121,9 +122,9 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 		
 			
 			parseCore(chars) {
-				const lexer = new CPP14Lexer(chars);
+				const lexer = new «_grammarName»Lexer(chars);
 				const tokens = new CommonTokenStream(lexer);
-				this.parser = new CPP14Parser(tokens);
+				this.parser = new «_grammarName»Parser(tokens);
 				this.parser.buildParseTrees = true;
 				const tree = this.parser.«g.root.root.name»();
 		
