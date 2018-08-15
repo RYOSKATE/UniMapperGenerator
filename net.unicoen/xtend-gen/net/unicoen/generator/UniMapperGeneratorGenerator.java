@@ -118,6 +118,10 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
     _builder.newLine();
     _builder.append("import UniTernaryOp from \'../../node/UniTernaryOp\';");
     _builder.newLine();
+    _builder.append("import UniNewArray from \'../../node/UniNewArray\';");
+    _builder.newLine();
+    _builder.append("import UniNew from \'../../node/UniNew\';");
+    _builder.newLine();
     _builder.append("import UniStatement from \'../../node/UniStatement\';");
     _builder.newLine();
     _builder.append("import UniStringLiteral from \'../../node/UniStringLiteral\';");

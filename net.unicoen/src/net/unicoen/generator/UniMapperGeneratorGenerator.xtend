@@ -65,6 +65,8 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 		import UniWhile from '../../node/UniWhile';
 		import UniUnaryOp from '../../node/UniUnaryOp';
 		import UniTernaryOp from '../../node/UniTernaryOp';
+		import UniNewArray from '../../node/UniNewArray';
+		import UniNew from '../../node/UniNew';
 		import UniStatement from '../../node/UniStatement';
 		import UniStringLiteral from '../../node/UniStringLiteral';
 		import UniReturn from '../../node/UniReturn';
