@@ -1537,18 +1537,37 @@ public class UniMapperGeneratorGenerator extends AbstractGenerator {
             String _name = r.getType().getType().getName();
             boolean _tripleNotEquals_1 = (_name != null);
             if (_tripleNotEquals_1) {
-              _builder.append("const node = this.castTo(map, ");
+              _builder.append("let node = this.castTo(map, ");
               String _name_1 = r.getType().getType().getName();
               _builder.append(_name_1);
               _builder.append(");");
               _builder.newLineIfNotEmpty();
               {
                 if (hasMerge) {
+                  _builder.append("if(typeof node === \'object\' && \'merge\' in node){");
+                  _builder.newLine();
+                  _builder.append("\t");
                   _builder.append("merge.forEach((it:any) => { node.merge(this.castTo(it, ");
                   String _name_2 = r.getType().getType().getName();
-                  _builder.append(_name_2);
+                  _builder.append(_name_2, "\t");
                   _builder.append("));});");
                   _builder.newLineIfNotEmpty();
+                  _builder.append("} else {");
+                  _builder.newLine();
+                  _builder.append("\t");
+                  _builder.append("node = new ");
+                  String _name_3 = r.getType().getType().getName();
+                  _builder.append(_name_3, "\t");
+                  _builder.append("();");
+                  _builder.newLineIfNotEmpty();
+                  _builder.append("\t");
+                  _builder.append("merge.forEach((it:any) => { node.merge(this.castTo(it, ");
+                  String _name_4 = r.getType().getType().getName();
+                  _builder.append(_name_4, "\t");
+                  _builder.append("));});");
+                  _builder.newLineIfNotEmpty();
+                  _builder.append("}");
+                  _builder.newLine();
                 }
               }
               _builder.append("return node;");

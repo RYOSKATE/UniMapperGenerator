@@ -536,9 +536,14 @@ class UniMapperGeneratorGenerator extends AbstractGenerator {
 		«ENDIF»
 		«IF r.type !== null»
 			«IF r.type.type.name !== null»
-				const node = this.castTo(map, «r.type.type.name»);
+				let node = this.castTo(map, «r.type.type.name»);
 				«IF hasMerge»
+				if(typeof node === 'object' && 'merge' in node){
 					merge.forEach((it:any) => { node.merge(this.castTo(it, «r.type.type.name»));});
+				} else {
+					node = new «r.type.type.name»();
+					merge.forEach((it:any) => { node.merge(this.castTo(it, «r.type.type.name»));});
+				}
 				«ENDIF»
 				return node;
 			«ELSE»

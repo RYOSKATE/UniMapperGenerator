@@ -51,9 +51,13 @@
 /Users/parrt/antlr/code/grammars-v4/java8/./Test.java
 Total lexer+parser time 30844ms.
  */
- 
 grammar Java8;
 root compilationUnit;
+
+translationunit => UniBlock
+:
+	compilationUnit?$body EOF2
+;
 
 /*
  * Productions from §3 (Lexical Structure)
@@ -244,8 +248,8 @@ ambiguousName
  * Productions from §7 (Packages)
  */
 
-compilationUnit => UniClassDec
-	:	packageDeclaration? importDeclaration* typeDeclaration*$MERGE EOF2
+compilationUnit => List<UniStatement>
+	:	packageDeclaration?$ADD importDeclaration*$ADD typeDeclaration*$ADD
 	;
 
 packageDeclaration
@@ -374,11 +378,11 @@ fieldModifier => String
 	|	'volatile'
 	;
 
-variableDeclaratorList => List<UniVariableDec>
+variableDeclaratorList => List<UniVariableDef>
 	:	variableDeclarator$ADD (',' variableDeclarator$ADD)*
 	;
 
-variableDeclarator=>UniVariableDec
+variableDeclarator=>UniVariableDef
 	:	variableDeclaratorId$name ('=' variableInitializer$value)?
 	;
 
@@ -767,7 +771,7 @@ block => UniBlock
 	:	'{' blockStatements?$body '}'
 	;
 
-blockStatements => List<UniExpr>
+blockStatements => List<UniStatement>
 	:	blockStatement$ADD blockStatement*$ADD
 	;
 
@@ -777,12 +781,12 @@ blockStatement
 	|	statement
 	;
 
-localVariableDeclarationStatement
-	:	localVariableDeclaration ';'
+localVariableDeclarationStatement => UniVariableDec
+	:	localVariableDeclaration$MERGE ';'
 	;
 
-localVariableDeclaration
-	:	variableModifier* unannType variableDeclaratorList
+localVariableDeclaration => UniVariableDec
+	:	variableModifier*$modifiers unannType$type variableDeclaratorList$variables
 	;
 
 statement
@@ -1276,42 +1280,42 @@ assignmentOperator=>String
 	;
 
 conditionalExpression=>UniTernaryOp
-	:	conditionalOrExpression$cond
+	:	conditionalOrExpression$RETURN
 	|	conditionalOrExpression$cond '?' expression$trueExpr ':' conditionalExpression$falseExpr
 	;
 or
 	:	OR
 	;
 conditionalOrExpression=>UniBinOp
-	:	conditionalAndExpression$MERGE
+	:	conditionalAndExpression$RETURN
 	|	conditionalOrExpression$left or$operator conditionalAndExpression$right
 	;
 and
 	:	AND
 	;
 conditionalAndExpression=>UniBinOp
-	:	inclusiveOrExpression$MERGE
+	:	inclusiveOrExpression$RETURN
 	|	conditionalAndExpression$left and$operator inclusiveOrExpression$right
 	;
 bitor
 	:	BITOR
 	;
 inclusiveOrExpression=>UniBinOp
-	:	exclusiveOrExpression$MERGE
+	:	exclusiveOrExpression$RETURN
 	|	inclusiveOrExpression$left bitor$operator exclusiveOrExpression$right
 	;
 caret
 	:	CARET
 	;
 exclusiveOrExpression=>UniBinOp
-	:	andExpression$MERGE
+	:	andExpression$RETURN
 	|	exclusiveOrExpression$left caret$operator andExpression$right
 	;
 bitand
 	:	BITAND
 	;
 andExpression=>UniBinOp
-	:	equalityExpression$MERGE
+	:	equalityExpression$RETURN
 	|	andExpression$left bitand$operator equalityExpression$right
 	;
 equal
@@ -1321,7 +1325,7 @@ notequal
 	:	NOTEQUAL
 	;
 equalityExpression=>UniBinOp
-	:	relationalExpression$MERGE
+	:	relationalExpression$RETURN
 	|	equalityExpression$left equal$operator relationalExpression$right
 	|	equalityExpression$left notequal$operator relationalExpression$right
 	;
@@ -1342,7 +1346,7 @@ instanceof
 	:	INSTANCEOF
 	;
 relationalExpression=>UniBinOp
-	:	shiftExpression$MERGE
+	:	shiftExpression$RETURN
 	|	relationalExpression$left lt$operator shiftExpression$right
 	|	relationalExpression$left gt$operator shiftExpression$right
 	|	relationalExpression$left le$operator shiftExpression$right
@@ -1359,14 +1363,14 @@ gtgtgt
 	:	GT GT GT
 	;
 shiftExpression=>UniBinOp
-	:	additiveExpression$MERGE
+	:	additiveExpression$RETURN
 	|	shiftExpression$left ltlt$operator additiveExpression$right
 	|	shiftExpression$left gtgt$operator additiveExpression$right
 	|	shiftExpression$left gtgtgt$operator additiveExpression$right
 	;
 
 additiveExpression=>UniBinOp
-	:	multiplicativeExpression$MERGE
+	:	multiplicativeExpression$RETURN
 	|	additiveExpression$left add$operator multiplicativeExpression$right
 	|	additiveExpression$left sub$operator multiplicativeExpression$right
 	;
@@ -1381,7 +1385,7 @@ mod
 	:	MOD
 	;
 multiplicativeExpression=>UniBinOp
-	:	unaryExpression$left
+	:	unaryExpression$RETURN
 	|	multiplicativeExpression$left mul$operator unaryExpression$right
 	|	multiplicativeExpression$left div$operator unaryExpression$right
 	|	multiplicativeExpression$left mod$operator unaryExpression$right
@@ -1394,11 +1398,11 @@ sub
 	:	SUB
 	;
 unaryExpression=>UniUnaryOp
-	:	preIncrementExpression$MERGE
-	|	preDecrementExpression$MERGE
+	:	preIncrementExpression$RETURN
+	|	preDecrementExpression$RETURN
 	|	add$operator unaryExpression$expr
 	|	sub$operator unaryExpression$expr
-	|	unaryExpressionNotPlusMinus$MERGE
+	|	unaryExpressionNotPlusMinus$RETURN
 	;
 
 inc
@@ -1420,18 +1424,20 @@ bang
 	:	BANG
 	;
 unaryExpressionNotPlusMinus=>UniUnaryOp
-	:	postfixExpression$expr
+	:	postfixExpression$RETURN
 	|	tilde$operator unaryExpression$expr
 	|	bang$operator unaryExpression$expr
-	|	castExpression$expr
+	|	castExpression$RETURN
 	;
 
-postfixExpression
-	:	(	primary
-		|	expressionName
+postfixExpression => UniBinOp
+	:	primary$RETURN
+	|	
+		(primary$left
+		|	expressionName$left
 		)
-		(	postIncrementExpression_lf_postfixExpression
-		|	postDecrementExpression_lf_postfixExpression
+		(	postIncrementExpression_lf_postfixExpression$operator
+		|	postDecrementExpression_lf_postfixExpression$operator
 		)*
 	;
 
