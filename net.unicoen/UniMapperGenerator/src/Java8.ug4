@@ -52,7 +52,7 @@
 Total lexer+parser time 30844ms.
  */
 grammar Java8;
-root compilationUnit;
+root translationunit;
 
 translationunit => UniBlock
 :
@@ -483,7 +483,7 @@ result => String
 	;
 
 methodDeclarator => UniFunctionDec
-	:	methodName$methodName '(' formalParameterList?$args ')' dims?$returnType
+	:	methodName$name '(' formalParameterList?$params ')' dims?$returnType
 	;
 	
 methodName => String
@@ -501,11 +501,15 @@ formalParameters => List<UniParam>
 	;
 
 formalParameter => UniParam
-	:	variableModifier* unannType$type parameterDeclaratorId$MERGE
+	:	variableModifier*$modifiers unannType$type parameterDeclaratorIds$variables
 	;
 	
-parameterDeclaratorId => UniParam
-	:	parameterName$name dims?$type
+parameterDeclaratorIds => List<UniVariableDef>
+	:	parameterDeclaratorId$ADD
+	;
+	
+parameterDeclaratorId => UniVariableDef
+	:	parameterName$name dims?$typeSuffix
 	;
 	
 parameterName => String
@@ -564,7 +568,7 @@ constructorModifier=>String
 	;
 
 constructorDeclarator=>UniFunctionDec
-	:	typeParameters? simpleTypeName$methodName '(' formalParameterList?$args ')'
+	:	typeParameters? simpleTypeName$name '(' formalParameterList?$args ')'
 	;
 
 simpleTypeName=>String
@@ -1158,14 +1162,26 @@ arrayAccess_lfno_primary
 		)*
 	;
 
-methodInvocation
-	:	methodName '(' argumentList? ')'
-	|	typeName '.' typeArguments? Identifier '(' argumentList? ')'
-	|	expressionName '.' typeArguments? Identifier '(' argumentList? ')'
+methodInvocation => UniMethodCall
+	:	ident$methodName '(' argumentList?$args ')'
+	|	receivers$receiver '.' typeArguments? ident$methodName '(' argumentList?$args ')'
+	|	expressionName$receiver '.' typeArguments? ident$methodName '(' argumentList?$args ')'
 	|	primary '.' typeArguments? Identifier '(' argumentList? ')'
 	|	'super' '.' typeArguments? Identifier '(' argumentList? ')'
 	|	typeName '.' 'super' '.' typeArguments? Identifier '(' argumentList? ')'
 	;
+
+receivers => UniArray
+	:	receiver$items
+	;
+
+receiver => List<UniIdent>
+	:	ident$ADD ('.' ident$ADD)*
+	;
+	
+ident => UniIdent
+:	Identifier$name
+;
 
 methodInvocation_lf_primary
 	:	'.' typeArguments? Identifier '(' argumentList? ')'
@@ -1432,7 +1448,8 @@ unaryExpressionNotPlusMinus=>UniUnaryOp
 
 postfixExpression => UniBinOp
 	:	primary$RETURN
-	|	
+	|	expressionName$RETURN
+	|
 		(primary$left
 		|	expressionName$left
 		)
